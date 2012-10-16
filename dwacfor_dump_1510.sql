@@ -1,0 +1,23661 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = off;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET escape_string_warning = off;
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: dim_data; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE dim_data (
+    id integer NOT NULL,
+    data date,
+    ano integer,
+    cod_mes character varying(2),
+    dia character varying(2),
+    dia_semana character varying(20),
+    ano_mes integer,
+    desc_mes character varying(20),
+    feriado integer
+);
+
+
+ALTER TABLE public.dim_data OWNER TO dwacfor;
+
+--
+-- Name: dim_indicador_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE dim_indicador_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dim_indicador_id_seq OWNER TO postgres;
+
+--
+-- Name: dim_indicador_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('dim_indicador_id_seq', 29, true);
+
+
+--
+-- Name: dim_indicador; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE dim_indicador (
+    id bigint DEFAULT nextval('dim_indicador_id_seq'::regclass) NOT NULL,
+    nome character varying(200),
+    familia character varying(50),
+    tipo character varying(11),
+    descricao character varying(2000)
+);
+
+
+ALTER TABLE public.dim_indicador OWNER TO dwacfor;
+
+--
+-- Name: dim_municipio_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE dim_municipio_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dim_municipio_id_seq OWNER TO postgres;
+
+--
+-- Name: dim_municipio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('dim_municipio_id_seq', 1, false);
+
+
+--
+-- Name: dim_municipio; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE dim_municipio (
+    id bigint DEFAULT nextval('dim_municipio_id_seq'::regclass) NOT NULL,
+    codigo integer,
+    nome character varying(40)
+);
+
+
+ALTER TABLE public.dim_municipio OWNER TO dwacfor;
+
+--
+-- Name: dim_tempo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE dim_tempo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dim_tempo_id_seq OWNER TO postgres;
+
+--
+-- Name: dim_tempo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('dim_tempo_id_seq', 1, false);
+
+
+--
+-- Name: dim_tempo; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE dim_tempo (
+    id bigint DEFAULT nextval('dim_tempo_id_seq'::regclass) NOT NULL,
+    ano_mes integer,
+    ano integer,
+    id_mes integer,
+    semana integer,
+    dia integer,
+    mes_desc character(40)
+);
+
+
+ALTER TABLE public.dim_tempo OWNER TO dwacfor;
+
+--
+-- Name: dim_unidade_administrativa_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE dim_unidade_administrativa_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dim_unidade_administrativa_id_seq OWNER TO postgres;
+
+--
+-- Name: dim_unidade_administrativa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('dim_unidade_administrativa_id_seq', 186, true);
+
+
+--
+-- Name: dim_unidade_administrativa; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE dim_unidade_administrativa (
+    id bigint DEFAULT nextval('dim_unidade_administrativa_id_seq'::regclass) NOT NULL,
+    codigo_pai integer,
+    sigla_pai character varying(20),
+    descricao_pai character varying(200),
+    tipo_pai character varying(20),
+    codigo integer,
+    sigla character varying(20),
+    descricao character varying(200),
+    tipo character varying(20)
+);
+
+
+ALTER TABLE public.dim_unidade_administrativa OWNER TO dwacfor;
+
+--
+-- Name: dim_variavel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE dim_variavel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dim_variavel_id_seq OWNER TO postgres;
+
+--
+-- Name: dim_variavel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('dim_variavel_id_seq', 103, true);
+
+
+--
+-- Name: dim_variavel; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE dim_variavel (
+    id bigint DEFAULT nextval('dim_variavel_id_seq'::regclass) NOT NULL,
+    codigo integer,
+    nome character varying(200),
+    sigla character varying(40),
+    descricao character varying(400),
+    unidade_medida character varying(40)
+);
+
+
+ALTER TABLE public.dim_variavel OWNER TO dwacfor;
+
+--
+-- Name: fato_indicador_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE fato_indicador_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.fato_indicador_id_seq OWNER TO postgres;
+
+--
+-- Name: fato_indicador_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('fato_indicador_id_seq', 1874, true);
+
+
+--
+-- Name: fato_indicador; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE fato_indicador (
+    id bigint DEFAULT nextval('fato_indicador_id_seq'::regclass) NOT NULL,
+    id_dim_tempo bigint,
+    id_dim_municipio bigint,
+    id_dim_unidade_administrativa bigint,
+    id_dim_indicador bigint,
+    valor_indicador numeric(16,2)
+);
+
+
+ALTER TABLE public.fato_indicador OWNER TO dwacfor;
+
+--
+-- Name: fato_variavel; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE fato_variavel (
+    id bigint NOT NULL,
+    id_dim_tempo bigint,
+    id_dim_variavel bigint,
+    id_dim_municipio bigint,
+    id_dim_unidade_administrativa bigint,
+    valor_variavel numeric(11,2)
+);
+
+
+ALTER TABLE public.fato_variavel OWNER TO dwacfor;
+
+--
+-- Name: fato_variavel_id_seq; Type: SEQUENCE; Schema: public; Owner: dwacfor
+--
+
+CREATE SEQUENCE fato_variavel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.fato_variavel_id_seq OWNER TO dwacfor;
+
+--
+-- Name: fato_variavel_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dwacfor
+--
+
+ALTER SEQUENCE fato_variavel_id_seq OWNED BY fato_variavel.id;
+
+
+--
+-- Name: fato_variavel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dwacfor
+--
+
+SELECT pg_catalog.setval('fato_variavel_id_seq', 123, true);
+
+
+--
+-- Name: ods_dim_unid_administrativa; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_dim_unid_administrativa (
+    id bigint NOT NULL,
+    codigo integer,
+    sigla character varying(20),
+    descricao character varying(200),
+    tipo character varying(20),
+    codigo_pai integer
+);
+
+
+ALTER TABLE public.ods_dim_unid_administrativa OWNER TO dwacfor;
+
+--
+-- Name: ods_dim_unid_administrativa_id_seq; Type: SEQUENCE; Schema: public; Owner: dwacfor
+--
+
+CREATE SEQUENCE ods_dim_unid_administrativa_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ods_dim_unid_administrativa_id_seq OWNER TO dwacfor;
+
+--
+-- Name: ods_dim_unid_administrativa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dwacfor
+--
+
+ALTER SEQUENCE ods_dim_unid_administrativa_id_seq OWNED BY ods_dim_unid_administrativa.id;
+
+
+--
+-- Name: ods_dim_unid_administrativa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dwacfor
+--
+
+SELECT pg_catalog.setval('ods_dim_unid_administrativa_id_seq', 473, true);
+
+
+--
+-- Name: ods_dim_variaveis; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_dim_variaveis (
+    rownum integer,
+    codigo integer NOT NULL,
+    nome character varying(2000),
+    sigla character varying(2000),
+    descricao character varying(4000),
+    unidade_medida character varying(40)
+);
+
+
+ALTER TABLE public.ods_dim_variaveis OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis82515210; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis82515210 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis82515210 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis825152144; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis825152144 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis825152144 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis82515228; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis82515228 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis82515228 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis825152342; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis825152342 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis825152342 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis825152431; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis825152431 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis825152431 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis825152737; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis825152737 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis825152737 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis827142815; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis827142815 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis827142815 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis827143146; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis827143146 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis827143146 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis827143333; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis827143333 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis827143333 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis827143815; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis827143815 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis827143815 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis827144051; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis827144051 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis827144051 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis9106011; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis9106011 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis9106011 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis91163510; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis91163510 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis91163510 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis94141736; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis94141736 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis94141736 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis94142020; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis94142020 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis94142020 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis956011; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis956011 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis956011 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis966012; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis966012 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis966012 OWNER TO dwacfor;
+
+--
+-- Name: ods_valores_variaveis996012; Type: TABLE; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+CREATE TABLE ods_valores_variaveis996012 (
+    setor character varying(2) NOT NULL,
+    ano_referencia integer NOT NULL,
+    mes_referencia integer NOT NULL,
+    localidade integer NOT NULL,
+    unidade integer NOT NULL,
+    codigo_variavel integer NOT NULL,
+    valor_variavel character varying(100),
+    numero_linha_arquivo integer
+);
+
+
+ALTER TABLE public.ods_valores_variaveis996012 OWNER TO dwacfor;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY fato_variavel ALTER COLUMN id SET DEFAULT nextval('fato_variavel_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY ods_dim_unid_administrativa ALTER COLUMN id SET DEFAULT nextval('ods_dim_unid_administrativa_id_seq'::regclass);
+
+
+--
+-- Data for Name: dim_data; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY dim_data (id, data, ano, cod_mes, dia, dia_semana, ano_mes, desc_mes, feriado) FROM stdin;
+833	2011-04-13	2011	04	13	QUARTA-FEIRA	201104	ABRIL	0
+834	2011-04-14	2011	04	14	QUINTA-FEIRA	201104	ABRIL	0
+835	2011-04-15	2011	04	15	SEXTA-FEIRA	201104	ABRIL	0
+836	2011-04-16	2011	04	16	SÁBADO	201104	ABRIL	0
+837	2011-04-17	2011	04	17	DOMINGO	201104	ABRIL	0
+838	2011-04-18	2011	04	18	SEGUNDA-FEIRA	201104	ABRIL	0
+839	2011-04-19	2011	04	19	TERÇA-FEIRA	201104	ABRIL	0
+840	2011-04-20	2011	04	20	QUARTA-FEIRA	201104	ABRIL	0
+841	2011-04-21	2011	04	21	QUINTA-FEIRA	201104	ABRIL	0
+842	2011-04-22	2011	04	22	SEXTA-FEIRA	201104	ABRIL	0
+843	2011-04-23	2011	04	23	SÁBADO	201104	ABRIL	0
+844	2011-04-24	2011	04	24	DOMINGO	201104	ABRIL	0
+845	2011-04-25	2011	04	25	SEGUNDA-FEIRA	201104	ABRIL	0
+846	2011-04-26	2011	04	26	TERÇA-FEIRA	201104	ABRIL	0
+847	2011-04-27	2011	04	27	QUARTA-FEIRA	201104	ABRIL	0
+848	2011-04-28	2011	04	28	QUINTA-FEIRA	201104	ABRIL	0
+849	2011-04-29	2011	04	29	SEXTA-FEIRA	201104	ABRIL	0
+850	2011-04-30	2011	04	30	SÁBADO	201104	ABRIL	0
+851	2011-05-01	2011	05	1	DOMINGO	201105	MAIO	0
+852	2011-05-02	2011	05	2	SEGUNDA-FEIRA	201105	MAIO	0
+853	2011-05-03	2011	05	3	TERÇA-FEIRA	201105	MAIO	0
+854	2011-05-04	2011	05	4	QUARTA-FEIRA	201105	MAIO	0
+855	2011-05-05	2011	05	5	QUINTA-FEIRA	201105	MAIO	0
+856	2011-05-06	2011	05	6	SEXTA-FEIRA	201105	MAIO	0
+857	2011-05-07	2011	05	7	SÁBADO	201105	MAIO	0
+858	2011-05-08	2011	05	8	DOMINGO	201105	MAIO	0
+859	2011-05-09	2011	05	9	SEGUNDA-FEIRA	201105	MAIO	0
+860	2011-05-10	2011	05	10	TERÇA-FEIRA	201105	MAIO	0
+861	2011-05-11	2011	05	11	QUARTA-FEIRA	201105	MAIO	0
+862	2011-05-12	2011	05	12	QUINTA-FEIRA	201105	MAIO	0
+863	2011-05-13	2011	05	13	SEXTA-FEIRA	201105	MAIO	0
+864	2011-05-14	2011	05	14	SÁBADO	201105	MAIO	0
+865	2011-05-15	2011	05	15	DOMINGO	201105	MAIO	0
+866	2011-05-16	2011	05	16	SEGUNDA-FEIRA	201105	MAIO	0
+867	2011-05-17	2011	05	17	TERÇA-FEIRA	201105	MAIO	0
+868	2011-05-18	2011	05	18	QUARTA-FEIRA	201105	MAIO	0
+869	2011-05-19	2011	05	19	QUINTA-FEIRA	201105	MAIO	0
+870	2011-05-20	2011	05	20	SEXTA-FEIRA	201105	MAIO	0
+871	2011-05-21	2011	05	21	SÁBADO	201105	MAIO	0
+872	2011-05-22	2011	05	22	DOMINGO	201105	MAIO	0
+873	2011-05-23	2011	05	23	SEGUNDA-FEIRA	201105	MAIO	0
+874	2011-05-24	2011	05	24	TERÇA-FEIRA	201105	MAIO	0
+875	2011-05-25	2011	05	25	QUARTA-FEIRA	201105	MAIO	0
+876	2011-05-26	2011	05	26	QUINTA-FEIRA	201105	MAIO	0
+877	2011-05-27	2011	05	27	SEXTA-FEIRA	201105	MAIO	0
+878	2011-05-28	2011	05	28	SÁBADO	201105	MAIO	0
+879	2011-05-29	2011	05	29	DOMINGO	201105	MAIO	0
+880	2011-05-30	2011	05	30	SEGUNDA-FEIRA	201105	MAIO	0
+881	2011-05-31	2011	05	31	TERÇA-FEIRA	201105	MAIO	0
+882	2011-06-01	2011	06	1	QUARTA-FEIRA	201106	JUNHO	0
+883	2011-06-02	2011	06	2	QUINTA-FEIRA	201106	JUNHO	0
+884	2011-06-03	2011	06	3	SEXTA-FEIRA	201106	JUNHO	0
+885	2011-06-04	2011	06	4	SÁBADO	201106	JUNHO	0
+886	2011-06-05	2011	06	5	DOMINGO	201106	JUNHO	0
+887	2011-06-06	2011	06	6	SEGUNDA-FEIRA	201106	JUNHO	0
+888	2011-06-07	2011	06	7	TERÇA-FEIRA	201106	JUNHO	0
+889	2011-06-08	2011	06	8	QUARTA-FEIRA	201106	JUNHO	0
+890	2011-06-09	2011	06	9	QUINTA-FEIRA	201106	JUNHO	0
+891	2011-06-10	2011	06	10	SEXTA-FEIRA	201106	JUNHO	0
+892	2011-06-11	2011	06	11	SÁBADO	201106	JUNHO	0
+893	2011-06-12	2011	06	12	DOMINGO	201106	JUNHO	0
+894	2011-06-13	2011	06	13	SEGUNDA-FEIRA	201106	JUNHO	0
+895	2011-06-14	2011	06	14	TERÇA-FEIRA	201106	JUNHO	0
+896	2011-06-15	2011	06	15	QUARTA-FEIRA	201106	JUNHO	0
+897	2011-06-16	2011	06	16	QUINTA-FEIRA	201106	JUNHO	0
+898	2011-06-17	2011	06	17	SEXTA-FEIRA	201106	JUNHO	0
+899	2011-06-18	2011	06	18	SÁBADO	201106	JUNHO	0
+900	2011-06-19	2011	06	19	DOMINGO	201106	JUNHO	0
+901	2011-06-20	2011	06	20	SEGUNDA-FEIRA	201106	JUNHO	0
+902	2011-06-21	2011	06	21	TERÇA-FEIRA	201106	JUNHO	0
+903	2011-06-22	2011	06	22	QUARTA-FEIRA	201106	JUNHO	0
+904	2011-06-23	2011	06	23	QUINTA-FEIRA	201106	JUNHO	0
+905	2011-06-24	2011	06	24	SEXTA-FEIRA	201106	JUNHO	0
+906	2011-06-25	2011	06	25	SÁBADO	201106	JUNHO	0
+907	2011-06-26	2011	06	26	DOMINGO	201106	JUNHO	0
+908	2011-06-27	2011	06	27	SEGUNDA-FEIRA	201106	JUNHO	0
+909	2011-06-28	2011	06	28	TERÇA-FEIRA	201106	JUNHO	0
+910	2011-06-29	2011	06	29	QUARTA-FEIRA	201106	JUNHO	0
+911	2011-06-30	2011	06	30	QUINTA-FEIRA	201106	JUNHO	0
+912	2011-07-01	2011	07	1	SEXTA-FEIRA	201107	JULHO	0
+913	2011-07-02	2011	07	2	SÁBADO	201107	JULHO	0
+914	2011-07-03	2011	07	3	DOMINGO	201107	JULHO	0
+915	2011-07-04	2011	07	4	SEGUNDA-FEIRA	201107	JULHO	0
+916	2011-07-05	2011	07	5	TERÇA-FEIRA	201107	JULHO	0
+917	2011-07-06	2011	07	6	QUARTA-FEIRA	201107	JULHO	0
+918	2011-07-07	2011	07	7	QUINTA-FEIRA	201107	JULHO	0
+919	2011-07-08	2011	07	8	SEXTA-FEIRA	201107	JULHO	0
+920	2011-07-09	2011	07	9	SÁBADO	201107	JULHO	0
+921	2011-07-10	2011	07	10	DOMINGO	201107	JULHO	0
+922	2011-07-11	2011	07	11	SEGUNDA-FEIRA	201107	JULHO	0
+923	2011-07-12	2011	07	12	TERÇA-FEIRA	201107	JULHO	0
+924	2011-07-13	2011	07	13	QUARTA-FEIRA	201107	JULHO	0
+925	2011-07-14	2011	07	14	QUINTA-FEIRA	201107	JULHO	0
+926	2011-07-15	2011	07	15	SEXTA-FEIRA	201107	JULHO	0
+927	2011-07-16	2011	07	16	SÁBADO	201107	JULHO	0
+928	2011-07-17	2011	07	17	DOMINGO	201107	JULHO	0
+929	2011-07-18	2011	07	18	SEGUNDA-FEIRA	201107	JULHO	0
+930	2011-07-19	2011	07	19	TERÇA-FEIRA	201107	JULHO	0
+931	2011-07-20	2011	07	20	QUARTA-FEIRA	201107	JULHO	0
+932	2011-07-21	2011	07	21	QUINTA-FEIRA	201107	JULHO	0
+933	2011-07-22	2011	07	22	SEXTA-FEIRA	201107	JULHO	0
+934	2011-07-23	2011	07	23	SÁBADO	201107	JULHO	0
+935	2011-07-24	2011	07	24	DOMINGO	201107	JULHO	0
+936	2011-07-25	2011	07	25	SEGUNDA-FEIRA	201107	JULHO	0
+937	2011-07-26	2011	07	26	TERÇA-FEIRA	201107	JULHO	0
+938	2011-07-27	2011	07	27	QUARTA-FEIRA	201107	JULHO	0
+939	2011-07-28	2011	07	28	QUINTA-FEIRA	201107	JULHO	0
+940	2011-07-29	2011	07	29	SEXTA-FEIRA	201107	JULHO	0
+941	2011-07-30	2011	07	30	SÁBADO	201107	JULHO	0
+942	2011-07-31	2011	07	31	DOMINGO	201107	JULHO	0
+943	2011-08-01	2011	08	1	SEGUNDA-FEIRA	201108	AGOSTO	0
+944	2011-08-02	2011	08	2	TERÇA-FEIRA	201108	AGOSTO	0
+945	2011-08-03	2011	08	3	QUARTA-FEIRA	201108	AGOSTO	0
+946	2011-08-04	2011	08	4	QUINTA-FEIRA	201108	AGOSTO	0
+947	2011-08-05	2011	08	5	SEXTA-FEIRA	201108	AGOSTO	0
+948	2011-08-06	2011	08	6	SÁBADO	201108	AGOSTO	0
+949	2011-08-07	2011	08	7	DOMINGO	201108	AGOSTO	0
+950	2011-08-08	2011	08	8	SEGUNDA-FEIRA	201108	AGOSTO	0
+951	2011-08-09	2011	08	9	TERÇA-FEIRA	201108	AGOSTO	0
+952	2011-08-10	2011	08	10	QUARTA-FEIRA	201108	AGOSTO	0
+953	2011-08-11	2011	08	11	QUINTA-FEIRA	201108	AGOSTO	0
+954	2011-08-12	2011	08	12	SEXTA-FEIRA	201108	AGOSTO	0
+955	2011-08-13	2011	08	13	SÁBADO	201108	AGOSTO	0
+956	2011-08-14	2011	08	14	DOMINGO	201108	AGOSTO	0
+957	2011-08-15	2011	08	15	SEGUNDA-FEIRA	201108	AGOSTO	0
+958	2011-08-16	2011	08	16	TERÇA-FEIRA	201108	AGOSTO	0
+959	2011-08-17	2011	08	17	QUARTA-FEIRA	201108	AGOSTO	0
+960	2011-08-18	2011	08	18	QUINTA-FEIRA	201108	AGOSTO	0
+961	2011-08-19	2011	08	19	SEXTA-FEIRA	201108	AGOSTO	0
+962	2011-08-20	2011	08	20	SÁBADO	201108	AGOSTO	0
+963	2011-08-21	2011	08	21	DOMINGO	201108	AGOSTO	0
+964	2011-08-22	2011	08	22	SEGUNDA-FEIRA	201108	AGOSTO	0
+965	2011-08-23	2011	08	23	TERÇA-FEIRA	201108	AGOSTO	0
+966	2011-08-24	2011	08	24	QUARTA-FEIRA	201108	AGOSTO	0
+967	2011-08-25	2011	08	25	QUINTA-FEIRA	201108	AGOSTO	0
+968	2011-08-26	2011	08	26	SEXTA-FEIRA	201108	AGOSTO	0
+969	2011-08-27	2011	08	27	SÁBADO	201108	AGOSTO	0
+970	2011-08-28	2011	08	28	DOMINGO	201108	AGOSTO	0
+971	2011-08-29	2011	08	29	SEGUNDA-FEIRA	201108	AGOSTO	0
+972	2011-08-30	2011	08	30	TERÇA-FEIRA	201108	AGOSTO	0
+973	2011-08-31	2011	08	31	QUARTA-FEIRA	201108	AGOSTO	0
+974	2011-09-01	2011	09	1	QUINTA-FEIRA	201109	SETEMBRO	0
+975	2011-09-02	2011	09	2	SEXTA-FEIRA	201109	SETEMBRO	0
+976	2011-09-03	2011	09	3	SÁBADO	201109	SETEMBRO	0
+977	2011-09-04	2011	09	4	DOMINGO	201109	SETEMBRO	0
+978	2011-09-05	2011	09	5	SEGUNDA-FEIRA	201109	SETEMBRO	0
+979	2011-09-06	2011	09	6	TERÇA-FEIRA	201109	SETEMBRO	0
+980	2011-09-07	2011	09	7	QUARTA-FEIRA	201109	SETEMBRO	0
+981	2011-09-08	2011	09	8	QUINTA-FEIRA	201109	SETEMBRO	0
+982	2011-09-09	2011	09	9	SEXTA-FEIRA	201109	SETEMBRO	0
+983	2011-09-10	2011	09	10	SÁBADO	201109	SETEMBRO	0
+984	2011-09-11	2011	09	11	DOMINGO	201109	SETEMBRO	0
+985	2011-09-12	2011	09	12	SEGUNDA-FEIRA	201109	SETEMBRO	0
+986	2011-09-13	2011	09	13	TERÇA-FEIRA	201109	SETEMBRO	0
+987	2011-09-14	2011	09	14	QUARTA-FEIRA	201109	SETEMBRO	0
+988	2011-09-15	2011	09	15	QUINTA-FEIRA	201109	SETEMBRO	0
+989	2011-09-16	2011	09	16	SEXTA-FEIRA	201109	SETEMBRO	0
+990	2011-09-17	2011	09	17	SÁBADO	201109	SETEMBRO	0
+991	2011-09-18	2011	09	18	DOMINGO	201109	SETEMBRO	0
+992	2011-09-19	2011	09	19	SEGUNDA-FEIRA	201109	SETEMBRO	0
+993	2011-09-20	2011	09	20	TERÇA-FEIRA	201109	SETEMBRO	0
+994	2011-09-21	2011	09	21	QUARTA-FEIRA	201109	SETEMBRO	0
+995	2011-09-22	2011	09	22	QUINTA-FEIRA	201109	SETEMBRO	0
+996	2011-09-23	2011	09	23	SEXTA-FEIRA	201109	SETEMBRO	0
+997	2011-09-24	2011	09	24	SÁBADO	201109	SETEMBRO	0
+998	2011-09-25	2011	09	25	DOMINGO	201109	SETEMBRO	0
+999	2011-09-26	2011	09	26	SEGUNDA-FEIRA	201109	SETEMBRO	0
+1000	2011-09-27	2011	09	27	TERÇA-FEIRA	201109	SETEMBRO	0
+1001	2011-09-28	2011	09	28	QUARTA-FEIRA	201109	SETEMBRO	0
+1002	2011-09-29	2011	09	29	QUINTA-FEIRA	201109	SETEMBRO	0
+1003	2011-09-30	2011	09	30	SEXTA-FEIRA	201109	SETEMBRO	0
+1004	2011-10-01	2011	10	1	SÁBADO	201110	OUTUBRO	0
+1005	2011-10-02	2011	10	2	DOMINGO	201110	OUTUBRO	0
+1006	2011-10-03	2011	10	3	SEGUNDA-FEIRA	201110	OUTUBRO	0
+1007	2011-10-04	2011	10	4	TERÇA-FEIRA	201110	OUTUBRO	0
+1008	2011-10-05	2011	10	5	QUARTA-FEIRA	201110	OUTUBRO	0
+1009	2011-10-06	2011	10	6	QUINTA-FEIRA	201110	OUTUBRO	0
+1010	2011-10-07	2011	10	7	SEXTA-FEIRA	201110	OUTUBRO	0
+1011	2011-10-08	2011	10	8	SÁBADO	201110	OUTUBRO	0
+1012	2011-10-09	2011	10	9	DOMINGO	201110	OUTUBRO	0
+1013	2011-10-10	2011	10	10	SEGUNDA-FEIRA	201110	OUTUBRO	0
+1014	2011-10-11	2011	10	11	TERÇA-FEIRA	201110	OUTUBRO	0
+1015	2011-10-12	2011	10	12	QUARTA-FEIRA	201110	OUTUBRO	0
+1016	2011-10-13	2011	10	13	QUINTA-FEIRA	201110	OUTUBRO	0
+1017	2011-10-14	2011	10	14	SEXTA-FEIRA	201110	OUTUBRO	0
+1018	2011-10-15	2011	10	15	SÁBADO	201110	OUTUBRO	0
+1019	2011-10-16	2011	10	16	DOMINGO	201110	OUTUBRO	0
+1020	2011-10-17	2011	10	17	SEGUNDA-FEIRA	201110	OUTUBRO	0
+1021	2011-10-18	2011	10	18	TERÇA-FEIRA	201110	OUTUBRO	0
+1022	2011-10-19	2011	10	19	QUARTA-FEIRA	201110	OUTUBRO	0
+1023	2011-10-20	2011	10	20	QUINTA-FEIRA	201110	OUTUBRO	0
+1024	2011-10-21	2011	10	21	SEXTA-FEIRA	201110	OUTUBRO	0
+1025	2011-10-22	2011	10	22	SÁBADO	201110	OUTUBRO	0
+1026	2011-10-23	2011	10	23	DOMINGO	201110	OUTUBRO	0
+1027	2011-10-24	2011	10	24	SEGUNDA-FEIRA	201110	OUTUBRO	0
+1028	2011-10-25	2011	10	25	TERÇA-FEIRA	201110	OUTUBRO	0
+1029	2011-10-26	2011	10	26	QUARTA-FEIRA	201110	OUTUBRO	0
+1030	2011-10-27	2011	10	27	QUINTA-FEIRA	201110	OUTUBRO	0
+1031	2011-10-28	2011	10	28	SEXTA-FEIRA	201110	OUTUBRO	0
+1032	2011-10-29	2011	10	29	SÁBADO	201110	OUTUBRO	0
+1033	2011-10-30	2011	10	30	DOMINGO	201110	OUTUBRO	0
+1034	2011-10-31	2011	10	31	SEGUNDA-FEIRA	201110	OUTUBRO	0
+1035	2011-11-01	2011	11	1	TERÇA-FEIRA	201111	NOVEMBRO	0
+1036	2011-11-02	2011	11	2	QUARTA-FEIRA	201111	NOVEMBRO	0
+1037	2011-11-03	2011	11	3	QUINTA-FEIRA	201111	NOVEMBRO	0
+1038	2011-11-04	2011	11	4	SEXTA-FEIRA	201111	NOVEMBRO	0
+1039	2011-11-05	2011	11	5	SÁBADO	201111	NOVEMBRO	0
+1040	2011-11-06	2011	11	6	DOMINGO	201111	NOVEMBRO	0
+1041	2011-11-07	2011	11	7	SEGUNDA-FEIRA	201111	NOVEMBRO	0
+1042	2011-11-08	2011	11	8	TERÇA-FEIRA	201111	NOVEMBRO	0
+1043	2011-11-09	2011	11	9	QUARTA-FEIRA	201111	NOVEMBRO	0
+1044	2011-11-10	2011	11	10	QUINTA-FEIRA	201111	NOVEMBRO	0
+1045	2011-11-11	2011	11	11	SEXTA-FEIRA	201111	NOVEMBRO	0
+1046	2011-11-12	2011	11	12	SÁBADO	201111	NOVEMBRO	0
+1047	2011-11-13	2011	11	13	DOMINGO	201111	NOVEMBRO	0
+1048	2011-11-14	2011	11	14	SEGUNDA-FEIRA	201111	NOVEMBRO	0
+1049	2011-11-15	2011	11	15	TERÇA-FEIRA	201111	NOVEMBRO	0
+1050	2011-11-16	2011	11	16	QUARTA-FEIRA	201111	NOVEMBRO	0
+1051	2011-11-17	2011	11	17	QUINTA-FEIRA	201111	NOVEMBRO	0
+1052	2011-11-18	2011	11	18	SEXTA-FEIRA	201111	NOVEMBRO	0
+1053	2011-11-19	2011	11	19	SÁBADO	201111	NOVEMBRO	0
+1054	2011-11-20	2011	11	20	DOMINGO	201111	NOVEMBRO	0
+1055	2011-11-21	2011	11	21	SEGUNDA-FEIRA	201111	NOVEMBRO	0
+1056	2011-11-22	2011	11	22	TERÇA-FEIRA	201111	NOVEMBRO	0
+1057	2011-11-23	2011	11	23	QUARTA-FEIRA	201111	NOVEMBRO	0
+1058	2011-11-24	2011	11	24	QUINTA-FEIRA	201111	NOVEMBRO	0
+1059	2011-11-25	2011	11	25	SEXTA-FEIRA	201111	NOVEMBRO	0
+1060	2011-11-26	2011	11	26	SÁBADO	201111	NOVEMBRO	0
+1061	2011-11-27	2011	11	27	DOMINGO	201111	NOVEMBRO	0
+1062	2011-11-28	2011	11	28	SEGUNDA-FEIRA	201111	NOVEMBRO	0
+1063	2011-11-29	2011	11	29	TERÇA-FEIRA	201111	NOVEMBRO	0
+1064	2011-11-30	2011	11	30	QUARTA-FEIRA	201111	NOVEMBRO	0
+1065	2011-12-01	2011	12	1	QUINTA-FEIRA	201112	DEZEMBRO	0
+1066	2011-12-02	2011	12	2	SEXTA-FEIRA	201112	DEZEMBRO	0
+1067	2011-12-03	2011	12	3	SÁBADO	201112	DEZEMBRO	0
+1068	2011-12-04	2011	12	4	DOMINGO	201112	DEZEMBRO	0
+1069	2011-12-05	2011	12	5	SEGUNDA-FEIRA	201112	DEZEMBRO	0
+1070	2011-12-06	2011	12	6	TERÇA-FEIRA	201112	DEZEMBRO	0
+1071	2011-12-07	2011	12	7	QUARTA-FEIRA	201112	DEZEMBRO	0
+1072	2011-12-08	2011	12	8	QUINTA-FEIRA	201112	DEZEMBRO	0
+1073	2011-12-09	2011	12	9	SEXTA-FEIRA	201112	DEZEMBRO	0
+1074	2011-12-10	2011	12	10	SÁBADO	201112	DEZEMBRO	0
+1075	2011-12-11	2011	12	11	DOMINGO	201112	DEZEMBRO	0
+1076	2011-12-12	2011	12	12	SEGUNDA-FEIRA	201112	DEZEMBRO	0
+1077	2011-12-13	2011	12	13	TERÇA-FEIRA	201112	DEZEMBRO	0
+1078	2011-12-14	2011	12	14	QUARTA-FEIRA	201112	DEZEMBRO	0
+1079	2011-12-15	2011	12	15	QUINTA-FEIRA	201112	DEZEMBRO	0
+1080	2011-12-16	2011	12	16	SEXTA-FEIRA	201112	DEZEMBRO	0
+1081	2011-12-17	2011	12	17	SÁBADO	201112	DEZEMBRO	0
+1082	2011-12-18	2011	12	18	DOMINGO	201112	DEZEMBRO	0
+1083	2011-12-19	2011	12	19	SEGUNDA-FEIRA	201112	DEZEMBRO	0
+1084	2011-12-20	2011	12	20	TERÇA-FEIRA	201112	DEZEMBRO	0
+1085	2011-12-21	2011	12	21	QUARTA-FEIRA	201112	DEZEMBRO	0
+1086	2011-12-22	2011	12	22	QUINTA-FEIRA	201112	DEZEMBRO	0
+1087	2011-12-23	2011	12	23	SEXTA-FEIRA	201112	DEZEMBRO	0
+1088	2011-12-24	2011	12	24	SÁBADO	201112	DEZEMBRO	0
+1089	2011-12-25	2011	12	25	DOMINGO	201112	DEZEMBRO	0
+1090	2011-12-26	2011	12	26	SEGUNDA-FEIRA	201112	DEZEMBRO	0
+1091	2011-12-27	2011	12	27	TERÇA-FEIRA	201112	DEZEMBRO	0
+1092	2011-12-28	2011	12	28	QUARTA-FEIRA	201112	DEZEMBRO	0
+1093	2011-12-29	2011	12	29	QUINTA-FEIRA	201112	DEZEMBRO	0
+1094	2011-12-30	2011	12	30	SEXTA-FEIRA	201112	DEZEMBRO	0
+1095	2011-12-31	2011	12	31	SÁBADO	201112	DEZEMBRO	0
+1096	2012-01-01	2012	01	1	DOMINGO	201201	JANEIRO	0
+1097	2012-01-02	2012	01	2	SEGUNDA-FEIRA	201201	JANEIRO	0
+1098	2012-01-03	2012	01	3	TERÇA-FEIRA	201201	JANEIRO	0
+1099	2012-01-04	2012	01	4	QUARTA-FEIRA	201201	JANEIRO	0
+1100	2012-01-05	2012	01	5	QUINTA-FEIRA	201201	JANEIRO	0
+1101	2012-01-06	2012	01	6	SEXTA-FEIRA	201201	JANEIRO	0
+1102	2012-01-07	2012	01	7	SÁBADO	201201	JANEIRO	0
+1103	2012-01-08	2012	01	8	DOMINGO	201201	JANEIRO	0
+1104	2012-01-09	2012	01	9	SEGUNDA-FEIRA	201201	JANEIRO	0
+1105	2012-01-10	2012	01	10	TERÇA-FEIRA	201201	JANEIRO	0
+1106	2012-01-11	2012	01	11	QUARTA-FEIRA	201201	JANEIRO	0
+1107	2012-01-12	2012	01	12	QUINTA-FEIRA	201201	JANEIRO	0
+1108	2012-01-13	2012	01	13	SEXTA-FEIRA	201201	JANEIRO	0
+1109	2012-01-14	2012	01	14	SÁBADO	201201	JANEIRO	0
+1110	2012-01-15	2012	01	15	DOMINGO	201201	JANEIRO	0
+1111	2012-01-16	2012	01	16	SEGUNDA-FEIRA	201201	JANEIRO	0
+1112	2012-01-17	2012	01	17	TERÇA-FEIRA	201201	JANEIRO	0
+1113	2012-01-18	2012	01	18	QUARTA-FEIRA	201201	JANEIRO	0
+1114	2012-01-19	2012	01	19	QUINTA-FEIRA	201201	JANEIRO	0
+1115	2012-01-20	2012	01	20	SEXTA-FEIRA	201201	JANEIRO	0
+1116	2012-01-21	2012	01	21	SÁBADO	201201	JANEIRO	0
+1117	2012-01-22	2012	01	22	DOMINGO	201201	JANEIRO	0
+1118	2012-01-23	2012	01	23	SEGUNDA-FEIRA	201201	JANEIRO	0
+1119	2012-01-24	2012	01	24	TERÇA-FEIRA	201201	JANEIRO	0
+1120	2012-01-25	2012	01	25	QUARTA-FEIRA	201201	JANEIRO	0
+1121	2012-01-26	2012	01	26	QUINTA-FEIRA	201201	JANEIRO	0
+1122	2012-01-27	2012	01	27	SEXTA-FEIRA	201201	JANEIRO	0
+1123	2012-01-28	2012	01	28	SÁBADO	201201	JANEIRO	0
+1124	2012-01-29	2012	01	29	DOMINGO	201201	JANEIRO	0
+1125	2012-01-30	2012	01	30	SEGUNDA-FEIRA	201201	JANEIRO	0
+1126	2012-01-31	2012	01	31	TERÇA-FEIRA	201201	JANEIRO	0
+1127	2012-02-01	2012	02	1	QUARTA-FEIRA	201202	FEVEREIRO	0
+1128	2012-02-02	2012	02	2	QUINTA-FEIRA	201202	FEVEREIRO	0
+1129	2012-02-03	2012	02	3	SEXTA-FEIRA	201202	FEVEREIRO	0
+1130	2012-02-04	2012	02	4	SÁBADO	201202	FEVEREIRO	0
+1131	2012-02-05	2012	02	5	DOMINGO	201202	FEVEREIRO	0
+1132	2012-02-06	2012	02	6	SEGUNDA-FEIRA	201202	FEVEREIRO	0
+1133	2012-02-07	2012	02	7	TERÇA-FEIRA	201202	FEVEREIRO	0
+1134	2012-02-08	2012	02	8	QUARTA-FEIRA	201202	FEVEREIRO	0
+1135	2012-02-09	2012	02	9	QUINTA-FEIRA	201202	FEVEREIRO	0
+1136	2012-02-10	2012	02	10	SEXTA-FEIRA	201202	FEVEREIRO	0
+1137	2012-02-11	2012	02	11	SÁBADO	201202	FEVEREIRO	0
+1138	2012-02-12	2012	02	12	DOMINGO	201202	FEVEREIRO	0
+1139	2012-02-13	2012	02	13	SEGUNDA-FEIRA	201202	FEVEREIRO	0
+1140	2012-02-14	2012	02	14	TERÇA-FEIRA	201202	FEVEREIRO	0
+1141	2012-02-15	2012	02	15	QUARTA-FEIRA	201202	FEVEREIRO	0
+1142	2012-02-16	2012	02	16	QUINTA-FEIRA	201202	FEVEREIRO	0
+1143	2012-02-17	2012	02	17	SEXTA-FEIRA	201202	FEVEREIRO	0
+1144	2012-02-18	2012	02	18	SÁBADO	201202	FEVEREIRO	0
+1145	2012-02-19	2012	02	19	DOMINGO	201202	FEVEREIRO	0
+1146	2012-02-20	2012	02	20	SEGUNDA-FEIRA	201202	FEVEREIRO	0
+1147	2012-02-21	2012	02	21	TERÇA-FEIRA	201202	FEVEREIRO	0
+1148	2012-02-22	2012	02	22	QUARTA-FEIRA	201202	FEVEREIRO	0
+1149	2012-02-23	2012	02	23	QUINTA-FEIRA	201202	FEVEREIRO	0
+1150	2012-02-24	2012	02	24	SEXTA-FEIRA	201202	FEVEREIRO	0
+1151	2012-02-25	2012	02	25	SÁBADO	201202	FEVEREIRO	0
+1152	2012-02-26	2012	02	26	DOMINGO	201202	FEVEREIRO	0
+1153	2012-02-27	2012	02	27	SEGUNDA-FEIRA	201202	FEVEREIRO	0
+1154	2012-02-28	2012	02	28	TERÇA-FEIRA	201202	FEVEREIRO	0
+1155	2012-02-29	2012	02	29	QUARTA-FEIRA	201202	FEVEREIRO	0
+1156	2012-03-01	2012	03	1	QUINTA-FEIRA	201203	MARÇO	0
+1157	2012-03-02	2012	03	2	SEXTA-FEIRA	201203	MARÇO	0
+1158	2012-03-03	2012	03	3	SÁBADO	201203	MARÇO	0
+1159	2012-03-04	2012	03	4	DOMINGO	201203	MARÇO	0
+1160	2012-03-05	2012	03	5	SEGUNDA-FEIRA	201203	MARÇO	0
+1161	2012-03-06	2012	03	6	TERÇA-FEIRA	201203	MARÇO	0
+1162	2012-03-07	2012	03	7	QUARTA-FEIRA	201203	MARÇO	0
+1163	2012-03-08	2012	03	8	QUINTA-FEIRA	201203	MARÇO	0
+1164	2012-03-09	2012	03	9	SEXTA-FEIRA	201203	MARÇO	0
+1165	2012-03-10	2012	03	10	SÁBADO	201203	MARÇO	0
+1166	2012-03-11	2012	03	11	DOMINGO	201203	MARÇO	0
+1167	2012-03-12	2012	03	12	SEGUNDA-FEIRA	201203	MARÇO	0
+1168	2012-03-13	2012	03	13	TERÇA-FEIRA	201203	MARÇO	0
+1169	2012-03-14	2012	03	14	QUARTA-FEIRA	201203	MARÇO	0
+1170	2012-03-15	2012	03	15	QUINTA-FEIRA	201203	MARÇO	0
+1171	2012-03-16	2012	03	16	SEXTA-FEIRA	201203	MARÇO	0
+1172	2012-03-17	2012	03	17	SÁBADO	201203	MARÇO	0
+1173	2012-03-18	2012	03	18	DOMINGO	201203	MARÇO	0
+1174	2012-03-19	2012	03	19	SEGUNDA-FEIRA	201203	MARÇO	0
+1175	2012-03-20	2012	03	20	TERÇA-FEIRA	201203	MARÇO	0
+1176	2012-03-21	2012	03	21	QUARTA-FEIRA	201203	MARÇO	0
+1177	2012-03-22	2012	03	22	QUINTA-FEIRA	201203	MARÇO	0
+1178	2012-03-23	2012	03	23	SEXTA-FEIRA	201203	MARÇO	0
+1179	2012-03-24	2012	03	24	SÁBADO	201203	MARÇO	0
+1180	2012-03-25	2012	03	25	DOMINGO	201203	MARÇO	0
+1181	2012-03-26	2012	03	26	SEGUNDA-FEIRA	201203	MARÇO	0
+1182	2012-03-27	2012	03	27	TERÇA-FEIRA	201203	MARÇO	0
+1183	2012-03-28	2012	03	28	QUARTA-FEIRA	201203	MARÇO	0
+1184	2012-03-29	2012	03	29	QUINTA-FEIRA	201203	MARÇO	0
+1185	2012-03-30	2012	03	30	SEXTA-FEIRA	201203	MARÇO	0
+1186	2012-03-31	2012	03	31	SÁBADO	201203	MARÇO	0
+1187	2012-04-01	2012	04	1	DOMINGO	201204	ABRIL	0
+1188	2012-04-02	2012	04	2	SEGUNDA-FEIRA	201204	ABRIL	0
+1189	2012-04-03	2012	04	3	TERÇA-FEIRA	201204	ABRIL	0
+1190	2012-04-04	2012	04	4	QUARTA-FEIRA	201204	ABRIL	0
+1191	2012-04-05	2012	04	5	QUINTA-FEIRA	201204	ABRIL	0
+1192	2012-04-06	2012	04	6	SEXTA-FEIRA	201204	ABRIL	0
+1193	2012-04-07	2012	04	7	SÁBADO	201204	ABRIL	0
+1194	2012-04-08	2012	04	8	DOMINGO	201204	ABRIL	0
+1195	2012-04-09	2012	04	9	SEGUNDA-FEIRA	201204	ABRIL	0
+1196	2012-04-10	2012	04	10	TERÇA-FEIRA	201204	ABRIL	0
+1197	2012-04-11	2012	04	11	QUARTA-FEIRA	201204	ABRIL	0
+1198	2012-04-12	2012	04	12	QUINTA-FEIRA	201204	ABRIL	0
+1199	2012-04-13	2012	04	13	SEXTA-FEIRA	201204	ABRIL	0
+1200	2012-04-14	2012	04	14	SÁBADO	201204	ABRIL	0
+1201	2012-04-15	2012	04	15	DOMINGO	201204	ABRIL	0
+1202	2012-04-16	2012	04	16	SEGUNDA-FEIRA	201204	ABRIL	0
+1203	2012-04-17	2012	04	17	TERÇA-FEIRA	201204	ABRIL	0
+1204	2012-04-18	2012	04	18	QUARTA-FEIRA	201204	ABRIL	0
+1205	2012-04-19	2012	04	19	QUINTA-FEIRA	201204	ABRIL	0
+1206	2012-04-20	2012	04	20	SEXTA-FEIRA	201204	ABRIL	0
+1207	2012-04-21	2012	04	21	SÁBADO	201204	ABRIL	0
+1208	2012-04-22	2012	04	22	DOMINGO	201204	ABRIL	0
+1209	2012-04-23	2012	04	23	SEGUNDA-FEIRA	201204	ABRIL	0
+1210	2012-04-24	2012	04	24	TERÇA-FEIRA	201204	ABRIL	0
+1211	2012-04-25	2012	04	25	QUARTA-FEIRA	201204	ABRIL	0
+1212	2012-04-26	2012	04	26	QUINTA-FEIRA	201204	ABRIL	0
+1213	2012-04-27	2012	04	27	SEXTA-FEIRA	201204	ABRIL	0
+1214	2012-04-28	2012	04	28	SÁBADO	201204	ABRIL	0
+1215	2012-04-29	2012	04	29	DOMINGO	201204	ABRIL	0
+1216	2012-04-30	2012	04	30	SEGUNDA-FEIRA	201204	ABRIL	0
+1217	2012-05-01	2012	05	1	TERÇA-FEIRA	201205	MAIO	0
+1218	2012-05-02	2012	05	2	QUARTA-FEIRA	201205	MAIO	0
+1219	2012-05-03	2012	05	3	QUINTA-FEIRA	201205	MAIO	0
+1220	2012-05-04	2012	05	4	SEXTA-FEIRA	201205	MAIO	0
+1221	2012-05-05	2012	05	5	SÁBADO	201205	MAIO	0
+1222	2012-05-06	2012	05	6	DOMINGO	201205	MAIO	0
+1223	2012-05-07	2012	05	7	SEGUNDA-FEIRA	201205	MAIO	0
+1224	2012-05-08	2012	05	8	TERÇA-FEIRA	201205	MAIO	0
+1225	2012-05-09	2012	05	9	QUARTA-FEIRA	201205	MAIO	0
+1226	2012-05-10	2012	05	10	QUINTA-FEIRA	201205	MAIO	0
+1227	2012-05-11	2012	05	11	SEXTA-FEIRA	201205	MAIO	0
+1228	2012-05-12	2012	05	12	SÁBADO	201205	MAIO	0
+1229	2012-05-13	2012	05	13	DOMINGO	201205	MAIO	0
+1230	2012-05-14	2012	05	14	SEGUNDA-FEIRA	201205	MAIO	0
+1231	2012-05-15	2012	05	15	TERÇA-FEIRA	201205	MAIO	0
+1232	2012-05-16	2012	05	16	QUARTA-FEIRA	201205	MAIO	0
+1233	2012-05-17	2012	05	17	QUINTA-FEIRA	201205	MAIO	0
+1234	2012-05-18	2012	05	18	SEXTA-FEIRA	201205	MAIO	0
+1235	2012-05-19	2012	05	19	SÁBADO	201205	MAIO	0
+1236	2012-05-20	2012	05	20	DOMINGO	201205	MAIO	0
+1237	2012-05-21	2012	05	21	SEGUNDA-FEIRA	201205	MAIO	0
+1238	2012-05-22	2012	05	22	TERÇA-FEIRA	201205	MAIO	0
+1239	2012-05-23	2012	05	23	QUARTA-FEIRA	201205	MAIO	0
+1240	2012-05-24	2012	05	24	QUINTA-FEIRA	201205	MAIO	0
+1241	2012-05-25	2012	05	25	SEXTA-FEIRA	201205	MAIO	0
+1242	2012-05-26	2012	05	26	SÁBADO	201205	MAIO	0
+1243	2012-05-27	2012	05	27	DOMINGO	201205	MAIO	0
+1244	2012-05-28	2012	05	28	SEGUNDA-FEIRA	201205	MAIO	0
+1245	2012-05-29	2012	05	29	TERÇA-FEIRA	201205	MAIO	0
+1246	2012-05-30	2012	05	30	QUARTA-FEIRA	201205	MAIO	0
+1247	2012-05-31	2012	05	31	QUINTA-FEIRA	201205	MAIO	0
+1248	2012-06-01	2012	06	1	SEXTA-FEIRA	201206	JUNHO	0
+1249	2012-06-02	2012	06	2	SÁBADO	201206	JUNHO	0
+1250	2012-06-03	2012	06	3	DOMINGO	201206	JUNHO	0
+1251	2012-06-04	2012	06	4	SEGUNDA-FEIRA	201206	JUNHO	0
+1252	2012-06-05	2012	06	5	TERÇA-FEIRA	201206	JUNHO	0
+1253	2012-06-06	2012	06	6	QUARTA-FEIRA	201206	JUNHO	0
+1254	2012-06-07	2012	06	7	QUINTA-FEIRA	201206	JUNHO	0
+1255	2012-06-08	2012	06	8	SEXTA-FEIRA	201206	JUNHO	0
+1256	2012-06-09	2012	06	9	SÁBADO	201206	JUNHO	0
+1257	2012-06-10	2012	06	10	DOMINGO	201206	JUNHO	0
+1258	2012-06-11	2012	06	11	SEGUNDA-FEIRA	201206	JUNHO	0
+1259	2012-06-12	2012	06	12	TERÇA-FEIRA	201206	JUNHO	0
+1260	2012-06-13	2012	06	13	QUARTA-FEIRA	201206	JUNHO	0
+1261	2012-06-14	2012	06	14	QUINTA-FEIRA	201206	JUNHO	0
+1262	2012-06-15	2012	06	15	SEXTA-FEIRA	201206	JUNHO	0
+1263	2012-06-16	2012	06	16	SÁBADO	201206	JUNHO	0
+1264	2012-06-17	2012	06	17	DOMINGO	201206	JUNHO	0
+1265	2012-06-18	2012	06	18	SEGUNDA-FEIRA	201206	JUNHO	0
+1266	2012-06-19	2012	06	19	TERÇA-FEIRA	201206	JUNHO	0
+1267	2012-06-20	2012	06	20	QUARTA-FEIRA	201206	JUNHO	0
+1268	2012-06-21	2012	06	21	QUINTA-FEIRA	201206	JUNHO	0
+1269	2012-06-22	2012	06	22	SEXTA-FEIRA	201206	JUNHO	0
+1270	2012-06-23	2012	06	23	SÁBADO	201206	JUNHO	0
+1271	2012-06-24	2012	06	24	DOMINGO	201206	JUNHO	0
+1272	2012-06-25	2012	06	25	SEGUNDA-FEIRA	201206	JUNHO	0
+1273	2012-06-26	2012	06	26	TERÇA-FEIRA	201206	JUNHO	0
+1274	2012-06-27	2012	06	27	QUARTA-FEIRA	201206	JUNHO	0
+1275	2012-06-28	2012	06	28	QUINTA-FEIRA	201206	JUNHO	0
+1276	2012-06-29	2012	06	29	SEXTA-FEIRA	201206	JUNHO	0
+1277	2012-06-30	2012	06	30	SÁBADO	201206	JUNHO	0
+1278	2012-07-01	2012	07	1	DOMINGO	201207	JULHO	0
+1279	2012-07-02	2012	07	2	SEGUNDA-FEIRA	201207	JULHO	0
+1280	2012-07-03	2012	07	3	TERÇA-FEIRA	201207	JULHO	0
+1281	2012-07-04	2012	07	4	QUARTA-FEIRA	201207	JULHO	0
+1282	2012-07-05	2012	07	5	QUINTA-FEIRA	201207	JULHO	0
+1283	2012-07-06	2012	07	6	SEXTA-FEIRA	201207	JULHO	0
+1284	2012-07-07	2012	07	7	SÁBADO	201207	JULHO	0
+1285	2012-07-08	2012	07	8	DOMINGO	201207	JULHO	0
+1286	2012-07-09	2012	07	9	SEGUNDA-FEIRA	201207	JULHO	0
+1287	2012-07-10	2012	07	10	TERÇA-FEIRA	201207	JULHO	0
+1288	2012-07-11	2012	07	11	QUARTA-FEIRA	201207	JULHO	0
+1289	2012-07-12	2012	07	12	QUINTA-FEIRA	201207	JULHO	0
+1290	2012-07-13	2012	07	13	SEXTA-FEIRA	201207	JULHO	0
+1291	2012-07-14	2012	07	14	SÁBADO	201207	JULHO	0
+1292	2012-07-15	2012	07	15	DOMINGO	201207	JULHO	0
+1293	2012-07-16	2012	07	16	SEGUNDA-FEIRA	201207	JULHO	0
+1294	2012-07-17	2012	07	17	TERÇA-FEIRA	201207	JULHO	0
+1295	2012-07-18	2012	07	18	QUARTA-FEIRA	201207	JULHO	0
+1296	2012-07-19	2012	07	19	QUINTA-FEIRA	201207	JULHO	0
+1297	2012-07-20	2012	07	20	SEXTA-FEIRA	201207	JULHO	0
+1298	2012-07-21	2012	07	21	SÁBADO	201207	JULHO	0
+1299	2012-07-22	2012	07	22	DOMINGO	201207	JULHO	0
+1300	2012-07-23	2012	07	23	SEGUNDA-FEIRA	201207	JULHO	0
+1301	2012-07-24	2012	07	24	TERÇA-FEIRA	201207	JULHO	0
+1302	2012-07-25	2012	07	25	QUARTA-FEIRA	201207	JULHO	0
+1303	2012-07-26	2012	07	26	QUINTA-FEIRA	201207	JULHO	0
+1304	2012-07-27	2012	07	27	SEXTA-FEIRA	201207	JULHO	0
+1305	2012-07-28	2012	07	28	SÁBADO	201207	JULHO	0
+1306	2012-07-29	2012	07	29	DOMINGO	201207	JULHO	0
+1307	2012-07-30	2012	07	30	SEGUNDA-FEIRA	201207	JULHO	0
+1308	2012-07-31	2012	07	31	TERÇA-FEIRA	201207	JULHO	0
+1309	2012-08-01	2012	08	1	QUARTA-FEIRA	201208	AGOSTO	0
+1310	2012-08-02	2012	08	2	QUINTA-FEIRA	201208	AGOSTO	0
+1311	2012-08-03	2012	08	3	SEXTA-FEIRA	201208	AGOSTO	0
+1312	2012-08-04	2012	08	4	SÁBADO	201208	AGOSTO	0
+1313	2012-08-05	2012	08	5	DOMINGO	201208	AGOSTO	0
+1314	2012-08-06	2012	08	6	SEGUNDA-FEIRA	201208	AGOSTO	0
+1315	2012-08-07	2012	08	7	TERÇA-FEIRA	201208	AGOSTO	0
+1316	2012-08-08	2012	08	8	QUARTA-FEIRA	201208	AGOSTO	0
+1317	2012-08-09	2012	08	9	QUINTA-FEIRA	201208	AGOSTO	0
+1318	2012-08-10	2012	08	10	SEXTA-FEIRA	201208	AGOSTO	0
+1319	2012-08-11	2012	08	11	SÁBADO	201208	AGOSTO	0
+1320	2012-08-12	2012	08	12	DOMINGO	201208	AGOSTO	0
+1321	2012-08-13	2012	08	13	SEGUNDA-FEIRA	201208	AGOSTO	0
+1322	2012-08-14	2012	08	14	TERÇA-FEIRA	201208	AGOSTO	0
+1323	2012-08-15	2012	08	15	QUARTA-FEIRA	201208	AGOSTO	0
+1324	2012-08-16	2012	08	16	QUINTA-FEIRA	201208	AGOSTO	0
+1325	2012-08-17	2012	08	17	SEXTA-FEIRA	201208	AGOSTO	0
+1326	2012-08-18	2012	08	18	SÁBADO	201208	AGOSTO	0
+1327	2012-08-19	2012	08	19	DOMINGO	201208	AGOSTO	0
+1328	2012-08-20	2012	08	20	SEGUNDA-FEIRA	201208	AGOSTO	0
+1329	2012-08-21	2012	08	21	TERÇA-FEIRA	201208	AGOSTO	0
+1330	2012-08-22	2012	08	22	QUARTA-FEIRA	201208	AGOSTO	0
+1331	2012-08-23	2012	08	23	QUINTA-FEIRA	201208	AGOSTO	0
+1332	2012-08-24	2012	08	24	SEXTA-FEIRA	201208	AGOSTO	0
+1333	2012-08-25	2012	08	25	SÁBADO	201208	AGOSTO	0
+1334	2012-08-26	2012	08	26	DOMINGO	201208	AGOSTO	0
+1335	2012-08-27	2012	08	27	SEGUNDA-FEIRA	201208	AGOSTO	0
+1336	2012-08-28	2012	08	28	TERÇA-FEIRA	201208	AGOSTO	0
+1337	2012-08-29	2012	08	29	QUARTA-FEIRA	201208	AGOSTO	0
+1338	2012-08-30	2012	08	30	QUINTA-FEIRA	201208	AGOSTO	0
+1339	2012-08-31	2012	08	31	SEXTA-FEIRA	201208	AGOSTO	0
+1340	2012-09-01	2012	09	1	SÁBADO	201209	SETEMBRO	0
+1341	2012-09-02	2012	09	2	DOMINGO	201209	SETEMBRO	0
+1342	2012-09-03	2012	09	3	SEGUNDA-FEIRA	201209	SETEMBRO	0
+1343	2012-09-04	2012	09	4	TERÇA-FEIRA	201209	SETEMBRO	0
+1344	2012-09-05	2012	09	5	QUARTA-FEIRA	201209	SETEMBRO	0
+1345	2012-09-06	2012	09	6	QUINTA-FEIRA	201209	SETEMBRO	0
+1346	2012-09-07	2012	09	7	SEXTA-FEIRA	201209	SETEMBRO	0
+1347	2012-09-08	2012	09	8	SÁBADO	201209	SETEMBRO	0
+1348	2012-09-09	2012	09	9	DOMINGO	201209	SETEMBRO	0
+1349	2012-09-10	2012	09	10	SEGUNDA-FEIRA	201209	SETEMBRO	0
+1350	2012-09-11	2012	09	11	TERÇA-FEIRA	201209	SETEMBRO	0
+1351	2012-09-12	2012	09	12	QUARTA-FEIRA	201209	SETEMBRO	0
+1352	2012-09-13	2012	09	13	QUINTA-FEIRA	201209	SETEMBRO	0
+1353	2012-09-14	2012	09	14	SEXTA-FEIRA	201209	SETEMBRO	0
+1354	2012-09-15	2012	09	15	SÁBADO	201209	SETEMBRO	0
+1355	2012-09-16	2012	09	16	DOMINGO	201209	SETEMBRO	0
+1356	2012-09-17	2012	09	17	SEGUNDA-FEIRA	201209	SETEMBRO	0
+1357	2012-09-18	2012	09	18	TERÇA-FEIRA	201209	SETEMBRO	0
+1358	2012-09-19	2012	09	19	QUARTA-FEIRA	201209	SETEMBRO	0
+1359	2012-09-20	2012	09	20	QUINTA-FEIRA	201209	SETEMBRO	0
+1360	2012-09-21	2012	09	21	SEXTA-FEIRA	201209	SETEMBRO	0
+1361	2012-09-22	2012	09	22	SÁBADO	201209	SETEMBRO	0
+1362	2012-09-23	2012	09	23	DOMINGO	201209	SETEMBRO	0
+1363	2012-09-24	2012	09	24	SEGUNDA-FEIRA	201209	SETEMBRO	0
+1364	2012-09-25	2012	09	25	TERÇA-FEIRA	201209	SETEMBRO	0
+1365	2012-09-26	2012	09	26	QUARTA-FEIRA	201209	SETEMBRO	0
+1366	2012-09-27	2012	09	27	QUINTA-FEIRA	201209	SETEMBRO	0
+1367	2012-09-28	2012	09	28	SEXTA-FEIRA	201209	SETEMBRO	0
+1368	2012-09-29	2012	09	29	SÁBADO	201209	SETEMBRO	0
+1369	2012-09-30	2012	09	30	DOMINGO	201209	SETEMBRO	0
+1370	2012-10-01	2012	10	1	SEGUNDA-FEIRA	201210	OUTUBRO	0
+1371	2012-10-02	2012	10	2	TERÇA-FEIRA	201210	OUTUBRO	0
+1372	2012-10-03	2012	10	3	QUARTA-FEIRA	201210	OUTUBRO	0
+1373	2012-10-04	2012	10	4	QUINTA-FEIRA	201210	OUTUBRO	0
+1374	2012-10-05	2012	10	5	SEXTA-FEIRA	201210	OUTUBRO	0
+1375	2012-10-06	2012	10	6	SÁBADO	201210	OUTUBRO	0
+1376	2012-10-07	2012	10	7	DOMINGO	201210	OUTUBRO	0
+1377	2012-10-08	2012	10	8	SEGUNDA-FEIRA	201210	OUTUBRO	0
+1378	2012-10-09	2012	10	9	TERÇA-FEIRA	201210	OUTUBRO	0
+1379	2012-10-10	2012	10	10	QUARTA-FEIRA	201210	OUTUBRO	0
+1380	2012-10-11	2012	10	11	QUINTA-FEIRA	201210	OUTUBRO	0
+1381	2012-10-12	2012	10	12	SEXTA-FEIRA	201210	OUTUBRO	0
+1382	2012-10-13	2012	10	13	SÁBADO	201210	OUTUBRO	0
+1383	2012-10-14	2012	10	14	DOMINGO	201210	OUTUBRO	0
+1384	2012-10-15	2012	10	15	SEGUNDA-FEIRA	201210	OUTUBRO	0
+1385	2012-10-16	2012	10	16	TERÇA-FEIRA	201210	OUTUBRO	0
+1386	2012-10-17	2012	10	17	QUARTA-FEIRA	201210	OUTUBRO	0
+1387	2012-10-18	2012	10	18	QUINTA-FEIRA	201210	OUTUBRO	0
+1388	2012-10-19	2012	10	19	SEXTA-FEIRA	201210	OUTUBRO	0
+1524	2013-03-04	2013	03	4	SEGUNDA-FEIRA	201303	MARÇO	0
+1525	2013-03-05	2013	03	5	TERÇA-FEIRA	201303	MARÇO	0
+1526	2013-03-06	2013	03	6	QUARTA-FEIRA	201303	MARÇO	0
+1527	2013-03-07	2013	03	7	QUINTA-FEIRA	201303	MARÇO	0
+1528	2013-03-08	2013	03	8	SEXTA-FEIRA	201303	MARÇO	0
+1529	2013-03-09	2013	03	9	SÁBADO	201303	MARÇO	0
+1530	2013-03-10	2013	03	10	DOMINGO	201303	MARÇO	0
+1531	2013-03-11	2013	03	11	SEGUNDA-FEIRA	201303	MARÇO	0
+1532	2013-03-12	2013	03	12	TERÇA-FEIRA	201303	MARÇO	0
+1533	2013-03-13	2013	03	13	QUARTA-FEIRA	201303	MARÇO	0
+1534	2013-03-14	2013	03	14	QUINTA-FEIRA	201303	MARÇO	0
+1535	2013-03-15	2013	03	15	SEXTA-FEIRA	201303	MARÇO	0
+1536	2013-03-16	2013	03	16	SÁBADO	201303	MARÇO	0
+1537	2013-03-17	2013	03	17	DOMINGO	201303	MARÇO	0
+1538	2013-03-18	2013	03	18	SEGUNDA-FEIRA	201303	MARÇO	0
+1539	2013-03-19	2013	03	19	TERÇA-FEIRA	201303	MARÇO	0
+1540	2013-03-20	2013	03	20	QUARTA-FEIRA	201303	MARÇO	0
+1541	2013-03-21	2013	03	21	QUINTA-FEIRA	201303	MARÇO	0
+1542	2013-03-22	2013	03	22	SEXTA-FEIRA	201303	MARÇO	0
+1543	2013-03-23	2013	03	23	SÁBADO	201303	MARÇO	0
+1544	2013-03-24	2013	03	24	DOMINGO	201303	MARÇO	0
+1545	2013-03-25	2013	03	25	SEGUNDA-FEIRA	201303	MARÇO	0
+1546	2013-03-26	2013	03	26	TERÇA-FEIRA	201303	MARÇO	0
+1547	2013-03-27	2013	03	27	QUARTA-FEIRA	201303	MARÇO	0
+1548	2013-03-28	2013	03	28	QUINTA-FEIRA	201303	MARÇO	0
+1549	2013-03-29	2013	03	29	SEXTA-FEIRA	201303	MARÇO	0
+1550	2013-03-30	2013	03	30	SÁBADO	201303	MARÇO	0
+1551	2013-03-31	2013	03	31	DOMINGO	201303	MARÇO	0
+1552	2013-04-01	2013	04	1	SEGUNDA-FEIRA	201304	ABRIL	0
+1553	2013-04-02	2013	04	2	TERÇA-FEIRA	201304	ABRIL	0
+1554	2013-04-03	2013	04	3	QUARTA-FEIRA	201304	ABRIL	0
+1555	2013-04-04	2013	04	4	QUINTA-FEIRA	201304	ABRIL	0
+1556	2013-04-05	2013	04	5	SEXTA-FEIRA	201304	ABRIL	0
+1557	2013-04-06	2013	04	6	SÁBADO	201304	ABRIL	0
+1558	2013-04-07	2013	04	7	DOMINGO	201304	ABRIL	0
+1559	2013-04-08	2013	04	8	SEGUNDA-FEIRA	201304	ABRIL	0
+1560	2013-04-09	2013	04	9	TERÇA-FEIRA	201304	ABRIL	0
+1561	2013-04-10	2013	04	10	QUARTA-FEIRA	201304	ABRIL	0
+1562	2013-04-11	2013	04	11	QUINTA-FEIRA	201304	ABRIL	0
+1563	2013-04-12	2013	04	12	SEXTA-FEIRA	201304	ABRIL	0
+1564	2013-04-13	2013	04	13	SÁBADO	201304	ABRIL	0
+1565	2013-04-14	2013	04	14	DOMINGO	201304	ABRIL	0
+1566	2013-04-15	2013	04	15	SEGUNDA-FEIRA	201304	ABRIL	0
+1567	2013-04-16	2013	04	16	TERÇA-FEIRA	201304	ABRIL	0
+1568	2013-04-17	2013	04	17	QUARTA-FEIRA	201304	ABRIL	0
+1569	2013-04-18	2013	04	18	QUINTA-FEIRA	201304	ABRIL	0
+1570	2013-04-19	2013	04	19	SEXTA-FEIRA	201304	ABRIL	0
+1571	2013-04-20	2013	04	20	SÁBADO	201304	ABRIL	0
+1572	2013-04-21	2013	04	21	DOMINGO	201304	ABRIL	0
+1573	2013-04-22	2013	04	22	SEGUNDA-FEIRA	201304	ABRIL	0
+1574	2013-04-23	2013	04	23	TERÇA-FEIRA	201304	ABRIL	0
+1575	2013-04-24	2013	04	24	QUARTA-FEIRA	201304	ABRIL	0
+1576	2013-04-25	2013	04	25	QUINTA-FEIRA	201304	ABRIL	0
+1577	2013-04-26	2013	04	26	SEXTA-FEIRA	201304	ABRIL	0
+1578	2013-04-27	2013	04	27	SÁBADO	201304	ABRIL	0
+1579	2013-04-28	2013	04	28	DOMINGO	201304	ABRIL	0
+1580	2013-04-29	2013	04	29	SEGUNDA-FEIRA	201304	ABRIL	0
+1581	2013-04-30	2013	04	30	TERÇA-FEIRA	201304	ABRIL	0
+1582	2013-05-01	2013	05	1	QUARTA-FEIRA	201305	MAIO	0
+1583	2013-05-02	2013	05	2	QUINTA-FEIRA	201305	MAIO	0
+1584	2013-05-03	2013	05	3	SEXTA-FEIRA	201305	MAIO	0
+1585	2013-05-04	2013	05	4	SÁBADO	201305	MAIO	0
+1586	2013-05-05	2013	05	5	DOMINGO	201305	MAIO	0
+1587	2013-05-06	2013	05	6	SEGUNDA-FEIRA	201305	MAIO	0
+1588	2013-05-07	2013	05	7	TERÇA-FEIRA	201305	MAIO	0
+1589	2013-05-08	2013	05	8	QUARTA-FEIRA	201305	MAIO	0
+1590	2013-05-09	2013	05	9	QUINTA-FEIRA	201305	MAIO	0
+1591	2013-05-10	2013	05	10	SEXTA-FEIRA	201305	MAIO	0
+1592	2013-05-11	2013	05	11	SÁBADO	201305	MAIO	0
+1593	2013-05-12	2013	05	12	DOMINGO	201305	MAIO	0
+1594	2013-05-13	2013	05	13	SEGUNDA-FEIRA	201305	MAIO	0
+1595	2013-05-14	2013	05	14	TERÇA-FEIRA	201305	MAIO	0
+1596	2013-05-15	2013	05	15	QUARTA-FEIRA	201305	MAIO	0
+1597	2013-05-16	2013	05	16	QUINTA-FEIRA	201305	MAIO	0
+1598	2013-05-17	2013	05	17	SEXTA-FEIRA	201305	MAIO	0
+1599	2013-05-18	2013	05	18	SÁBADO	201305	MAIO	0
+1600	2013-05-19	2013	05	19	DOMINGO	201305	MAIO	0
+1601	2013-05-20	2013	05	20	SEGUNDA-FEIRA	201305	MAIO	0
+1602	2013-05-21	2013	05	21	TERÇA-FEIRA	201305	MAIO	0
+1603	2013-05-22	2013	05	22	QUARTA-FEIRA	201305	MAIO	0
+1604	2013-05-23	2013	05	23	QUINTA-FEIRA	201305	MAIO	0
+1605	2013-05-24	2013	05	24	SEXTA-FEIRA	201305	MAIO	0
+1606	2013-05-25	2013	05	25	SÁBADO	201305	MAIO	0
+1607	2013-05-26	2013	05	26	DOMINGO	201305	MAIO	0
+1608	2013-05-27	2013	05	27	SEGUNDA-FEIRA	201305	MAIO	0
+1609	2013-05-28	2013	05	28	TERÇA-FEIRA	201305	MAIO	0
+1610	2013-05-29	2013	05	29	QUARTA-FEIRA	201305	MAIO	0
+1611	2013-05-30	2013	05	30	QUINTA-FEIRA	201305	MAIO	0
+1612	2013-05-31	2013	05	31	SEXTA-FEIRA	201305	MAIO	0
+1613	2013-06-01	2013	06	1	SÁBADO	201306	JUNHO	0
+1614	2013-06-02	2013	06	2	DOMINGO	201306	JUNHO	0
+1615	2013-06-03	2013	06	3	SEGUNDA-FEIRA	201306	JUNHO	0
+1616	2013-06-04	2013	06	4	TERÇA-FEIRA	201306	JUNHO	0
+1617	2013-06-05	2013	06	5	QUARTA-FEIRA	201306	JUNHO	0
+1618	2013-06-06	2013	06	6	QUINTA-FEIRA	201306	JUNHO	0
+1619	2013-06-07	2013	06	7	SEXTA-FEIRA	201306	JUNHO	0
+1620	2013-06-08	2013	06	8	SÁBADO	201306	JUNHO	0
+1621	2013-06-09	2013	06	9	DOMINGO	201306	JUNHO	0
+1622	2013-06-10	2013	06	10	SEGUNDA-FEIRA	201306	JUNHO	0
+1623	2013-06-11	2013	06	11	TERÇA-FEIRA	201306	JUNHO	0
+1624	2013-06-12	2013	06	12	QUARTA-FEIRA	201306	JUNHO	0
+1625	2013-06-13	2013	06	13	QUINTA-FEIRA	201306	JUNHO	0
+1626	2013-06-14	2013	06	14	SEXTA-FEIRA	201306	JUNHO	0
+1627	2013-06-15	2013	06	15	SÁBADO	201306	JUNHO	0
+1628	2013-06-16	2013	06	16	DOMINGO	201306	JUNHO	0
+1629	2013-06-17	2013	06	17	SEGUNDA-FEIRA	201306	JUNHO	0
+1630	2013-06-18	2013	06	18	TERÇA-FEIRA	201306	JUNHO	0
+1631	2013-06-19	2013	06	19	QUARTA-FEIRA	201306	JUNHO	0
+1632	2013-06-20	2013	06	20	QUINTA-FEIRA	201306	JUNHO	0
+1633	2013-06-21	2013	06	21	SEXTA-FEIRA	201306	JUNHO	0
+1634	2013-06-22	2013	06	22	SÁBADO	201306	JUNHO	0
+1635	2013-06-23	2013	06	23	DOMINGO	201306	JUNHO	0
+1636	2013-06-24	2013	06	24	SEGUNDA-FEIRA	201306	JUNHO	0
+1637	2013-06-25	2013	06	25	TERÇA-FEIRA	201306	JUNHO	0
+1638	2013-06-26	2013	06	26	QUARTA-FEIRA	201306	JUNHO	0
+1639	2013-06-27	2013	06	27	QUINTA-FEIRA	201306	JUNHO	0
+1640	2013-06-28	2013	06	28	SEXTA-FEIRA	201306	JUNHO	0
+1641	2013-06-29	2013	06	29	SÁBADO	201306	JUNHO	0
+1642	2013-06-30	2013	06	30	DOMINGO	201306	JUNHO	0
+1643	2013-07-01	2013	07	1	SEGUNDA-FEIRA	201307	JULHO	0
+1644	2013-07-02	2013	07	2	TERÇA-FEIRA	201307	JULHO	0
+1645	2013-07-03	2013	07	3	QUARTA-FEIRA	201307	JULHO	0
+1646	2013-07-04	2013	07	4	QUINTA-FEIRA	201307	JULHO	0
+1647	2013-07-05	2013	07	5	SEXTA-FEIRA	201307	JULHO	0
+1648	2013-07-06	2013	07	6	SÁBADO	201307	JULHO	0
+1649	2013-07-07	2013	07	7	DOMINGO	201307	JULHO	0
+1650	2013-07-08	2013	07	8	SEGUNDA-FEIRA	201307	JULHO	0
+1651	2013-07-09	2013	07	9	TERÇA-FEIRA	201307	JULHO	0
+1652	2013-07-10	2013	07	10	QUARTA-FEIRA	201307	JULHO	0
+1653	2013-07-11	2013	07	11	QUINTA-FEIRA	201307	JULHO	0
+1654	2013-07-12	2013	07	12	SEXTA-FEIRA	201307	JULHO	0
+1655	2013-07-13	2013	07	13	SÁBADO	201307	JULHO	0
+1656	2013-07-14	2013	07	14	DOMINGO	201307	JULHO	0
+1657	2013-07-15	2013	07	15	SEGUNDA-FEIRA	201307	JULHO	0
+1658	2013-07-16	2013	07	16	TERÇA-FEIRA	201307	JULHO	0
+1659	2013-07-17	2013	07	17	QUARTA-FEIRA	201307	JULHO	0
+1660	2013-07-18	2013	07	18	QUINTA-FEIRA	201307	JULHO	0
+1661	2013-07-19	2013	07	19	SEXTA-FEIRA	201307	JULHO	0
+1662	2013-07-20	2013	07	20	SÁBADO	201307	JULHO	0
+1663	2013-07-21	2013	07	21	DOMINGO	201307	JULHO	0
+1664	2013-07-22	2013	07	22	SEGUNDA-FEIRA	201307	JULHO	0
+1665	2013-07-23	2013	07	23	TERÇA-FEIRA	201307	JULHO	0
+1666	2013-07-24	2013	07	24	QUARTA-FEIRA	201307	JULHO	0
+1667	2013-07-25	2013	07	25	QUINTA-FEIRA	201307	JULHO	0
+1668	2013-07-26	2013	07	26	SEXTA-FEIRA	201307	JULHO	0
+1669	2013-07-27	2013	07	27	SÁBADO	201307	JULHO	0
+1670	2013-07-28	2013	07	28	DOMINGO	201307	JULHO	0
+1671	2013-07-29	2013	07	29	SEGUNDA-FEIRA	201307	JULHO	0
+1672	2013-07-30	2013	07	30	TERÇA-FEIRA	201307	JULHO	0
+1673	2013-07-31	2013	07	31	QUARTA-FEIRA	201307	JULHO	0
+1674	2013-08-01	2013	08	1	QUINTA-FEIRA	201308	AGOSTO	0
+1675	2013-08-02	2013	08	2	SEXTA-FEIRA	201308	AGOSTO	0
+1676	2013-08-03	2013	08	3	SÁBADO	201308	AGOSTO	0
+1677	2013-08-04	2013	08	4	DOMINGO	201308	AGOSTO	0
+1678	2013-08-05	2013	08	5	SEGUNDA-FEIRA	201308	AGOSTO	0
+1679	2013-08-06	2013	08	6	TERÇA-FEIRA	201308	AGOSTO	0
+1680	2013-08-07	2013	08	7	QUARTA-FEIRA	201308	AGOSTO	0
+1681	2013-08-08	2013	08	8	QUINTA-FEIRA	201308	AGOSTO	0
+1682	2013-08-09	2013	08	9	SEXTA-FEIRA	201308	AGOSTO	0
+1683	2013-08-10	2013	08	10	SÁBADO	201308	AGOSTO	0
+1684	2013-08-11	2013	08	11	DOMINGO	201308	AGOSTO	0
+1685	2013-08-12	2013	08	12	SEGUNDA-FEIRA	201308	AGOSTO	0
+1686	2013-08-13	2013	08	13	TERÇA-FEIRA	201308	AGOSTO	0
+1687	2013-08-14	2013	08	14	QUARTA-FEIRA	201308	AGOSTO	0
+1688	2013-08-15	2013	08	15	QUINTA-FEIRA	201308	AGOSTO	0
+1689	2013-08-16	2013	08	16	SEXTA-FEIRA	201308	AGOSTO	0
+1690	2013-08-17	2013	08	17	SÁBADO	201308	AGOSTO	0
+1691	2013-08-18	2013	08	18	DOMINGO	201308	AGOSTO	0
+1692	2013-08-19	2013	08	19	SEGUNDA-FEIRA	201308	AGOSTO	0
+1693	2013-08-20	2013	08	20	TERÇA-FEIRA	201308	AGOSTO	0
+1694	2013-08-21	2013	08	21	QUARTA-FEIRA	201308	AGOSTO	0
+1695	2013-08-22	2013	08	22	QUINTA-FEIRA	201308	AGOSTO	0
+1696	2013-08-23	2013	08	23	SEXTA-FEIRA	201308	AGOSTO	0
+1697	2013-08-24	2013	08	24	SÁBADO	201308	AGOSTO	0
+1698	2013-08-25	2013	08	25	DOMINGO	201308	AGOSTO	0
+1699	2013-08-26	2013	08	26	SEGUNDA-FEIRA	201308	AGOSTO	0
+1700	2013-08-27	2013	08	27	TERÇA-FEIRA	201308	AGOSTO	0
+1701	2013-08-28	2013	08	28	QUARTA-FEIRA	201308	AGOSTO	0
+1702	2013-08-29	2013	08	29	QUINTA-FEIRA	201308	AGOSTO	0
+1703	2013-08-30	2013	08	30	SEXTA-FEIRA	201308	AGOSTO	0
+1704	2013-08-31	2013	08	31	SÁBADO	201308	AGOSTO	0
+1705	2013-09-01	2013	09	1	DOMINGO	201309	SETEMBRO	0
+1706	2013-09-02	2013	09	2	SEGUNDA-FEIRA	201309	SETEMBRO	0
+1707	2013-09-03	2013	09	3	TERÇA-FEIRA	201309	SETEMBRO	0
+1708	2013-09-04	2013	09	4	QUARTA-FEIRA	201309	SETEMBRO	0
+1709	2013-09-05	2013	09	5	QUINTA-FEIRA	201309	SETEMBRO	0
+1710	2013-09-06	2013	09	6	SEXTA-FEIRA	201309	SETEMBRO	0
+1711	2013-09-07	2013	09	7	SÁBADO	201309	SETEMBRO	0
+1712	2013-09-08	2013	09	8	DOMINGO	201309	SETEMBRO	0
+1713	2013-09-09	2013	09	9	SEGUNDA-FEIRA	201309	SETEMBRO	0
+1714	2013-09-10	2013	09	10	TERÇA-FEIRA	201309	SETEMBRO	0
+1715	2013-09-11	2013	09	11	QUARTA-FEIRA	201309	SETEMBRO	0
+1716	2013-09-12	2013	09	12	QUINTA-FEIRA	201309	SETEMBRO	0
+1717	2013-09-13	2013	09	13	SEXTA-FEIRA	201309	SETEMBRO	0
+1718	2013-09-14	2013	09	14	SÁBADO	201309	SETEMBRO	0
+1719	2013-09-15	2013	09	15	DOMINGO	201309	SETEMBRO	0
+1720	2013-09-16	2013	09	16	SEGUNDA-FEIRA	201309	SETEMBRO	0
+1721	2013-09-17	2013	09	17	TERÇA-FEIRA	201309	SETEMBRO	0
+1722	2013-09-18	2013	09	18	QUARTA-FEIRA	201309	SETEMBRO	0
+1723	2013-09-19	2013	09	19	QUINTA-FEIRA	201309	SETEMBRO	0
+1724	2013-09-20	2013	09	20	SEXTA-FEIRA	201309	SETEMBRO	0
+1725	2013-09-21	2013	09	21	SÁBADO	201309	SETEMBRO	0
+1726	2013-09-22	2013	09	22	DOMINGO	201309	SETEMBRO	0
+1727	2013-09-23	2013	09	23	SEGUNDA-FEIRA	201309	SETEMBRO	0
+1728	2013-09-24	2013	09	24	TERÇA-FEIRA	201309	SETEMBRO	0
+1729	2013-09-25	2013	09	25	QUARTA-FEIRA	201309	SETEMBRO	0
+1730	2013-09-26	2013	09	26	QUINTA-FEIRA	201309	SETEMBRO	0
+1731	2013-09-27	2013	09	27	SEXTA-FEIRA	201309	SETEMBRO	0
+1732	2013-09-28	2013	09	28	SÁBADO	201309	SETEMBRO	0
+1733	2013-09-29	2013	09	29	DOMINGO	201309	SETEMBRO	0
+1734	2013-09-30	2013	09	30	SEGUNDA-FEIRA	201309	SETEMBRO	0
+1735	2013-10-01	2013	10	1	TERÇA-FEIRA	201310	OUTUBRO	0
+1736	2013-10-02	2013	10	2	QUARTA-FEIRA	201310	OUTUBRO	0
+1737	2013-10-03	2013	10	3	QUINTA-FEIRA	201310	OUTUBRO	0
+1738	2013-10-04	2013	10	4	SEXTA-FEIRA	201310	OUTUBRO	0
+1739	2013-10-05	2013	10	5	SÁBADO	201310	OUTUBRO	0
+1740	2013-10-06	2013	10	6	DOMINGO	201310	OUTUBRO	0
+1741	2013-10-07	2013	10	7	SEGUNDA-FEIRA	201310	OUTUBRO	0
+1742	2013-10-08	2013	10	8	TERÇA-FEIRA	201310	OUTUBRO	0
+1743	2013-10-09	2013	10	9	QUARTA-FEIRA	201310	OUTUBRO	0
+1744	2013-10-10	2013	10	10	QUINTA-FEIRA	201310	OUTUBRO	0
+1745	2013-10-11	2013	10	11	SEXTA-FEIRA	201310	OUTUBRO	0
+1746	2013-10-12	2013	10	12	SÁBADO	201310	OUTUBRO	0
+1747	2013-10-13	2013	10	13	DOMINGO	201310	OUTUBRO	0
+1748	2013-10-14	2013	10	14	SEGUNDA-FEIRA	201310	OUTUBRO	0
+1749	2013-10-15	2013	10	15	TERÇA-FEIRA	201310	OUTUBRO	0
+1750	2013-10-16	2013	10	16	QUARTA-FEIRA	201310	OUTUBRO	0
+1751	2013-10-17	2013	10	17	QUINTA-FEIRA	201310	OUTUBRO	0
+1752	2013-10-18	2013	10	18	SEXTA-FEIRA	201310	OUTUBRO	0
+1753	2013-10-19	2013	10	19	SÁBADO	201310	OUTUBRO	0
+1754	2013-10-20	2013	10	20	DOMINGO	201310	OUTUBRO	0
+1755	2013-10-21	2013	10	21	SEGUNDA-FEIRA	201310	OUTUBRO	0
+1756	2013-10-22	2013	10	22	TERÇA-FEIRA	201310	OUTUBRO	0
+1757	2013-10-23	2013	10	23	QUARTA-FEIRA	201310	OUTUBRO	0
+1758	2013-10-24	2013	10	24	QUINTA-FEIRA	201310	OUTUBRO	0
+1759	2013-10-25	2013	10	25	SEXTA-FEIRA	201310	OUTUBRO	0
+1760	2013-10-26	2013	10	26	SÁBADO	201310	OUTUBRO	0
+1761	2013-10-27	2013	10	27	DOMINGO	201310	OUTUBRO	0
+1762	2013-10-28	2013	10	28	SEGUNDA-FEIRA	201310	OUTUBRO	0
+1763	2013-10-29	2013	10	29	TERÇA-FEIRA	201310	OUTUBRO	0
+1764	2013-10-30	2013	10	30	QUARTA-FEIRA	201310	OUTUBRO	0
+1765	2013-10-31	2013	10	31	QUINTA-FEIRA	201310	OUTUBRO	0
+1766	2013-11-01	2013	11	1	SEXTA-FEIRA	201311	NOVEMBRO	0
+1767	2013-11-02	2013	11	2	SÁBADO	201311	NOVEMBRO	0
+1768	2013-11-03	2013	11	3	DOMINGO	201311	NOVEMBRO	0
+1769	2013-11-04	2013	11	4	SEGUNDA-FEIRA	201311	NOVEMBRO	0
+1770	2013-11-05	2013	11	5	TERÇA-FEIRA	201311	NOVEMBRO	0
+1771	2013-11-06	2013	11	6	QUARTA-FEIRA	201311	NOVEMBRO	0
+1772	2013-11-07	2013	11	7	QUINTA-FEIRA	201311	NOVEMBRO	0
+1773	2013-11-08	2013	11	8	SEXTA-FEIRA	201311	NOVEMBRO	0
+1774	2013-11-09	2013	11	9	SÁBADO	201311	NOVEMBRO	0
+1775	2013-11-10	2013	11	10	DOMINGO	201311	NOVEMBRO	0
+1776	2013-11-11	2013	11	11	SEGUNDA-FEIRA	201311	NOVEMBRO	0
+1777	2013-11-12	2013	11	12	TERÇA-FEIRA	201311	NOVEMBRO	0
+1778	2013-11-13	2013	11	13	QUARTA-FEIRA	201311	NOVEMBRO	0
+1779	2013-11-14	2013	11	14	QUINTA-FEIRA	201311	NOVEMBRO	0
+1780	2013-11-15	2013	11	15	SEXTA-FEIRA	201311	NOVEMBRO	0
+1781	2013-11-16	2013	11	16	SÁBADO	201311	NOVEMBRO	0
+1782	2013-11-17	2013	11	17	DOMINGO	201311	NOVEMBRO	0
+1783	2013-11-18	2013	11	18	SEGUNDA-FEIRA	201311	NOVEMBRO	0
+1784	2013-11-19	2013	11	19	TERÇA-FEIRA	201311	NOVEMBRO	0
+1785	2013-11-20	2013	11	20	QUARTA-FEIRA	201311	NOVEMBRO	0
+1786	2013-11-21	2013	11	21	QUINTA-FEIRA	201311	NOVEMBRO	0
+1787	2013-11-22	2013	11	22	SEXTA-FEIRA	201311	NOVEMBRO	0
+1788	2013-11-23	2013	11	23	SÁBADO	201311	NOVEMBRO	0
+1789	2013-11-24	2013	11	24	DOMINGO	201311	NOVEMBRO	0
+1790	2013-11-25	2013	11	25	SEGUNDA-FEIRA	201311	NOVEMBRO	0
+1791	2013-11-26	2013	11	26	TERÇA-FEIRA	201311	NOVEMBRO	0
+1792	2013-11-27	2013	11	27	QUARTA-FEIRA	201311	NOVEMBRO	0
+1793	2013-11-28	2013	11	28	QUINTA-FEIRA	201311	NOVEMBRO	0
+1794	2013-11-29	2013	11	29	SEXTA-FEIRA	201311	NOVEMBRO	0
+1795	2013-11-30	2013	11	30	SÁBADO	201311	NOVEMBRO	0
+1796	2013-12-01	2013	12	1	DOMINGO	201312	DEZEMBRO	0
+1797	2013-12-02	2013	12	2	SEGUNDA-FEIRA	201312	DEZEMBRO	0
+1798	2013-12-03	2013	12	3	TERÇA-FEIRA	201312	DEZEMBRO	0
+1799	2013-12-04	2013	12	4	QUARTA-FEIRA	201312	DEZEMBRO	0
+1800	2013-12-05	2013	12	5	QUINTA-FEIRA	201312	DEZEMBRO	0
+1801	2013-12-06	2013	12	6	SEXTA-FEIRA	201312	DEZEMBRO	0
+1389	2012-10-20	2012	10	20	SÁBADO	201210	OUTUBRO	0
+1390	2012-10-21	2012	10	21	DOMINGO	201210	OUTUBRO	0
+1391	2012-10-22	2012	10	22	SEGUNDA-FEIRA	201210	OUTUBRO	0
+1392	2012-10-23	2012	10	23	TERÇA-FEIRA	201210	OUTUBRO	0
+1393	2012-10-24	2012	10	24	QUARTA-FEIRA	201210	OUTUBRO	0
+1394	2012-10-25	2012	10	25	QUINTA-FEIRA	201210	OUTUBRO	0
+1395	2012-10-26	2012	10	26	SEXTA-FEIRA	201210	OUTUBRO	0
+1396	2012-10-27	2012	10	27	SÁBADO	201210	OUTUBRO	0
+1397	2012-10-28	2012	10	28	DOMINGO	201210	OUTUBRO	0
+1398	2012-10-29	2012	10	29	SEGUNDA-FEIRA	201210	OUTUBRO	0
+1399	2012-10-30	2012	10	30	TERÇA-FEIRA	201210	OUTUBRO	0
+1400	2012-10-31	2012	10	31	QUARTA-FEIRA	201210	OUTUBRO	0
+1401	2012-11-01	2012	11	1	QUINTA-FEIRA	201211	NOVEMBRO	0
+1402	2012-11-02	2012	11	2	SEXTA-FEIRA	201211	NOVEMBRO	0
+1403	2012-11-03	2012	11	3	SÁBADO	201211	NOVEMBRO	0
+1404	2012-11-04	2012	11	4	DOMINGO	201211	NOVEMBRO	0
+1405	2012-11-05	2012	11	5	SEGUNDA-FEIRA	201211	NOVEMBRO	0
+1406	2012-11-06	2012	11	6	TERÇA-FEIRA	201211	NOVEMBRO	0
+1407	2012-11-07	2012	11	7	QUARTA-FEIRA	201211	NOVEMBRO	0
+1408	2012-11-08	2012	11	8	QUINTA-FEIRA	201211	NOVEMBRO	0
+1409	2012-11-09	2012	11	9	SEXTA-FEIRA	201211	NOVEMBRO	0
+1410	2012-11-10	2012	11	10	SÁBADO	201211	NOVEMBRO	0
+1411	2012-11-11	2012	11	11	DOMINGO	201211	NOVEMBRO	0
+1412	2012-11-12	2012	11	12	SEGUNDA-FEIRA	201211	NOVEMBRO	0
+1413	2012-11-13	2012	11	13	TERÇA-FEIRA	201211	NOVEMBRO	0
+1414	2012-11-14	2012	11	14	QUARTA-FEIRA	201211	NOVEMBRO	0
+1415	2012-11-15	2012	11	15	QUINTA-FEIRA	201211	NOVEMBRO	0
+1416	2012-11-16	2012	11	16	SEXTA-FEIRA	201211	NOVEMBRO	0
+1417	2012-11-17	2012	11	17	SÁBADO	201211	NOVEMBRO	0
+1418	2012-11-18	2012	11	18	DOMINGO	201211	NOVEMBRO	0
+1419	2012-11-19	2012	11	19	SEGUNDA-FEIRA	201211	NOVEMBRO	0
+1420	2012-11-20	2012	11	20	TERÇA-FEIRA	201211	NOVEMBRO	0
+1421	2012-11-21	2012	11	21	QUARTA-FEIRA	201211	NOVEMBRO	0
+1422	2012-11-22	2012	11	22	QUINTA-FEIRA	201211	NOVEMBRO	0
+1423	2012-11-23	2012	11	23	SEXTA-FEIRA	201211	NOVEMBRO	0
+1424	2012-11-24	2012	11	24	SÁBADO	201211	NOVEMBRO	0
+1425	2012-11-25	2012	11	25	DOMINGO	201211	NOVEMBRO	0
+1426	2012-11-26	2012	11	26	SEGUNDA-FEIRA	201211	NOVEMBRO	0
+1427	2012-11-27	2012	11	27	TERÇA-FEIRA	201211	NOVEMBRO	0
+1428	2012-11-28	2012	11	28	QUARTA-FEIRA	201211	NOVEMBRO	0
+1429	2012-11-29	2012	11	29	QUINTA-FEIRA	201211	NOVEMBRO	0
+1430	2012-11-30	2012	11	30	SEXTA-FEIRA	201211	NOVEMBRO	0
+1431	2012-12-01	2012	12	1	SÁBADO	201212	DEZEMBRO	0
+1432	2012-12-02	2012	12	2	DOMINGO	201212	DEZEMBRO	0
+1433	2012-12-03	2012	12	3	SEGUNDA-FEIRA	201212	DEZEMBRO	0
+1434	2012-12-04	2012	12	4	TERÇA-FEIRA	201212	DEZEMBRO	0
+1435	2012-12-05	2012	12	5	QUARTA-FEIRA	201212	DEZEMBRO	0
+1436	2012-12-06	2012	12	6	QUINTA-FEIRA	201212	DEZEMBRO	0
+1437	2012-12-07	2012	12	7	SEXTA-FEIRA	201212	DEZEMBRO	0
+1438	2012-12-08	2012	12	8	SÁBADO	201212	DEZEMBRO	0
+1439	2012-12-09	2012	12	9	DOMINGO	201212	DEZEMBRO	0
+1440	2012-12-10	2012	12	10	SEGUNDA-FEIRA	201212	DEZEMBRO	0
+1441	2012-12-11	2012	12	11	TERÇA-FEIRA	201212	DEZEMBRO	0
+1442	2012-12-12	2012	12	12	QUARTA-FEIRA	201212	DEZEMBRO	0
+1443	2012-12-13	2012	12	13	QUINTA-FEIRA	201212	DEZEMBRO	0
+1444	2012-12-14	2012	12	14	SEXTA-FEIRA	201212	DEZEMBRO	0
+1445	2012-12-15	2012	12	15	SÁBADO	201212	DEZEMBRO	0
+1446	2012-12-16	2012	12	16	DOMINGO	201212	DEZEMBRO	0
+1447	2012-12-17	2012	12	17	SEGUNDA-FEIRA	201212	DEZEMBRO	0
+1448	2012-12-18	2012	12	18	TERÇA-FEIRA	201212	DEZEMBRO	0
+1449	2012-12-19	2012	12	19	QUARTA-FEIRA	201212	DEZEMBRO	0
+1450	2012-12-20	2012	12	20	QUINTA-FEIRA	201212	DEZEMBRO	0
+1451	2012-12-21	2012	12	21	SEXTA-FEIRA	201212	DEZEMBRO	0
+1452	2012-12-22	2012	12	22	SÁBADO	201212	DEZEMBRO	0
+1453	2012-12-23	2012	12	23	DOMINGO	201212	DEZEMBRO	0
+1454	2012-12-24	2012	12	24	SEGUNDA-FEIRA	201212	DEZEMBRO	0
+1455	2012-12-25	2012	12	25	TERÇA-FEIRA	201212	DEZEMBRO	0
+1456	2012-12-26	2012	12	26	QUARTA-FEIRA	201212	DEZEMBRO	0
+1457	2012-12-27	2012	12	27	QUINTA-FEIRA	201212	DEZEMBRO	0
+1458	2012-12-28	2012	12	28	SEXTA-FEIRA	201212	DEZEMBRO	0
+1459	2012-12-29	2012	12	29	SÁBADO	201212	DEZEMBRO	0
+1460	2012-12-30	2012	12	30	DOMINGO	201212	DEZEMBRO	0
+1461	2012-12-31	2012	12	31	SEGUNDA-FEIRA	201212	DEZEMBRO	0
+1462	2013-01-01	2013	01	1	TERÇA-FEIRA	201301	JANEIRO	0
+1463	2013-01-02	2013	01	2	QUARTA-FEIRA	201301	JANEIRO	0
+1464	2013-01-03	2013	01	3	QUINTA-FEIRA	201301	JANEIRO	0
+1465	2013-01-04	2013	01	4	SEXTA-FEIRA	201301	JANEIRO	0
+1466	2013-01-05	2013	01	5	SÁBADO	201301	JANEIRO	0
+1467	2013-01-06	2013	01	6	DOMINGO	201301	JANEIRO	0
+1468	2013-01-07	2013	01	7	SEGUNDA-FEIRA	201301	JANEIRO	0
+1469	2013-01-08	2013	01	8	TERÇA-FEIRA	201301	JANEIRO	0
+1470	2013-01-09	2013	01	9	QUARTA-FEIRA	201301	JANEIRO	0
+1471	2013-01-10	2013	01	10	QUINTA-FEIRA	201301	JANEIRO	0
+1472	2013-01-11	2013	01	11	SEXTA-FEIRA	201301	JANEIRO	0
+1473	2013-01-12	2013	01	12	SÁBADO	201301	JANEIRO	0
+1474	2013-01-13	2013	01	13	DOMINGO	201301	JANEIRO	0
+1475	2013-01-14	2013	01	14	SEGUNDA-FEIRA	201301	JANEIRO	0
+1476	2013-01-15	2013	01	15	TERÇA-FEIRA	201301	JANEIRO	0
+1477	2013-01-16	2013	01	16	QUARTA-FEIRA	201301	JANEIRO	0
+1478	2013-01-17	2013	01	17	QUINTA-FEIRA	201301	JANEIRO	0
+1479	2013-01-18	2013	01	18	SEXTA-FEIRA	201301	JANEIRO	0
+1480	2013-01-19	2013	01	19	SÁBADO	201301	JANEIRO	0
+1481	2013-01-20	2013	01	20	DOMINGO	201301	JANEIRO	0
+1482	2013-01-21	2013	01	21	SEGUNDA-FEIRA	201301	JANEIRO	0
+1483	2013-01-22	2013	01	22	TERÇA-FEIRA	201301	JANEIRO	0
+1484	2013-01-23	2013	01	23	QUARTA-FEIRA	201301	JANEIRO	0
+1485	2013-01-24	2013	01	24	QUINTA-FEIRA	201301	JANEIRO	0
+1486	2013-01-25	2013	01	25	SEXTA-FEIRA	201301	JANEIRO	0
+1487	2013-01-26	2013	01	26	SÁBADO	201301	JANEIRO	0
+1488	2013-01-27	2013	01	27	DOMINGO	201301	JANEIRO	0
+1489	2013-01-28	2013	01	28	SEGUNDA-FEIRA	201301	JANEIRO	0
+1490	2013-01-29	2013	01	29	TERÇA-FEIRA	201301	JANEIRO	0
+1491	2013-01-30	2013	01	30	QUARTA-FEIRA	201301	JANEIRO	0
+1492	2013-01-31	2013	01	31	QUINTA-FEIRA	201301	JANEIRO	0
+1493	2013-02-01	2013	02	1	SEXTA-FEIRA	201302	FEVEREIRO	0
+1494	2013-02-02	2013	02	2	SÁBADO	201302	FEVEREIRO	0
+1495	2013-02-03	2013	02	3	DOMINGO	201302	FEVEREIRO	0
+1496	2013-02-04	2013	02	4	SEGUNDA-FEIRA	201302	FEVEREIRO	0
+1497	2013-02-05	2013	02	5	TERÇA-FEIRA	201302	FEVEREIRO	0
+1498	2013-02-06	2013	02	6	QUARTA-FEIRA	201302	FEVEREIRO	0
+1499	2013-02-07	2013	02	7	QUINTA-FEIRA	201302	FEVEREIRO	0
+1500	2013-02-08	2013	02	8	SEXTA-FEIRA	201302	FEVEREIRO	0
+1501	2013-02-09	2013	02	9	SÁBADO	201302	FEVEREIRO	0
+1502	2013-02-10	2013	02	10	DOMINGO	201302	FEVEREIRO	0
+1503	2013-02-11	2013	02	11	SEGUNDA-FEIRA	201302	FEVEREIRO	0
+1504	2013-02-12	2013	02	12	TERÇA-FEIRA	201302	FEVEREIRO	0
+1505	2013-02-13	2013	02	13	QUARTA-FEIRA	201302	FEVEREIRO	0
+1506	2013-02-14	2013	02	14	QUINTA-FEIRA	201302	FEVEREIRO	0
+1507	2013-02-15	2013	02	15	SEXTA-FEIRA	201302	FEVEREIRO	0
+1508	2013-02-16	2013	02	16	SÁBADO	201302	FEVEREIRO	0
+1509	2013-02-17	2013	02	17	DOMINGO	201302	FEVEREIRO	0
+1510	2013-02-18	2013	02	18	SEGUNDA-FEIRA	201302	FEVEREIRO	0
+1511	2013-02-19	2013	02	19	TERÇA-FEIRA	201302	FEVEREIRO	0
+1512	2013-02-20	2013	02	20	QUARTA-FEIRA	201302	FEVEREIRO	0
+1513	2013-02-21	2013	02	21	QUINTA-FEIRA	201302	FEVEREIRO	0
+1514	2013-02-22	2013	02	22	SEXTA-FEIRA	201302	FEVEREIRO	0
+1515	2013-02-23	2013	02	23	SÁBADO	201302	FEVEREIRO	0
+1516	2013-02-24	2013	02	24	DOMINGO	201302	FEVEREIRO	0
+1517	2013-02-25	2013	02	25	SEGUNDA-FEIRA	201302	FEVEREIRO	0
+1518	2013-02-26	2013	02	26	TERÇA-FEIRA	201302	FEVEREIRO	0
+1519	2013-02-27	2013	02	27	QUARTA-FEIRA	201302	FEVEREIRO	0
+1520	2013-02-28	2013	02	28	QUINTA-FEIRA	201302	FEVEREIRO	0
+1521	2013-03-01	2013	03	1	SEXTA-FEIRA	201303	MARÇO	0
+1522	2013-03-02	2013	03	2	SÁBADO	201303	MARÇO	0
+1523	2013-03-03	2013	03	3	DOMINGO	201303	MARÇO	0
+1	2009-01-01	2009	01	1	QUINTA-FEIRA	200901	JANEIRO	0
+2	2009-01-02	2009	01	2	SEXTA-FEIRA	200901	JANEIRO	0
+3	2009-01-03	2009	01	3	SÁBADO	200901	JANEIRO	0
+4	2009-01-04	2009	01	4	DOMINGO	200901	JANEIRO	0
+5	2009-01-05	2009	01	5	SEGUNDA-FEIRA	200901	JANEIRO	0
+6	2009-01-06	2009	01	6	TERÇA-FEIRA	200901	JANEIRO	0
+7	2009-01-07	2009	01	7	QUARTA-FEIRA	200901	JANEIRO	0
+8	2009-01-08	2009	01	8	QUINTA-FEIRA	200901	JANEIRO	0
+9	2009-01-09	2009	01	9	SEXTA-FEIRA	200901	JANEIRO	0
+10	2009-01-10	2009	01	10	SÁBADO	200901	JANEIRO	0
+11	2009-01-11	2009	01	11	DOMINGO	200901	JANEIRO	0
+12	2009-01-12	2009	01	12	SEGUNDA-FEIRA	200901	JANEIRO	0
+13	2009-01-13	2009	01	13	TERÇA-FEIRA	200901	JANEIRO	0
+14	2009-01-14	2009	01	14	QUARTA-FEIRA	200901	JANEIRO	0
+15	2009-01-15	2009	01	15	QUINTA-FEIRA	200901	JANEIRO	0
+16	2009-01-16	2009	01	16	SEXTA-FEIRA	200901	JANEIRO	0
+17	2009-01-17	2009	01	17	SÁBADO	200901	JANEIRO	0
+18	2009-01-18	2009	01	18	DOMINGO	200901	JANEIRO	0
+19	2009-01-19	2009	01	19	SEGUNDA-FEIRA	200901	JANEIRO	0
+20	2009-01-20	2009	01	20	TERÇA-FEIRA	200901	JANEIRO	0
+21	2009-01-21	2009	01	21	QUARTA-FEIRA	200901	JANEIRO	0
+22	2009-01-22	2009	01	22	QUINTA-FEIRA	200901	JANEIRO	0
+23	2009-01-23	2009	01	23	SEXTA-FEIRA	200901	JANEIRO	0
+24	2009-01-24	2009	01	24	SÁBADO	200901	JANEIRO	0
+25	2009-01-25	2009	01	25	DOMINGO	200901	JANEIRO	0
+26	2009-01-26	2009	01	26	SEGUNDA-FEIRA	200901	JANEIRO	0
+27	2009-01-27	2009	01	27	TERÇA-FEIRA	200901	JANEIRO	0
+28	2009-01-28	2009	01	28	QUARTA-FEIRA	200901	JANEIRO	0
+29	2009-01-29	2009	01	29	QUINTA-FEIRA	200901	JANEIRO	0
+30	2009-01-30	2009	01	30	SEXTA-FEIRA	200901	JANEIRO	0
+31	2009-01-31	2009	01	31	SÁBADO	200901	JANEIRO	0
+32	2009-02-01	2009	02	1	DOMINGO	200902	FEVEREIRO	0
+33	2009-02-02	2009	02	2	SEGUNDA-FEIRA	200902	FEVEREIRO	0
+34	2009-02-03	2009	02	3	TERÇA-FEIRA	200902	FEVEREIRO	0
+35	2009-02-04	2009	02	4	QUARTA-FEIRA	200902	FEVEREIRO	0
+36	2009-02-05	2009	02	5	QUINTA-FEIRA	200902	FEVEREIRO	0
+37	2009-02-06	2009	02	6	SEXTA-FEIRA	200902	FEVEREIRO	0
+38	2009-02-07	2009	02	7	SÁBADO	200902	FEVEREIRO	0
+39	2009-02-08	2009	02	8	DOMINGO	200902	FEVEREIRO	0
+40	2009-02-09	2009	02	9	SEGUNDA-FEIRA	200902	FEVEREIRO	0
+41	2009-02-10	2009	02	10	TERÇA-FEIRA	200902	FEVEREIRO	0
+42	2009-02-11	2009	02	11	QUARTA-FEIRA	200902	FEVEREIRO	0
+43	2009-02-12	2009	02	12	QUINTA-FEIRA	200902	FEVEREIRO	0
+44	2009-02-13	2009	02	13	SEXTA-FEIRA	200902	FEVEREIRO	0
+45	2009-02-14	2009	02	14	SÁBADO	200902	FEVEREIRO	0
+46	2009-02-15	2009	02	15	DOMINGO	200902	FEVEREIRO	0
+47	2009-02-16	2009	02	16	SEGUNDA-FEIRA	200902	FEVEREIRO	0
+48	2009-02-17	2009	02	17	TERÇA-FEIRA	200902	FEVEREIRO	0
+49	2009-02-18	2009	02	18	QUARTA-FEIRA	200902	FEVEREIRO	0
+50	2009-02-19	2009	02	19	QUINTA-FEIRA	200902	FEVEREIRO	0
+51	2009-02-20	2009	02	20	SEXTA-FEIRA	200902	FEVEREIRO	0
+52	2009-02-21	2009	02	21	SÁBADO	200902	FEVEREIRO	0
+53	2009-02-22	2009	02	22	DOMINGO	200902	FEVEREIRO	0
+54	2009-02-23	2009	02	23	SEGUNDA-FEIRA	200902	FEVEREIRO	0
+55	2009-02-24	2009	02	24	TERÇA-FEIRA	200902	FEVEREIRO	0
+56	2009-02-25	2009	02	25	QUARTA-FEIRA	200902	FEVEREIRO	0
+57	2009-02-26	2009	02	26	QUINTA-FEIRA	200902	FEVEREIRO	0
+58	2009-02-27	2009	02	27	SEXTA-FEIRA	200902	FEVEREIRO	0
+59	2009-02-28	2009	02	28	SÁBADO	200902	FEVEREIRO	0
+60	2009-03-01	2009	03	1	DOMINGO	200903	MARÇO	0
+61	2009-03-02	2009	03	2	SEGUNDA-FEIRA	200903	MARÇO	0
+62	2009-03-03	2009	03	3	TERÇA-FEIRA	200903	MARÇO	0
+63	2009-03-04	2009	03	4	QUARTA-FEIRA	200903	MARÇO	0
+64	2009-03-05	2009	03	5	QUINTA-FEIRA	200903	MARÇO	0
+65	2009-03-06	2009	03	6	SEXTA-FEIRA	200903	MARÇO	0
+66	2009-03-07	2009	03	7	SÁBADO	200903	MARÇO	0
+67	2009-03-08	2009	03	8	DOMINGO	200903	MARÇO	0
+68	2009-03-09	2009	03	9	SEGUNDA-FEIRA	200903	MARÇO	0
+69	2009-03-10	2009	03	10	TERÇA-FEIRA	200903	MARÇO	0
+70	2009-03-11	2009	03	11	QUARTA-FEIRA	200903	MARÇO	0
+71	2009-03-12	2009	03	12	QUINTA-FEIRA	200903	MARÇO	0
+72	2009-03-13	2009	03	13	SEXTA-FEIRA	200903	MARÇO	0
+73	2009-03-14	2009	03	14	SÁBADO	200903	MARÇO	0
+74	2009-03-15	2009	03	15	DOMINGO	200903	MARÇO	0
+75	2009-03-16	2009	03	16	SEGUNDA-FEIRA	200903	MARÇO	0
+76	2009-03-17	2009	03	17	TERÇA-FEIRA	200903	MARÇO	0
+77	2009-03-18	2009	03	18	QUARTA-FEIRA	200903	MARÇO	0
+78	2009-03-19	2009	03	19	QUINTA-FEIRA	200903	MARÇO	0
+79	2009-03-20	2009	03	20	SEXTA-FEIRA	200903	MARÇO	0
+80	2009-03-21	2009	03	21	SÁBADO	200903	MARÇO	0
+81	2009-03-22	2009	03	22	DOMINGO	200903	MARÇO	0
+82	2009-03-23	2009	03	23	SEGUNDA-FEIRA	200903	MARÇO	0
+83	2009-03-24	2009	03	24	TERÇA-FEIRA	200903	MARÇO	0
+84	2009-03-25	2009	03	25	QUARTA-FEIRA	200903	MARÇO	0
+85	2009-03-26	2009	03	26	QUINTA-FEIRA	200903	MARÇO	0
+86	2009-03-27	2009	03	27	SEXTA-FEIRA	200903	MARÇO	0
+87	2009-03-28	2009	03	28	SÁBADO	200903	MARÇO	0
+88	2009-03-29	2009	03	29	DOMINGO	200903	MARÇO	0
+89	2009-03-30	2009	03	30	SEGUNDA-FEIRA	200903	MARÇO	0
+90	2009-03-31	2009	03	31	TERÇA-FEIRA	200903	MARÇO	0
+91	2009-04-01	2009	04	1	QUARTA-FEIRA	200904	ABRIL	0
+92	2009-04-02	2009	04	2	QUINTA-FEIRA	200904	ABRIL	0
+93	2009-04-03	2009	04	3	SEXTA-FEIRA	200904	ABRIL	0
+94	2009-04-04	2009	04	4	SÁBADO	200904	ABRIL	0
+95	2009-04-05	2009	04	5	DOMINGO	200904	ABRIL	0
+96	2009-04-06	2009	04	6	SEGUNDA-FEIRA	200904	ABRIL	0
+97	2009-04-07	2009	04	7	TERÇA-FEIRA	200904	ABRIL	0
+98	2009-04-08	2009	04	8	QUARTA-FEIRA	200904	ABRIL	0
+99	2009-04-09	2009	04	9	QUINTA-FEIRA	200904	ABRIL	0
+100	2009-04-10	2009	04	10	SEXTA-FEIRA	200904	ABRIL	0
+101	2009-04-11	2009	04	11	SÁBADO	200904	ABRIL	0
+102	2009-04-12	2009	04	12	DOMINGO	200904	ABRIL	0
+103	2009-04-13	2009	04	13	SEGUNDA-FEIRA	200904	ABRIL	0
+104	2009-04-14	2009	04	14	TERÇA-FEIRA	200904	ABRIL	0
+105	2009-04-15	2009	04	15	QUARTA-FEIRA	200904	ABRIL	0
+106	2009-04-16	2009	04	16	QUINTA-FEIRA	200904	ABRIL	0
+107	2009-04-17	2009	04	17	SEXTA-FEIRA	200904	ABRIL	0
+108	2009-04-18	2009	04	18	SÁBADO	200904	ABRIL	0
+109	2009-04-19	2009	04	19	DOMINGO	200904	ABRIL	0
+110	2009-04-20	2009	04	20	SEGUNDA-FEIRA	200904	ABRIL	0
+111	2009-04-21	2009	04	21	TERÇA-FEIRA	200904	ABRIL	0
+112	2009-04-22	2009	04	22	QUARTA-FEIRA	200904	ABRIL	0
+113	2009-04-23	2009	04	23	QUINTA-FEIRA	200904	ABRIL	0
+114	2009-04-24	2009	04	24	SEXTA-FEIRA	200904	ABRIL	0
+115	2009-04-25	2009	04	25	SÁBADO	200904	ABRIL	0
+116	2009-04-26	2009	04	26	DOMINGO	200904	ABRIL	0
+117	2009-04-27	2009	04	27	SEGUNDA-FEIRA	200904	ABRIL	0
+118	2009-04-28	2009	04	28	TERÇA-FEIRA	200904	ABRIL	0
+119	2009-04-29	2009	04	29	QUARTA-FEIRA	200904	ABRIL	0
+120	2009-04-30	2009	04	30	QUINTA-FEIRA	200904	ABRIL	0
+121	2009-05-01	2009	05	1	SEXTA-FEIRA	200905	MAIO	0
+122	2009-05-02	2009	05	2	SÁBADO	200905	MAIO	0
+123	2009-05-03	2009	05	3	DOMINGO	200905	MAIO	0
+124	2009-05-04	2009	05	4	SEGUNDA-FEIRA	200905	MAIO	0
+125	2009-05-05	2009	05	5	TERÇA-FEIRA	200905	MAIO	0
+126	2009-05-06	2009	05	6	QUARTA-FEIRA	200905	MAIO	0
+127	2009-05-07	2009	05	7	QUINTA-FEIRA	200905	MAIO	0
+128	2009-05-08	2009	05	8	SEXTA-FEIRA	200905	MAIO	0
+129	2009-05-09	2009	05	9	SÁBADO	200905	MAIO	0
+130	2009-05-10	2009	05	10	DOMINGO	200905	MAIO	0
+131	2009-05-11	2009	05	11	SEGUNDA-FEIRA	200905	MAIO	0
+132	2009-05-12	2009	05	12	TERÇA-FEIRA	200905	MAIO	0
+133	2009-05-13	2009	05	13	QUARTA-FEIRA	200905	MAIO	0
+134	2009-05-14	2009	05	14	QUINTA-FEIRA	200905	MAIO	0
+135	2009-05-15	2009	05	15	SEXTA-FEIRA	200905	MAIO	0
+136	2009-05-16	2009	05	16	SÁBADO	200905	MAIO	0
+137	2009-05-17	2009	05	17	DOMINGO	200905	MAIO	0
+138	2009-05-18	2009	05	18	SEGUNDA-FEIRA	200905	MAIO	0
+139	2009-05-19	2009	05	19	TERÇA-FEIRA	200905	MAIO	0
+140	2009-05-20	2009	05	20	QUARTA-FEIRA	200905	MAIO	0
+141	2009-05-21	2009	05	21	QUINTA-FEIRA	200905	MAIO	0
+142	2009-05-22	2009	05	22	SEXTA-FEIRA	200905	MAIO	0
+143	2009-05-23	2009	05	23	SÁBADO	200905	MAIO	0
+144	2009-05-24	2009	05	24	DOMINGO	200905	MAIO	0
+145	2009-05-25	2009	05	25	SEGUNDA-FEIRA	200905	MAIO	0
+146	2009-05-26	2009	05	26	TERÇA-FEIRA	200905	MAIO	0
+147	2009-05-27	2009	05	27	QUARTA-FEIRA	200905	MAIO	0
+148	2009-05-28	2009	05	28	QUINTA-FEIRA	200905	MAIO	0
+149	2009-05-29	2009	05	29	SEXTA-FEIRA	200905	MAIO	0
+150	2009-05-30	2009	05	30	SÁBADO	200905	MAIO	0
+151	2009-05-31	2009	05	31	DOMINGO	200905	MAIO	0
+152	2009-06-01	2009	06	1	SEGUNDA-FEIRA	200906	JUNHO	0
+153	2009-06-02	2009	06	2	TERÇA-FEIRA	200906	JUNHO	0
+154	2009-06-03	2009	06	3	QUARTA-FEIRA	200906	JUNHO	0
+155	2009-06-04	2009	06	4	QUINTA-FEIRA	200906	JUNHO	0
+156	2009-06-05	2009	06	5	SEXTA-FEIRA	200906	JUNHO	0
+157	2009-06-06	2009	06	6	SÁBADO	200906	JUNHO	0
+158	2009-06-07	2009	06	7	DOMINGO	200906	JUNHO	0
+159	2009-06-08	2009	06	8	SEGUNDA-FEIRA	200906	JUNHO	0
+160	2009-06-09	2009	06	9	TERÇA-FEIRA	200906	JUNHO	0
+161	2009-06-10	2009	06	10	QUARTA-FEIRA	200906	JUNHO	0
+162	2009-06-11	2009	06	11	QUINTA-FEIRA	200906	JUNHO	0
+163	2009-06-12	2009	06	12	SEXTA-FEIRA	200906	JUNHO	0
+164	2009-06-13	2009	06	13	SÁBADO	200906	JUNHO	0
+165	2009-06-14	2009	06	14	DOMINGO	200906	JUNHO	0
+166	2009-06-15	2009	06	15	SEGUNDA-FEIRA	200906	JUNHO	0
+167	2009-06-16	2009	06	16	TERÇA-FEIRA	200906	JUNHO	0
+168	2009-06-17	2009	06	17	QUARTA-FEIRA	200906	JUNHO	0
+169	2009-06-18	2009	06	18	QUINTA-FEIRA	200906	JUNHO	0
+170	2009-06-19	2009	06	19	SEXTA-FEIRA	200906	JUNHO	0
+171	2009-06-20	2009	06	20	SÁBADO	200906	JUNHO	0
+172	2009-06-21	2009	06	21	DOMINGO	200906	JUNHO	0
+173	2009-06-22	2009	06	22	SEGUNDA-FEIRA	200906	JUNHO	0
+174	2009-06-23	2009	06	23	TERÇA-FEIRA	200906	JUNHO	0
+175	2009-06-24	2009	06	24	QUARTA-FEIRA	200906	JUNHO	0
+176	2009-06-25	2009	06	25	QUINTA-FEIRA	200906	JUNHO	0
+177	2009-06-26	2009	06	26	SEXTA-FEIRA	200906	JUNHO	0
+178	2009-06-27	2009	06	27	SÁBADO	200906	JUNHO	0
+179	2009-06-28	2009	06	28	DOMINGO	200906	JUNHO	0
+180	2009-06-29	2009	06	29	SEGUNDA-FEIRA	200906	JUNHO	0
+181	2009-06-30	2009	06	30	TERÇA-FEIRA	200906	JUNHO	0
+182	2009-07-01	2009	07	1	QUARTA-FEIRA	200907	JULHO	0
+183	2009-07-02	2009	07	2	QUINTA-FEIRA	200907	JULHO	0
+184	2009-07-03	2009	07	3	SEXTA-FEIRA	200907	JULHO	0
+185	2009-07-04	2009	07	4	SÁBADO	200907	JULHO	0
+186	2009-07-05	2009	07	5	DOMINGO	200907	JULHO	0
+187	2009-07-06	2009	07	6	SEGUNDA-FEIRA	200907	JULHO	0
+188	2009-07-07	2009	07	7	TERÇA-FEIRA	200907	JULHO	0
+189	2009-07-08	2009	07	8	QUARTA-FEIRA	200907	JULHO	0
+190	2009-07-09	2009	07	9	QUINTA-FEIRA	200907	JULHO	0
+191	2009-07-10	2009	07	10	SEXTA-FEIRA	200907	JULHO	0
+192	2009-07-11	2009	07	11	SÁBADO	200907	JULHO	0
+193	2009-07-12	2009	07	12	DOMINGO	200907	JULHO	0
+194	2009-07-13	2009	07	13	SEGUNDA-FEIRA	200907	JULHO	0
+195	2009-07-14	2009	07	14	TERÇA-FEIRA	200907	JULHO	0
+196	2009-07-15	2009	07	15	QUARTA-FEIRA	200907	JULHO	0
+197	2009-07-16	2009	07	16	QUINTA-FEIRA	200907	JULHO	0
+198	2009-07-17	2009	07	17	SEXTA-FEIRA	200907	JULHO	0
+199	2009-07-18	2009	07	18	SÁBADO	200907	JULHO	0
+200	2009-07-19	2009	07	19	DOMINGO	200907	JULHO	0
+201	2009-07-20	2009	07	20	SEGUNDA-FEIRA	200907	JULHO	0
+202	2009-07-21	2009	07	21	TERÇA-FEIRA	200907	JULHO	0
+203	2009-07-22	2009	07	22	QUARTA-FEIRA	200907	JULHO	0
+204	2009-07-23	2009	07	23	QUINTA-FEIRA	200907	JULHO	0
+205	2009-07-24	2009	07	24	SEXTA-FEIRA	200907	JULHO	0
+206	2009-07-25	2009	07	25	SÁBADO	200907	JULHO	0
+207	2009-07-26	2009	07	26	DOMINGO	200907	JULHO	0
+208	2009-07-27	2009	07	27	SEGUNDA-FEIRA	200907	JULHO	0
+209	2009-07-28	2009	07	28	TERÇA-FEIRA	200907	JULHO	0
+210	2009-07-29	2009	07	29	QUARTA-FEIRA	200907	JULHO	0
+211	2009-07-30	2009	07	30	QUINTA-FEIRA	200907	JULHO	0
+212	2009-07-31	2009	07	31	SEXTA-FEIRA	200907	JULHO	0
+213	2009-08-01	2009	08	1	SÁBADO	200908	AGOSTO	0
+214	2009-08-02	2009	08	2	DOMINGO	200908	AGOSTO	0
+215	2009-08-03	2009	08	3	SEGUNDA-FEIRA	200908	AGOSTO	0
+216	2009-08-04	2009	08	4	TERÇA-FEIRA	200908	AGOSTO	0
+217	2009-08-05	2009	08	5	QUARTA-FEIRA	200908	AGOSTO	0
+218	2009-08-06	2009	08	6	QUINTA-FEIRA	200908	AGOSTO	0
+219	2009-08-07	2009	08	7	SEXTA-FEIRA	200908	AGOSTO	0
+220	2009-08-08	2009	08	8	SÁBADO	200908	AGOSTO	0
+221	2009-08-09	2009	08	9	DOMINGO	200908	AGOSTO	0
+222	2009-08-10	2009	08	10	SEGUNDA-FEIRA	200908	AGOSTO	0
+223	2009-08-11	2009	08	11	TERÇA-FEIRA	200908	AGOSTO	0
+224	2009-08-12	2009	08	12	QUARTA-FEIRA	200908	AGOSTO	0
+225	2009-08-13	2009	08	13	QUINTA-FEIRA	200908	AGOSTO	0
+226	2009-08-14	2009	08	14	SEXTA-FEIRA	200908	AGOSTO	0
+227	2009-08-15	2009	08	15	SÁBADO	200908	AGOSTO	0
+228	2009-08-16	2009	08	16	DOMINGO	200908	AGOSTO	0
+229	2009-08-17	2009	08	17	SEGUNDA-FEIRA	200908	AGOSTO	0
+230	2009-08-18	2009	08	18	TERÇA-FEIRA	200908	AGOSTO	0
+231	2009-08-19	2009	08	19	QUARTA-FEIRA	200908	AGOSTO	0
+232	2009-08-20	2009	08	20	QUINTA-FEIRA	200908	AGOSTO	0
+233	2009-08-21	2009	08	21	SEXTA-FEIRA	200908	AGOSTO	0
+234	2009-08-22	2009	08	22	SÁBADO	200908	AGOSTO	0
+235	2009-08-23	2009	08	23	DOMINGO	200908	AGOSTO	0
+236	2009-08-24	2009	08	24	SEGUNDA-FEIRA	200908	AGOSTO	0
+237	2009-08-25	2009	08	25	TERÇA-FEIRA	200908	AGOSTO	0
+238	2009-08-26	2009	08	26	QUARTA-FEIRA	200908	AGOSTO	0
+239	2009-08-27	2009	08	27	QUINTA-FEIRA	200908	AGOSTO	0
+240	2009-08-28	2009	08	28	SEXTA-FEIRA	200908	AGOSTO	0
+241	2009-08-29	2009	08	29	SÁBADO	200908	AGOSTO	0
+242	2009-08-30	2009	08	30	DOMINGO	200908	AGOSTO	0
+243	2009-08-31	2009	08	31	SEGUNDA-FEIRA	200908	AGOSTO	0
+244	2009-09-01	2009	09	1	TERÇA-FEIRA	200909	SETEMBRO	0
+245	2009-09-02	2009	09	2	QUARTA-FEIRA	200909	SETEMBRO	0
+246	2009-09-03	2009	09	3	QUINTA-FEIRA	200909	SETEMBRO	0
+247	2009-09-04	2009	09	4	SEXTA-FEIRA	200909	SETEMBRO	0
+248	2009-09-05	2009	09	5	SÁBADO	200909	SETEMBRO	0
+249	2009-09-06	2009	09	6	DOMINGO	200909	SETEMBRO	0
+250	2009-09-07	2009	09	7	SEGUNDA-FEIRA	200909	SETEMBRO	0
+251	2009-09-08	2009	09	8	TERÇA-FEIRA	200909	SETEMBRO	0
+252	2009-09-09	2009	09	9	QUARTA-FEIRA	200909	SETEMBRO	0
+253	2009-09-10	2009	09	10	QUINTA-FEIRA	200909	SETEMBRO	0
+254	2009-09-11	2009	09	11	SEXTA-FEIRA	200909	SETEMBRO	0
+255	2009-09-12	2009	09	12	SÁBADO	200909	SETEMBRO	0
+256	2009-09-13	2009	09	13	DOMINGO	200909	SETEMBRO	0
+257	2009-09-14	2009	09	14	SEGUNDA-FEIRA	200909	SETEMBRO	0
+258	2009-09-15	2009	09	15	TERÇA-FEIRA	200909	SETEMBRO	0
+259	2009-09-16	2009	09	16	QUARTA-FEIRA	200909	SETEMBRO	0
+260	2009-09-17	2009	09	17	QUINTA-FEIRA	200909	SETEMBRO	0
+261	2009-09-18	2009	09	18	SEXTA-FEIRA	200909	SETEMBRO	0
+262	2009-09-19	2009	09	19	SÁBADO	200909	SETEMBRO	0
+263	2009-09-20	2009	09	20	DOMINGO	200909	SETEMBRO	0
+264	2009-09-21	2009	09	21	SEGUNDA-FEIRA	200909	SETEMBRO	0
+265	2009-09-22	2009	09	22	TERÇA-FEIRA	200909	SETEMBRO	0
+266	2009-09-23	2009	09	23	QUARTA-FEIRA	200909	SETEMBRO	0
+267	2009-09-24	2009	09	24	QUINTA-FEIRA	200909	SETEMBRO	0
+268	2009-09-25	2009	09	25	SEXTA-FEIRA	200909	SETEMBRO	0
+269	2009-09-26	2009	09	26	SÁBADO	200909	SETEMBRO	0
+270	2009-09-27	2009	09	27	DOMINGO	200909	SETEMBRO	0
+271	2009-09-28	2009	09	28	SEGUNDA-FEIRA	200909	SETEMBRO	0
+272	2009-09-29	2009	09	29	TERÇA-FEIRA	200909	SETEMBRO	0
+273	2009-09-30	2009	09	30	QUARTA-FEIRA	200909	SETEMBRO	0
+274	2009-10-01	2009	10	1	QUINTA-FEIRA	200910	OUTUBRO	0
+275	2009-10-02	2009	10	2	SEXTA-FEIRA	200910	OUTUBRO	0
+276	2009-10-03	2009	10	3	SÁBADO	200910	OUTUBRO	0
+277	2009-10-04	2009	10	4	DOMINGO	200910	OUTUBRO	0
+278	2009-10-05	2009	10	5	SEGUNDA-FEIRA	200910	OUTUBRO	0
+279	2009-10-06	2009	10	6	TERÇA-FEIRA	200910	OUTUBRO	0
+280	2009-10-07	2009	10	7	QUARTA-FEIRA	200910	OUTUBRO	0
+281	2009-10-08	2009	10	8	QUINTA-FEIRA	200910	OUTUBRO	0
+282	2009-10-09	2009	10	9	SEXTA-FEIRA	200910	OUTUBRO	0
+283	2009-10-10	2009	10	10	SÁBADO	200910	OUTUBRO	0
+284	2009-10-11	2009	10	11	DOMINGO	200910	OUTUBRO	0
+285	2009-10-12	2009	10	12	SEGUNDA-FEIRA	200910	OUTUBRO	0
+286	2009-10-13	2009	10	13	TERÇA-FEIRA	200910	OUTUBRO	0
+287	2009-10-14	2009	10	14	QUARTA-FEIRA	200910	OUTUBRO	0
+288	2009-10-15	2009	10	15	QUINTA-FEIRA	200910	OUTUBRO	0
+289	2009-10-16	2009	10	16	SEXTA-FEIRA	200910	OUTUBRO	0
+290	2009-10-17	2009	10	17	SÁBADO	200910	OUTUBRO	0
+291	2009-10-18	2009	10	18	DOMINGO	200910	OUTUBRO	0
+292	2009-10-19	2009	10	19	SEGUNDA-FEIRA	200910	OUTUBRO	0
+293	2009-10-20	2009	10	20	TERÇA-FEIRA	200910	OUTUBRO	0
+294	2009-10-21	2009	10	21	QUARTA-FEIRA	200910	OUTUBRO	0
+295	2009-10-22	2009	10	22	QUINTA-FEIRA	200910	OUTUBRO	0
+296	2009-10-23	2009	10	23	SEXTA-FEIRA	200910	OUTUBRO	0
+297	2009-10-24	2009	10	24	SÁBADO	200910	OUTUBRO	0
+298	2009-10-25	2009	10	25	DOMINGO	200910	OUTUBRO	0
+299	2009-10-26	2009	10	26	SEGUNDA-FEIRA	200910	OUTUBRO	0
+300	2009-10-27	2009	10	27	TERÇA-FEIRA	200910	OUTUBRO	0
+301	2009-10-28	2009	10	28	QUARTA-FEIRA	200910	OUTUBRO	0
+302	2009-10-29	2009	10	29	QUINTA-FEIRA	200910	OUTUBRO	0
+303	2009-10-30	2009	10	30	SEXTA-FEIRA	200910	OUTUBRO	0
+304	2009-10-31	2009	10	31	SÁBADO	200910	OUTUBRO	0
+305	2009-11-01	2009	11	1	DOMINGO	200911	NOVEMBRO	0
+306	2009-11-02	2009	11	2	SEGUNDA-FEIRA	200911	NOVEMBRO	0
+307	2009-11-03	2009	11	3	TERÇA-FEIRA	200911	NOVEMBRO	0
+308	2009-11-04	2009	11	4	QUARTA-FEIRA	200911	NOVEMBRO	0
+309	2009-11-05	2009	11	5	QUINTA-FEIRA	200911	NOVEMBRO	0
+310	2009-11-06	2009	11	6	SEXTA-FEIRA	200911	NOVEMBRO	0
+311	2009-11-07	2009	11	7	SÁBADO	200911	NOVEMBRO	0
+312	2009-11-08	2009	11	8	DOMINGO	200911	NOVEMBRO	0
+313	2009-11-09	2009	11	9	SEGUNDA-FEIRA	200911	NOVEMBRO	0
+314	2009-11-10	2009	11	10	TERÇA-FEIRA	200911	NOVEMBRO	0
+315	2009-11-11	2009	11	11	QUARTA-FEIRA	200911	NOVEMBRO	0
+316	2009-11-12	2009	11	12	QUINTA-FEIRA	200911	NOVEMBRO	0
+317	2009-11-13	2009	11	13	SEXTA-FEIRA	200911	NOVEMBRO	0
+318	2009-11-14	2009	11	14	SÁBADO	200911	NOVEMBRO	0
+319	2009-11-15	2009	11	15	DOMINGO	200911	NOVEMBRO	0
+320	2009-11-16	2009	11	16	SEGUNDA-FEIRA	200911	NOVEMBRO	0
+321	2009-11-17	2009	11	17	TERÇA-FEIRA	200911	NOVEMBRO	0
+322	2009-11-18	2009	11	18	QUARTA-FEIRA	200911	NOVEMBRO	0
+323	2009-11-19	2009	11	19	QUINTA-FEIRA	200911	NOVEMBRO	0
+324	2009-11-20	2009	11	20	SEXTA-FEIRA	200911	NOVEMBRO	0
+325	2009-11-21	2009	11	21	SÁBADO	200911	NOVEMBRO	0
+326	2009-11-22	2009	11	22	DOMINGO	200911	NOVEMBRO	0
+327	2009-11-23	2009	11	23	SEGUNDA-FEIRA	200911	NOVEMBRO	0
+328	2009-11-24	2009	11	24	TERÇA-FEIRA	200911	NOVEMBRO	0
+329	2009-11-25	2009	11	25	QUARTA-FEIRA	200911	NOVEMBRO	0
+330	2009-11-26	2009	11	26	QUINTA-FEIRA	200911	NOVEMBRO	0
+331	2009-11-27	2009	11	27	SEXTA-FEIRA	200911	NOVEMBRO	0
+332	2009-11-28	2009	11	28	SÁBADO	200911	NOVEMBRO	0
+333	2009-11-29	2009	11	29	DOMINGO	200911	NOVEMBRO	0
+334	2009-11-30	2009	11	30	SEGUNDA-FEIRA	200911	NOVEMBRO	0
+335	2009-12-01	2009	12	1	TERÇA-FEIRA	200912	DEZEMBRO	0
+336	2009-12-02	2009	12	2	QUARTA-FEIRA	200912	DEZEMBRO	0
+337	2009-12-03	2009	12	3	QUINTA-FEIRA	200912	DEZEMBRO	0
+338	2009-12-04	2009	12	4	SEXTA-FEIRA	200912	DEZEMBRO	0
+339	2009-12-05	2009	12	5	SÁBADO	200912	DEZEMBRO	0
+340	2009-12-06	2009	12	6	DOMINGO	200912	DEZEMBRO	0
+341	2009-12-07	2009	12	7	SEGUNDA-FEIRA	200912	DEZEMBRO	0
+342	2009-12-08	2009	12	8	TERÇA-FEIRA	200912	DEZEMBRO	0
+343	2009-12-09	2009	12	9	QUARTA-FEIRA	200912	DEZEMBRO	0
+344	2009-12-10	2009	12	10	QUINTA-FEIRA	200912	DEZEMBRO	0
+345	2009-12-11	2009	12	11	SEXTA-FEIRA	200912	DEZEMBRO	0
+346	2009-12-12	2009	12	12	SÁBADO	200912	DEZEMBRO	0
+347	2009-12-13	2009	12	13	DOMINGO	200912	DEZEMBRO	0
+348	2009-12-14	2009	12	14	SEGUNDA-FEIRA	200912	DEZEMBRO	0
+349	2009-12-15	2009	12	15	TERÇA-FEIRA	200912	DEZEMBRO	0
+350	2009-12-16	2009	12	16	QUARTA-FEIRA	200912	DEZEMBRO	0
+351	2009-12-17	2009	12	17	QUINTA-FEIRA	200912	DEZEMBRO	0
+352	2009-12-18	2009	12	18	SEXTA-FEIRA	200912	DEZEMBRO	0
+353	2009-12-19	2009	12	19	SÁBADO	200912	DEZEMBRO	0
+354	2009-12-20	2009	12	20	DOMINGO	200912	DEZEMBRO	0
+355	2009-12-21	2009	12	21	SEGUNDA-FEIRA	200912	DEZEMBRO	0
+356	2009-12-22	2009	12	22	TERÇA-FEIRA	200912	DEZEMBRO	0
+357	2009-12-23	2009	12	23	QUARTA-FEIRA	200912	DEZEMBRO	0
+358	2009-12-24	2009	12	24	QUINTA-FEIRA	200912	DEZEMBRO	0
+359	2009-12-25	2009	12	25	SEXTA-FEIRA	200912	DEZEMBRO	0
+360	2009-12-26	2009	12	26	SÁBADO	200912	DEZEMBRO	0
+361	2009-12-27	2009	12	27	DOMINGO	200912	DEZEMBRO	0
+362	2009-12-28	2009	12	28	SEGUNDA-FEIRA	200912	DEZEMBRO	0
+363	2009-12-29	2009	12	29	TERÇA-FEIRA	200912	DEZEMBRO	0
+364	2009-12-30	2009	12	30	QUARTA-FEIRA	200912	DEZEMBRO	0
+365	2009-12-31	2009	12	31	QUINTA-FEIRA	200912	DEZEMBRO	0
+366	2010-01-01	2010	01	1	SEXTA-FEIRA	201001	JANEIRO	0
+367	2010-01-02	2010	01	2	SÁBADO	201001	JANEIRO	0
+368	2010-01-03	2010	01	3	DOMINGO	201001	JANEIRO	0
+369	2010-01-04	2010	01	4	SEGUNDA-FEIRA	201001	JANEIRO	0
+370	2010-01-05	2010	01	5	TERÇA-FEIRA	201001	JANEIRO	0
+371	2010-01-06	2010	01	6	QUARTA-FEIRA	201001	JANEIRO	0
+372	2010-01-07	2010	01	7	QUINTA-FEIRA	201001	JANEIRO	0
+373	2010-01-08	2010	01	8	SEXTA-FEIRA	201001	JANEIRO	0
+374	2010-01-09	2010	01	9	SÁBADO	201001	JANEIRO	0
+375	2010-01-10	2010	01	10	DOMINGO	201001	JANEIRO	0
+376	2010-01-11	2010	01	11	SEGUNDA-FEIRA	201001	JANEIRO	0
+377	2010-01-12	2010	01	12	TERÇA-FEIRA	201001	JANEIRO	0
+378	2010-01-13	2010	01	13	QUARTA-FEIRA	201001	JANEIRO	0
+379	2010-01-14	2010	01	14	QUINTA-FEIRA	201001	JANEIRO	0
+380	2010-01-15	2010	01	15	SEXTA-FEIRA	201001	JANEIRO	0
+381	2010-01-16	2010	01	16	SÁBADO	201001	JANEIRO	0
+382	2010-01-17	2010	01	17	DOMINGO	201001	JANEIRO	0
+383	2010-01-18	2010	01	18	SEGUNDA-FEIRA	201001	JANEIRO	0
+384	2010-01-19	2010	01	19	TERÇA-FEIRA	201001	JANEIRO	0
+385	2010-01-20	2010	01	20	QUARTA-FEIRA	201001	JANEIRO	0
+386	2010-01-21	2010	01	21	QUINTA-FEIRA	201001	JANEIRO	0
+387	2010-01-22	2010	01	22	SEXTA-FEIRA	201001	JANEIRO	0
+388	2010-01-23	2010	01	23	SÁBADO	201001	JANEIRO	0
+389	2010-01-24	2010	01	24	DOMINGO	201001	JANEIRO	0
+390	2010-01-25	2010	01	25	SEGUNDA-FEIRA	201001	JANEIRO	0
+391	2010-01-26	2010	01	26	TERÇA-FEIRA	201001	JANEIRO	0
+392	2010-01-27	2010	01	27	QUARTA-FEIRA	201001	JANEIRO	0
+393	2010-01-28	2010	01	28	QUINTA-FEIRA	201001	JANEIRO	0
+394	2010-01-29	2010	01	29	SEXTA-FEIRA	201001	JANEIRO	0
+395	2010-01-30	2010	01	30	SÁBADO	201001	JANEIRO	0
+396	2010-01-31	2010	01	31	DOMINGO	201001	JANEIRO	0
+397	2010-02-01	2010	02	1	SEGUNDA-FEIRA	201002	FEVEREIRO	0
+398	2010-02-02	2010	02	2	TERÇA-FEIRA	201002	FEVEREIRO	0
+399	2010-02-03	2010	02	3	QUARTA-FEIRA	201002	FEVEREIRO	0
+400	2010-02-04	2010	02	4	QUINTA-FEIRA	201002	FEVEREIRO	0
+401	2010-02-05	2010	02	5	SEXTA-FEIRA	201002	FEVEREIRO	0
+402	2010-02-06	2010	02	6	SÁBADO	201002	FEVEREIRO	0
+403	2010-02-07	2010	02	7	DOMINGO	201002	FEVEREIRO	0
+404	2010-02-08	2010	02	8	SEGUNDA-FEIRA	201002	FEVEREIRO	0
+405	2010-02-09	2010	02	9	TERÇA-FEIRA	201002	FEVEREIRO	0
+406	2010-02-10	2010	02	10	QUARTA-FEIRA	201002	FEVEREIRO	0
+407	2010-02-11	2010	02	11	QUINTA-FEIRA	201002	FEVEREIRO	0
+408	2010-02-12	2010	02	12	SEXTA-FEIRA	201002	FEVEREIRO	0
+409	2010-02-13	2010	02	13	SÁBADO	201002	FEVEREIRO	0
+410	2010-02-14	2010	02	14	DOMINGO	201002	FEVEREIRO	0
+411	2010-02-15	2010	02	15	SEGUNDA-FEIRA	201002	FEVEREIRO	0
+412	2010-02-16	2010	02	16	TERÇA-FEIRA	201002	FEVEREIRO	0
+413	2010-02-17	2010	02	17	QUARTA-FEIRA	201002	FEVEREIRO	0
+414	2010-02-18	2010	02	18	QUINTA-FEIRA	201002	FEVEREIRO	0
+415	2010-02-19	2010	02	19	SEXTA-FEIRA	201002	FEVEREIRO	0
+416	2010-02-20	2010	02	20	SÁBADO	201002	FEVEREIRO	0
+417	2010-02-21	2010	02	21	DOMINGO	201002	FEVEREIRO	0
+418	2010-02-22	2010	02	22	SEGUNDA-FEIRA	201002	FEVEREIRO	0
+419	2010-02-23	2010	02	23	TERÇA-FEIRA	201002	FEVEREIRO	0
+420	2010-02-24	2010	02	24	QUARTA-FEIRA	201002	FEVEREIRO	0
+421	2010-02-25	2010	02	25	QUINTA-FEIRA	201002	FEVEREIRO	0
+422	2010-02-26	2010	02	26	SEXTA-FEIRA	201002	FEVEREIRO	0
+423	2010-02-27	2010	02	27	SÁBADO	201002	FEVEREIRO	0
+424	2010-02-28	2010	02	28	DOMINGO	201002	FEVEREIRO	0
+425	2010-03-01	2010	03	1	SEGUNDA-FEIRA	201003	MARÇO	0
+426	2010-03-02	2010	03	2	TERÇA-FEIRA	201003	MARÇO	0
+427	2010-03-03	2010	03	3	QUARTA-FEIRA	201003	MARÇO	0
+428	2010-03-04	2010	03	4	QUINTA-FEIRA	201003	MARÇO	0
+429	2010-03-05	2010	03	5	SEXTA-FEIRA	201003	MARÇO	0
+430	2010-03-06	2010	03	6	SÁBADO	201003	MARÇO	0
+431	2010-03-07	2010	03	7	DOMINGO	201003	MARÇO	0
+432	2010-03-08	2010	03	8	SEGUNDA-FEIRA	201003	MARÇO	0
+433	2010-03-09	2010	03	9	TERÇA-FEIRA	201003	MARÇO	0
+434	2010-03-10	2010	03	10	QUARTA-FEIRA	201003	MARÇO	0
+435	2010-03-11	2010	03	11	QUINTA-FEIRA	201003	MARÇO	0
+436	2010-03-12	2010	03	12	SEXTA-FEIRA	201003	MARÇO	0
+437	2010-03-13	2010	03	13	SÁBADO	201003	MARÇO	0
+438	2010-03-14	2010	03	14	DOMINGO	201003	MARÇO	0
+439	2010-03-15	2010	03	15	SEGUNDA-FEIRA	201003	MARÇO	0
+440	2010-03-16	2010	03	16	TERÇA-FEIRA	201003	MARÇO	0
+441	2010-03-17	2010	03	17	QUARTA-FEIRA	201003	MARÇO	0
+442	2010-03-18	2010	03	18	QUINTA-FEIRA	201003	MARÇO	0
+443	2010-03-19	2010	03	19	SEXTA-FEIRA	201003	MARÇO	0
+444	2010-03-20	2010	03	20	SÁBADO	201003	MARÇO	0
+445	2010-03-21	2010	03	21	DOMINGO	201003	MARÇO	0
+446	2010-03-22	2010	03	22	SEGUNDA-FEIRA	201003	MARÇO	0
+447	2010-03-23	2010	03	23	TERÇA-FEIRA	201003	MARÇO	0
+448	2010-03-24	2010	03	24	QUARTA-FEIRA	201003	MARÇO	0
+449	2010-03-25	2010	03	25	QUINTA-FEIRA	201003	MARÇO	0
+450	2010-03-26	2010	03	26	SEXTA-FEIRA	201003	MARÇO	0
+451	2010-03-27	2010	03	27	SÁBADO	201003	MARÇO	0
+452	2010-03-28	2010	03	28	DOMINGO	201003	MARÇO	0
+453	2010-03-29	2010	03	29	SEGUNDA-FEIRA	201003	MARÇO	0
+454	2010-03-30	2010	03	30	TERÇA-FEIRA	201003	MARÇO	0
+455	2010-03-31	2010	03	31	QUARTA-FEIRA	201003	MARÇO	0
+456	2010-04-01	2010	04	1	QUINTA-FEIRA	201004	ABRIL	0
+457	2010-04-02	2010	04	2	SEXTA-FEIRA	201004	ABRIL	0
+458	2010-04-03	2010	04	3	SÁBADO	201004	ABRIL	0
+459	2010-04-04	2010	04	4	DOMINGO	201004	ABRIL	0
+460	2010-04-05	2010	04	5	SEGUNDA-FEIRA	201004	ABRIL	0
+461	2010-04-06	2010	04	6	TERÇA-FEIRA	201004	ABRIL	0
+462	2010-04-07	2010	04	7	QUARTA-FEIRA	201004	ABRIL	0
+463	2010-04-08	2010	04	8	QUINTA-FEIRA	201004	ABRIL	0
+464	2010-04-09	2010	04	9	SEXTA-FEIRA	201004	ABRIL	0
+465	2010-04-10	2010	04	10	SÁBADO	201004	ABRIL	0
+466	2010-04-11	2010	04	11	DOMINGO	201004	ABRIL	0
+467	2010-04-12	2010	04	12	SEGUNDA-FEIRA	201004	ABRIL	0
+468	2010-04-13	2010	04	13	TERÇA-FEIRA	201004	ABRIL	0
+469	2010-04-14	2010	04	14	QUARTA-FEIRA	201004	ABRIL	0
+470	2010-04-15	2010	04	15	QUINTA-FEIRA	201004	ABRIL	0
+471	2010-04-16	2010	04	16	SEXTA-FEIRA	201004	ABRIL	0
+472	2010-04-17	2010	04	17	SÁBADO	201004	ABRIL	0
+473	2010-04-18	2010	04	18	DOMINGO	201004	ABRIL	0
+474	2010-04-19	2010	04	19	SEGUNDA-FEIRA	201004	ABRIL	0
+475	2010-04-20	2010	04	20	TERÇA-FEIRA	201004	ABRIL	0
+476	2010-04-21	2010	04	21	QUARTA-FEIRA	201004	ABRIL	0
+477	2010-04-22	2010	04	22	QUINTA-FEIRA	201004	ABRIL	0
+478	2010-04-23	2010	04	23	SEXTA-FEIRA	201004	ABRIL	0
+479	2010-04-24	2010	04	24	SÁBADO	201004	ABRIL	0
+480	2010-04-25	2010	04	25	DOMINGO	201004	ABRIL	0
+481	2010-04-26	2010	04	26	SEGUNDA-FEIRA	201004	ABRIL	0
+482	2010-04-27	2010	04	27	TERÇA-FEIRA	201004	ABRIL	0
+483	2010-04-28	2010	04	28	QUARTA-FEIRA	201004	ABRIL	0
+484	2010-04-29	2010	04	29	QUINTA-FEIRA	201004	ABRIL	0
+485	2010-04-30	2010	04	30	SEXTA-FEIRA	201004	ABRIL	0
+486	2010-05-01	2010	05	1	SÁBADO	201005	MAIO	0
+487	2010-05-02	2010	05	2	DOMINGO	201005	MAIO	0
+488	2010-05-03	2010	05	3	SEGUNDA-FEIRA	201005	MAIO	0
+489	2010-05-04	2010	05	4	TERÇA-FEIRA	201005	MAIO	0
+490	2010-05-05	2010	05	5	QUARTA-FEIRA	201005	MAIO	0
+491	2010-05-06	2010	05	6	QUINTA-FEIRA	201005	MAIO	0
+492	2010-05-07	2010	05	7	SEXTA-FEIRA	201005	MAIO	0
+493	2010-05-08	2010	05	8	SÁBADO	201005	MAIO	0
+494	2010-05-09	2010	05	9	DOMINGO	201005	MAIO	0
+495	2010-05-10	2010	05	10	SEGUNDA-FEIRA	201005	MAIO	0
+496	2010-05-11	2010	05	11	TERÇA-FEIRA	201005	MAIO	0
+497	2010-05-12	2010	05	12	QUARTA-FEIRA	201005	MAIO	0
+498	2010-05-13	2010	05	13	QUINTA-FEIRA	201005	MAIO	0
+499	2010-05-14	2010	05	14	SEXTA-FEIRA	201005	MAIO	0
+500	2010-05-15	2010	05	15	SÁBADO	201005	MAIO	0
+501	2010-05-16	2010	05	16	DOMINGO	201005	MAIO	0
+502	2010-05-17	2010	05	17	SEGUNDA-FEIRA	201005	MAIO	0
+503	2010-05-18	2010	05	18	TERÇA-FEIRA	201005	MAIO	0
+504	2010-05-19	2010	05	19	QUARTA-FEIRA	201005	MAIO	0
+505	2010-05-20	2010	05	20	QUINTA-FEIRA	201005	MAIO	0
+506	2010-05-21	2010	05	21	SEXTA-FEIRA	201005	MAIO	0
+507	2010-05-22	2010	05	22	SÁBADO	201005	MAIO	0
+508	2010-05-23	2010	05	23	DOMINGO	201005	MAIO	0
+509	2010-05-24	2010	05	24	SEGUNDA-FEIRA	201005	MAIO	0
+510	2010-05-25	2010	05	25	TERÇA-FEIRA	201005	MAIO	0
+511	2010-05-26	2010	05	26	QUARTA-FEIRA	201005	MAIO	0
+512	2010-05-27	2010	05	27	QUINTA-FEIRA	201005	MAIO	0
+513	2010-05-28	2010	05	28	SEXTA-FEIRA	201005	MAIO	0
+514	2010-05-29	2010	05	29	SÁBADO	201005	MAIO	0
+515	2010-05-30	2010	05	30	DOMINGO	201005	MAIO	0
+516	2010-05-31	2010	05	31	SEGUNDA-FEIRA	201005	MAIO	0
+517	2010-06-01	2010	06	1	TERÇA-FEIRA	201006	JUNHO	0
+518	2010-06-02	2010	06	2	QUARTA-FEIRA	201006	JUNHO	0
+519	2010-06-03	2010	06	3	QUINTA-FEIRA	201006	JUNHO	0
+520	2010-06-04	2010	06	4	SEXTA-FEIRA	201006	JUNHO	0
+521	2010-06-05	2010	06	5	SÁBADO	201006	JUNHO	0
+522	2010-06-06	2010	06	6	DOMINGO	201006	JUNHO	0
+523	2010-06-07	2010	06	7	SEGUNDA-FEIRA	201006	JUNHO	0
+524	2010-06-08	2010	06	8	TERÇA-FEIRA	201006	JUNHO	0
+525	2010-06-09	2010	06	9	QUARTA-FEIRA	201006	JUNHO	0
+526	2010-06-10	2010	06	10	QUINTA-FEIRA	201006	JUNHO	0
+527	2010-06-11	2010	06	11	SEXTA-FEIRA	201006	JUNHO	0
+528	2010-06-12	2010	06	12	SÁBADO	201006	JUNHO	0
+529	2010-06-13	2010	06	13	DOMINGO	201006	JUNHO	0
+530	2010-06-14	2010	06	14	SEGUNDA-FEIRA	201006	JUNHO	0
+531	2010-06-15	2010	06	15	TERÇA-FEIRA	201006	JUNHO	0
+532	2010-06-16	2010	06	16	QUARTA-FEIRA	201006	JUNHO	0
+533	2010-06-17	2010	06	17	QUINTA-FEIRA	201006	JUNHO	0
+534	2010-06-18	2010	06	18	SEXTA-FEIRA	201006	JUNHO	0
+535	2010-06-19	2010	06	19	SÁBADO	201006	JUNHO	0
+536	2010-06-20	2010	06	20	DOMINGO	201006	JUNHO	0
+537	2010-06-21	2010	06	21	SEGUNDA-FEIRA	201006	JUNHO	0
+538	2010-06-22	2010	06	22	TERÇA-FEIRA	201006	JUNHO	0
+539	2010-06-23	2010	06	23	QUARTA-FEIRA	201006	JUNHO	0
+540	2010-06-24	2010	06	24	QUINTA-FEIRA	201006	JUNHO	0
+541	2010-06-25	2010	06	25	SEXTA-FEIRA	201006	JUNHO	0
+542	2010-06-26	2010	06	26	SÁBADO	201006	JUNHO	0
+543	2010-06-27	2010	06	27	DOMINGO	201006	JUNHO	0
+544	2010-06-28	2010	06	28	SEGUNDA-FEIRA	201006	JUNHO	0
+545	2010-06-29	2010	06	29	TERÇA-FEIRA	201006	JUNHO	0
+546	2010-06-30	2010	06	30	QUARTA-FEIRA	201006	JUNHO	0
+547	2010-07-01	2010	07	1	QUINTA-FEIRA	201007	JULHO	0
+548	2010-07-02	2010	07	2	SEXTA-FEIRA	201007	JULHO	0
+549	2010-07-03	2010	07	3	SÁBADO	201007	JULHO	0
+550	2010-07-04	2010	07	4	DOMINGO	201007	JULHO	0
+551	2010-07-05	2010	07	5	SEGUNDA-FEIRA	201007	JULHO	0
+552	2010-07-06	2010	07	6	TERÇA-FEIRA	201007	JULHO	0
+553	2010-07-07	2010	07	7	QUARTA-FEIRA	201007	JULHO	0
+554	2010-07-08	2010	07	8	QUINTA-FEIRA	201007	JULHO	0
+555	2010-07-09	2010	07	9	SEXTA-FEIRA	201007	JULHO	0
+556	2010-07-10	2010	07	10	SÁBADO	201007	JULHO	0
+557	2010-07-11	2010	07	11	DOMINGO	201007	JULHO	0
+558	2010-07-12	2010	07	12	SEGUNDA-FEIRA	201007	JULHO	0
+559	2010-07-13	2010	07	13	TERÇA-FEIRA	201007	JULHO	0
+560	2010-07-14	2010	07	14	QUARTA-FEIRA	201007	JULHO	0
+561	2010-07-15	2010	07	15	QUINTA-FEIRA	201007	JULHO	0
+562	2010-07-16	2010	07	16	SEXTA-FEIRA	201007	JULHO	0
+563	2010-07-17	2010	07	17	SÁBADO	201007	JULHO	0
+564	2010-07-18	2010	07	18	DOMINGO	201007	JULHO	0
+565	2010-07-19	2010	07	19	SEGUNDA-FEIRA	201007	JULHO	0
+566	2010-07-20	2010	07	20	TERÇA-FEIRA	201007	JULHO	0
+567	2010-07-21	2010	07	21	QUARTA-FEIRA	201007	JULHO	0
+568	2010-07-22	2010	07	22	QUINTA-FEIRA	201007	JULHO	0
+569	2010-07-23	2010	07	23	SEXTA-FEIRA	201007	JULHO	0
+570	2010-07-24	2010	07	24	SÁBADO	201007	JULHO	0
+571	2010-07-25	2010	07	25	DOMINGO	201007	JULHO	0
+572	2010-07-26	2010	07	26	SEGUNDA-FEIRA	201007	JULHO	0
+573	2010-07-27	2010	07	27	TERÇA-FEIRA	201007	JULHO	0
+574	2010-07-28	2010	07	28	QUARTA-FEIRA	201007	JULHO	0
+575	2010-07-29	2010	07	29	QUINTA-FEIRA	201007	JULHO	0
+576	2010-07-30	2010	07	30	SEXTA-FEIRA	201007	JULHO	0
+577	2010-07-31	2010	07	31	SÁBADO	201007	JULHO	0
+578	2010-08-01	2010	08	1	DOMINGO	201008	AGOSTO	0
+579	2010-08-02	2010	08	2	SEGUNDA-FEIRA	201008	AGOSTO	0
+580	2010-08-03	2010	08	3	TERÇA-FEIRA	201008	AGOSTO	0
+581	2010-08-04	2010	08	4	QUARTA-FEIRA	201008	AGOSTO	0
+582	2010-08-05	2010	08	5	QUINTA-FEIRA	201008	AGOSTO	0
+583	2010-08-06	2010	08	6	SEXTA-FEIRA	201008	AGOSTO	0
+584	2010-08-07	2010	08	7	SÁBADO	201008	AGOSTO	0
+585	2010-08-08	2010	08	8	DOMINGO	201008	AGOSTO	0
+586	2010-08-09	2010	08	9	SEGUNDA-FEIRA	201008	AGOSTO	0
+587	2010-08-10	2010	08	10	TERÇA-FEIRA	201008	AGOSTO	0
+588	2010-08-11	2010	08	11	QUARTA-FEIRA	201008	AGOSTO	0
+589	2010-08-12	2010	08	12	QUINTA-FEIRA	201008	AGOSTO	0
+590	2010-08-13	2010	08	13	SEXTA-FEIRA	201008	AGOSTO	0
+591	2010-08-14	2010	08	14	SÁBADO	201008	AGOSTO	0
+592	2010-08-15	2010	08	15	DOMINGO	201008	AGOSTO	0
+593	2010-08-16	2010	08	16	SEGUNDA-FEIRA	201008	AGOSTO	0
+594	2010-08-17	2010	08	17	TERÇA-FEIRA	201008	AGOSTO	0
+595	2010-08-18	2010	08	18	QUARTA-FEIRA	201008	AGOSTO	0
+596	2010-08-19	2010	08	19	QUINTA-FEIRA	201008	AGOSTO	0
+597	2010-08-20	2010	08	20	SEXTA-FEIRA	201008	AGOSTO	0
+598	2010-08-21	2010	08	21	SÁBADO	201008	AGOSTO	0
+599	2010-08-22	2010	08	22	DOMINGO	201008	AGOSTO	0
+600	2010-08-23	2010	08	23	SEGUNDA-FEIRA	201008	AGOSTO	0
+601	2010-08-24	2010	08	24	TERÇA-FEIRA	201008	AGOSTO	0
+602	2010-08-25	2010	08	25	QUARTA-FEIRA	201008	AGOSTO	0
+603	2010-08-26	2010	08	26	QUINTA-FEIRA	201008	AGOSTO	0
+604	2010-08-27	2010	08	27	SEXTA-FEIRA	201008	AGOSTO	0
+605	2010-08-28	2010	08	28	SÁBADO	201008	AGOSTO	0
+606	2010-08-29	2010	08	29	DOMINGO	201008	AGOSTO	0
+607	2010-08-30	2010	08	30	SEGUNDA-FEIRA	201008	AGOSTO	0
+608	2010-08-31	2010	08	31	TERÇA-FEIRA	201008	AGOSTO	0
+609	2010-09-01	2010	09	1	QUARTA-FEIRA	201009	SETEMBRO	0
+610	2010-09-02	2010	09	2	QUINTA-FEIRA	201009	SETEMBRO	0
+611	2010-09-03	2010	09	3	SEXTA-FEIRA	201009	SETEMBRO	0
+612	2010-09-04	2010	09	4	SÁBADO	201009	SETEMBRO	0
+613	2010-09-05	2010	09	5	DOMINGO	201009	SETEMBRO	0
+614	2010-09-06	2010	09	6	SEGUNDA-FEIRA	201009	SETEMBRO	0
+615	2010-09-07	2010	09	7	TERÇA-FEIRA	201009	SETEMBRO	0
+616	2010-09-08	2010	09	8	QUARTA-FEIRA	201009	SETEMBRO	0
+617	2010-09-09	2010	09	9	QUINTA-FEIRA	201009	SETEMBRO	0
+618	2010-09-10	2010	09	10	SEXTA-FEIRA	201009	SETEMBRO	0
+619	2010-09-11	2010	09	11	SÁBADO	201009	SETEMBRO	0
+620	2010-09-12	2010	09	12	DOMINGO	201009	SETEMBRO	0
+621	2010-09-13	2010	09	13	SEGUNDA-FEIRA	201009	SETEMBRO	0
+622	2010-09-14	2010	09	14	TERÇA-FEIRA	201009	SETEMBRO	0
+623	2010-09-15	2010	09	15	QUARTA-FEIRA	201009	SETEMBRO	0
+624	2010-09-16	2010	09	16	QUINTA-FEIRA	201009	SETEMBRO	0
+625	2010-09-17	2010	09	17	SEXTA-FEIRA	201009	SETEMBRO	0
+626	2010-09-18	2010	09	18	SÁBADO	201009	SETEMBRO	0
+627	2010-09-19	2010	09	19	DOMINGO	201009	SETEMBRO	0
+628	2010-09-20	2010	09	20	SEGUNDA-FEIRA	201009	SETEMBRO	0
+629	2010-09-21	2010	09	21	TERÇA-FEIRA	201009	SETEMBRO	0
+630	2010-09-22	2010	09	22	QUARTA-FEIRA	201009	SETEMBRO	0
+631	2010-09-23	2010	09	23	QUINTA-FEIRA	201009	SETEMBRO	0
+632	2010-09-24	2010	09	24	SEXTA-FEIRA	201009	SETEMBRO	0
+633	2010-09-25	2010	09	25	SÁBADO	201009	SETEMBRO	0
+634	2010-09-26	2010	09	26	DOMINGO	201009	SETEMBRO	0
+635	2010-09-27	2010	09	27	SEGUNDA-FEIRA	201009	SETEMBRO	0
+636	2010-09-28	2010	09	28	TERÇA-FEIRA	201009	SETEMBRO	0
+637	2010-09-29	2010	09	29	QUARTA-FEIRA	201009	SETEMBRO	0
+638	2010-09-30	2010	09	30	QUINTA-FEIRA	201009	SETEMBRO	0
+639	2010-10-01	2010	10	1	SEXTA-FEIRA	201010	OUTUBRO	0
+640	2010-10-02	2010	10	2	SÁBADO	201010	OUTUBRO	0
+641	2010-10-03	2010	10	3	DOMINGO	201010	OUTUBRO	0
+642	2010-10-04	2010	10	4	SEGUNDA-FEIRA	201010	OUTUBRO	0
+643	2010-10-05	2010	10	5	TERÇA-FEIRA	201010	OUTUBRO	0
+644	2010-10-06	2010	10	6	QUARTA-FEIRA	201010	OUTUBRO	0
+645	2010-10-07	2010	10	7	QUINTA-FEIRA	201010	OUTUBRO	0
+646	2010-10-08	2010	10	8	SEXTA-FEIRA	201010	OUTUBRO	0
+647	2010-10-09	2010	10	9	SÁBADO	201010	OUTUBRO	0
+648	2010-10-10	2010	10	10	DOMINGO	201010	OUTUBRO	0
+649	2010-10-11	2010	10	11	SEGUNDA-FEIRA	201010	OUTUBRO	0
+650	2010-10-12	2010	10	12	TERÇA-FEIRA	201010	OUTUBRO	0
+651	2010-10-13	2010	10	13	QUARTA-FEIRA	201010	OUTUBRO	0
+652	2010-10-14	2010	10	14	QUINTA-FEIRA	201010	OUTUBRO	0
+653	2010-10-15	2010	10	15	SEXTA-FEIRA	201010	OUTUBRO	0
+654	2010-10-16	2010	10	16	SÁBADO	201010	OUTUBRO	0
+655	2010-10-17	2010	10	17	DOMINGO	201010	OUTUBRO	0
+656	2010-10-18	2010	10	18	SEGUNDA-FEIRA	201010	OUTUBRO	0
+657	2010-10-19	2010	10	19	TERÇA-FEIRA	201010	OUTUBRO	0
+658	2010-10-20	2010	10	20	QUARTA-FEIRA	201010	OUTUBRO	0
+659	2010-10-21	2010	10	21	QUINTA-FEIRA	201010	OUTUBRO	0
+660	2010-10-22	2010	10	22	SEXTA-FEIRA	201010	OUTUBRO	0
+661	2010-10-23	2010	10	23	SÁBADO	201010	OUTUBRO	0
+662	2010-10-24	2010	10	24	DOMINGO	201010	OUTUBRO	0
+663	2010-10-25	2010	10	25	SEGUNDA-FEIRA	201010	OUTUBRO	0
+664	2010-10-26	2010	10	26	TERÇA-FEIRA	201010	OUTUBRO	0
+665	2010-10-27	2010	10	27	QUARTA-FEIRA	201010	OUTUBRO	0
+666	2010-10-28	2010	10	28	QUINTA-FEIRA	201010	OUTUBRO	0
+667	2010-10-29	2010	10	29	SEXTA-FEIRA	201010	OUTUBRO	0
+668	2010-10-30	2010	10	30	SÁBADO	201010	OUTUBRO	0
+669	2010-10-31	2010	10	31	DOMINGO	201010	OUTUBRO	0
+670	2010-11-01	2010	11	1	SEGUNDA-FEIRA	201011	NOVEMBRO	0
+671	2010-11-02	2010	11	2	TERÇA-FEIRA	201011	NOVEMBRO	0
+672	2010-11-03	2010	11	3	QUARTA-FEIRA	201011	NOVEMBRO	0
+673	2010-11-04	2010	11	4	QUINTA-FEIRA	201011	NOVEMBRO	0
+674	2010-11-05	2010	11	5	SEXTA-FEIRA	201011	NOVEMBRO	0
+675	2010-11-06	2010	11	6	SÁBADO	201011	NOVEMBRO	0
+676	2010-11-07	2010	11	7	DOMINGO	201011	NOVEMBRO	0
+677	2010-11-08	2010	11	8	SEGUNDA-FEIRA	201011	NOVEMBRO	0
+678	2010-11-09	2010	11	9	TERÇA-FEIRA	201011	NOVEMBRO	0
+679	2010-11-10	2010	11	10	QUARTA-FEIRA	201011	NOVEMBRO	0
+680	2010-11-11	2010	11	11	QUINTA-FEIRA	201011	NOVEMBRO	0
+681	2010-11-12	2010	11	12	SEXTA-FEIRA	201011	NOVEMBRO	0
+682	2010-11-13	2010	11	13	SÁBADO	201011	NOVEMBRO	0
+683	2010-11-14	2010	11	14	DOMINGO	201011	NOVEMBRO	0
+684	2010-11-15	2010	11	15	SEGUNDA-FEIRA	201011	NOVEMBRO	0
+685	2010-11-16	2010	11	16	TERÇA-FEIRA	201011	NOVEMBRO	0
+686	2010-11-17	2010	11	17	QUARTA-FEIRA	201011	NOVEMBRO	0
+687	2010-11-18	2010	11	18	QUINTA-FEIRA	201011	NOVEMBRO	0
+688	2010-11-19	2010	11	19	SEXTA-FEIRA	201011	NOVEMBRO	0
+689	2010-11-20	2010	11	20	SÁBADO	201011	NOVEMBRO	0
+690	2010-11-21	2010	11	21	DOMINGO	201011	NOVEMBRO	0
+691	2010-11-22	2010	11	22	SEGUNDA-FEIRA	201011	NOVEMBRO	0
+692	2010-11-23	2010	11	23	TERÇA-FEIRA	201011	NOVEMBRO	0
+693	2010-11-24	2010	11	24	QUARTA-FEIRA	201011	NOVEMBRO	0
+694	2010-11-25	2010	11	25	QUINTA-FEIRA	201011	NOVEMBRO	0
+695	2010-11-26	2010	11	26	SEXTA-FEIRA	201011	NOVEMBRO	0
+696	2010-11-27	2010	11	27	SÁBADO	201011	NOVEMBRO	0
+697	2010-11-28	2010	11	28	DOMINGO	201011	NOVEMBRO	0
+698	2010-11-29	2010	11	29	SEGUNDA-FEIRA	201011	NOVEMBRO	0
+699	2010-11-30	2010	11	30	TERÇA-FEIRA	201011	NOVEMBRO	0
+700	2010-12-01	2010	12	1	QUARTA-FEIRA	201012	DEZEMBRO	0
+701	2010-12-02	2010	12	2	QUINTA-FEIRA	201012	DEZEMBRO	0
+702	2010-12-03	2010	12	3	SEXTA-FEIRA	201012	DEZEMBRO	0
+703	2010-12-04	2010	12	4	SÁBADO	201012	DEZEMBRO	0
+704	2010-12-05	2010	12	5	DOMINGO	201012	DEZEMBRO	0
+705	2010-12-06	2010	12	6	SEGUNDA-FEIRA	201012	DEZEMBRO	0
+706	2010-12-07	2010	12	7	TERÇA-FEIRA	201012	DEZEMBRO	0
+707	2010-12-08	2010	12	8	QUARTA-FEIRA	201012	DEZEMBRO	0
+708	2010-12-09	2010	12	9	QUINTA-FEIRA	201012	DEZEMBRO	0
+709	2010-12-10	2010	12	10	SEXTA-FEIRA	201012	DEZEMBRO	0
+710	2010-12-11	2010	12	11	SÁBADO	201012	DEZEMBRO	0
+711	2010-12-12	2010	12	12	DOMINGO	201012	DEZEMBRO	0
+712	2010-12-13	2010	12	13	SEGUNDA-FEIRA	201012	DEZEMBRO	0
+713	2010-12-14	2010	12	14	TERÇA-FEIRA	201012	DEZEMBRO	0
+714	2010-12-15	2010	12	15	QUARTA-FEIRA	201012	DEZEMBRO	0
+715	2010-12-16	2010	12	16	QUINTA-FEIRA	201012	DEZEMBRO	0
+716	2010-12-17	2010	12	17	SEXTA-FEIRA	201012	DEZEMBRO	0
+717	2010-12-18	2010	12	18	SÁBADO	201012	DEZEMBRO	0
+718	2010-12-19	2010	12	19	DOMINGO	201012	DEZEMBRO	0
+719	2010-12-20	2010	12	20	SEGUNDA-FEIRA	201012	DEZEMBRO	0
+720	2010-12-21	2010	12	21	TERÇA-FEIRA	201012	DEZEMBRO	0
+721	2010-12-22	2010	12	22	QUARTA-FEIRA	201012	DEZEMBRO	0
+722	2010-12-23	2010	12	23	QUINTA-FEIRA	201012	DEZEMBRO	0
+723	2010-12-24	2010	12	24	SEXTA-FEIRA	201012	DEZEMBRO	0
+724	2010-12-25	2010	12	25	SÁBADO	201012	DEZEMBRO	0
+725	2010-12-26	2010	12	26	DOMINGO	201012	DEZEMBRO	0
+726	2010-12-27	2010	12	27	SEGUNDA-FEIRA	201012	DEZEMBRO	0
+727	2010-12-28	2010	12	28	TERÇA-FEIRA	201012	DEZEMBRO	0
+728	2010-12-29	2010	12	29	QUARTA-FEIRA	201012	DEZEMBRO	0
+729	2010-12-30	2010	12	30	QUINTA-FEIRA	201012	DEZEMBRO	0
+730	2010-12-31	2010	12	31	SEXTA-FEIRA	201012	DEZEMBRO	0
+731	2011-01-01	2011	01	1	SÁBADO	201101	JANEIRO	0
+732	2011-01-02	2011	01	2	DOMINGO	201101	JANEIRO	0
+733	2011-01-03	2011	01	3	SEGUNDA-FEIRA	201101	JANEIRO	0
+734	2011-01-04	2011	01	4	TERÇA-FEIRA	201101	JANEIRO	0
+735	2011-01-05	2011	01	5	QUARTA-FEIRA	201101	JANEIRO	0
+736	2011-01-06	2011	01	6	QUINTA-FEIRA	201101	JANEIRO	0
+737	2011-01-07	2011	01	7	SEXTA-FEIRA	201101	JANEIRO	0
+738	2011-01-08	2011	01	8	SÁBADO	201101	JANEIRO	0
+739	2011-01-09	2011	01	9	DOMINGO	201101	JANEIRO	0
+740	2011-01-10	2011	01	10	SEGUNDA-FEIRA	201101	JANEIRO	0
+741	2011-01-11	2011	01	11	TERÇA-FEIRA	201101	JANEIRO	0
+742	2011-01-12	2011	01	12	QUARTA-FEIRA	201101	JANEIRO	0
+743	2011-01-13	2011	01	13	QUINTA-FEIRA	201101	JANEIRO	0
+744	2011-01-14	2011	01	14	SEXTA-FEIRA	201101	JANEIRO	0
+745	2011-01-15	2011	01	15	SÁBADO	201101	JANEIRO	0
+746	2011-01-16	2011	01	16	DOMINGO	201101	JANEIRO	0
+747	2011-01-17	2011	01	17	SEGUNDA-FEIRA	201101	JANEIRO	0
+748	2011-01-18	2011	01	18	TERÇA-FEIRA	201101	JANEIRO	0
+749	2011-01-19	2011	01	19	QUARTA-FEIRA	201101	JANEIRO	0
+750	2011-01-20	2011	01	20	QUINTA-FEIRA	201101	JANEIRO	0
+751	2011-01-21	2011	01	21	SEXTA-FEIRA	201101	JANEIRO	0
+752	2011-01-22	2011	01	22	SÁBADO	201101	JANEIRO	0
+753	2011-01-23	2011	01	23	DOMINGO	201101	JANEIRO	0
+754	2011-01-24	2011	01	24	SEGUNDA-FEIRA	201101	JANEIRO	0
+755	2011-01-25	2011	01	25	TERÇA-FEIRA	201101	JANEIRO	0
+756	2011-01-26	2011	01	26	QUARTA-FEIRA	201101	JANEIRO	0
+757	2011-01-27	2011	01	27	QUINTA-FEIRA	201101	JANEIRO	0
+758	2011-01-28	2011	01	28	SEXTA-FEIRA	201101	JANEIRO	0
+759	2011-01-29	2011	01	29	SÁBADO	201101	JANEIRO	0
+760	2011-01-30	2011	01	30	DOMINGO	201101	JANEIRO	0
+761	2011-01-31	2011	01	31	SEGUNDA-FEIRA	201101	JANEIRO	0
+762	2011-02-01	2011	02	1	TERÇA-FEIRA	201102	FEVEREIRO	0
+763	2011-02-02	2011	02	2	QUARTA-FEIRA	201102	FEVEREIRO	0
+764	2011-02-03	2011	02	3	QUINTA-FEIRA	201102	FEVEREIRO	0
+765	2011-02-04	2011	02	4	SEXTA-FEIRA	201102	FEVEREIRO	0
+766	2011-02-05	2011	02	5	SÁBADO	201102	FEVEREIRO	0
+767	2011-02-06	2011	02	6	DOMINGO	201102	FEVEREIRO	0
+768	2011-02-07	2011	02	7	SEGUNDA-FEIRA	201102	FEVEREIRO	0
+769	2011-02-08	2011	02	8	TERÇA-FEIRA	201102	FEVEREIRO	0
+770	2011-02-09	2011	02	9	QUARTA-FEIRA	201102	FEVEREIRO	0
+771	2011-02-10	2011	02	10	QUINTA-FEIRA	201102	FEVEREIRO	0
+772	2011-02-11	2011	02	11	SEXTA-FEIRA	201102	FEVEREIRO	0
+773	2011-02-12	2011	02	12	SÁBADO	201102	FEVEREIRO	0
+774	2011-02-13	2011	02	13	DOMINGO	201102	FEVEREIRO	0
+775	2011-02-14	2011	02	14	SEGUNDA-FEIRA	201102	FEVEREIRO	0
+776	2011-02-15	2011	02	15	TERÇA-FEIRA	201102	FEVEREIRO	0
+777	2011-02-16	2011	02	16	QUARTA-FEIRA	201102	FEVEREIRO	0
+778	2011-02-17	2011	02	17	QUINTA-FEIRA	201102	FEVEREIRO	0
+779	2011-02-18	2011	02	18	SEXTA-FEIRA	201102	FEVEREIRO	0
+780	2011-02-19	2011	02	19	SÁBADO	201102	FEVEREIRO	0
+781	2011-02-20	2011	02	20	DOMINGO	201102	FEVEREIRO	0
+782	2011-02-21	2011	02	21	SEGUNDA-FEIRA	201102	FEVEREIRO	0
+783	2011-02-22	2011	02	22	TERÇA-FEIRA	201102	FEVEREIRO	0
+784	2011-02-23	2011	02	23	QUARTA-FEIRA	201102	FEVEREIRO	0
+785	2011-02-24	2011	02	24	QUINTA-FEIRA	201102	FEVEREIRO	0
+786	2011-02-25	2011	02	25	SEXTA-FEIRA	201102	FEVEREIRO	0
+787	2011-02-26	2011	02	26	SÁBADO	201102	FEVEREIRO	0
+788	2011-02-27	2011	02	27	DOMINGO	201102	FEVEREIRO	0
+789	2011-02-28	2011	02	28	SEGUNDA-FEIRA	201102	FEVEREIRO	0
+790	2011-03-01	2011	03	1	TERÇA-FEIRA	201103	MARÇO	0
+791	2011-03-02	2011	03	2	QUARTA-FEIRA	201103	MARÇO	0
+792	2011-03-03	2011	03	3	QUINTA-FEIRA	201103	MARÇO	0
+793	2011-03-04	2011	03	4	SEXTA-FEIRA	201103	MARÇO	0
+794	2011-03-05	2011	03	5	SÁBADO	201103	MARÇO	0
+795	2011-03-06	2011	03	6	DOMINGO	201103	MARÇO	0
+796	2011-03-07	2011	03	7	SEGUNDA-FEIRA	201103	MARÇO	0
+797	2011-03-08	2011	03	8	TERÇA-FEIRA	201103	MARÇO	0
+798	2011-03-09	2011	03	9	QUARTA-FEIRA	201103	MARÇO	0
+799	2011-03-10	2011	03	10	QUINTA-FEIRA	201103	MARÇO	0
+800	2011-03-11	2011	03	11	SEXTA-FEIRA	201103	MARÇO	0
+801	2011-03-12	2011	03	12	SÁBADO	201103	MARÇO	0
+802	2011-03-13	2011	03	13	DOMINGO	201103	MARÇO	0
+803	2011-03-14	2011	03	14	SEGUNDA-FEIRA	201103	MARÇO	0
+804	2011-03-15	2011	03	15	TERÇA-FEIRA	201103	MARÇO	0
+805	2011-03-16	2011	03	16	QUARTA-FEIRA	201103	MARÇO	0
+806	2011-03-17	2011	03	17	QUINTA-FEIRA	201103	MARÇO	0
+807	2011-03-18	2011	03	18	SEXTA-FEIRA	201103	MARÇO	0
+808	2011-03-19	2011	03	19	SÁBADO	201103	MARÇO	0
+809	2011-03-20	2011	03	20	DOMINGO	201103	MARÇO	0
+810	2011-03-21	2011	03	21	SEGUNDA-FEIRA	201103	MARÇO	0
+811	2011-03-22	2011	03	22	TERÇA-FEIRA	201103	MARÇO	0
+812	2011-03-23	2011	03	23	QUARTA-FEIRA	201103	MARÇO	0
+813	2011-03-24	2011	03	24	QUINTA-FEIRA	201103	MARÇO	0
+814	2011-03-25	2011	03	25	SEXTA-FEIRA	201103	MARÇO	0
+815	2011-03-26	2011	03	26	SÁBADO	201103	MARÇO	0
+816	2011-03-27	2011	03	27	DOMINGO	201103	MARÇO	0
+817	2011-03-28	2011	03	28	SEGUNDA-FEIRA	201103	MARÇO	0
+818	2011-03-29	2011	03	29	TERÇA-FEIRA	201103	MARÇO	0
+819	2011-03-30	2011	03	30	QUARTA-FEIRA	201103	MARÇO	0
+820	2011-03-31	2011	03	31	QUINTA-FEIRA	201103	MARÇO	0
+821	2011-04-01	2011	04	1	SEXTA-FEIRA	201104	ABRIL	0
+822	2011-04-02	2011	04	2	SÁBADO	201104	ABRIL	0
+823	2011-04-03	2011	04	3	DOMINGO	201104	ABRIL	0
+824	2011-04-04	2011	04	4	SEGUNDA-FEIRA	201104	ABRIL	0
+825	2011-04-05	2011	04	5	TERÇA-FEIRA	201104	ABRIL	0
+826	2011-04-06	2011	04	6	QUARTA-FEIRA	201104	ABRIL	0
+827	2011-04-07	2011	04	7	QUINTA-FEIRA	201104	ABRIL	0
+828	2011-04-08	2011	04	8	SEXTA-FEIRA	201104	ABRIL	0
+829	2011-04-09	2011	04	9	SÁBADO	201104	ABRIL	0
+830	2011-04-10	2011	04	10	DOMINGO	201104	ABRIL	0
+831	2011-04-11	2011	04	11	SEGUNDA-FEIRA	201104	ABRIL	0
+832	2011-04-12	2011	04	12	TERÇA-FEIRA	201104	ABRIL	0
+3185	2017-09-20	2017	09	20	QUARTA-FEIRA	201709	SETEMBRO	0
+3186	2017-09-21	2017	09	21	QUINTA-FEIRA	201709	SETEMBRO	0
+3187	2017-09-22	2017	09	22	SEXTA-FEIRA	201709	SETEMBRO	0
+3188	2017-09-23	2017	09	23	SÁBADO	201709	SETEMBRO	0
+3189	2017-09-24	2017	09	24	DOMINGO	201709	SETEMBRO	0
+3190	2017-09-25	2017	09	25	SEGUNDA-FEIRA	201709	SETEMBRO	0
+3191	2017-09-26	2017	09	26	TERÇA-FEIRA	201709	SETEMBRO	0
+3192	2017-09-27	2017	09	27	QUARTA-FEIRA	201709	SETEMBRO	0
+3193	2017-09-28	2017	09	28	QUINTA-FEIRA	201709	SETEMBRO	0
+3194	2017-09-29	2017	09	29	SEXTA-FEIRA	201709	SETEMBRO	0
+3195	2017-09-30	2017	09	30	SÁBADO	201709	SETEMBRO	0
+3196	2017-10-01	2017	10	1	DOMINGO	201710	OUTUBRO	0
+3197	2017-10-02	2017	10	2	SEGUNDA-FEIRA	201710	OUTUBRO	0
+3198	2017-10-03	2017	10	3	TERÇA-FEIRA	201710	OUTUBRO	0
+3199	2017-10-04	2017	10	4	QUARTA-FEIRA	201710	OUTUBRO	0
+3200	2017-10-05	2017	10	5	QUINTA-FEIRA	201710	OUTUBRO	0
+3201	2017-10-06	2017	10	6	SEXTA-FEIRA	201710	OUTUBRO	0
+3202	2017-10-07	2017	10	7	SÁBADO	201710	OUTUBRO	0
+3203	2017-10-08	2017	10	8	DOMINGO	201710	OUTUBRO	0
+3204	2017-10-09	2017	10	9	SEGUNDA-FEIRA	201710	OUTUBRO	0
+3205	2017-10-10	2017	10	10	TERÇA-FEIRA	201710	OUTUBRO	0
+3206	2017-10-11	2017	10	11	QUARTA-FEIRA	201710	OUTUBRO	0
+3207	2017-10-12	2017	10	12	QUINTA-FEIRA	201710	OUTUBRO	0
+3208	2017-10-13	2017	10	13	SEXTA-FEIRA	201710	OUTUBRO	0
+3209	2017-10-14	2017	10	14	SÁBADO	201710	OUTUBRO	0
+3210	2017-10-15	2017	10	15	DOMINGO	201710	OUTUBRO	0
+3211	2017-10-16	2017	10	16	SEGUNDA-FEIRA	201710	OUTUBRO	0
+3212	2017-10-17	2017	10	17	TERÇA-FEIRA	201710	OUTUBRO	0
+3213	2017-10-18	2017	10	18	QUARTA-FEIRA	201710	OUTUBRO	0
+3214	2017-10-19	2017	10	19	QUINTA-FEIRA	201710	OUTUBRO	0
+3215	2017-10-20	2017	10	20	SEXTA-FEIRA	201710	OUTUBRO	0
+3216	2017-10-21	2017	10	21	SÁBADO	201710	OUTUBRO	0
+3217	2017-10-22	2017	10	22	DOMINGO	201710	OUTUBRO	0
+3218	2017-10-23	2017	10	23	SEGUNDA-FEIRA	201710	OUTUBRO	0
+3219	2017-10-24	2017	10	24	TERÇA-FEIRA	201710	OUTUBRO	0
+3220	2017-10-25	2017	10	25	QUARTA-FEIRA	201710	OUTUBRO	0
+3221	2017-10-26	2017	10	26	QUINTA-FEIRA	201710	OUTUBRO	0
+3222	2017-10-27	2017	10	27	SEXTA-FEIRA	201710	OUTUBRO	0
+3223	2017-10-28	2017	10	28	SÁBADO	201710	OUTUBRO	0
+3224	2017-10-29	2017	10	29	DOMINGO	201710	OUTUBRO	0
+3225	2017-10-30	2017	10	30	SEGUNDA-FEIRA	201710	OUTUBRO	0
+3226	2017-10-31	2017	10	31	TERÇA-FEIRA	201710	OUTUBRO	0
+3227	2017-11-01	2017	11	1	QUARTA-FEIRA	201711	NOVEMBRO	0
+3228	2017-11-02	2017	11	2	QUINTA-FEIRA	201711	NOVEMBRO	0
+3229	2017-11-03	2017	11	3	SEXTA-FEIRA	201711	NOVEMBRO	0
+3230	2017-11-04	2017	11	4	SÁBADO	201711	NOVEMBRO	0
+3231	2017-11-05	2017	11	5	DOMINGO	201711	NOVEMBRO	0
+3232	2017-11-06	2017	11	6	SEGUNDA-FEIRA	201711	NOVEMBRO	0
+3233	2017-11-07	2017	11	7	TERÇA-FEIRA	201711	NOVEMBRO	0
+3234	2017-11-08	2017	11	8	QUARTA-FEIRA	201711	NOVEMBRO	0
+3235	2017-11-09	2017	11	9	QUINTA-FEIRA	201711	NOVEMBRO	0
+3236	2017-11-10	2017	11	10	SEXTA-FEIRA	201711	NOVEMBRO	0
+3237	2017-11-11	2017	11	11	SÁBADO	201711	NOVEMBRO	0
+3238	2017-11-12	2017	11	12	DOMINGO	201711	NOVEMBRO	0
+3239	2017-11-13	2017	11	13	SEGUNDA-FEIRA	201711	NOVEMBRO	0
+3240	2017-11-14	2017	11	14	TERÇA-FEIRA	201711	NOVEMBRO	0
+3241	2017-11-15	2017	11	15	QUARTA-FEIRA	201711	NOVEMBRO	0
+3242	2017-11-16	2017	11	16	QUINTA-FEIRA	201711	NOVEMBRO	0
+3243	2017-11-17	2017	11	17	SEXTA-FEIRA	201711	NOVEMBRO	0
+3244	2017-11-18	2017	11	18	SÁBADO	201711	NOVEMBRO	0
+3245	2017-11-19	2017	11	19	DOMINGO	201711	NOVEMBRO	0
+3246	2017-11-20	2017	11	20	SEGUNDA-FEIRA	201711	NOVEMBRO	0
+3247	2017-11-21	2017	11	21	TERÇA-FEIRA	201711	NOVEMBRO	0
+3248	2017-11-22	2017	11	22	QUARTA-FEIRA	201711	NOVEMBRO	0
+3249	2017-11-23	2017	11	23	QUINTA-FEIRA	201711	NOVEMBRO	0
+3250	2017-11-24	2017	11	24	SEXTA-FEIRA	201711	NOVEMBRO	0
+3251	2017-11-25	2017	11	25	SÁBADO	201711	NOVEMBRO	0
+3252	2017-11-26	2017	11	26	DOMINGO	201711	NOVEMBRO	0
+3253	2017-11-27	2017	11	27	SEGUNDA-FEIRA	201711	NOVEMBRO	0
+3254	2017-11-28	2017	11	28	TERÇA-FEIRA	201711	NOVEMBRO	0
+3255	2017-11-29	2017	11	29	QUARTA-FEIRA	201711	NOVEMBRO	0
+3256	2017-11-30	2017	11	30	QUINTA-FEIRA	201711	NOVEMBRO	0
+3257	2017-12-01	2017	12	1	SEXTA-FEIRA	201712	DEZEMBRO	0
+3258	2017-12-02	2017	12	2	SÁBADO	201712	DEZEMBRO	0
+3259	2017-12-03	2017	12	3	DOMINGO	201712	DEZEMBRO	0
+3260	2017-12-04	2017	12	4	SEGUNDA-FEIRA	201712	DEZEMBRO	0
+3261	2017-12-05	2017	12	5	TERÇA-FEIRA	201712	DEZEMBRO	0
+3262	2017-12-06	2017	12	6	QUARTA-FEIRA	201712	DEZEMBRO	0
+3263	2017-12-07	2017	12	7	QUINTA-FEIRA	201712	DEZEMBRO	0
+3264	2017-12-08	2017	12	8	SEXTA-FEIRA	201712	DEZEMBRO	0
+3265	2017-12-09	2017	12	9	SÁBADO	201712	DEZEMBRO	0
+3266	2017-12-10	2017	12	10	DOMINGO	201712	DEZEMBRO	0
+3267	2017-12-11	2017	12	11	SEGUNDA-FEIRA	201712	DEZEMBRO	0
+3268	2017-12-12	2017	12	12	TERÇA-FEIRA	201712	DEZEMBRO	0
+3269	2017-12-13	2017	12	13	QUARTA-FEIRA	201712	DEZEMBRO	0
+3270	2017-12-14	2017	12	14	QUINTA-FEIRA	201712	DEZEMBRO	0
+3271	2017-12-15	2017	12	15	SEXTA-FEIRA	201712	DEZEMBRO	0
+3272	2017-12-16	2017	12	16	SÁBADO	201712	DEZEMBRO	0
+3273	2017-12-17	2017	12	17	DOMINGO	201712	DEZEMBRO	0
+3274	2017-12-18	2017	12	18	SEGUNDA-FEIRA	201712	DEZEMBRO	0
+3275	2017-12-19	2017	12	19	TERÇA-FEIRA	201712	DEZEMBRO	0
+3276	2017-12-20	2017	12	20	QUARTA-FEIRA	201712	DEZEMBRO	0
+3277	2017-12-21	2017	12	21	QUINTA-FEIRA	201712	DEZEMBRO	0
+3278	2017-12-22	2017	12	22	SEXTA-FEIRA	201712	DEZEMBRO	0
+3279	2017-12-23	2017	12	23	SÁBADO	201712	DEZEMBRO	0
+3280	2017-12-24	2017	12	24	DOMINGO	201712	DEZEMBRO	0
+3281	2017-12-25	2017	12	25	SEGUNDA-FEIRA	201712	DEZEMBRO	0
+3282	2017-12-26	2017	12	26	TERÇA-FEIRA	201712	DEZEMBRO	0
+3283	2017-12-27	2017	12	27	QUARTA-FEIRA	201712	DEZEMBRO	0
+3284	2017-12-28	2017	12	28	QUINTA-FEIRA	201712	DEZEMBRO	0
+3285	2017-12-29	2017	12	29	SEXTA-FEIRA	201712	DEZEMBRO	0
+3286	2017-12-30	2017	12	30	SÁBADO	201712	DEZEMBRO	0
+3287	2017-12-31	2017	12	31	DOMINGO	201712	DEZEMBRO	0
+3288	2018-01-01	2018	01	1	SEGUNDA-FEIRA	201801	JANEIRO	0
+3289	2018-01-02	2018	01	2	TERÇA-FEIRA	201801	JANEIRO	0
+3290	2018-01-03	2018	01	3	QUARTA-FEIRA	201801	JANEIRO	0
+3291	2018-01-04	2018	01	4	QUINTA-FEIRA	201801	JANEIRO	0
+3292	2018-01-05	2018	01	5	SEXTA-FEIRA	201801	JANEIRO	0
+3293	2018-01-06	2018	01	6	SÁBADO	201801	JANEIRO	0
+3294	2018-01-07	2018	01	7	DOMINGO	201801	JANEIRO	0
+3295	2018-01-08	2018	01	8	SEGUNDA-FEIRA	201801	JANEIRO	0
+3296	2018-01-09	2018	01	9	TERÇA-FEIRA	201801	JANEIRO	0
+3297	2018-01-10	2018	01	10	QUARTA-FEIRA	201801	JANEIRO	0
+3298	2018-01-11	2018	01	11	QUINTA-FEIRA	201801	JANEIRO	0
+3299	2018-01-12	2018	01	12	SEXTA-FEIRA	201801	JANEIRO	0
+3300	2018-01-13	2018	01	13	SÁBADO	201801	JANEIRO	0
+3301	2018-01-14	2018	01	14	DOMINGO	201801	JANEIRO	0
+3302	2018-01-15	2018	01	15	SEGUNDA-FEIRA	201801	JANEIRO	0
+3303	2018-01-16	2018	01	16	TERÇA-FEIRA	201801	JANEIRO	0
+3304	2018-01-17	2018	01	17	QUARTA-FEIRA	201801	JANEIRO	0
+3305	2018-01-18	2018	01	18	QUINTA-FEIRA	201801	JANEIRO	0
+3306	2018-01-19	2018	01	19	SEXTA-FEIRA	201801	JANEIRO	0
+3307	2018-01-20	2018	01	20	SÁBADO	201801	JANEIRO	0
+3308	2018-01-21	2018	01	21	DOMINGO	201801	JANEIRO	0
+3309	2018-01-22	2018	01	22	SEGUNDA-FEIRA	201801	JANEIRO	0
+3310	2018-01-23	2018	01	23	TERÇA-FEIRA	201801	JANEIRO	0
+3311	2018-01-24	2018	01	24	QUARTA-FEIRA	201801	JANEIRO	0
+3312	2018-01-25	2018	01	25	QUINTA-FEIRA	201801	JANEIRO	0
+3313	2018-01-26	2018	01	26	SEXTA-FEIRA	201801	JANEIRO	0
+3314	2018-01-27	2018	01	27	SÁBADO	201801	JANEIRO	0
+3315	2018-01-28	2018	01	28	DOMINGO	201801	JANEIRO	0
+3316	2018-01-29	2018	01	29	SEGUNDA-FEIRA	201801	JANEIRO	0
+3317	2018-01-30	2018	01	30	TERÇA-FEIRA	201801	JANEIRO	0
+3318	2018-01-31	2018	01	31	QUARTA-FEIRA	201801	JANEIRO	0
+3319	2018-02-01	2018	02	1	QUINTA-FEIRA	201802	FEVEREIRO	0
+3320	2018-02-02	2018	02	2	SEXTA-FEIRA	201802	FEVEREIRO	0
+3321	2018-02-03	2018	02	3	SÁBADO	201802	FEVEREIRO	0
+3322	2018-02-04	2018	02	4	DOMINGO	201802	FEVEREIRO	0
+3323	2018-02-05	2018	02	5	SEGUNDA-FEIRA	201802	FEVEREIRO	0
+3324	2018-02-06	2018	02	6	TERÇA-FEIRA	201802	FEVEREIRO	0
+3325	2018-02-07	2018	02	7	QUARTA-FEIRA	201802	FEVEREIRO	0
+3326	2018-02-08	2018	02	8	QUINTA-FEIRA	201802	FEVEREIRO	0
+3327	2018-02-09	2018	02	9	SEXTA-FEIRA	201802	FEVEREIRO	0
+3328	2018-02-10	2018	02	10	SÁBADO	201802	FEVEREIRO	0
+3329	2018-02-11	2018	02	11	DOMINGO	201802	FEVEREIRO	0
+3330	2018-02-12	2018	02	12	SEGUNDA-FEIRA	201802	FEVEREIRO	0
+3331	2018-02-13	2018	02	13	TERÇA-FEIRA	201802	FEVEREIRO	0
+3332	2018-02-14	2018	02	14	QUARTA-FEIRA	201802	FEVEREIRO	0
+3333	2018-02-15	2018	02	15	QUINTA-FEIRA	201802	FEVEREIRO	0
+3334	2018-02-16	2018	02	16	SEXTA-FEIRA	201802	FEVEREIRO	0
+3335	2018-02-17	2018	02	17	SÁBADO	201802	FEVEREIRO	0
+3336	2018-02-18	2018	02	18	DOMINGO	201802	FEVEREIRO	0
+3337	2018-02-19	2018	02	19	SEGUNDA-FEIRA	201802	FEVEREIRO	0
+3338	2018-02-20	2018	02	20	TERÇA-FEIRA	201802	FEVEREIRO	0
+3339	2018-02-21	2018	02	21	QUARTA-FEIRA	201802	FEVEREIRO	0
+3340	2018-02-22	2018	02	22	QUINTA-FEIRA	201802	FEVEREIRO	0
+3341	2018-02-23	2018	02	23	SEXTA-FEIRA	201802	FEVEREIRO	0
+3342	2018-02-24	2018	02	24	SÁBADO	201802	FEVEREIRO	0
+3343	2018-02-25	2018	02	25	DOMINGO	201802	FEVEREIRO	0
+3344	2018-02-26	2018	02	26	SEGUNDA-FEIRA	201802	FEVEREIRO	0
+3345	2018-02-27	2018	02	27	TERÇA-FEIRA	201802	FEVEREIRO	0
+3346	2018-02-28	2018	02	28	QUARTA-FEIRA	201802	FEVEREIRO	0
+3347	2018-03-01	2018	03	1	QUINTA-FEIRA	201803	MARÇO	0
+3348	2018-03-02	2018	03	2	SEXTA-FEIRA	201803	MARÇO	0
+3349	2018-03-03	2018	03	3	SÁBADO	201803	MARÇO	0
+3350	2018-03-04	2018	03	4	DOMINGO	201803	MARÇO	0
+3351	2018-03-05	2018	03	5	SEGUNDA-FEIRA	201803	MARÇO	0
+3352	2018-03-06	2018	03	6	TERÇA-FEIRA	201803	MARÇO	0
+3353	2018-03-07	2018	03	7	QUARTA-FEIRA	201803	MARÇO	0
+3354	2018-03-08	2018	03	8	QUINTA-FEIRA	201803	MARÇO	0
+3355	2018-03-09	2018	03	9	SEXTA-FEIRA	201803	MARÇO	0
+3356	2018-03-10	2018	03	10	SÁBADO	201803	MARÇO	0
+3357	2018-03-11	2018	03	11	DOMINGO	201803	MARÇO	0
+3358	2018-03-12	2018	03	12	SEGUNDA-FEIRA	201803	MARÇO	0
+3359	2018-03-13	2018	03	13	TERÇA-FEIRA	201803	MARÇO	0
+3360	2018-03-14	2018	03	14	QUARTA-FEIRA	201803	MARÇO	0
+3361	2018-03-15	2018	03	15	QUINTA-FEIRA	201803	MARÇO	0
+3362	2018-03-16	2018	03	16	SEXTA-FEIRA	201803	MARÇO	0
+3363	2018-03-17	2018	03	17	SÁBADO	201803	MARÇO	0
+3364	2018-03-18	2018	03	18	DOMINGO	201803	MARÇO	0
+3365	2018-03-19	2018	03	19	SEGUNDA-FEIRA	201803	MARÇO	0
+3366	2018-03-20	2018	03	20	TERÇA-FEIRA	201803	MARÇO	0
+3367	2018-03-21	2018	03	21	QUARTA-FEIRA	201803	MARÇO	0
+3368	2018-03-22	2018	03	22	QUINTA-FEIRA	201803	MARÇO	0
+3369	2018-03-23	2018	03	23	SEXTA-FEIRA	201803	MARÇO	0
+3370	2018-03-24	2018	03	24	SÁBADO	201803	MARÇO	0
+3371	2018-03-25	2018	03	25	DOMINGO	201803	MARÇO	0
+3372	2018-03-26	2018	03	26	SEGUNDA-FEIRA	201803	MARÇO	0
+3373	2018-03-27	2018	03	27	TERÇA-FEIRA	201803	MARÇO	0
+3374	2018-03-28	2018	03	28	QUARTA-FEIRA	201803	MARÇO	0
+3375	2018-03-29	2018	03	29	QUINTA-FEIRA	201803	MARÇO	0
+3376	2018-03-30	2018	03	30	SEXTA-FEIRA	201803	MARÇO	0
+3377	2018-03-31	2018	03	31	SÁBADO	201803	MARÇO	0
+3378	2018-04-01	2018	04	1	DOMINGO	201804	ABRIL	0
+3379	2018-04-02	2018	04	2	SEGUNDA-FEIRA	201804	ABRIL	0
+3380	2018-04-03	2018	04	3	TERÇA-FEIRA	201804	ABRIL	0
+3381	2018-04-04	2018	04	4	QUARTA-FEIRA	201804	ABRIL	0
+3382	2018-04-05	2018	04	5	QUINTA-FEIRA	201804	ABRIL	0
+3383	2018-04-06	2018	04	6	SEXTA-FEIRA	201804	ABRIL	0
+3384	2018-04-07	2018	04	7	SÁBADO	201804	ABRIL	0
+3385	2018-04-08	2018	04	8	DOMINGO	201804	ABRIL	0
+3386	2018-04-09	2018	04	9	SEGUNDA-FEIRA	201804	ABRIL	0
+3387	2018-04-10	2018	04	10	TERÇA-FEIRA	201804	ABRIL	0
+3388	2018-04-11	2018	04	11	QUARTA-FEIRA	201804	ABRIL	0
+3389	2018-04-12	2018	04	12	QUINTA-FEIRA	201804	ABRIL	0
+3390	2018-04-13	2018	04	13	SEXTA-FEIRA	201804	ABRIL	0
+3391	2018-04-14	2018	04	14	SÁBADO	201804	ABRIL	0
+3392	2018-04-15	2018	04	15	DOMINGO	201804	ABRIL	0
+3393	2018-04-16	2018	04	16	SEGUNDA-FEIRA	201804	ABRIL	0
+3394	2018-04-17	2018	04	17	TERÇA-FEIRA	201804	ABRIL	0
+3395	2018-04-18	2018	04	18	QUARTA-FEIRA	201804	ABRIL	0
+3396	2018-04-19	2018	04	19	QUINTA-FEIRA	201804	ABRIL	0
+3397	2018-04-20	2018	04	20	SEXTA-FEIRA	201804	ABRIL	0
+3398	2018-04-21	2018	04	21	SÁBADO	201804	ABRIL	0
+3399	2018-04-22	2018	04	22	DOMINGO	201804	ABRIL	0
+3400	2018-04-23	2018	04	23	SEGUNDA-FEIRA	201804	ABRIL	0
+3401	2018-04-24	2018	04	24	TERÇA-FEIRA	201804	ABRIL	0
+3402	2018-04-25	2018	04	25	QUARTA-FEIRA	201804	ABRIL	0
+3403	2018-04-26	2018	04	26	QUINTA-FEIRA	201804	ABRIL	0
+3404	2018-04-27	2018	04	27	SEXTA-FEIRA	201804	ABRIL	0
+3405	2018-04-28	2018	04	28	SÁBADO	201804	ABRIL	0
+3406	2018-04-29	2018	04	29	DOMINGO	201804	ABRIL	0
+3407	2018-04-30	2018	04	30	SEGUNDA-FEIRA	201804	ABRIL	0
+3408	2018-05-01	2018	05	1	TERÇA-FEIRA	201805	MAIO	0
+3409	2018-05-02	2018	05	2	QUARTA-FEIRA	201805	MAIO	0
+3410	2018-05-03	2018	05	3	QUINTA-FEIRA	201805	MAIO	0
+3411	2018-05-04	2018	05	4	SEXTA-FEIRA	201805	MAIO	0
+3412	2018-05-05	2018	05	5	SÁBADO	201805	MAIO	0
+3413	2018-05-06	2018	05	6	DOMINGO	201805	MAIO	0
+3414	2018-05-07	2018	05	7	SEGUNDA-FEIRA	201805	MAIO	0
+3415	2018-05-08	2018	05	8	TERÇA-FEIRA	201805	MAIO	0
+3416	2018-05-09	2018	05	9	QUARTA-FEIRA	201805	MAIO	0
+3417	2018-05-10	2018	05	10	QUINTA-FEIRA	201805	MAIO	0
+3418	2018-05-11	2018	05	11	SEXTA-FEIRA	201805	MAIO	0
+3419	2018-05-12	2018	05	12	SÁBADO	201805	MAIO	0
+3420	2018-05-13	2018	05	13	DOMINGO	201805	MAIO	0
+3421	2018-05-14	2018	05	14	SEGUNDA-FEIRA	201805	MAIO	0
+3422	2018-05-15	2018	05	15	TERÇA-FEIRA	201805	MAIO	0
+3423	2018-05-16	2018	05	16	QUARTA-FEIRA	201805	MAIO	0
+3424	2018-05-17	2018	05	17	QUINTA-FEIRA	201805	MAIO	0
+3425	2018-05-18	2018	05	18	SEXTA-FEIRA	201805	MAIO	0
+3426	2018-05-19	2018	05	19	SÁBADO	201805	MAIO	0
+3427	2018-05-20	2018	05	20	DOMINGO	201805	MAIO	0
+3428	2018-05-21	2018	05	21	SEGUNDA-FEIRA	201805	MAIO	0
+3429	2018-05-22	2018	05	22	TERÇA-FEIRA	201805	MAIO	0
+3430	2018-05-23	2018	05	23	QUARTA-FEIRA	201805	MAIO	0
+3431	2018-05-24	2018	05	24	QUINTA-FEIRA	201805	MAIO	0
+3432	2018-05-25	2018	05	25	SEXTA-FEIRA	201805	MAIO	0
+3433	2018-05-26	2018	05	26	SÁBADO	201805	MAIO	0
+3434	2018-05-27	2018	05	27	DOMINGO	201805	MAIO	0
+3435	2018-05-28	2018	05	28	SEGUNDA-FEIRA	201805	MAIO	0
+3436	2018-05-29	2018	05	29	TERÇA-FEIRA	201805	MAIO	0
+3437	2018-05-30	2018	05	30	QUARTA-FEIRA	201805	MAIO	0
+3438	2018-05-31	2018	05	31	QUINTA-FEIRA	201805	MAIO	0
+3439	2018-06-01	2018	06	1	SEXTA-FEIRA	201806	JUNHO	0
+3440	2018-06-02	2018	06	2	SÁBADO	201806	JUNHO	0
+3441	2018-06-03	2018	06	3	DOMINGO	201806	JUNHO	0
+3442	2018-06-04	2018	06	4	SEGUNDA-FEIRA	201806	JUNHO	0
+3443	2018-06-05	2018	06	5	TERÇA-FEIRA	201806	JUNHO	0
+3444	2018-06-06	2018	06	6	QUARTA-FEIRA	201806	JUNHO	0
+3445	2018-06-07	2018	06	7	QUINTA-FEIRA	201806	JUNHO	0
+3446	2018-06-08	2018	06	8	SEXTA-FEIRA	201806	JUNHO	0
+3447	2018-06-09	2018	06	9	SÁBADO	201806	JUNHO	0
+3448	2018-06-10	2018	06	10	DOMINGO	201806	JUNHO	0
+3449	2018-06-11	2018	06	11	SEGUNDA-FEIRA	201806	JUNHO	0
+3450	2018-06-12	2018	06	12	TERÇA-FEIRA	201806	JUNHO	0
+3451	2018-06-13	2018	06	13	QUARTA-FEIRA	201806	JUNHO	0
+3452	2018-06-14	2018	06	14	QUINTA-FEIRA	201806	JUNHO	0
+3453	2018-06-15	2018	06	15	SEXTA-FEIRA	201806	JUNHO	0
+3454	2018-06-16	2018	06	16	SÁBADO	201806	JUNHO	0
+3455	2018-06-17	2018	06	17	DOMINGO	201806	JUNHO	0
+3456	2018-06-18	2018	06	18	SEGUNDA-FEIRA	201806	JUNHO	0
+3457	2018-06-19	2018	06	19	TERÇA-FEIRA	201806	JUNHO	0
+3458	2018-06-20	2018	06	20	QUARTA-FEIRA	201806	JUNHO	0
+3459	2018-06-21	2018	06	21	QUINTA-FEIRA	201806	JUNHO	0
+3460	2018-06-22	2018	06	22	SEXTA-FEIRA	201806	JUNHO	0
+3461	2018-06-23	2018	06	23	SÁBADO	201806	JUNHO	0
+3462	2018-06-24	2018	06	24	DOMINGO	201806	JUNHO	0
+3463	2018-06-25	2018	06	25	SEGUNDA-FEIRA	201806	JUNHO	0
+3464	2018-06-26	2018	06	26	TERÇA-FEIRA	201806	JUNHO	0
+3465	2018-06-27	2018	06	27	QUARTA-FEIRA	201806	JUNHO	0
+3466	2018-06-28	2018	06	28	QUINTA-FEIRA	201806	JUNHO	0
+3467	2018-06-29	2018	06	29	SEXTA-FEIRA	201806	JUNHO	0
+3468	2018-06-30	2018	06	30	SÁBADO	201806	JUNHO	0
+3469	2018-07-01	2018	07	1	DOMINGO	201807	JULHO	0
+3470	2018-07-02	2018	07	2	SEGUNDA-FEIRA	201807	JULHO	0
+3471	2018-07-03	2018	07	3	TERÇA-FEIRA	201807	JULHO	0
+3472	2018-07-04	2018	07	4	QUARTA-FEIRA	201807	JULHO	0
+3473	2018-07-05	2018	07	5	QUINTA-FEIRA	201807	JULHO	0
+3474	2018-07-06	2018	07	6	SEXTA-FEIRA	201807	JULHO	0
+3475	2018-07-07	2018	07	7	SÁBADO	201807	JULHO	0
+3476	2018-07-08	2018	07	8	DOMINGO	201807	JULHO	0
+3477	2018-07-09	2018	07	9	SEGUNDA-FEIRA	201807	JULHO	0
+3478	2018-07-10	2018	07	10	TERÇA-FEIRA	201807	JULHO	0
+3479	2018-07-11	2018	07	11	QUARTA-FEIRA	201807	JULHO	0
+3480	2018-07-12	2018	07	12	QUINTA-FEIRA	201807	JULHO	0
+3481	2018-07-13	2018	07	13	SEXTA-FEIRA	201807	JULHO	0
+3482	2018-07-14	2018	07	14	SÁBADO	201807	JULHO	0
+3483	2018-07-15	2018	07	15	DOMINGO	201807	JULHO	0
+3484	2018-07-16	2018	07	16	SEGUNDA-FEIRA	201807	JULHO	0
+3485	2018-07-17	2018	07	17	TERÇA-FEIRA	201807	JULHO	0
+3486	2018-07-18	2018	07	18	QUARTA-FEIRA	201807	JULHO	0
+3487	2018-07-19	2018	07	19	QUINTA-FEIRA	201807	JULHO	0
+3488	2018-07-20	2018	07	20	SEXTA-FEIRA	201807	JULHO	0
+3489	2018-07-21	2018	07	21	SÁBADO	201807	JULHO	0
+3490	2018-07-22	2018	07	22	DOMINGO	201807	JULHO	0
+3491	2018-07-23	2018	07	23	SEGUNDA-FEIRA	201807	JULHO	0
+3492	2018-07-24	2018	07	24	TERÇA-FEIRA	201807	JULHO	0
+3493	2018-07-25	2018	07	25	QUARTA-FEIRA	201807	JULHO	0
+3494	2018-07-26	2018	07	26	QUINTA-FEIRA	201807	JULHO	0
+3495	2018-07-27	2018	07	27	SEXTA-FEIRA	201807	JULHO	0
+3496	2018-07-28	2018	07	28	SÁBADO	201807	JULHO	0
+3497	2018-07-29	2018	07	29	DOMINGO	201807	JULHO	0
+3498	2018-07-30	2018	07	30	SEGUNDA-FEIRA	201807	JULHO	0
+3499	2018-07-31	2018	07	31	TERÇA-FEIRA	201807	JULHO	0
+3500	2018-08-01	2018	08	1	QUARTA-FEIRA	201808	AGOSTO	0
+3501	2018-08-02	2018	08	2	QUINTA-FEIRA	201808	AGOSTO	0
+3502	2018-08-03	2018	08	3	SEXTA-FEIRA	201808	AGOSTO	0
+3503	2018-08-04	2018	08	4	SÁBADO	201808	AGOSTO	0
+3504	2018-08-05	2018	08	5	DOMINGO	201808	AGOSTO	0
+3505	2018-08-06	2018	08	6	SEGUNDA-FEIRA	201808	AGOSTO	0
+3506	2018-08-07	2018	08	7	TERÇA-FEIRA	201808	AGOSTO	0
+3507	2018-08-08	2018	08	8	QUARTA-FEIRA	201808	AGOSTO	0
+3508	2018-08-09	2018	08	9	QUINTA-FEIRA	201808	AGOSTO	0
+3509	2018-08-10	2018	08	10	SEXTA-FEIRA	201808	AGOSTO	0
+3510	2018-08-11	2018	08	11	SÁBADO	201808	AGOSTO	0
+3511	2018-08-12	2018	08	12	DOMINGO	201808	AGOSTO	0
+3512	2018-08-13	2018	08	13	SEGUNDA-FEIRA	201808	AGOSTO	0
+3513	2018-08-14	2018	08	14	TERÇA-FEIRA	201808	AGOSTO	0
+3514	2018-08-15	2018	08	15	QUARTA-FEIRA	201808	AGOSTO	0
+3515	2018-08-16	2018	08	16	QUINTA-FEIRA	201808	AGOSTO	0
+3516	2018-08-17	2018	08	17	SEXTA-FEIRA	201808	AGOSTO	0
+3517	2018-08-18	2018	08	18	SÁBADO	201808	AGOSTO	0
+3518	2018-08-19	2018	08	19	DOMINGO	201808	AGOSTO	0
+3519	2018-08-20	2018	08	20	SEGUNDA-FEIRA	201808	AGOSTO	0
+3520	2018-08-21	2018	08	21	TERÇA-FEIRA	201808	AGOSTO	0
+3521	2018-08-22	2018	08	22	QUARTA-FEIRA	201808	AGOSTO	0
+3522	2018-08-23	2018	08	23	QUINTA-FEIRA	201808	AGOSTO	0
+3523	2018-08-24	2018	08	24	SEXTA-FEIRA	201808	AGOSTO	0
+3524	2018-08-25	2018	08	25	SÁBADO	201808	AGOSTO	0
+3525	2018-08-26	2018	08	26	DOMINGO	201808	AGOSTO	0
+3526	2018-08-27	2018	08	27	SEGUNDA-FEIRA	201808	AGOSTO	0
+3527	2018-08-28	2018	08	28	TERÇA-FEIRA	201808	AGOSTO	0
+3528	2018-08-29	2018	08	29	QUARTA-FEIRA	201808	AGOSTO	0
+3529	2018-08-30	2018	08	30	QUINTA-FEIRA	201808	AGOSTO	0
+3530	2018-08-31	2018	08	31	SEXTA-FEIRA	201808	AGOSTO	0
+3531	2018-09-01	2018	09	1	SÁBADO	201809	SETEMBRO	0
+3532	2018-09-02	2018	09	2	DOMINGO	201809	SETEMBRO	0
+3533	2018-09-03	2018	09	3	SEGUNDA-FEIRA	201809	SETEMBRO	0
+3534	2018-09-04	2018	09	4	TERÇA-FEIRA	201809	SETEMBRO	0
+3535	2018-09-05	2018	09	5	QUARTA-FEIRA	201809	SETEMBRO	0
+3536	2018-09-06	2018	09	6	QUINTA-FEIRA	201809	SETEMBRO	0
+3537	2018-09-07	2018	09	7	SEXTA-FEIRA	201809	SETEMBRO	0
+3538	2018-09-08	2018	09	8	SÁBADO	201809	SETEMBRO	0
+3539	2018-09-09	2018	09	9	DOMINGO	201809	SETEMBRO	0
+3540	2018-09-10	2018	09	10	SEGUNDA-FEIRA	201809	SETEMBRO	0
+3541	2018-09-11	2018	09	11	TERÇA-FEIRA	201809	SETEMBRO	0
+3542	2018-09-12	2018	09	12	QUARTA-FEIRA	201809	SETEMBRO	0
+3543	2018-09-13	2018	09	13	QUINTA-FEIRA	201809	SETEMBRO	0
+3544	2018-09-14	2018	09	14	SEXTA-FEIRA	201809	SETEMBRO	0
+3545	2018-09-15	2018	09	15	SÁBADO	201809	SETEMBRO	0
+3546	2018-09-16	2018	09	16	DOMINGO	201809	SETEMBRO	0
+3547	2018-09-17	2018	09	17	SEGUNDA-FEIRA	201809	SETEMBRO	0
+3548	2018-09-18	2018	09	18	TERÇA-FEIRA	201809	SETEMBRO	0
+3549	2018-09-19	2018	09	19	QUARTA-FEIRA	201809	SETEMBRO	0
+3550	2018-09-20	2018	09	20	QUINTA-FEIRA	201809	SETEMBRO	0
+3551	2018-09-21	2018	09	21	SEXTA-FEIRA	201809	SETEMBRO	0
+3552	2018-09-22	2018	09	22	SÁBADO	201809	SETEMBRO	0
+3553	2018-09-23	2018	09	23	DOMINGO	201809	SETEMBRO	0
+3554	2018-09-24	2018	09	24	SEGUNDA-FEIRA	201809	SETEMBRO	0
+3555	2018-09-25	2018	09	25	TERÇA-FEIRA	201809	SETEMBRO	0
+3556	2018-09-26	2018	09	26	QUARTA-FEIRA	201809	SETEMBRO	0
+3557	2018-09-27	2018	09	27	QUINTA-FEIRA	201809	SETEMBRO	0
+3558	2018-09-28	2018	09	28	SEXTA-FEIRA	201809	SETEMBRO	0
+3559	2018-09-29	2018	09	29	SÁBADO	201809	SETEMBRO	0
+3560	2018-09-30	2018	09	30	DOMINGO	201809	SETEMBRO	0
+3561	2018-10-01	2018	10	1	SEGUNDA-FEIRA	201810	OUTUBRO	0
+3562	2018-10-02	2018	10	2	TERÇA-FEIRA	201810	OUTUBRO	0
+3563	2018-10-03	2018	10	3	QUARTA-FEIRA	201810	OUTUBRO	0
+3564	2018-10-04	2018	10	4	QUINTA-FEIRA	201810	OUTUBRO	0
+3565	2018-10-05	2018	10	5	SEXTA-FEIRA	201810	OUTUBRO	0
+3566	2018-10-06	2018	10	6	SÁBADO	201810	OUTUBRO	0
+3567	2018-10-07	2018	10	7	DOMINGO	201810	OUTUBRO	0
+3568	2018-10-08	2018	10	8	SEGUNDA-FEIRA	201810	OUTUBRO	0
+3569	2018-10-09	2018	10	9	TERÇA-FEIRA	201810	OUTUBRO	0
+3570	2018-10-10	2018	10	10	QUARTA-FEIRA	201810	OUTUBRO	0
+3571	2018-10-11	2018	10	11	QUINTA-FEIRA	201810	OUTUBRO	0
+3572	2018-10-12	2018	10	12	SEXTA-FEIRA	201810	OUTUBRO	0
+3573	2018-10-13	2018	10	13	SÁBADO	201810	OUTUBRO	0
+3574	2018-10-14	2018	10	14	DOMINGO	201810	OUTUBRO	0
+3575	2018-10-15	2018	10	15	SEGUNDA-FEIRA	201810	OUTUBRO	0
+3576	2018-10-16	2018	10	16	TERÇA-FEIRA	201810	OUTUBRO	0
+3577	2018-10-17	2018	10	17	QUARTA-FEIRA	201810	OUTUBRO	0
+3578	2018-10-18	2018	10	18	QUINTA-FEIRA	201810	OUTUBRO	0
+3579	2018-10-19	2018	10	19	SEXTA-FEIRA	201810	OUTUBRO	0
+3580	2018-10-20	2018	10	20	SÁBADO	201810	OUTUBRO	0
+3581	2018-10-21	2018	10	21	DOMINGO	201810	OUTUBRO	0
+3582	2018-10-22	2018	10	22	SEGUNDA-FEIRA	201810	OUTUBRO	0
+3583	2018-10-23	2018	10	23	TERÇA-FEIRA	201810	OUTUBRO	0
+3584	2018-10-24	2018	10	24	QUARTA-FEIRA	201810	OUTUBRO	0
+3585	2018-10-25	2018	10	25	QUINTA-FEIRA	201810	OUTUBRO	0
+3586	2018-10-26	2018	10	26	SEXTA-FEIRA	201810	OUTUBRO	0
+3587	2018-10-27	2018	10	27	SÁBADO	201810	OUTUBRO	0
+3588	2018-10-28	2018	10	28	DOMINGO	201810	OUTUBRO	0
+3589	2018-10-29	2018	10	29	SEGUNDA-FEIRA	201810	OUTUBRO	0
+3590	2018-10-30	2018	10	30	TERÇA-FEIRA	201810	OUTUBRO	0
+3591	2018-10-31	2018	10	31	QUARTA-FEIRA	201810	OUTUBRO	0
+3592	2018-11-01	2018	11	1	QUINTA-FEIRA	201811	NOVEMBRO	0
+3593	2018-11-02	2018	11	2	SEXTA-FEIRA	201811	NOVEMBRO	0
+3594	2018-11-03	2018	11	3	SÁBADO	201811	NOVEMBRO	0
+3595	2018-11-04	2018	11	4	DOMINGO	201811	NOVEMBRO	0
+3596	2018-11-05	2018	11	5	SEGUNDA-FEIRA	201811	NOVEMBRO	0
+3597	2018-11-06	2018	11	6	TERÇA-FEIRA	201811	NOVEMBRO	0
+3598	2018-11-07	2018	11	7	QUARTA-FEIRA	201811	NOVEMBRO	0
+3599	2018-11-08	2018	11	8	QUINTA-FEIRA	201811	NOVEMBRO	0
+3600	2018-11-09	2018	11	9	SEXTA-FEIRA	201811	NOVEMBRO	0
+3601	2018-11-10	2018	11	10	SÁBADO	201811	NOVEMBRO	0
+3602	2018-11-11	2018	11	11	DOMINGO	201811	NOVEMBRO	0
+3603	2018-11-12	2018	11	12	SEGUNDA-FEIRA	201811	NOVEMBRO	0
+3604	2018-11-13	2018	11	13	TERÇA-FEIRA	201811	NOVEMBRO	0
+3605	2018-11-14	2018	11	14	QUARTA-FEIRA	201811	NOVEMBRO	0
+3606	2018-11-15	2018	11	15	QUINTA-FEIRA	201811	NOVEMBRO	0
+3607	2018-11-16	2018	11	16	SEXTA-FEIRA	201811	NOVEMBRO	0
+3608	2018-11-17	2018	11	17	SÁBADO	201811	NOVEMBRO	0
+3609	2018-11-18	2018	11	18	DOMINGO	201811	NOVEMBRO	0
+3610	2018-11-19	2018	11	19	SEGUNDA-FEIRA	201811	NOVEMBRO	0
+3611	2018-11-20	2018	11	20	TERÇA-FEIRA	201811	NOVEMBRO	0
+3612	2018-11-21	2018	11	21	QUARTA-FEIRA	201811	NOVEMBRO	0
+3613	2018-11-22	2018	11	22	QUINTA-FEIRA	201811	NOVEMBRO	0
+3614	2018-11-23	2018	11	23	SEXTA-FEIRA	201811	NOVEMBRO	0
+3615	2018-11-24	2018	11	24	SÁBADO	201811	NOVEMBRO	0
+3616	2018-11-25	2018	11	25	DOMINGO	201811	NOVEMBRO	0
+3617	2018-11-26	2018	11	26	SEGUNDA-FEIRA	201811	NOVEMBRO	0
+3618	2018-11-27	2018	11	27	TERÇA-FEIRA	201811	NOVEMBRO	0
+3619	2018-11-28	2018	11	28	QUARTA-FEIRA	201811	NOVEMBRO	0
+3620	2018-11-29	2018	11	29	QUINTA-FEIRA	201811	NOVEMBRO	0
+3621	2018-11-30	2018	11	30	SEXTA-FEIRA	201811	NOVEMBRO	0
+3622	2018-12-01	2018	12	1	SÁBADO	201812	DEZEMBRO	0
+3623	2018-12-02	2018	12	2	DOMINGO	201812	DEZEMBRO	0
+3624	2018-12-03	2018	12	3	SEGUNDA-FEIRA	201812	DEZEMBRO	0
+3625	2018-12-04	2018	12	4	TERÇA-FEIRA	201812	DEZEMBRO	0
+3626	2018-12-05	2018	12	5	QUARTA-FEIRA	201812	DEZEMBRO	0
+3627	2018-12-06	2018	12	6	QUINTA-FEIRA	201812	DEZEMBRO	0
+3628	2018-12-07	2018	12	7	SEXTA-FEIRA	201812	DEZEMBRO	0
+3629	2018-12-08	2018	12	8	SÁBADO	201812	DEZEMBRO	0
+3630	2018-12-09	2018	12	9	DOMINGO	201812	DEZEMBRO	0
+3631	2018-12-10	2018	12	10	SEGUNDA-FEIRA	201812	DEZEMBRO	0
+3632	2018-12-11	2018	12	11	TERÇA-FEIRA	201812	DEZEMBRO	0
+3633	2018-12-12	2018	12	12	QUARTA-FEIRA	201812	DEZEMBRO	0
+3634	2018-12-13	2018	12	13	QUINTA-FEIRA	201812	DEZEMBRO	0
+3635	2018-12-14	2018	12	14	SEXTA-FEIRA	201812	DEZEMBRO	0
+3636	2018-12-15	2018	12	15	SÁBADO	201812	DEZEMBRO	0
+3637	2018-12-16	2018	12	16	DOMINGO	201812	DEZEMBRO	0
+3638	2018-12-17	2018	12	17	SEGUNDA-FEIRA	201812	DEZEMBRO	0
+3639	2018-12-18	2018	12	18	TERÇA-FEIRA	201812	DEZEMBRO	0
+3640	2018-12-19	2018	12	19	QUARTA-FEIRA	201812	DEZEMBRO	0
+3641	2018-12-20	2018	12	20	QUINTA-FEIRA	201812	DEZEMBRO	0
+3642	2018-12-21	2018	12	21	SEXTA-FEIRA	201812	DEZEMBRO	0
+3643	2018-12-22	2018	12	22	SÁBADO	201812	DEZEMBRO	0
+3644	2018-12-23	2018	12	23	DOMINGO	201812	DEZEMBRO	0
+3645	2018-12-24	2018	12	24	SEGUNDA-FEIRA	201812	DEZEMBRO	0
+3646	2018-12-25	2018	12	25	TERÇA-FEIRA	201812	DEZEMBRO	0
+3647	2018-12-26	2018	12	26	QUARTA-FEIRA	201812	DEZEMBRO	0
+3648	2018-12-27	2018	12	27	QUINTA-FEIRA	201812	DEZEMBRO	0
+3649	2018-12-28	2018	12	28	SEXTA-FEIRA	201812	DEZEMBRO	0
+3650	2018-12-29	2018	12	29	SÁBADO	201812	DEZEMBRO	0
+3651	2018-12-30	2018	12	30	DOMINGO	201812	DEZEMBRO	0
+3652	2018-12-31	2018	12	31	SEGUNDA-FEIRA	201812	DEZEMBRO	0
+3653	2019-01-01	2019	01	1	TERÇA-FEIRA	201901	JANEIRO	0
+3654	2019-01-02	2019	01	2	QUARTA-FEIRA	201901	JANEIRO	0
+3655	2019-01-03	2019	01	3	QUINTA-FEIRA	201901	JANEIRO	0
+3656	2019-01-04	2019	01	4	SEXTA-FEIRA	201901	JANEIRO	0
+3657	2019-01-05	2019	01	5	SÁBADO	201901	JANEIRO	0
+3658	2019-01-06	2019	01	6	DOMINGO	201901	JANEIRO	0
+3659	2019-01-07	2019	01	7	SEGUNDA-FEIRA	201901	JANEIRO	0
+3660	2019-01-08	2019	01	8	TERÇA-FEIRA	201901	JANEIRO	0
+3661	2019-01-09	2019	01	9	QUARTA-FEIRA	201901	JANEIRO	0
+3662	2019-01-10	2019	01	10	QUINTA-FEIRA	201901	JANEIRO	0
+3663	2019-01-11	2019	01	11	SEXTA-FEIRA	201901	JANEIRO	0
+3664	2019-01-12	2019	01	12	SÁBADO	201901	JANEIRO	0
+3665	2019-01-13	2019	01	13	DOMINGO	201901	JANEIRO	0
+3666	2019-01-14	2019	01	14	SEGUNDA-FEIRA	201901	JANEIRO	0
+3667	2019-01-15	2019	01	15	TERÇA-FEIRA	201901	JANEIRO	0
+3668	2019-01-16	2019	01	16	QUARTA-FEIRA	201901	JANEIRO	0
+3669	2019-01-17	2019	01	17	QUINTA-FEIRA	201901	JANEIRO	0
+3670	2019-01-18	2019	01	18	SEXTA-FEIRA	201901	JANEIRO	0
+3671	2019-01-19	2019	01	19	SÁBADO	201901	JANEIRO	0
+3672	2019-01-20	2019	01	20	DOMINGO	201901	JANEIRO	0
+3673	2019-01-21	2019	01	21	SEGUNDA-FEIRA	201901	JANEIRO	0
+3674	2019-01-22	2019	01	22	TERÇA-FEIRA	201901	JANEIRO	0
+3675	2019-01-23	2019	01	23	QUARTA-FEIRA	201901	JANEIRO	0
+3676	2019-01-24	2019	01	24	QUINTA-FEIRA	201901	JANEIRO	0
+3677	2019-01-25	2019	01	25	SEXTA-FEIRA	201901	JANEIRO	0
+3678	2019-01-26	2019	01	26	SÁBADO	201901	JANEIRO	0
+3679	2019-01-27	2019	01	27	DOMINGO	201901	JANEIRO	0
+3680	2019-01-28	2019	01	28	SEGUNDA-FEIRA	201901	JANEIRO	0
+3681	2019-01-29	2019	01	29	TERÇA-FEIRA	201901	JANEIRO	0
+3682	2019-01-30	2019	01	30	QUARTA-FEIRA	201901	JANEIRO	0
+3683	2019-01-31	2019	01	31	QUINTA-FEIRA	201901	JANEIRO	0
+3684	2019-02-01	2019	02	1	SEXTA-FEIRA	201902	FEVEREIRO	0
+3685	2019-02-02	2019	02	2	SÁBADO	201902	FEVEREIRO	0
+3686	2019-02-03	2019	02	3	DOMINGO	201902	FEVEREIRO	0
+3687	2019-02-04	2019	02	4	SEGUNDA-FEIRA	201902	FEVEREIRO	0
+3688	2019-02-05	2019	02	5	TERÇA-FEIRA	201902	FEVEREIRO	0
+3689	2019-02-06	2019	02	6	QUARTA-FEIRA	201902	FEVEREIRO	0
+3690	2019-02-07	2019	02	7	QUINTA-FEIRA	201902	FEVEREIRO	0
+3691	2019-02-08	2019	02	8	SEXTA-FEIRA	201902	FEVEREIRO	0
+3692	2019-02-09	2019	02	9	SÁBADO	201902	FEVEREIRO	0
+3693	2019-02-10	2019	02	10	DOMINGO	201902	FEVEREIRO	0
+3694	2019-02-11	2019	02	11	SEGUNDA-FEIRA	201902	FEVEREIRO	0
+3695	2019-02-12	2019	02	12	TERÇA-FEIRA	201902	FEVEREIRO	0
+3696	2019-02-13	2019	02	13	QUARTA-FEIRA	201902	FEVEREIRO	0
+3697	2019-02-14	2019	02	14	QUINTA-FEIRA	201902	FEVEREIRO	0
+3698	2019-02-15	2019	02	15	SEXTA-FEIRA	201902	FEVEREIRO	0
+3699	2019-02-16	2019	02	16	SÁBADO	201902	FEVEREIRO	0
+3700	2019-02-17	2019	02	17	DOMINGO	201902	FEVEREIRO	0
+3701	2019-02-18	2019	02	18	SEGUNDA-FEIRA	201902	FEVEREIRO	0
+3702	2019-02-19	2019	02	19	TERÇA-FEIRA	201902	FEVEREIRO	0
+3703	2019-02-20	2019	02	20	QUARTA-FEIRA	201902	FEVEREIRO	0
+3704	2019-02-21	2019	02	21	QUINTA-FEIRA	201902	FEVEREIRO	0
+3705	2019-02-22	2019	02	22	SEXTA-FEIRA	201902	FEVEREIRO	0
+3706	2019-02-23	2019	02	23	SÁBADO	201902	FEVEREIRO	0
+3707	2019-02-24	2019	02	24	DOMINGO	201902	FEVEREIRO	0
+3708	2019-02-25	2019	02	25	SEGUNDA-FEIRA	201902	FEVEREIRO	0
+3709	2019-02-26	2019	02	26	TERÇA-FEIRA	201902	FEVEREIRO	0
+3710	2019-02-27	2019	02	27	QUARTA-FEIRA	201902	FEVEREIRO	0
+3711	2019-02-28	2019	02	28	QUINTA-FEIRA	201902	FEVEREIRO	0
+3712	2019-03-01	2019	03	1	SEXTA-FEIRA	201903	MARÇO	0
+3713	2019-03-02	2019	03	2	SÁBADO	201903	MARÇO	0
+3714	2019-03-03	2019	03	3	DOMINGO	201903	MARÇO	0
+3715	2019-03-04	2019	03	4	SEGUNDA-FEIRA	201903	MARÇO	0
+3716	2019-03-05	2019	03	5	TERÇA-FEIRA	201903	MARÇO	0
+3717	2019-03-06	2019	03	6	QUARTA-FEIRA	201903	MARÇO	0
+3718	2019-03-07	2019	03	7	QUINTA-FEIRA	201903	MARÇO	0
+3719	2019-03-08	2019	03	8	SEXTA-FEIRA	201903	MARÇO	0
+3720	2019-03-09	2019	03	9	SÁBADO	201903	MARÇO	0
+3721	2019-03-10	2019	03	10	DOMINGO	201903	MARÇO	0
+3722	2019-03-11	2019	03	11	SEGUNDA-FEIRA	201903	MARÇO	0
+3723	2019-03-12	2019	03	12	TERÇA-FEIRA	201903	MARÇO	0
+3724	2019-03-13	2019	03	13	QUARTA-FEIRA	201903	MARÇO	0
+3725	2019-03-14	2019	03	14	QUINTA-FEIRA	201903	MARÇO	0
+3726	2019-03-15	2019	03	15	SEXTA-FEIRA	201903	MARÇO	0
+3727	2019-03-16	2019	03	16	SÁBADO	201903	MARÇO	0
+3728	2019-03-17	2019	03	17	DOMINGO	201903	MARÇO	0
+3729	2019-03-18	2019	03	18	SEGUNDA-FEIRA	201903	MARÇO	0
+3730	2019-03-19	2019	03	19	TERÇA-FEIRA	201903	MARÇO	0
+3731	2019-03-20	2019	03	20	QUARTA-FEIRA	201903	MARÇO	0
+3732	2019-03-21	2019	03	21	QUINTA-FEIRA	201903	MARÇO	0
+3733	2019-03-22	2019	03	22	SEXTA-FEIRA	201903	MARÇO	0
+3734	2019-03-23	2019	03	23	SÁBADO	201903	MARÇO	0
+3735	2019-03-24	2019	03	24	DOMINGO	201903	MARÇO	0
+3736	2019-03-25	2019	03	25	SEGUNDA-FEIRA	201903	MARÇO	0
+3737	2019-03-26	2019	03	26	TERÇA-FEIRA	201903	MARÇO	0
+3738	2019-03-27	2019	03	27	QUARTA-FEIRA	201903	MARÇO	0
+3739	2019-03-28	2019	03	28	QUINTA-FEIRA	201903	MARÇO	0
+3740	2019-03-29	2019	03	29	SEXTA-FEIRA	201903	MARÇO	0
+3741	2019-03-30	2019	03	30	SÁBADO	201903	MARÇO	0
+3742	2019-03-31	2019	03	31	DOMINGO	201903	MARÇO	0
+3743	2019-04-01	2019	04	1	SEGUNDA-FEIRA	201904	ABRIL	0
+3744	2019-04-02	2019	04	2	TERÇA-FEIRA	201904	ABRIL	0
+3745	2019-04-03	2019	04	3	QUARTA-FEIRA	201904	ABRIL	0
+3746	2019-04-04	2019	04	4	QUINTA-FEIRA	201904	ABRIL	0
+3747	2019-04-05	2019	04	5	SEXTA-FEIRA	201904	ABRIL	0
+3748	2019-04-06	2019	04	6	SÁBADO	201904	ABRIL	0
+3749	2019-04-07	2019	04	7	DOMINGO	201904	ABRIL	0
+3750	2019-04-08	2019	04	8	SEGUNDA-FEIRA	201904	ABRIL	0
+3751	2019-04-09	2019	04	9	TERÇA-FEIRA	201904	ABRIL	0
+3752	2019-04-10	2019	04	10	QUARTA-FEIRA	201904	ABRIL	0
+3753	2019-04-11	2019	04	11	QUINTA-FEIRA	201904	ABRIL	0
+3754	2019-04-12	2019	04	12	SEXTA-FEIRA	201904	ABRIL	0
+3755	2019-04-13	2019	04	13	SÁBADO	201904	ABRIL	0
+3756	2019-04-14	2019	04	14	DOMINGO	201904	ABRIL	0
+3757	2019-04-15	2019	04	15	SEGUNDA-FEIRA	201904	ABRIL	0
+3758	2019-04-16	2019	04	16	TERÇA-FEIRA	201904	ABRIL	0
+3759	2019-04-17	2019	04	17	QUARTA-FEIRA	201904	ABRIL	0
+3760	2019-04-18	2019	04	18	QUINTA-FEIRA	201904	ABRIL	0
+3761	2019-04-19	2019	04	19	SEXTA-FEIRA	201904	ABRIL	0
+3762	2019-04-20	2019	04	20	SÁBADO	201904	ABRIL	0
+3763	2019-04-21	2019	04	21	DOMINGO	201904	ABRIL	0
+3764	2019-04-22	2019	04	22	SEGUNDA-FEIRA	201904	ABRIL	0
+3765	2019-04-23	2019	04	23	TERÇA-FEIRA	201904	ABRIL	0
+3766	2019-04-24	2019	04	24	QUARTA-FEIRA	201904	ABRIL	0
+3767	2019-04-25	2019	04	25	QUINTA-FEIRA	201904	ABRIL	0
+3768	2019-04-26	2019	04	26	SEXTA-FEIRA	201904	ABRIL	0
+3769	2019-04-27	2019	04	27	SÁBADO	201904	ABRIL	0
+3770	2019-04-28	2019	04	28	DOMINGO	201904	ABRIL	0
+3771	2019-04-29	2019	04	29	SEGUNDA-FEIRA	201904	ABRIL	0
+3772	2019-04-30	2019	04	30	TERÇA-FEIRA	201904	ABRIL	0
+3773	2019-05-01	2019	05	1	QUARTA-FEIRA	201905	MAIO	0
+3774	2019-05-02	2019	05	2	QUINTA-FEIRA	201905	MAIO	0
+3775	2019-05-03	2019	05	3	SEXTA-FEIRA	201905	MAIO	0
+3776	2019-05-04	2019	05	4	SÁBADO	201905	MAIO	0
+3777	2019-05-05	2019	05	5	DOMINGO	201905	MAIO	0
+3778	2019-05-06	2019	05	6	SEGUNDA-FEIRA	201905	MAIO	0
+3779	2019-05-07	2019	05	7	TERÇA-FEIRA	201905	MAIO	0
+3780	2019-05-08	2019	05	8	QUARTA-FEIRA	201905	MAIO	0
+3781	2019-05-09	2019	05	9	QUINTA-FEIRA	201905	MAIO	0
+3782	2019-05-10	2019	05	10	SEXTA-FEIRA	201905	MAIO	0
+3783	2019-05-11	2019	05	11	SÁBADO	201905	MAIO	0
+3784	2019-05-12	2019	05	12	DOMINGO	201905	MAIO	0
+3785	2019-05-13	2019	05	13	SEGUNDA-FEIRA	201905	MAIO	0
+3786	2019-05-14	2019	05	14	TERÇA-FEIRA	201905	MAIO	0
+3787	2019-05-15	2019	05	15	QUARTA-FEIRA	201905	MAIO	0
+3788	2019-05-16	2019	05	16	QUINTA-FEIRA	201905	MAIO	0
+3789	2019-05-17	2019	05	17	SEXTA-FEIRA	201905	MAIO	0
+3790	2019-05-18	2019	05	18	SÁBADO	201905	MAIO	0
+3791	2019-05-19	2019	05	19	DOMINGO	201905	MAIO	0
+3792	2019-05-20	2019	05	20	SEGUNDA-FEIRA	201905	MAIO	0
+3793	2019-05-21	2019	05	21	TERÇA-FEIRA	201905	MAIO	0
+3794	2019-05-22	2019	05	22	QUARTA-FEIRA	201905	MAIO	0
+3795	2019-05-23	2019	05	23	QUINTA-FEIRA	201905	MAIO	0
+3796	2019-05-24	2019	05	24	SEXTA-FEIRA	201905	MAIO	0
+3797	2019-05-25	2019	05	25	SÁBADO	201905	MAIO	0
+3798	2019-05-26	2019	05	26	DOMINGO	201905	MAIO	0
+3799	2019-05-27	2019	05	27	SEGUNDA-FEIRA	201905	MAIO	0
+3800	2019-05-28	2019	05	28	TERÇA-FEIRA	201905	MAIO	0
+3801	2019-05-29	2019	05	29	QUARTA-FEIRA	201905	MAIO	0
+3802	2019-05-30	2019	05	30	QUINTA-FEIRA	201905	MAIO	0
+3803	2019-05-31	2019	05	31	SEXTA-FEIRA	201905	MAIO	0
+3804	2019-06-01	2019	06	1	SÁBADO	201906	JUNHO	0
+3805	2019-06-02	2019	06	2	DOMINGO	201906	JUNHO	0
+3806	2019-06-03	2019	06	3	SEGUNDA-FEIRA	201906	JUNHO	0
+3807	2019-06-04	2019	06	4	TERÇA-FEIRA	201906	JUNHO	0
+3808	2019-06-05	2019	06	5	QUARTA-FEIRA	201906	JUNHO	0
+3809	2019-06-06	2019	06	6	QUINTA-FEIRA	201906	JUNHO	0
+3810	2019-06-07	2019	06	7	SEXTA-FEIRA	201906	JUNHO	0
+3811	2019-06-08	2019	06	8	SÁBADO	201906	JUNHO	0
+3812	2019-06-09	2019	06	9	DOMINGO	201906	JUNHO	0
+3813	2019-06-10	2019	06	10	SEGUNDA-FEIRA	201906	JUNHO	0
+3814	2019-06-11	2019	06	11	TERÇA-FEIRA	201906	JUNHO	0
+3815	2019-06-12	2019	06	12	QUARTA-FEIRA	201906	JUNHO	0
+3816	2019-06-13	2019	06	13	QUINTA-FEIRA	201906	JUNHO	0
+3817	2019-06-14	2019	06	14	SEXTA-FEIRA	201906	JUNHO	0
+3818	2019-06-15	2019	06	15	SÁBADO	201906	JUNHO	0
+3819	2019-06-16	2019	06	16	DOMINGO	201906	JUNHO	0
+3820	2019-06-17	2019	06	17	SEGUNDA-FEIRA	201906	JUNHO	0
+3821	2019-06-18	2019	06	18	TERÇA-FEIRA	201906	JUNHO	0
+3822	2019-06-19	2019	06	19	QUARTA-FEIRA	201906	JUNHO	0
+3823	2019-06-20	2019	06	20	QUINTA-FEIRA	201906	JUNHO	0
+3824	2019-06-21	2019	06	21	SEXTA-FEIRA	201906	JUNHO	0
+3825	2019-06-22	2019	06	22	SÁBADO	201906	JUNHO	0
+3826	2019-06-23	2019	06	23	DOMINGO	201906	JUNHO	0
+3827	2019-06-24	2019	06	24	SEGUNDA-FEIRA	201906	JUNHO	0
+3828	2019-06-25	2019	06	25	TERÇA-FEIRA	201906	JUNHO	0
+3829	2019-06-26	2019	06	26	QUARTA-FEIRA	201906	JUNHO	0
+3830	2019-06-27	2019	06	27	QUINTA-FEIRA	201906	JUNHO	0
+3831	2019-06-28	2019	06	28	SEXTA-FEIRA	201906	JUNHO	0
+3832	2019-06-29	2019	06	29	SÁBADO	201906	JUNHO	0
+3833	2019-06-30	2019	06	30	DOMINGO	201906	JUNHO	0
+3834	2019-07-01	2019	07	1	SEGUNDA-FEIRA	201907	JULHO	0
+3835	2019-07-02	2019	07	2	TERÇA-FEIRA	201907	JULHO	0
+3836	2019-07-03	2019	07	3	QUARTA-FEIRA	201907	JULHO	0
+3837	2019-07-04	2019	07	4	QUINTA-FEIRA	201907	JULHO	0
+3838	2019-07-05	2019	07	5	SEXTA-FEIRA	201907	JULHO	0
+3839	2019-07-06	2019	07	6	SÁBADO	201907	JULHO	0
+3840	2019-07-07	2019	07	7	DOMINGO	201907	JULHO	0
+3841	2019-07-08	2019	07	8	SEGUNDA-FEIRA	201907	JULHO	0
+3842	2019-07-09	2019	07	9	TERÇA-FEIRA	201907	JULHO	0
+3843	2019-07-10	2019	07	10	QUARTA-FEIRA	201907	JULHO	0
+3844	2019-07-11	2019	07	11	QUINTA-FEIRA	201907	JULHO	0
+3845	2019-07-12	2019	07	12	SEXTA-FEIRA	201907	JULHO	0
+3846	2019-07-13	2019	07	13	SÁBADO	201907	JULHO	0
+3847	2019-07-14	2019	07	14	DOMINGO	201907	JULHO	0
+3848	2019-07-15	2019	07	15	SEGUNDA-FEIRA	201907	JULHO	0
+3849	2019-07-16	2019	07	16	TERÇA-FEIRA	201907	JULHO	0
+3850	2019-07-17	2019	07	17	QUARTA-FEIRA	201907	JULHO	0
+3851	2019-07-18	2019	07	18	QUINTA-FEIRA	201907	JULHO	0
+3852	2019-07-19	2019	07	19	SEXTA-FEIRA	201907	JULHO	0
+3853	2019-07-20	2019	07	20	SÁBADO	201907	JULHO	0
+3854	2019-07-21	2019	07	21	DOMINGO	201907	JULHO	0
+3855	2019-07-22	2019	07	22	SEGUNDA-FEIRA	201907	JULHO	0
+3856	2019-07-23	2019	07	23	TERÇA-FEIRA	201907	JULHO	0
+3857	2019-07-24	2019	07	24	QUARTA-FEIRA	201907	JULHO	0
+3858	2019-07-25	2019	07	25	QUINTA-FEIRA	201907	JULHO	0
+3859	2019-07-26	2019	07	26	SEXTA-FEIRA	201907	JULHO	0
+3860	2019-07-27	2019	07	27	SÁBADO	201907	JULHO	0
+3861	2019-07-28	2019	07	28	DOMINGO	201907	JULHO	0
+3862	2019-07-29	2019	07	29	SEGUNDA-FEIRA	201907	JULHO	0
+3863	2019-07-30	2019	07	30	TERÇA-FEIRA	201907	JULHO	0
+3864	2019-07-31	2019	07	31	QUARTA-FEIRA	201907	JULHO	0
+3865	2019-08-01	2019	08	1	QUINTA-FEIRA	201908	AGOSTO	0
+3866	2019-08-02	2019	08	2	SEXTA-FEIRA	201908	AGOSTO	0
+3867	2019-08-03	2019	08	3	SÁBADO	201908	AGOSTO	0
+3868	2019-08-04	2019	08	4	DOMINGO	201908	AGOSTO	0
+3869	2019-08-05	2019	08	5	SEGUNDA-FEIRA	201908	AGOSTO	0
+3870	2019-08-06	2019	08	6	TERÇA-FEIRA	201908	AGOSTO	0
+3871	2019-08-07	2019	08	7	QUARTA-FEIRA	201908	AGOSTO	0
+3872	2019-08-08	2019	08	8	QUINTA-FEIRA	201908	AGOSTO	0
+3873	2019-08-09	2019	08	9	SEXTA-FEIRA	201908	AGOSTO	0
+3874	2019-08-10	2019	08	10	SÁBADO	201908	AGOSTO	0
+3875	2019-08-11	2019	08	11	DOMINGO	201908	AGOSTO	0
+1802	2013-12-07	2013	12	7	SÁBADO	201312	DEZEMBRO	0
+1803	2013-12-08	2013	12	8	DOMINGO	201312	DEZEMBRO	0
+1804	2013-12-09	2013	12	9	SEGUNDA-FEIRA	201312	DEZEMBRO	0
+1805	2013-12-10	2013	12	10	TERÇA-FEIRA	201312	DEZEMBRO	0
+1806	2013-12-11	2013	12	11	QUARTA-FEIRA	201312	DEZEMBRO	0
+1807	2013-12-12	2013	12	12	QUINTA-FEIRA	201312	DEZEMBRO	0
+1808	2013-12-13	2013	12	13	SEXTA-FEIRA	201312	DEZEMBRO	0
+1809	2013-12-14	2013	12	14	SÁBADO	201312	DEZEMBRO	0
+1810	2013-12-15	2013	12	15	DOMINGO	201312	DEZEMBRO	0
+1811	2013-12-16	2013	12	16	SEGUNDA-FEIRA	201312	DEZEMBRO	0
+1812	2013-12-17	2013	12	17	TERÇA-FEIRA	201312	DEZEMBRO	0
+1813	2013-12-18	2013	12	18	QUARTA-FEIRA	201312	DEZEMBRO	0
+1814	2013-12-19	2013	12	19	QUINTA-FEIRA	201312	DEZEMBRO	0
+1815	2013-12-20	2013	12	20	SEXTA-FEIRA	201312	DEZEMBRO	0
+1816	2013-12-21	2013	12	21	SÁBADO	201312	DEZEMBRO	0
+1817	2013-12-22	2013	12	22	DOMINGO	201312	DEZEMBRO	0
+1818	2013-12-23	2013	12	23	SEGUNDA-FEIRA	201312	DEZEMBRO	0
+1819	2013-12-24	2013	12	24	TERÇA-FEIRA	201312	DEZEMBRO	0
+1820	2013-12-25	2013	12	25	QUARTA-FEIRA	201312	DEZEMBRO	0
+1821	2013-12-26	2013	12	26	QUINTA-FEIRA	201312	DEZEMBRO	0
+1822	2013-12-27	2013	12	27	SEXTA-FEIRA	201312	DEZEMBRO	0
+1823	2013-12-28	2013	12	28	SÁBADO	201312	DEZEMBRO	0
+1824	2013-12-29	2013	12	29	DOMINGO	201312	DEZEMBRO	0
+1825	2013-12-30	2013	12	30	SEGUNDA-FEIRA	201312	DEZEMBRO	0
+1826	2013-12-31	2013	12	31	TERÇA-FEIRA	201312	DEZEMBRO	0
+1827	2014-01-01	2014	01	1	QUARTA-FEIRA	201401	JANEIRO	0
+1828	2014-01-02	2014	01	2	QUINTA-FEIRA	201401	JANEIRO	0
+1829	2014-01-03	2014	01	3	SEXTA-FEIRA	201401	JANEIRO	0
+1830	2014-01-04	2014	01	4	SÁBADO	201401	JANEIRO	0
+1831	2014-01-05	2014	01	5	DOMINGO	201401	JANEIRO	0
+1832	2014-01-06	2014	01	6	SEGUNDA-FEIRA	201401	JANEIRO	0
+1833	2014-01-07	2014	01	7	TERÇA-FEIRA	201401	JANEIRO	0
+1834	2014-01-08	2014	01	8	QUARTA-FEIRA	201401	JANEIRO	0
+1835	2014-01-09	2014	01	9	QUINTA-FEIRA	201401	JANEIRO	0
+1836	2014-01-10	2014	01	10	SEXTA-FEIRA	201401	JANEIRO	0
+1837	2014-01-11	2014	01	11	SÁBADO	201401	JANEIRO	0
+1838	2014-01-12	2014	01	12	DOMINGO	201401	JANEIRO	0
+1839	2014-01-13	2014	01	13	SEGUNDA-FEIRA	201401	JANEIRO	0
+1840	2014-01-14	2014	01	14	TERÇA-FEIRA	201401	JANEIRO	0
+1841	2014-01-15	2014	01	15	QUARTA-FEIRA	201401	JANEIRO	0
+1842	2014-01-16	2014	01	16	QUINTA-FEIRA	201401	JANEIRO	0
+1843	2014-01-17	2014	01	17	SEXTA-FEIRA	201401	JANEIRO	0
+1844	2014-01-18	2014	01	18	SÁBADO	201401	JANEIRO	0
+1845	2014-01-19	2014	01	19	DOMINGO	201401	JANEIRO	0
+1846	2014-01-20	2014	01	20	SEGUNDA-FEIRA	201401	JANEIRO	0
+1847	2014-01-21	2014	01	21	TERÇA-FEIRA	201401	JANEIRO	0
+1848	2014-01-22	2014	01	22	QUARTA-FEIRA	201401	JANEIRO	0
+1849	2014-01-23	2014	01	23	QUINTA-FEIRA	201401	JANEIRO	0
+1850	2014-01-24	2014	01	24	SEXTA-FEIRA	201401	JANEIRO	0
+1851	2014-01-25	2014	01	25	SÁBADO	201401	JANEIRO	0
+1852	2014-01-26	2014	01	26	DOMINGO	201401	JANEIRO	0
+1853	2014-01-27	2014	01	27	SEGUNDA-FEIRA	201401	JANEIRO	0
+1854	2014-01-28	2014	01	28	TERÇA-FEIRA	201401	JANEIRO	0
+1855	2014-01-29	2014	01	29	QUARTA-FEIRA	201401	JANEIRO	0
+1856	2014-01-30	2014	01	30	QUINTA-FEIRA	201401	JANEIRO	0
+1857	2014-01-31	2014	01	31	SEXTA-FEIRA	201401	JANEIRO	0
+1858	2014-02-01	2014	02	1	SÁBADO	201402	FEVEREIRO	0
+1859	2014-02-02	2014	02	2	DOMINGO	201402	FEVEREIRO	0
+1860	2014-02-03	2014	02	3	SEGUNDA-FEIRA	201402	FEVEREIRO	0
+1861	2014-02-04	2014	02	4	TERÇA-FEIRA	201402	FEVEREIRO	0
+1862	2014-02-05	2014	02	5	QUARTA-FEIRA	201402	FEVEREIRO	0
+1863	2014-02-06	2014	02	6	QUINTA-FEIRA	201402	FEVEREIRO	0
+1864	2014-02-07	2014	02	7	SEXTA-FEIRA	201402	FEVEREIRO	0
+1865	2014-02-08	2014	02	8	SÁBADO	201402	FEVEREIRO	0
+1866	2014-02-09	2014	02	9	DOMINGO	201402	FEVEREIRO	0
+1867	2014-02-10	2014	02	10	SEGUNDA-FEIRA	201402	FEVEREIRO	0
+1868	2014-02-11	2014	02	11	TERÇA-FEIRA	201402	FEVEREIRO	0
+1869	2014-02-12	2014	02	12	QUARTA-FEIRA	201402	FEVEREIRO	0
+1870	2014-02-13	2014	02	13	QUINTA-FEIRA	201402	FEVEREIRO	0
+1871	2014-02-14	2014	02	14	SEXTA-FEIRA	201402	FEVEREIRO	0
+1872	2014-02-15	2014	02	15	SÁBADO	201402	FEVEREIRO	0
+1873	2014-02-16	2014	02	16	DOMINGO	201402	FEVEREIRO	0
+1874	2014-02-17	2014	02	17	SEGUNDA-FEIRA	201402	FEVEREIRO	0
+1875	2014-02-18	2014	02	18	TERÇA-FEIRA	201402	FEVEREIRO	0
+1876	2014-02-19	2014	02	19	QUARTA-FEIRA	201402	FEVEREIRO	0
+1877	2014-02-20	2014	02	20	QUINTA-FEIRA	201402	FEVEREIRO	0
+1878	2014-02-21	2014	02	21	SEXTA-FEIRA	201402	FEVEREIRO	0
+1879	2014-02-22	2014	02	22	SÁBADO	201402	FEVEREIRO	0
+1880	2014-02-23	2014	02	23	DOMINGO	201402	FEVEREIRO	0
+1881	2014-02-24	2014	02	24	SEGUNDA-FEIRA	201402	FEVEREIRO	0
+1882	2014-02-25	2014	02	25	TERÇA-FEIRA	201402	FEVEREIRO	0
+1883	2014-02-26	2014	02	26	QUARTA-FEIRA	201402	FEVEREIRO	0
+1884	2014-02-27	2014	02	27	QUINTA-FEIRA	201402	FEVEREIRO	0
+1885	2014-02-28	2014	02	28	SEXTA-FEIRA	201402	FEVEREIRO	0
+1886	2014-03-01	2014	03	1	SÁBADO	201403	MARÇO	0
+1887	2014-03-02	2014	03	2	DOMINGO	201403	MARÇO	0
+1888	2014-03-03	2014	03	3	SEGUNDA-FEIRA	201403	MARÇO	0
+1889	2014-03-04	2014	03	4	TERÇA-FEIRA	201403	MARÇO	0
+1890	2014-03-05	2014	03	5	QUARTA-FEIRA	201403	MARÇO	0
+1891	2014-03-06	2014	03	6	QUINTA-FEIRA	201403	MARÇO	0
+1892	2014-03-07	2014	03	7	SEXTA-FEIRA	201403	MARÇO	0
+1893	2014-03-08	2014	03	8	SÁBADO	201403	MARÇO	0
+1894	2014-03-09	2014	03	9	DOMINGO	201403	MARÇO	0
+1895	2014-03-10	2014	03	10	SEGUNDA-FEIRA	201403	MARÇO	0
+1896	2014-03-11	2014	03	11	TERÇA-FEIRA	201403	MARÇO	0
+1897	2014-03-12	2014	03	12	QUARTA-FEIRA	201403	MARÇO	0
+1898	2014-03-13	2014	03	13	QUINTA-FEIRA	201403	MARÇO	0
+1899	2014-03-14	2014	03	14	SEXTA-FEIRA	201403	MARÇO	0
+1900	2014-03-15	2014	03	15	SÁBADO	201403	MARÇO	0
+1901	2014-03-16	2014	03	16	DOMINGO	201403	MARÇO	0
+1902	2014-03-17	2014	03	17	SEGUNDA-FEIRA	201403	MARÇO	0
+1903	2014-03-18	2014	03	18	TERÇA-FEIRA	201403	MARÇO	0
+1904	2014-03-19	2014	03	19	QUARTA-FEIRA	201403	MARÇO	0
+1905	2014-03-20	2014	03	20	QUINTA-FEIRA	201403	MARÇO	0
+1906	2014-03-21	2014	03	21	SEXTA-FEIRA	201403	MARÇO	0
+1907	2014-03-22	2014	03	22	SÁBADO	201403	MARÇO	0
+1908	2014-03-23	2014	03	23	DOMINGO	201403	MARÇO	0
+1909	2014-03-24	2014	03	24	SEGUNDA-FEIRA	201403	MARÇO	0
+1910	2014-03-25	2014	03	25	TERÇA-FEIRA	201403	MARÇO	0
+1911	2014-03-26	2014	03	26	QUARTA-FEIRA	201403	MARÇO	0
+1912	2014-03-27	2014	03	27	QUINTA-FEIRA	201403	MARÇO	0
+1913	2014-03-28	2014	03	28	SEXTA-FEIRA	201403	MARÇO	0
+1914	2014-03-29	2014	03	29	SÁBADO	201403	MARÇO	0
+1915	2014-03-30	2014	03	30	DOMINGO	201403	MARÇO	0
+1916	2014-03-31	2014	03	31	SEGUNDA-FEIRA	201403	MARÇO	0
+1917	2014-04-01	2014	04	1	TERÇA-FEIRA	201404	ABRIL	0
+1918	2014-04-02	2014	04	2	QUARTA-FEIRA	201404	ABRIL	0
+1919	2014-04-03	2014	04	3	QUINTA-FEIRA	201404	ABRIL	0
+1920	2014-04-04	2014	04	4	SEXTA-FEIRA	201404	ABRIL	0
+1921	2014-04-05	2014	04	5	SÁBADO	201404	ABRIL	0
+1922	2014-04-06	2014	04	6	DOMINGO	201404	ABRIL	0
+1923	2014-04-07	2014	04	7	SEGUNDA-FEIRA	201404	ABRIL	0
+1924	2014-04-08	2014	04	8	TERÇA-FEIRA	201404	ABRIL	0
+1925	2014-04-09	2014	04	9	QUARTA-FEIRA	201404	ABRIL	0
+1926	2014-04-10	2014	04	10	QUINTA-FEIRA	201404	ABRIL	0
+1927	2014-04-11	2014	04	11	SEXTA-FEIRA	201404	ABRIL	0
+1928	2014-04-12	2014	04	12	SÁBADO	201404	ABRIL	0
+1929	2014-04-13	2014	04	13	DOMINGO	201404	ABRIL	0
+1930	2014-04-14	2014	04	14	SEGUNDA-FEIRA	201404	ABRIL	0
+1931	2014-04-15	2014	04	15	TERÇA-FEIRA	201404	ABRIL	0
+1932	2014-04-16	2014	04	16	QUARTA-FEIRA	201404	ABRIL	0
+1933	2014-04-17	2014	04	17	QUINTA-FEIRA	201404	ABRIL	0
+1934	2014-04-18	2014	04	18	SEXTA-FEIRA	201404	ABRIL	0
+1935	2014-04-19	2014	04	19	SÁBADO	201404	ABRIL	0
+1936	2014-04-20	2014	04	20	DOMINGO	201404	ABRIL	0
+1937	2014-04-21	2014	04	21	SEGUNDA-FEIRA	201404	ABRIL	0
+1938	2014-04-22	2014	04	22	TERÇA-FEIRA	201404	ABRIL	0
+1939	2014-04-23	2014	04	23	QUARTA-FEIRA	201404	ABRIL	0
+1940	2014-04-24	2014	04	24	QUINTA-FEIRA	201404	ABRIL	0
+1941	2014-04-25	2014	04	25	SEXTA-FEIRA	201404	ABRIL	0
+1942	2014-04-26	2014	04	26	SÁBADO	201404	ABRIL	0
+1943	2014-04-27	2014	04	27	DOMINGO	201404	ABRIL	0
+1944	2014-04-28	2014	04	28	SEGUNDA-FEIRA	201404	ABRIL	0
+1945	2014-04-29	2014	04	29	TERÇA-FEIRA	201404	ABRIL	0
+1946	2014-04-30	2014	04	30	QUARTA-FEIRA	201404	ABRIL	0
+1947	2014-05-01	2014	05	1	QUINTA-FEIRA	201405	MAIO	0
+1948	2014-05-02	2014	05	2	SEXTA-FEIRA	201405	MAIO	0
+1949	2014-05-03	2014	05	3	SÁBADO	201405	MAIO	0
+1950	2014-05-04	2014	05	4	DOMINGO	201405	MAIO	0
+1951	2014-05-05	2014	05	5	SEGUNDA-FEIRA	201405	MAIO	0
+1952	2014-05-06	2014	05	6	TERÇA-FEIRA	201405	MAIO	0
+1953	2014-05-07	2014	05	7	QUARTA-FEIRA	201405	MAIO	0
+1954	2014-05-08	2014	05	8	QUINTA-FEIRA	201405	MAIO	0
+1955	2014-05-09	2014	05	9	SEXTA-FEIRA	201405	MAIO	0
+1956	2014-05-10	2014	05	10	SÁBADO	201405	MAIO	0
+1957	2014-05-11	2014	05	11	DOMINGO	201405	MAIO	0
+1958	2014-05-12	2014	05	12	SEGUNDA-FEIRA	201405	MAIO	0
+1959	2014-05-13	2014	05	13	TERÇA-FEIRA	201405	MAIO	0
+1960	2014-05-14	2014	05	14	QUARTA-FEIRA	201405	MAIO	0
+1961	2014-05-15	2014	05	15	QUINTA-FEIRA	201405	MAIO	0
+1962	2014-05-16	2014	05	16	SEXTA-FEIRA	201405	MAIO	0
+1963	2014-05-17	2014	05	17	SÁBADO	201405	MAIO	0
+1964	2014-05-18	2014	05	18	DOMINGO	201405	MAIO	0
+1965	2014-05-19	2014	05	19	SEGUNDA-FEIRA	201405	MAIO	0
+1966	2014-05-20	2014	05	20	TERÇA-FEIRA	201405	MAIO	0
+1967	2014-05-21	2014	05	21	QUARTA-FEIRA	201405	MAIO	0
+1968	2014-05-22	2014	05	22	QUINTA-FEIRA	201405	MAIO	0
+1969	2014-05-23	2014	05	23	SEXTA-FEIRA	201405	MAIO	0
+1970	2014-05-24	2014	05	24	SÁBADO	201405	MAIO	0
+1971	2014-05-25	2014	05	25	DOMINGO	201405	MAIO	0
+1972	2014-05-26	2014	05	26	SEGUNDA-FEIRA	201405	MAIO	0
+1973	2014-05-27	2014	05	27	TERÇA-FEIRA	201405	MAIO	0
+1974	2014-05-28	2014	05	28	QUARTA-FEIRA	201405	MAIO	0
+1975	2014-05-29	2014	05	29	QUINTA-FEIRA	201405	MAIO	0
+1976	2014-05-30	2014	05	30	SEXTA-FEIRA	201405	MAIO	0
+1977	2014-05-31	2014	05	31	SÁBADO	201405	MAIO	0
+1978	2014-06-01	2014	06	1	DOMINGO	201406	JUNHO	0
+1979	2014-06-02	2014	06	2	SEGUNDA-FEIRA	201406	JUNHO	0
+1980	2014-06-03	2014	06	3	TERÇA-FEIRA	201406	JUNHO	0
+1981	2014-06-04	2014	06	4	QUARTA-FEIRA	201406	JUNHO	0
+1982	2014-06-05	2014	06	5	QUINTA-FEIRA	201406	JUNHO	0
+1983	2014-06-06	2014	06	6	SEXTA-FEIRA	201406	JUNHO	0
+1984	2014-06-07	2014	06	7	SÁBADO	201406	JUNHO	0
+1985	2014-06-08	2014	06	8	DOMINGO	201406	JUNHO	0
+1986	2014-06-09	2014	06	9	SEGUNDA-FEIRA	201406	JUNHO	0
+1987	2014-06-10	2014	06	10	TERÇA-FEIRA	201406	JUNHO	0
+1988	2014-06-11	2014	06	11	QUARTA-FEIRA	201406	JUNHO	0
+1989	2014-06-12	2014	06	12	QUINTA-FEIRA	201406	JUNHO	0
+1990	2014-06-13	2014	06	13	SEXTA-FEIRA	201406	JUNHO	0
+1991	2014-06-14	2014	06	14	SÁBADO	201406	JUNHO	0
+1992	2014-06-15	2014	06	15	DOMINGO	201406	JUNHO	0
+1993	2014-06-16	2014	06	16	SEGUNDA-FEIRA	201406	JUNHO	0
+1994	2014-06-17	2014	06	17	TERÇA-FEIRA	201406	JUNHO	0
+1995	2014-06-18	2014	06	18	QUARTA-FEIRA	201406	JUNHO	0
+1996	2014-06-19	2014	06	19	QUINTA-FEIRA	201406	JUNHO	0
+1997	2014-06-20	2014	06	20	SEXTA-FEIRA	201406	JUNHO	0
+1998	2014-06-21	2014	06	21	SÁBADO	201406	JUNHO	0
+1999	2014-06-22	2014	06	22	DOMINGO	201406	JUNHO	0
+2000	2014-06-23	2014	06	23	SEGUNDA-FEIRA	201406	JUNHO	0
+2001	2014-06-24	2014	06	24	TERÇA-FEIRA	201406	JUNHO	0
+2002	2014-06-25	2014	06	25	QUARTA-FEIRA	201406	JUNHO	0
+2003	2014-06-26	2014	06	26	QUINTA-FEIRA	201406	JUNHO	0
+2004	2014-06-27	2014	06	27	SEXTA-FEIRA	201406	JUNHO	0
+2005	2014-06-28	2014	06	28	SÁBADO	201406	JUNHO	0
+2006	2014-06-29	2014	06	29	DOMINGO	201406	JUNHO	0
+2007	2014-06-30	2014	06	30	SEGUNDA-FEIRA	201406	JUNHO	0
+2008	2014-07-01	2014	07	1	TERÇA-FEIRA	201407	JULHO	0
+2009	2014-07-02	2014	07	2	QUARTA-FEIRA	201407	JULHO	0
+2010	2014-07-03	2014	07	3	QUINTA-FEIRA	201407	JULHO	0
+2011	2014-07-04	2014	07	4	SEXTA-FEIRA	201407	JULHO	0
+2012	2014-07-05	2014	07	5	SÁBADO	201407	JULHO	0
+2013	2014-07-06	2014	07	6	DOMINGO	201407	JULHO	0
+2014	2014-07-07	2014	07	7	SEGUNDA-FEIRA	201407	JULHO	0
+2015	2014-07-08	2014	07	8	TERÇA-FEIRA	201407	JULHO	0
+2016	2014-07-09	2014	07	9	QUARTA-FEIRA	201407	JULHO	0
+2017	2014-07-10	2014	07	10	QUINTA-FEIRA	201407	JULHO	0
+2018	2014-07-11	2014	07	11	SEXTA-FEIRA	201407	JULHO	0
+2019	2014-07-12	2014	07	12	SÁBADO	201407	JULHO	0
+2020	2014-07-13	2014	07	13	DOMINGO	201407	JULHO	0
+2021	2014-07-14	2014	07	14	SEGUNDA-FEIRA	201407	JULHO	0
+2022	2014-07-15	2014	07	15	TERÇA-FEIRA	201407	JULHO	0
+2023	2014-07-16	2014	07	16	QUARTA-FEIRA	201407	JULHO	0
+2024	2014-07-17	2014	07	17	QUINTA-FEIRA	201407	JULHO	0
+2025	2014-07-18	2014	07	18	SEXTA-FEIRA	201407	JULHO	0
+2026	2014-07-19	2014	07	19	SÁBADO	201407	JULHO	0
+2027	2014-07-20	2014	07	20	DOMINGO	201407	JULHO	0
+2028	2014-07-21	2014	07	21	SEGUNDA-FEIRA	201407	JULHO	0
+2029	2014-07-22	2014	07	22	TERÇA-FEIRA	201407	JULHO	0
+2030	2014-07-23	2014	07	23	QUARTA-FEIRA	201407	JULHO	0
+2031	2014-07-24	2014	07	24	QUINTA-FEIRA	201407	JULHO	0
+2032	2014-07-25	2014	07	25	SEXTA-FEIRA	201407	JULHO	0
+2033	2014-07-26	2014	07	26	SÁBADO	201407	JULHO	0
+2034	2014-07-27	2014	07	27	DOMINGO	201407	JULHO	0
+2035	2014-07-28	2014	07	28	SEGUNDA-FEIRA	201407	JULHO	0
+2036	2014-07-29	2014	07	29	TERÇA-FEIRA	201407	JULHO	0
+2037	2014-07-30	2014	07	30	QUARTA-FEIRA	201407	JULHO	0
+2038	2014-07-31	2014	07	31	QUINTA-FEIRA	201407	JULHO	0
+2039	2014-08-01	2014	08	1	SEXTA-FEIRA	201408	AGOSTO	0
+2040	2014-08-02	2014	08	2	SÁBADO	201408	AGOSTO	0
+2041	2014-08-03	2014	08	3	DOMINGO	201408	AGOSTO	0
+2042	2014-08-04	2014	08	4	SEGUNDA-FEIRA	201408	AGOSTO	0
+2043	2014-08-05	2014	08	5	TERÇA-FEIRA	201408	AGOSTO	0
+2044	2014-08-06	2014	08	6	QUARTA-FEIRA	201408	AGOSTO	0
+2045	2014-08-07	2014	08	7	QUINTA-FEIRA	201408	AGOSTO	0
+2046	2014-08-08	2014	08	8	SEXTA-FEIRA	201408	AGOSTO	0
+2047	2014-08-09	2014	08	9	SÁBADO	201408	AGOSTO	0
+2048	2014-08-10	2014	08	10	DOMINGO	201408	AGOSTO	0
+2049	2014-08-11	2014	08	11	SEGUNDA-FEIRA	201408	AGOSTO	0
+2050	2014-08-12	2014	08	12	TERÇA-FEIRA	201408	AGOSTO	0
+2051	2014-08-13	2014	08	13	QUARTA-FEIRA	201408	AGOSTO	0
+2052	2014-08-14	2014	08	14	QUINTA-FEIRA	201408	AGOSTO	0
+2053	2014-08-15	2014	08	15	SEXTA-FEIRA	201408	AGOSTO	0
+2054	2014-08-16	2014	08	16	SÁBADO	201408	AGOSTO	0
+2055	2014-08-17	2014	08	17	DOMINGO	201408	AGOSTO	0
+2056	2014-08-18	2014	08	18	SEGUNDA-FEIRA	201408	AGOSTO	0
+2057	2014-08-19	2014	08	19	TERÇA-FEIRA	201408	AGOSTO	0
+2058	2014-08-20	2014	08	20	QUARTA-FEIRA	201408	AGOSTO	0
+2059	2014-08-21	2014	08	21	QUINTA-FEIRA	201408	AGOSTO	0
+2060	2014-08-22	2014	08	22	SEXTA-FEIRA	201408	AGOSTO	0
+2061	2014-08-23	2014	08	23	SÁBADO	201408	AGOSTO	0
+2062	2014-08-24	2014	08	24	DOMINGO	201408	AGOSTO	0
+2063	2014-08-25	2014	08	25	SEGUNDA-FEIRA	201408	AGOSTO	0
+2064	2014-08-26	2014	08	26	TERÇA-FEIRA	201408	AGOSTO	0
+2065	2014-08-27	2014	08	27	QUARTA-FEIRA	201408	AGOSTO	0
+2066	2014-08-28	2014	08	28	QUINTA-FEIRA	201408	AGOSTO	0
+2067	2014-08-29	2014	08	29	SEXTA-FEIRA	201408	AGOSTO	0
+2068	2014-08-30	2014	08	30	SÁBADO	201408	AGOSTO	0
+2069	2014-08-31	2014	08	31	DOMINGO	201408	AGOSTO	0
+2070	2014-09-01	2014	09	1	SEGUNDA-FEIRA	201409	SETEMBRO	0
+2071	2014-09-02	2014	09	2	TERÇA-FEIRA	201409	SETEMBRO	0
+2072	2014-09-03	2014	09	3	QUARTA-FEIRA	201409	SETEMBRO	0
+2073	2014-09-04	2014	09	4	QUINTA-FEIRA	201409	SETEMBRO	0
+2074	2014-09-05	2014	09	5	SEXTA-FEIRA	201409	SETEMBRO	0
+2075	2014-09-06	2014	09	6	SÁBADO	201409	SETEMBRO	0
+2076	2014-09-07	2014	09	7	DOMINGO	201409	SETEMBRO	0
+2077	2014-09-08	2014	09	8	SEGUNDA-FEIRA	201409	SETEMBRO	0
+2078	2014-09-09	2014	09	9	TERÇA-FEIRA	201409	SETEMBRO	0
+2079	2014-09-10	2014	09	10	QUARTA-FEIRA	201409	SETEMBRO	0
+2080	2014-09-11	2014	09	11	QUINTA-FEIRA	201409	SETEMBRO	0
+2081	2014-09-12	2014	09	12	SEXTA-FEIRA	201409	SETEMBRO	0
+2082	2014-09-13	2014	09	13	SÁBADO	201409	SETEMBRO	0
+2083	2014-09-14	2014	09	14	DOMINGO	201409	SETEMBRO	0
+2084	2014-09-15	2014	09	15	SEGUNDA-FEIRA	201409	SETEMBRO	0
+2085	2014-09-16	2014	09	16	TERÇA-FEIRA	201409	SETEMBRO	0
+2086	2014-09-17	2014	09	17	QUARTA-FEIRA	201409	SETEMBRO	0
+2087	2014-09-18	2014	09	18	QUINTA-FEIRA	201409	SETEMBRO	0
+2088	2014-09-19	2014	09	19	SEXTA-FEIRA	201409	SETEMBRO	0
+2089	2014-09-20	2014	09	20	SÁBADO	201409	SETEMBRO	0
+2090	2014-09-21	2014	09	21	DOMINGO	201409	SETEMBRO	0
+2091	2014-09-22	2014	09	22	SEGUNDA-FEIRA	201409	SETEMBRO	0
+2092	2014-09-23	2014	09	23	TERÇA-FEIRA	201409	SETEMBRO	0
+2093	2014-09-24	2014	09	24	QUARTA-FEIRA	201409	SETEMBRO	0
+2094	2014-09-25	2014	09	25	QUINTA-FEIRA	201409	SETEMBRO	0
+2095	2014-09-26	2014	09	26	SEXTA-FEIRA	201409	SETEMBRO	0
+2096	2014-09-27	2014	09	27	SÁBADO	201409	SETEMBRO	0
+2097	2014-09-28	2014	09	28	DOMINGO	201409	SETEMBRO	0
+2098	2014-09-29	2014	09	29	SEGUNDA-FEIRA	201409	SETEMBRO	0
+2099	2014-09-30	2014	09	30	TERÇA-FEIRA	201409	SETEMBRO	0
+2100	2014-10-01	2014	10	1	QUARTA-FEIRA	201410	OUTUBRO	0
+2101	2014-10-02	2014	10	2	QUINTA-FEIRA	201410	OUTUBRO	0
+2102	2014-10-03	2014	10	3	SEXTA-FEIRA	201410	OUTUBRO	0
+2103	2014-10-04	2014	10	4	SÁBADO	201410	OUTUBRO	0
+2104	2014-10-05	2014	10	5	DOMINGO	201410	OUTUBRO	0
+2105	2014-10-06	2014	10	6	SEGUNDA-FEIRA	201410	OUTUBRO	0
+2106	2014-10-07	2014	10	7	TERÇA-FEIRA	201410	OUTUBRO	0
+2107	2014-10-08	2014	10	8	QUARTA-FEIRA	201410	OUTUBRO	0
+2108	2014-10-09	2014	10	9	QUINTA-FEIRA	201410	OUTUBRO	0
+2109	2014-10-10	2014	10	10	SEXTA-FEIRA	201410	OUTUBRO	0
+2110	2014-10-11	2014	10	11	SÁBADO	201410	OUTUBRO	0
+2111	2014-10-12	2014	10	12	DOMINGO	201410	OUTUBRO	0
+2112	2014-10-13	2014	10	13	SEGUNDA-FEIRA	201410	OUTUBRO	0
+2113	2014-10-14	2014	10	14	TERÇA-FEIRA	201410	OUTUBRO	0
+2114	2014-10-15	2014	10	15	QUARTA-FEIRA	201410	OUTUBRO	0
+2115	2014-10-16	2014	10	16	QUINTA-FEIRA	201410	OUTUBRO	0
+2116	2014-10-17	2014	10	17	SEXTA-FEIRA	201410	OUTUBRO	0
+2117	2014-10-18	2014	10	18	SÁBADO	201410	OUTUBRO	0
+2118	2014-10-19	2014	10	19	DOMINGO	201410	OUTUBRO	0
+2119	2014-10-20	2014	10	20	SEGUNDA-FEIRA	201410	OUTUBRO	0
+2120	2014-10-21	2014	10	21	TERÇA-FEIRA	201410	OUTUBRO	0
+2121	2014-10-22	2014	10	22	QUARTA-FEIRA	201410	OUTUBRO	0
+2122	2014-10-23	2014	10	23	QUINTA-FEIRA	201410	OUTUBRO	0
+2123	2014-10-24	2014	10	24	SEXTA-FEIRA	201410	OUTUBRO	0
+2124	2014-10-25	2014	10	25	SÁBADO	201410	OUTUBRO	0
+2125	2014-10-26	2014	10	26	DOMINGO	201410	OUTUBRO	0
+2126	2014-10-27	2014	10	27	SEGUNDA-FEIRA	201410	OUTUBRO	0
+2127	2014-10-28	2014	10	28	TERÇA-FEIRA	201410	OUTUBRO	0
+2128	2014-10-29	2014	10	29	QUARTA-FEIRA	201410	OUTUBRO	0
+2129	2014-10-30	2014	10	30	QUINTA-FEIRA	201410	OUTUBRO	0
+2130	2014-10-31	2014	10	31	SEXTA-FEIRA	201410	OUTUBRO	0
+2131	2014-11-01	2014	11	1	SÁBADO	201411	NOVEMBRO	0
+2132	2014-11-02	2014	11	2	DOMINGO	201411	NOVEMBRO	0
+2133	2014-11-03	2014	11	3	SEGUNDA-FEIRA	201411	NOVEMBRO	0
+2134	2014-11-04	2014	11	4	TERÇA-FEIRA	201411	NOVEMBRO	0
+2135	2014-11-05	2014	11	5	QUARTA-FEIRA	201411	NOVEMBRO	0
+2136	2014-11-06	2014	11	6	QUINTA-FEIRA	201411	NOVEMBRO	0
+2137	2014-11-07	2014	11	7	SEXTA-FEIRA	201411	NOVEMBRO	0
+2138	2014-11-08	2014	11	8	SÁBADO	201411	NOVEMBRO	0
+2139	2014-11-09	2014	11	9	DOMINGO	201411	NOVEMBRO	0
+2140	2014-11-10	2014	11	10	SEGUNDA-FEIRA	201411	NOVEMBRO	0
+2141	2014-11-11	2014	11	11	TERÇA-FEIRA	201411	NOVEMBRO	0
+2142	2014-11-12	2014	11	12	QUARTA-FEIRA	201411	NOVEMBRO	0
+2143	2014-11-13	2014	11	13	QUINTA-FEIRA	201411	NOVEMBRO	0
+2144	2014-11-14	2014	11	14	SEXTA-FEIRA	201411	NOVEMBRO	0
+2145	2014-11-15	2014	11	15	SÁBADO	201411	NOVEMBRO	0
+2146	2014-11-16	2014	11	16	DOMINGO	201411	NOVEMBRO	0
+2147	2014-11-17	2014	11	17	SEGUNDA-FEIRA	201411	NOVEMBRO	0
+2148	2014-11-18	2014	11	18	TERÇA-FEIRA	201411	NOVEMBRO	0
+2149	2014-11-19	2014	11	19	QUARTA-FEIRA	201411	NOVEMBRO	0
+2150	2014-11-20	2014	11	20	QUINTA-FEIRA	201411	NOVEMBRO	0
+2151	2014-11-21	2014	11	21	SEXTA-FEIRA	201411	NOVEMBRO	0
+2152	2014-11-22	2014	11	22	SÁBADO	201411	NOVEMBRO	0
+2153	2014-11-23	2014	11	23	DOMINGO	201411	NOVEMBRO	0
+2154	2014-11-24	2014	11	24	SEGUNDA-FEIRA	201411	NOVEMBRO	0
+2155	2014-11-25	2014	11	25	TERÇA-FEIRA	201411	NOVEMBRO	0
+2156	2014-11-26	2014	11	26	QUARTA-FEIRA	201411	NOVEMBRO	0
+2157	2014-11-27	2014	11	27	QUINTA-FEIRA	201411	NOVEMBRO	0
+2158	2014-11-28	2014	11	28	SEXTA-FEIRA	201411	NOVEMBRO	0
+2159	2014-11-29	2014	11	29	SÁBADO	201411	NOVEMBRO	0
+2160	2014-11-30	2014	11	30	DOMINGO	201411	NOVEMBRO	0
+2161	2014-12-01	2014	12	1	SEGUNDA-FEIRA	201412	DEZEMBRO	0
+2162	2014-12-02	2014	12	2	TERÇA-FEIRA	201412	DEZEMBRO	0
+2163	2014-12-03	2014	12	3	QUARTA-FEIRA	201412	DEZEMBRO	0
+2164	2014-12-04	2014	12	4	QUINTA-FEIRA	201412	DEZEMBRO	0
+2165	2014-12-05	2014	12	5	SEXTA-FEIRA	201412	DEZEMBRO	0
+2166	2014-12-06	2014	12	6	SÁBADO	201412	DEZEMBRO	0
+2167	2014-12-07	2014	12	7	DOMINGO	201412	DEZEMBRO	0
+2168	2014-12-08	2014	12	8	SEGUNDA-FEIRA	201412	DEZEMBRO	0
+2169	2014-12-09	2014	12	9	TERÇA-FEIRA	201412	DEZEMBRO	0
+2170	2014-12-10	2014	12	10	QUARTA-FEIRA	201412	DEZEMBRO	0
+2171	2014-12-11	2014	12	11	QUINTA-FEIRA	201412	DEZEMBRO	0
+2172	2014-12-12	2014	12	12	SEXTA-FEIRA	201412	DEZEMBRO	0
+2173	2014-12-13	2014	12	13	SÁBADO	201412	DEZEMBRO	0
+2174	2014-12-14	2014	12	14	DOMINGO	201412	DEZEMBRO	0
+2175	2014-12-15	2014	12	15	SEGUNDA-FEIRA	201412	DEZEMBRO	0
+2176	2014-12-16	2014	12	16	TERÇA-FEIRA	201412	DEZEMBRO	0
+2177	2014-12-17	2014	12	17	QUARTA-FEIRA	201412	DEZEMBRO	0
+2178	2014-12-18	2014	12	18	QUINTA-FEIRA	201412	DEZEMBRO	0
+2179	2014-12-19	2014	12	19	SEXTA-FEIRA	201412	DEZEMBRO	0
+2180	2014-12-20	2014	12	20	SÁBADO	201412	DEZEMBRO	0
+2181	2014-12-21	2014	12	21	DOMINGO	201412	DEZEMBRO	0
+2182	2014-12-22	2014	12	22	SEGUNDA-FEIRA	201412	DEZEMBRO	0
+2183	2014-12-23	2014	12	23	TERÇA-FEIRA	201412	DEZEMBRO	0
+2184	2014-12-24	2014	12	24	QUARTA-FEIRA	201412	DEZEMBRO	0
+2185	2014-12-25	2014	12	25	QUINTA-FEIRA	201412	DEZEMBRO	0
+2186	2014-12-26	2014	12	26	SEXTA-FEIRA	201412	DEZEMBRO	0
+2187	2014-12-27	2014	12	27	SÁBADO	201412	DEZEMBRO	0
+2188	2014-12-28	2014	12	28	DOMINGO	201412	DEZEMBRO	0
+2189	2014-12-29	2014	12	29	SEGUNDA-FEIRA	201412	DEZEMBRO	0
+2190	2014-12-30	2014	12	30	TERÇA-FEIRA	201412	DEZEMBRO	0
+2191	2014-12-31	2014	12	31	QUARTA-FEIRA	201412	DEZEMBRO	0
+2192	2015-01-01	2015	01	1	QUINTA-FEIRA	201501	JANEIRO	0
+2193	2015-01-02	2015	01	2	SEXTA-FEIRA	201501	JANEIRO	0
+2194	2015-01-03	2015	01	3	SÁBADO	201501	JANEIRO	0
+2195	2015-01-04	2015	01	4	DOMINGO	201501	JANEIRO	0
+2196	2015-01-05	2015	01	5	SEGUNDA-FEIRA	201501	JANEIRO	0
+2197	2015-01-06	2015	01	6	TERÇA-FEIRA	201501	JANEIRO	0
+2198	2015-01-07	2015	01	7	QUARTA-FEIRA	201501	JANEIRO	0
+2199	2015-01-08	2015	01	8	QUINTA-FEIRA	201501	JANEIRO	0
+2200	2015-01-09	2015	01	9	SEXTA-FEIRA	201501	JANEIRO	0
+2201	2015-01-10	2015	01	10	SÁBADO	201501	JANEIRO	0
+2202	2015-01-11	2015	01	11	DOMINGO	201501	JANEIRO	0
+2203	2015-01-12	2015	01	12	SEGUNDA-FEIRA	201501	JANEIRO	0
+2204	2015-01-13	2015	01	13	TERÇA-FEIRA	201501	JANEIRO	0
+2205	2015-01-14	2015	01	14	QUARTA-FEIRA	201501	JANEIRO	0
+2206	2015-01-15	2015	01	15	QUINTA-FEIRA	201501	JANEIRO	0
+2207	2015-01-16	2015	01	16	SEXTA-FEIRA	201501	JANEIRO	0
+2208	2015-01-17	2015	01	17	SÁBADO	201501	JANEIRO	0
+2209	2015-01-18	2015	01	18	DOMINGO	201501	JANEIRO	0
+2210	2015-01-19	2015	01	19	SEGUNDA-FEIRA	201501	JANEIRO	0
+2211	2015-01-20	2015	01	20	TERÇA-FEIRA	201501	JANEIRO	0
+2212	2015-01-21	2015	01	21	QUARTA-FEIRA	201501	JANEIRO	0
+2213	2015-01-22	2015	01	22	QUINTA-FEIRA	201501	JANEIRO	0
+2214	2015-01-23	2015	01	23	SEXTA-FEIRA	201501	JANEIRO	0
+2215	2015-01-24	2015	01	24	SÁBADO	201501	JANEIRO	0
+2216	2015-01-25	2015	01	25	DOMINGO	201501	JANEIRO	0
+2217	2015-01-26	2015	01	26	SEGUNDA-FEIRA	201501	JANEIRO	0
+2218	2015-01-27	2015	01	27	TERÇA-FEIRA	201501	JANEIRO	0
+2219	2015-01-28	2015	01	28	QUARTA-FEIRA	201501	JANEIRO	0
+2220	2015-01-29	2015	01	29	QUINTA-FEIRA	201501	JANEIRO	0
+2221	2015-01-30	2015	01	30	SEXTA-FEIRA	201501	JANEIRO	0
+2222	2015-01-31	2015	01	31	SÁBADO	201501	JANEIRO	0
+2223	2015-02-01	2015	02	1	DOMINGO	201502	FEVEREIRO	0
+2224	2015-02-02	2015	02	2	SEGUNDA-FEIRA	201502	FEVEREIRO	0
+2225	2015-02-03	2015	02	3	TERÇA-FEIRA	201502	FEVEREIRO	0
+2226	2015-02-04	2015	02	4	QUARTA-FEIRA	201502	FEVEREIRO	0
+2227	2015-02-05	2015	02	5	QUINTA-FEIRA	201502	FEVEREIRO	0
+2228	2015-02-06	2015	02	6	SEXTA-FEIRA	201502	FEVEREIRO	0
+2229	2015-02-07	2015	02	7	SÁBADO	201502	FEVEREIRO	0
+2230	2015-02-08	2015	02	8	DOMINGO	201502	FEVEREIRO	0
+2231	2015-02-09	2015	02	9	SEGUNDA-FEIRA	201502	FEVEREIRO	0
+2232	2015-02-10	2015	02	10	TERÇA-FEIRA	201502	FEVEREIRO	0
+2233	2015-02-11	2015	02	11	QUARTA-FEIRA	201502	FEVEREIRO	0
+2234	2015-02-12	2015	02	12	QUINTA-FEIRA	201502	FEVEREIRO	0
+2235	2015-02-13	2015	02	13	SEXTA-FEIRA	201502	FEVEREIRO	0
+2236	2015-02-14	2015	02	14	SÁBADO	201502	FEVEREIRO	0
+2237	2015-02-15	2015	02	15	DOMINGO	201502	FEVEREIRO	0
+2238	2015-02-16	2015	02	16	SEGUNDA-FEIRA	201502	FEVEREIRO	0
+2239	2015-02-17	2015	02	17	TERÇA-FEIRA	201502	FEVEREIRO	0
+2240	2015-02-18	2015	02	18	QUARTA-FEIRA	201502	FEVEREIRO	0
+2241	2015-02-19	2015	02	19	QUINTA-FEIRA	201502	FEVEREIRO	0
+2242	2015-02-20	2015	02	20	SEXTA-FEIRA	201502	FEVEREIRO	0
+2243	2015-02-21	2015	02	21	SÁBADO	201502	FEVEREIRO	0
+2244	2015-02-22	2015	02	22	DOMINGO	201502	FEVEREIRO	0
+2245	2015-02-23	2015	02	23	SEGUNDA-FEIRA	201502	FEVEREIRO	0
+2246	2015-02-24	2015	02	24	TERÇA-FEIRA	201502	FEVEREIRO	0
+2247	2015-02-25	2015	02	25	QUARTA-FEIRA	201502	FEVEREIRO	0
+2248	2015-02-26	2015	02	26	QUINTA-FEIRA	201502	FEVEREIRO	0
+2249	2015-02-27	2015	02	27	SEXTA-FEIRA	201502	FEVEREIRO	0
+2250	2015-02-28	2015	02	28	SÁBADO	201502	FEVEREIRO	0
+2251	2015-03-01	2015	03	1	DOMINGO	201503	MARÇO	0
+2252	2015-03-02	2015	03	2	SEGUNDA-FEIRA	201503	MARÇO	0
+2253	2015-03-03	2015	03	3	TERÇA-FEIRA	201503	MARÇO	0
+2254	2015-03-04	2015	03	4	QUARTA-FEIRA	201503	MARÇO	0
+2255	2015-03-05	2015	03	5	QUINTA-FEIRA	201503	MARÇO	0
+2256	2015-03-06	2015	03	6	SEXTA-FEIRA	201503	MARÇO	0
+2257	2015-03-07	2015	03	7	SÁBADO	201503	MARÇO	0
+2258	2015-03-08	2015	03	8	DOMINGO	201503	MARÇO	0
+2259	2015-03-09	2015	03	9	SEGUNDA-FEIRA	201503	MARÇO	0
+2260	2015-03-10	2015	03	10	TERÇA-FEIRA	201503	MARÇO	0
+2261	2015-03-11	2015	03	11	QUARTA-FEIRA	201503	MARÇO	0
+2262	2015-03-12	2015	03	12	QUINTA-FEIRA	201503	MARÇO	0
+2263	2015-03-13	2015	03	13	SEXTA-FEIRA	201503	MARÇO	0
+2264	2015-03-14	2015	03	14	SÁBADO	201503	MARÇO	0
+2265	2015-03-15	2015	03	15	DOMINGO	201503	MARÇO	0
+2266	2015-03-16	2015	03	16	SEGUNDA-FEIRA	201503	MARÇO	0
+2267	2015-03-17	2015	03	17	TERÇA-FEIRA	201503	MARÇO	0
+2268	2015-03-18	2015	03	18	QUARTA-FEIRA	201503	MARÇO	0
+2269	2015-03-19	2015	03	19	QUINTA-FEIRA	201503	MARÇO	0
+2270	2015-03-20	2015	03	20	SEXTA-FEIRA	201503	MARÇO	0
+2271	2015-03-21	2015	03	21	SÁBADO	201503	MARÇO	0
+2272	2015-03-22	2015	03	22	DOMINGO	201503	MARÇO	0
+2273	2015-03-23	2015	03	23	SEGUNDA-FEIRA	201503	MARÇO	0
+2274	2015-03-24	2015	03	24	TERÇA-FEIRA	201503	MARÇO	0
+2275	2015-03-25	2015	03	25	QUARTA-FEIRA	201503	MARÇO	0
+2276	2015-03-26	2015	03	26	QUINTA-FEIRA	201503	MARÇO	0
+2277	2015-03-27	2015	03	27	SEXTA-FEIRA	201503	MARÇO	0
+2278	2015-03-28	2015	03	28	SÁBADO	201503	MARÇO	0
+2279	2015-03-29	2015	03	29	DOMINGO	201503	MARÇO	0
+2280	2015-03-30	2015	03	30	SEGUNDA-FEIRA	201503	MARÇO	0
+2281	2015-03-31	2015	03	31	TERÇA-FEIRA	201503	MARÇO	0
+2282	2015-04-01	2015	04	1	QUARTA-FEIRA	201504	ABRIL	0
+2283	2015-04-02	2015	04	2	QUINTA-FEIRA	201504	ABRIL	0
+2284	2015-04-03	2015	04	3	SEXTA-FEIRA	201504	ABRIL	0
+2285	2015-04-04	2015	04	4	SÁBADO	201504	ABRIL	0
+2286	2015-04-05	2015	04	5	DOMINGO	201504	ABRIL	0
+2287	2015-04-06	2015	04	6	SEGUNDA-FEIRA	201504	ABRIL	0
+2288	2015-04-07	2015	04	7	TERÇA-FEIRA	201504	ABRIL	0
+2289	2015-04-08	2015	04	8	QUARTA-FEIRA	201504	ABRIL	0
+2290	2015-04-09	2015	04	9	QUINTA-FEIRA	201504	ABRIL	0
+2291	2015-04-10	2015	04	10	SEXTA-FEIRA	201504	ABRIL	0
+2292	2015-04-11	2015	04	11	SÁBADO	201504	ABRIL	0
+2293	2015-04-12	2015	04	12	DOMINGO	201504	ABRIL	0
+2294	2015-04-13	2015	04	13	SEGUNDA-FEIRA	201504	ABRIL	0
+2295	2015-04-14	2015	04	14	TERÇA-FEIRA	201504	ABRIL	0
+2296	2015-04-15	2015	04	15	QUARTA-FEIRA	201504	ABRIL	0
+2297	2015-04-16	2015	04	16	QUINTA-FEIRA	201504	ABRIL	0
+2298	2015-04-17	2015	04	17	SEXTA-FEIRA	201504	ABRIL	0
+2299	2015-04-18	2015	04	18	SÁBADO	201504	ABRIL	0
+2300	2015-04-19	2015	04	19	DOMINGO	201504	ABRIL	0
+2301	2015-04-20	2015	04	20	SEGUNDA-FEIRA	201504	ABRIL	0
+2302	2015-04-21	2015	04	21	TERÇA-FEIRA	201504	ABRIL	0
+2303	2015-04-22	2015	04	22	QUARTA-FEIRA	201504	ABRIL	0
+2304	2015-04-23	2015	04	23	QUINTA-FEIRA	201504	ABRIL	0
+2305	2015-04-24	2015	04	24	SEXTA-FEIRA	201504	ABRIL	0
+2306	2015-04-25	2015	04	25	SÁBADO	201504	ABRIL	0
+2307	2015-04-26	2015	04	26	DOMINGO	201504	ABRIL	0
+2308	2015-04-27	2015	04	27	SEGUNDA-FEIRA	201504	ABRIL	0
+2309	2015-04-28	2015	04	28	TERÇA-FEIRA	201504	ABRIL	0
+2310	2015-04-29	2015	04	29	QUARTA-FEIRA	201504	ABRIL	0
+2311	2015-04-30	2015	04	30	QUINTA-FEIRA	201504	ABRIL	0
+2312	2015-05-01	2015	05	1	SEXTA-FEIRA	201505	MAIO	0
+2313	2015-05-02	2015	05	2	SÁBADO	201505	MAIO	0
+2314	2015-05-03	2015	05	3	DOMINGO	201505	MAIO	0
+2315	2015-05-04	2015	05	4	SEGUNDA-FEIRA	201505	MAIO	0
+2316	2015-05-05	2015	05	5	TERÇA-FEIRA	201505	MAIO	0
+2317	2015-05-06	2015	05	6	QUARTA-FEIRA	201505	MAIO	0
+2318	2015-05-07	2015	05	7	QUINTA-FEIRA	201505	MAIO	0
+2319	2015-05-08	2015	05	8	SEXTA-FEIRA	201505	MAIO	0
+2320	2015-05-09	2015	05	9	SÁBADO	201505	MAIO	0
+2321	2015-05-10	2015	05	10	DOMINGO	201505	MAIO	0
+2322	2015-05-11	2015	05	11	SEGUNDA-FEIRA	201505	MAIO	0
+2323	2015-05-12	2015	05	12	TERÇA-FEIRA	201505	MAIO	0
+2324	2015-05-13	2015	05	13	QUARTA-FEIRA	201505	MAIO	0
+2325	2015-05-14	2015	05	14	QUINTA-FEIRA	201505	MAIO	0
+2326	2015-05-15	2015	05	15	SEXTA-FEIRA	201505	MAIO	0
+2327	2015-05-16	2015	05	16	SÁBADO	201505	MAIO	0
+2328	2015-05-17	2015	05	17	DOMINGO	201505	MAIO	0
+2329	2015-05-18	2015	05	18	SEGUNDA-FEIRA	201505	MAIO	0
+2330	2015-05-19	2015	05	19	TERÇA-FEIRA	201505	MAIO	0
+2331	2015-05-20	2015	05	20	QUARTA-FEIRA	201505	MAIO	0
+2332	2015-05-21	2015	05	21	QUINTA-FEIRA	201505	MAIO	0
+2333	2015-05-22	2015	05	22	SEXTA-FEIRA	201505	MAIO	0
+2334	2015-05-23	2015	05	23	SÁBADO	201505	MAIO	0
+2335	2015-05-24	2015	05	24	DOMINGO	201505	MAIO	0
+2336	2015-05-25	2015	05	25	SEGUNDA-FEIRA	201505	MAIO	0
+2337	2015-05-26	2015	05	26	TERÇA-FEIRA	201505	MAIO	0
+2338	2015-05-27	2015	05	27	QUARTA-FEIRA	201505	MAIO	0
+2339	2015-05-28	2015	05	28	QUINTA-FEIRA	201505	MAIO	0
+2340	2015-05-29	2015	05	29	SEXTA-FEIRA	201505	MAIO	0
+2341	2015-05-30	2015	05	30	SÁBADO	201505	MAIO	0
+2342	2015-05-31	2015	05	31	DOMINGO	201505	MAIO	0
+2343	2015-06-01	2015	06	1	SEGUNDA-FEIRA	201506	JUNHO	0
+2344	2015-06-02	2015	06	2	TERÇA-FEIRA	201506	JUNHO	0
+2345	2015-06-03	2015	06	3	QUARTA-FEIRA	201506	JUNHO	0
+2346	2015-06-04	2015	06	4	QUINTA-FEIRA	201506	JUNHO	0
+2347	2015-06-05	2015	06	5	SEXTA-FEIRA	201506	JUNHO	0
+2348	2015-06-06	2015	06	6	SÁBADO	201506	JUNHO	0
+2349	2015-06-07	2015	06	7	DOMINGO	201506	JUNHO	0
+2350	2015-06-08	2015	06	8	SEGUNDA-FEIRA	201506	JUNHO	0
+2351	2015-06-09	2015	06	9	TERÇA-FEIRA	201506	JUNHO	0
+2352	2015-06-10	2015	06	10	QUARTA-FEIRA	201506	JUNHO	0
+2353	2015-06-11	2015	06	11	QUINTA-FEIRA	201506	JUNHO	0
+2354	2015-06-12	2015	06	12	SEXTA-FEIRA	201506	JUNHO	0
+2355	2015-06-13	2015	06	13	SÁBADO	201506	JUNHO	0
+2356	2015-06-14	2015	06	14	DOMINGO	201506	JUNHO	0
+2357	2015-06-15	2015	06	15	SEGUNDA-FEIRA	201506	JUNHO	0
+2358	2015-06-16	2015	06	16	TERÇA-FEIRA	201506	JUNHO	0
+2359	2015-06-17	2015	06	17	QUARTA-FEIRA	201506	JUNHO	0
+2360	2015-06-18	2015	06	18	QUINTA-FEIRA	201506	JUNHO	0
+2361	2015-06-19	2015	06	19	SEXTA-FEIRA	201506	JUNHO	0
+2362	2015-06-20	2015	06	20	SÁBADO	201506	JUNHO	0
+2363	2015-06-21	2015	06	21	DOMINGO	201506	JUNHO	0
+2364	2015-06-22	2015	06	22	SEGUNDA-FEIRA	201506	JUNHO	0
+2365	2015-06-23	2015	06	23	TERÇA-FEIRA	201506	JUNHO	0
+2366	2015-06-24	2015	06	24	QUARTA-FEIRA	201506	JUNHO	0
+2367	2015-06-25	2015	06	25	QUINTA-FEIRA	201506	JUNHO	0
+2368	2015-06-26	2015	06	26	SEXTA-FEIRA	201506	JUNHO	0
+2369	2015-06-27	2015	06	27	SÁBADO	201506	JUNHO	0
+2370	2015-06-28	2015	06	28	DOMINGO	201506	JUNHO	0
+2371	2015-06-29	2015	06	29	SEGUNDA-FEIRA	201506	JUNHO	0
+2372	2015-06-30	2015	06	30	TERÇA-FEIRA	201506	JUNHO	0
+2373	2015-07-01	2015	07	1	QUARTA-FEIRA	201507	JULHO	0
+2374	2015-07-02	2015	07	2	QUINTA-FEIRA	201507	JULHO	0
+2375	2015-07-03	2015	07	3	SEXTA-FEIRA	201507	JULHO	0
+2376	2015-07-04	2015	07	4	SÁBADO	201507	JULHO	0
+2377	2015-07-05	2015	07	5	DOMINGO	201507	JULHO	0
+2378	2015-07-06	2015	07	6	SEGUNDA-FEIRA	201507	JULHO	0
+2379	2015-07-07	2015	07	7	TERÇA-FEIRA	201507	JULHO	0
+2380	2015-07-08	2015	07	8	QUARTA-FEIRA	201507	JULHO	0
+2381	2015-07-09	2015	07	9	QUINTA-FEIRA	201507	JULHO	0
+2382	2015-07-10	2015	07	10	SEXTA-FEIRA	201507	JULHO	0
+2383	2015-07-11	2015	07	11	SÁBADO	201507	JULHO	0
+2384	2015-07-12	2015	07	12	DOMINGO	201507	JULHO	0
+2385	2015-07-13	2015	07	13	SEGUNDA-FEIRA	201507	JULHO	0
+2386	2015-07-14	2015	07	14	TERÇA-FEIRA	201507	JULHO	0
+2387	2015-07-15	2015	07	15	QUARTA-FEIRA	201507	JULHO	0
+2388	2015-07-16	2015	07	16	QUINTA-FEIRA	201507	JULHO	0
+2389	2015-07-17	2015	07	17	SEXTA-FEIRA	201507	JULHO	0
+2390	2015-07-18	2015	07	18	SÁBADO	201507	JULHO	0
+2391	2015-07-19	2015	07	19	DOMINGO	201507	JULHO	0
+2392	2015-07-20	2015	07	20	SEGUNDA-FEIRA	201507	JULHO	0
+2393	2015-07-21	2015	07	21	TERÇA-FEIRA	201507	JULHO	0
+2394	2015-07-22	2015	07	22	QUARTA-FEIRA	201507	JULHO	0
+2395	2015-07-23	2015	07	23	QUINTA-FEIRA	201507	JULHO	0
+2396	2015-07-24	2015	07	24	SEXTA-FEIRA	201507	JULHO	0
+2397	2015-07-25	2015	07	25	SÁBADO	201507	JULHO	0
+2398	2015-07-26	2015	07	26	DOMINGO	201507	JULHO	0
+2399	2015-07-27	2015	07	27	SEGUNDA-FEIRA	201507	JULHO	0
+2400	2015-07-28	2015	07	28	TERÇA-FEIRA	201507	JULHO	0
+2401	2015-07-29	2015	07	29	QUARTA-FEIRA	201507	JULHO	0
+2402	2015-07-30	2015	07	30	QUINTA-FEIRA	201507	JULHO	0
+2403	2015-07-31	2015	07	31	SEXTA-FEIRA	201507	JULHO	0
+2404	2015-08-01	2015	08	1	SÁBADO	201508	AGOSTO	0
+2405	2015-08-02	2015	08	2	DOMINGO	201508	AGOSTO	0
+2406	2015-08-03	2015	08	3	SEGUNDA-FEIRA	201508	AGOSTO	0
+2407	2015-08-04	2015	08	4	TERÇA-FEIRA	201508	AGOSTO	0
+2408	2015-08-05	2015	08	5	QUARTA-FEIRA	201508	AGOSTO	0
+2409	2015-08-06	2015	08	6	QUINTA-FEIRA	201508	AGOSTO	0
+2410	2015-08-07	2015	08	7	SEXTA-FEIRA	201508	AGOSTO	0
+2411	2015-08-08	2015	08	8	SÁBADO	201508	AGOSTO	0
+2412	2015-08-09	2015	08	9	DOMINGO	201508	AGOSTO	0
+2413	2015-08-10	2015	08	10	SEGUNDA-FEIRA	201508	AGOSTO	0
+2414	2015-08-11	2015	08	11	TERÇA-FEIRA	201508	AGOSTO	0
+2415	2015-08-12	2015	08	12	QUARTA-FEIRA	201508	AGOSTO	0
+2416	2015-08-13	2015	08	13	QUINTA-FEIRA	201508	AGOSTO	0
+2417	2015-08-14	2015	08	14	SEXTA-FEIRA	201508	AGOSTO	0
+2418	2015-08-15	2015	08	15	SÁBADO	201508	AGOSTO	0
+2419	2015-08-16	2015	08	16	DOMINGO	201508	AGOSTO	0
+2420	2015-08-17	2015	08	17	SEGUNDA-FEIRA	201508	AGOSTO	0
+2421	2015-08-18	2015	08	18	TERÇA-FEIRA	201508	AGOSTO	0
+2422	2015-08-19	2015	08	19	QUARTA-FEIRA	201508	AGOSTO	0
+2423	2015-08-20	2015	08	20	QUINTA-FEIRA	201508	AGOSTO	0
+2424	2015-08-21	2015	08	21	SEXTA-FEIRA	201508	AGOSTO	0
+2425	2015-08-22	2015	08	22	SÁBADO	201508	AGOSTO	0
+2426	2015-08-23	2015	08	23	DOMINGO	201508	AGOSTO	0
+2427	2015-08-24	2015	08	24	SEGUNDA-FEIRA	201508	AGOSTO	0
+2428	2015-08-25	2015	08	25	TERÇA-FEIRA	201508	AGOSTO	0
+2429	2015-08-26	2015	08	26	QUARTA-FEIRA	201508	AGOSTO	0
+2430	2015-08-27	2015	08	27	QUINTA-FEIRA	201508	AGOSTO	0
+2431	2015-08-28	2015	08	28	SEXTA-FEIRA	201508	AGOSTO	0
+2432	2015-08-29	2015	08	29	SÁBADO	201508	AGOSTO	0
+2433	2015-08-30	2015	08	30	DOMINGO	201508	AGOSTO	0
+2434	2015-08-31	2015	08	31	SEGUNDA-FEIRA	201508	AGOSTO	0
+2435	2015-09-01	2015	09	1	TERÇA-FEIRA	201509	SETEMBRO	0
+2436	2015-09-02	2015	09	2	QUARTA-FEIRA	201509	SETEMBRO	0
+2437	2015-09-03	2015	09	3	QUINTA-FEIRA	201509	SETEMBRO	0
+2438	2015-09-04	2015	09	4	SEXTA-FEIRA	201509	SETEMBRO	0
+2439	2015-09-05	2015	09	5	SÁBADO	201509	SETEMBRO	0
+2440	2015-09-06	2015	09	6	DOMINGO	201509	SETEMBRO	0
+2441	2015-09-07	2015	09	7	SEGUNDA-FEIRA	201509	SETEMBRO	0
+2442	2015-09-08	2015	09	8	TERÇA-FEIRA	201509	SETEMBRO	0
+2443	2015-09-09	2015	09	9	QUARTA-FEIRA	201509	SETEMBRO	0
+2444	2015-09-10	2015	09	10	QUINTA-FEIRA	201509	SETEMBRO	0
+2445	2015-09-11	2015	09	11	SEXTA-FEIRA	201509	SETEMBRO	0
+2446	2015-09-12	2015	09	12	SÁBADO	201509	SETEMBRO	0
+2447	2015-09-13	2015	09	13	DOMINGO	201509	SETEMBRO	0
+2448	2015-09-14	2015	09	14	SEGUNDA-FEIRA	201509	SETEMBRO	0
+2449	2015-09-15	2015	09	15	TERÇA-FEIRA	201509	SETEMBRO	0
+2450	2015-09-16	2015	09	16	QUARTA-FEIRA	201509	SETEMBRO	0
+2451	2015-09-17	2015	09	17	QUINTA-FEIRA	201509	SETEMBRO	0
+2452	2015-09-18	2015	09	18	SEXTA-FEIRA	201509	SETEMBRO	0
+2453	2015-09-19	2015	09	19	SÁBADO	201509	SETEMBRO	0
+2454	2015-09-20	2015	09	20	DOMINGO	201509	SETEMBRO	0
+2455	2015-09-21	2015	09	21	SEGUNDA-FEIRA	201509	SETEMBRO	0
+2456	2015-09-22	2015	09	22	TERÇA-FEIRA	201509	SETEMBRO	0
+2457	2015-09-23	2015	09	23	QUARTA-FEIRA	201509	SETEMBRO	0
+2458	2015-09-24	2015	09	24	QUINTA-FEIRA	201509	SETEMBRO	0
+2459	2015-09-25	2015	09	25	SEXTA-FEIRA	201509	SETEMBRO	0
+2460	2015-09-26	2015	09	26	SÁBADO	201509	SETEMBRO	0
+2461	2015-09-27	2015	09	27	DOMINGO	201509	SETEMBRO	0
+2462	2015-09-28	2015	09	28	SEGUNDA-FEIRA	201509	SETEMBRO	0
+2463	2015-09-29	2015	09	29	TERÇA-FEIRA	201509	SETEMBRO	0
+2464	2015-09-30	2015	09	30	QUARTA-FEIRA	201509	SETEMBRO	0
+2465	2015-10-01	2015	10	1	QUINTA-FEIRA	201510	OUTUBRO	0
+2466	2015-10-02	2015	10	2	SEXTA-FEIRA	201510	OUTUBRO	0
+2467	2015-10-03	2015	10	3	SÁBADO	201510	OUTUBRO	0
+2468	2015-10-04	2015	10	4	DOMINGO	201510	OUTUBRO	0
+2469	2015-10-05	2015	10	5	SEGUNDA-FEIRA	201510	OUTUBRO	0
+2470	2015-10-06	2015	10	6	TERÇA-FEIRA	201510	OUTUBRO	0
+2471	2015-10-07	2015	10	7	QUARTA-FEIRA	201510	OUTUBRO	0
+2472	2015-10-08	2015	10	8	QUINTA-FEIRA	201510	OUTUBRO	0
+2473	2015-10-09	2015	10	9	SEXTA-FEIRA	201510	OUTUBRO	0
+2474	2015-10-10	2015	10	10	SÁBADO	201510	OUTUBRO	0
+2475	2015-10-11	2015	10	11	DOMINGO	201510	OUTUBRO	0
+2476	2015-10-12	2015	10	12	SEGUNDA-FEIRA	201510	OUTUBRO	0
+2477	2015-10-13	2015	10	13	TERÇA-FEIRA	201510	OUTUBRO	0
+2478	2015-10-14	2015	10	14	QUARTA-FEIRA	201510	OUTUBRO	0
+2479	2015-10-15	2015	10	15	QUINTA-FEIRA	201510	OUTUBRO	0
+2480	2015-10-16	2015	10	16	SEXTA-FEIRA	201510	OUTUBRO	0
+2481	2015-10-17	2015	10	17	SÁBADO	201510	OUTUBRO	0
+2482	2015-10-18	2015	10	18	DOMINGO	201510	OUTUBRO	0
+2483	2015-10-19	2015	10	19	SEGUNDA-FEIRA	201510	OUTUBRO	0
+2484	2015-10-20	2015	10	20	TERÇA-FEIRA	201510	OUTUBRO	0
+2485	2015-10-21	2015	10	21	QUARTA-FEIRA	201510	OUTUBRO	0
+2486	2015-10-22	2015	10	22	QUINTA-FEIRA	201510	OUTUBRO	0
+2487	2015-10-23	2015	10	23	SEXTA-FEIRA	201510	OUTUBRO	0
+2488	2015-10-24	2015	10	24	SÁBADO	201510	OUTUBRO	0
+2489	2015-10-25	2015	10	25	DOMINGO	201510	OUTUBRO	0
+2490	2015-10-26	2015	10	26	SEGUNDA-FEIRA	201510	OUTUBRO	0
+2491	2015-10-27	2015	10	27	TERÇA-FEIRA	201510	OUTUBRO	0
+2492	2015-10-28	2015	10	28	QUARTA-FEIRA	201510	OUTUBRO	0
+2493	2015-10-29	2015	10	29	QUINTA-FEIRA	201510	OUTUBRO	0
+2494	2015-10-30	2015	10	30	SEXTA-FEIRA	201510	OUTUBRO	0
+2495	2015-10-31	2015	10	31	SÁBADO	201510	OUTUBRO	0
+2496	2015-11-01	2015	11	1	DOMINGO	201511	NOVEMBRO	0
+2497	2015-11-02	2015	11	2	SEGUNDA-FEIRA	201511	NOVEMBRO	0
+2498	2015-11-03	2015	11	3	TERÇA-FEIRA	201511	NOVEMBRO	0
+2499	2015-11-04	2015	11	4	QUARTA-FEIRA	201511	NOVEMBRO	0
+2500	2015-11-05	2015	11	5	QUINTA-FEIRA	201511	NOVEMBRO	0
+2501	2015-11-06	2015	11	6	SEXTA-FEIRA	201511	NOVEMBRO	0
+2502	2015-11-07	2015	11	7	SÁBADO	201511	NOVEMBRO	0
+2503	2015-11-08	2015	11	8	DOMINGO	201511	NOVEMBRO	0
+2504	2015-11-09	2015	11	9	SEGUNDA-FEIRA	201511	NOVEMBRO	0
+2505	2015-11-10	2015	11	10	TERÇA-FEIRA	201511	NOVEMBRO	0
+2506	2015-11-11	2015	11	11	QUARTA-FEIRA	201511	NOVEMBRO	0
+2507	2015-11-12	2015	11	12	QUINTA-FEIRA	201511	NOVEMBRO	0
+2508	2015-11-13	2015	11	13	SEXTA-FEIRA	201511	NOVEMBRO	0
+2509	2015-11-14	2015	11	14	SÁBADO	201511	NOVEMBRO	0
+2510	2015-11-15	2015	11	15	DOMINGO	201511	NOVEMBRO	0
+2511	2015-11-16	2015	11	16	SEGUNDA-FEIRA	201511	NOVEMBRO	0
+2512	2015-11-17	2015	11	17	TERÇA-FEIRA	201511	NOVEMBRO	0
+2513	2015-11-18	2015	11	18	QUARTA-FEIRA	201511	NOVEMBRO	0
+2514	2015-11-19	2015	11	19	QUINTA-FEIRA	201511	NOVEMBRO	0
+2515	2015-11-20	2015	11	20	SEXTA-FEIRA	201511	NOVEMBRO	0
+2516	2015-11-21	2015	11	21	SÁBADO	201511	NOVEMBRO	0
+2517	2015-11-22	2015	11	22	DOMINGO	201511	NOVEMBRO	0
+2518	2015-11-23	2015	11	23	SEGUNDA-FEIRA	201511	NOVEMBRO	0
+2519	2015-11-24	2015	11	24	TERÇA-FEIRA	201511	NOVEMBRO	0
+2520	2015-11-25	2015	11	25	QUARTA-FEIRA	201511	NOVEMBRO	0
+2521	2015-11-26	2015	11	26	QUINTA-FEIRA	201511	NOVEMBRO	0
+2522	2015-11-27	2015	11	27	SEXTA-FEIRA	201511	NOVEMBRO	0
+2523	2015-11-28	2015	11	28	SÁBADO	201511	NOVEMBRO	0
+2524	2015-11-29	2015	11	29	DOMINGO	201511	NOVEMBRO	0
+2525	2015-11-30	2015	11	30	SEGUNDA-FEIRA	201511	NOVEMBRO	0
+2526	2015-12-01	2015	12	1	TERÇA-FEIRA	201512	DEZEMBRO	0
+2527	2015-12-02	2015	12	2	QUARTA-FEIRA	201512	DEZEMBRO	0
+2528	2015-12-03	2015	12	3	QUINTA-FEIRA	201512	DEZEMBRO	0
+2529	2015-12-04	2015	12	4	SEXTA-FEIRA	201512	DEZEMBRO	0
+2530	2015-12-05	2015	12	5	SÁBADO	201512	DEZEMBRO	0
+2531	2015-12-06	2015	12	6	DOMINGO	201512	DEZEMBRO	0
+2532	2015-12-07	2015	12	7	SEGUNDA-FEIRA	201512	DEZEMBRO	0
+2533	2015-12-08	2015	12	8	TERÇA-FEIRA	201512	DEZEMBRO	0
+2534	2015-12-09	2015	12	9	QUARTA-FEIRA	201512	DEZEMBRO	0
+2535	2015-12-10	2015	12	10	QUINTA-FEIRA	201512	DEZEMBRO	0
+2536	2015-12-11	2015	12	11	SEXTA-FEIRA	201512	DEZEMBRO	0
+2537	2015-12-12	2015	12	12	SÁBADO	201512	DEZEMBRO	0
+2538	2015-12-13	2015	12	13	DOMINGO	201512	DEZEMBRO	0
+2539	2015-12-14	2015	12	14	SEGUNDA-FEIRA	201512	DEZEMBRO	0
+2540	2015-12-15	2015	12	15	TERÇA-FEIRA	201512	DEZEMBRO	0
+2541	2015-12-16	2015	12	16	QUARTA-FEIRA	201512	DEZEMBRO	0
+2542	2015-12-17	2015	12	17	QUINTA-FEIRA	201512	DEZEMBRO	0
+2543	2015-12-18	2015	12	18	SEXTA-FEIRA	201512	DEZEMBRO	0
+2544	2015-12-19	2015	12	19	SÁBADO	201512	DEZEMBRO	0
+2545	2015-12-20	2015	12	20	DOMINGO	201512	DEZEMBRO	0
+2546	2015-12-21	2015	12	21	SEGUNDA-FEIRA	201512	DEZEMBRO	0
+2547	2015-12-22	2015	12	22	TERÇA-FEIRA	201512	DEZEMBRO	0
+2548	2015-12-23	2015	12	23	QUARTA-FEIRA	201512	DEZEMBRO	0
+2549	2015-12-24	2015	12	24	QUINTA-FEIRA	201512	DEZEMBRO	0
+2550	2015-12-25	2015	12	25	SEXTA-FEIRA	201512	DEZEMBRO	0
+2551	2015-12-26	2015	12	26	SÁBADO	201512	DEZEMBRO	0
+2552	2015-12-27	2015	12	27	DOMINGO	201512	DEZEMBRO	0
+2553	2015-12-28	2015	12	28	SEGUNDA-FEIRA	201512	DEZEMBRO	0
+2554	2015-12-29	2015	12	29	TERÇA-FEIRA	201512	DEZEMBRO	0
+2555	2015-12-30	2015	12	30	QUARTA-FEIRA	201512	DEZEMBRO	0
+2556	2015-12-31	2015	12	31	QUINTA-FEIRA	201512	DEZEMBRO	0
+2557	2016-01-01	2016	01	1	SEXTA-FEIRA	201601	JANEIRO	0
+2558	2016-01-02	2016	01	2	SÁBADO	201601	JANEIRO	0
+2559	2016-01-03	2016	01	3	DOMINGO	201601	JANEIRO	0
+2560	2016-01-04	2016	01	4	SEGUNDA-FEIRA	201601	JANEIRO	0
+2561	2016-01-05	2016	01	5	TERÇA-FEIRA	201601	JANEIRO	0
+2562	2016-01-06	2016	01	6	QUARTA-FEIRA	201601	JANEIRO	0
+2563	2016-01-07	2016	01	7	QUINTA-FEIRA	201601	JANEIRO	0
+2564	2016-01-08	2016	01	8	SEXTA-FEIRA	201601	JANEIRO	0
+2565	2016-01-09	2016	01	9	SÁBADO	201601	JANEIRO	0
+2566	2016-01-10	2016	01	10	DOMINGO	201601	JANEIRO	0
+2567	2016-01-11	2016	01	11	SEGUNDA-FEIRA	201601	JANEIRO	0
+2568	2016-01-12	2016	01	12	TERÇA-FEIRA	201601	JANEIRO	0
+2569	2016-01-13	2016	01	13	QUARTA-FEIRA	201601	JANEIRO	0
+2570	2016-01-14	2016	01	14	QUINTA-FEIRA	201601	JANEIRO	0
+2571	2016-01-15	2016	01	15	SEXTA-FEIRA	201601	JANEIRO	0
+2572	2016-01-16	2016	01	16	SÁBADO	201601	JANEIRO	0
+2573	2016-01-17	2016	01	17	DOMINGO	201601	JANEIRO	0
+2574	2016-01-18	2016	01	18	SEGUNDA-FEIRA	201601	JANEIRO	0
+2575	2016-01-19	2016	01	19	TERÇA-FEIRA	201601	JANEIRO	0
+2576	2016-01-20	2016	01	20	QUARTA-FEIRA	201601	JANEIRO	0
+2577	2016-01-21	2016	01	21	QUINTA-FEIRA	201601	JANEIRO	0
+2578	2016-01-22	2016	01	22	SEXTA-FEIRA	201601	JANEIRO	0
+2579	2016-01-23	2016	01	23	SÁBADO	201601	JANEIRO	0
+2580	2016-01-24	2016	01	24	DOMINGO	201601	JANEIRO	0
+2581	2016-01-25	2016	01	25	SEGUNDA-FEIRA	201601	JANEIRO	0
+2582	2016-01-26	2016	01	26	TERÇA-FEIRA	201601	JANEIRO	0
+2583	2016-01-27	2016	01	27	QUARTA-FEIRA	201601	JANEIRO	0
+2584	2016-01-28	2016	01	28	QUINTA-FEIRA	201601	JANEIRO	0
+2585	2016-01-29	2016	01	29	SEXTA-FEIRA	201601	JANEIRO	0
+2586	2016-01-30	2016	01	30	SÁBADO	201601	JANEIRO	0
+2587	2016-01-31	2016	01	31	DOMINGO	201601	JANEIRO	0
+2588	2016-02-01	2016	02	1	SEGUNDA-FEIRA	201602	FEVEREIRO	0
+2589	2016-02-02	2016	02	2	TERÇA-FEIRA	201602	FEVEREIRO	0
+2590	2016-02-03	2016	02	3	QUARTA-FEIRA	201602	FEVEREIRO	0
+2591	2016-02-04	2016	02	4	QUINTA-FEIRA	201602	FEVEREIRO	0
+2592	2016-02-05	2016	02	5	SEXTA-FEIRA	201602	FEVEREIRO	0
+2593	2016-02-06	2016	02	6	SÁBADO	201602	FEVEREIRO	0
+2594	2016-02-07	2016	02	7	DOMINGO	201602	FEVEREIRO	0
+2595	2016-02-08	2016	02	8	SEGUNDA-FEIRA	201602	FEVEREIRO	0
+2596	2016-02-09	2016	02	9	TERÇA-FEIRA	201602	FEVEREIRO	0
+2597	2016-02-10	2016	02	10	QUARTA-FEIRA	201602	FEVEREIRO	0
+2598	2016-02-11	2016	02	11	QUINTA-FEIRA	201602	FEVEREIRO	0
+2599	2016-02-12	2016	02	12	SEXTA-FEIRA	201602	FEVEREIRO	0
+2600	2016-02-13	2016	02	13	SÁBADO	201602	FEVEREIRO	0
+2601	2016-02-14	2016	02	14	DOMINGO	201602	FEVEREIRO	0
+2602	2016-02-15	2016	02	15	SEGUNDA-FEIRA	201602	FEVEREIRO	0
+2603	2016-02-16	2016	02	16	TERÇA-FEIRA	201602	FEVEREIRO	0
+2604	2016-02-17	2016	02	17	QUARTA-FEIRA	201602	FEVEREIRO	0
+2605	2016-02-18	2016	02	18	QUINTA-FEIRA	201602	FEVEREIRO	0
+2606	2016-02-19	2016	02	19	SEXTA-FEIRA	201602	FEVEREIRO	0
+2607	2016-02-20	2016	02	20	SÁBADO	201602	FEVEREIRO	0
+2608	2016-02-21	2016	02	21	DOMINGO	201602	FEVEREIRO	0
+2609	2016-02-22	2016	02	22	SEGUNDA-FEIRA	201602	FEVEREIRO	0
+2610	2016-02-23	2016	02	23	TERÇA-FEIRA	201602	FEVEREIRO	0
+2611	2016-02-24	2016	02	24	QUARTA-FEIRA	201602	FEVEREIRO	0
+2612	2016-02-25	2016	02	25	QUINTA-FEIRA	201602	FEVEREIRO	0
+2613	2016-02-26	2016	02	26	SEXTA-FEIRA	201602	FEVEREIRO	0
+2614	2016-02-27	2016	02	27	SÁBADO	201602	FEVEREIRO	0
+2615	2016-02-28	2016	02	28	DOMINGO	201602	FEVEREIRO	0
+2616	2016-02-29	2016	02	29	SEGUNDA-FEIRA	201602	FEVEREIRO	0
+2617	2016-03-01	2016	03	1	TERÇA-FEIRA	201603	MARÇO	0
+2618	2016-03-02	2016	03	2	QUARTA-FEIRA	201603	MARÇO	0
+2619	2016-03-03	2016	03	3	QUINTA-FEIRA	201603	MARÇO	0
+2620	2016-03-04	2016	03	4	SEXTA-FEIRA	201603	MARÇO	0
+2621	2016-03-05	2016	03	5	SÁBADO	201603	MARÇO	0
+2622	2016-03-06	2016	03	6	DOMINGO	201603	MARÇO	0
+2623	2016-03-07	2016	03	7	SEGUNDA-FEIRA	201603	MARÇO	0
+2624	2016-03-08	2016	03	8	TERÇA-FEIRA	201603	MARÇO	0
+2625	2016-03-09	2016	03	9	QUARTA-FEIRA	201603	MARÇO	0
+2626	2016-03-10	2016	03	10	QUINTA-FEIRA	201603	MARÇO	0
+2627	2016-03-11	2016	03	11	SEXTA-FEIRA	201603	MARÇO	0
+2628	2016-03-12	2016	03	12	SÁBADO	201603	MARÇO	0
+2629	2016-03-13	2016	03	13	DOMINGO	201603	MARÇO	0
+2630	2016-03-14	2016	03	14	SEGUNDA-FEIRA	201603	MARÇO	0
+2631	2016-03-15	2016	03	15	TERÇA-FEIRA	201603	MARÇO	0
+2632	2016-03-16	2016	03	16	QUARTA-FEIRA	201603	MARÇO	0
+2633	2016-03-17	2016	03	17	QUINTA-FEIRA	201603	MARÇO	0
+2634	2016-03-18	2016	03	18	SEXTA-FEIRA	201603	MARÇO	0
+2635	2016-03-19	2016	03	19	SÁBADO	201603	MARÇO	0
+2636	2016-03-20	2016	03	20	DOMINGO	201603	MARÇO	0
+2637	2016-03-21	2016	03	21	SEGUNDA-FEIRA	201603	MARÇO	0
+2638	2016-03-22	2016	03	22	TERÇA-FEIRA	201603	MARÇO	0
+2639	2016-03-23	2016	03	23	QUARTA-FEIRA	201603	MARÇO	0
+2640	2016-03-24	2016	03	24	QUINTA-FEIRA	201603	MARÇO	0
+2641	2016-03-25	2016	03	25	SEXTA-FEIRA	201603	MARÇO	0
+2642	2016-03-26	2016	03	26	SÁBADO	201603	MARÇO	0
+2643	2016-03-27	2016	03	27	DOMINGO	201603	MARÇO	0
+2644	2016-03-28	2016	03	28	SEGUNDA-FEIRA	201603	MARÇO	0
+2645	2016-03-29	2016	03	29	TERÇA-FEIRA	201603	MARÇO	0
+2646	2016-03-30	2016	03	30	QUARTA-FEIRA	201603	MARÇO	0
+2647	2016-03-31	2016	03	31	QUINTA-FEIRA	201603	MARÇO	0
+2648	2016-04-01	2016	04	1	SEXTA-FEIRA	201604	ABRIL	0
+2649	2016-04-02	2016	04	2	SÁBADO	201604	ABRIL	0
+2650	2016-04-03	2016	04	3	DOMINGO	201604	ABRIL	0
+2651	2016-04-04	2016	04	4	SEGUNDA-FEIRA	201604	ABRIL	0
+2652	2016-04-05	2016	04	5	TERÇA-FEIRA	201604	ABRIL	0
+2653	2016-04-06	2016	04	6	QUARTA-FEIRA	201604	ABRIL	0
+2654	2016-04-07	2016	04	7	QUINTA-FEIRA	201604	ABRIL	0
+2655	2016-04-08	2016	04	8	SEXTA-FEIRA	201604	ABRIL	0
+2656	2016-04-09	2016	04	9	SÁBADO	201604	ABRIL	0
+2657	2016-04-10	2016	04	10	DOMINGO	201604	ABRIL	0
+2658	2016-04-11	2016	04	11	SEGUNDA-FEIRA	201604	ABRIL	0
+2659	2016-04-12	2016	04	12	TERÇA-FEIRA	201604	ABRIL	0
+2660	2016-04-13	2016	04	13	QUARTA-FEIRA	201604	ABRIL	0
+2661	2016-04-14	2016	04	14	QUINTA-FEIRA	201604	ABRIL	0
+2662	2016-04-15	2016	04	15	SEXTA-FEIRA	201604	ABRIL	0
+2663	2016-04-16	2016	04	16	SÁBADO	201604	ABRIL	0
+2664	2016-04-17	2016	04	17	DOMINGO	201604	ABRIL	0
+2665	2016-04-18	2016	04	18	SEGUNDA-FEIRA	201604	ABRIL	0
+2666	2016-04-19	2016	04	19	TERÇA-FEIRA	201604	ABRIL	0
+2667	2016-04-20	2016	04	20	QUARTA-FEIRA	201604	ABRIL	0
+2668	2016-04-21	2016	04	21	QUINTA-FEIRA	201604	ABRIL	0
+2669	2016-04-22	2016	04	22	SEXTA-FEIRA	201604	ABRIL	0
+2670	2016-04-23	2016	04	23	SÁBADO	201604	ABRIL	0
+2671	2016-04-24	2016	04	24	DOMINGO	201604	ABRIL	0
+2672	2016-04-25	2016	04	25	SEGUNDA-FEIRA	201604	ABRIL	0
+2673	2016-04-26	2016	04	26	TERÇA-FEIRA	201604	ABRIL	0
+2674	2016-04-27	2016	04	27	QUARTA-FEIRA	201604	ABRIL	0
+2675	2016-04-28	2016	04	28	QUINTA-FEIRA	201604	ABRIL	0
+2676	2016-04-29	2016	04	29	SEXTA-FEIRA	201604	ABRIL	0
+2677	2016-04-30	2016	04	30	SÁBADO	201604	ABRIL	0
+2678	2016-05-01	2016	05	1	DOMINGO	201605	MAIO	0
+2679	2016-05-02	2016	05	2	SEGUNDA-FEIRA	201605	MAIO	0
+2680	2016-05-03	2016	05	3	TERÇA-FEIRA	201605	MAIO	0
+2681	2016-05-04	2016	05	4	QUARTA-FEIRA	201605	MAIO	0
+2682	2016-05-05	2016	05	5	QUINTA-FEIRA	201605	MAIO	0
+2683	2016-05-06	2016	05	6	SEXTA-FEIRA	201605	MAIO	0
+2684	2016-05-07	2016	05	7	SÁBADO	201605	MAIO	0
+2685	2016-05-08	2016	05	8	DOMINGO	201605	MAIO	0
+2686	2016-05-09	2016	05	9	SEGUNDA-FEIRA	201605	MAIO	0
+2687	2016-05-10	2016	05	10	TERÇA-FEIRA	201605	MAIO	0
+2688	2016-05-11	2016	05	11	QUARTA-FEIRA	201605	MAIO	0
+2689	2016-05-12	2016	05	12	QUINTA-FEIRA	201605	MAIO	0
+2690	2016-05-13	2016	05	13	SEXTA-FEIRA	201605	MAIO	0
+2691	2016-05-14	2016	05	14	SÁBADO	201605	MAIO	0
+2692	2016-05-15	2016	05	15	DOMINGO	201605	MAIO	0
+2693	2016-05-16	2016	05	16	SEGUNDA-FEIRA	201605	MAIO	0
+2694	2016-05-17	2016	05	17	TERÇA-FEIRA	201605	MAIO	0
+2695	2016-05-18	2016	05	18	QUARTA-FEIRA	201605	MAIO	0
+2696	2016-05-19	2016	05	19	QUINTA-FEIRA	201605	MAIO	0
+2697	2016-05-20	2016	05	20	SEXTA-FEIRA	201605	MAIO	0
+2698	2016-05-21	2016	05	21	SÁBADO	201605	MAIO	0
+2699	2016-05-22	2016	05	22	DOMINGO	201605	MAIO	0
+2700	2016-05-23	2016	05	23	SEGUNDA-FEIRA	201605	MAIO	0
+2701	2016-05-24	2016	05	24	TERÇA-FEIRA	201605	MAIO	0
+2702	2016-05-25	2016	05	25	QUARTA-FEIRA	201605	MAIO	0
+2703	2016-05-26	2016	05	26	QUINTA-FEIRA	201605	MAIO	0
+2704	2016-05-27	2016	05	27	SEXTA-FEIRA	201605	MAIO	0
+2705	2016-05-28	2016	05	28	SÁBADO	201605	MAIO	0
+2706	2016-05-29	2016	05	29	DOMINGO	201605	MAIO	0
+2707	2016-05-30	2016	05	30	SEGUNDA-FEIRA	201605	MAIO	0
+2708	2016-05-31	2016	05	31	TERÇA-FEIRA	201605	MAIO	0
+2709	2016-06-01	2016	06	1	QUARTA-FEIRA	201606	JUNHO	0
+2710	2016-06-02	2016	06	2	QUINTA-FEIRA	201606	JUNHO	0
+2711	2016-06-03	2016	06	3	SEXTA-FEIRA	201606	JUNHO	0
+2712	2016-06-04	2016	06	4	SÁBADO	201606	JUNHO	0
+2713	2016-06-05	2016	06	5	DOMINGO	201606	JUNHO	0
+2714	2016-06-06	2016	06	6	SEGUNDA-FEIRA	201606	JUNHO	0
+2715	2016-06-07	2016	06	7	TERÇA-FEIRA	201606	JUNHO	0
+2716	2016-06-08	2016	06	8	QUARTA-FEIRA	201606	JUNHO	0
+2717	2016-06-09	2016	06	9	QUINTA-FEIRA	201606	JUNHO	0
+2718	2016-06-10	2016	06	10	SEXTA-FEIRA	201606	JUNHO	0
+2719	2016-06-11	2016	06	11	SÁBADO	201606	JUNHO	0
+2720	2016-06-12	2016	06	12	DOMINGO	201606	JUNHO	0
+2721	2016-06-13	2016	06	13	SEGUNDA-FEIRA	201606	JUNHO	0
+2722	2016-06-14	2016	06	14	TERÇA-FEIRA	201606	JUNHO	0
+2723	2016-06-15	2016	06	15	QUARTA-FEIRA	201606	JUNHO	0
+2724	2016-06-16	2016	06	16	QUINTA-FEIRA	201606	JUNHO	0
+2725	2016-06-17	2016	06	17	SEXTA-FEIRA	201606	JUNHO	0
+2726	2016-06-18	2016	06	18	SÁBADO	201606	JUNHO	0
+2727	2016-06-19	2016	06	19	DOMINGO	201606	JUNHO	0
+2728	2016-06-20	2016	06	20	SEGUNDA-FEIRA	201606	JUNHO	0
+2729	2016-06-21	2016	06	21	TERÇA-FEIRA	201606	JUNHO	0
+2730	2016-06-22	2016	06	22	QUARTA-FEIRA	201606	JUNHO	0
+2731	2016-06-23	2016	06	23	QUINTA-FEIRA	201606	JUNHO	0
+2732	2016-06-24	2016	06	24	SEXTA-FEIRA	201606	JUNHO	0
+2733	2016-06-25	2016	06	25	SÁBADO	201606	JUNHO	0
+2734	2016-06-26	2016	06	26	DOMINGO	201606	JUNHO	0
+2735	2016-06-27	2016	06	27	SEGUNDA-FEIRA	201606	JUNHO	0
+2736	2016-06-28	2016	06	28	TERÇA-FEIRA	201606	JUNHO	0
+2737	2016-06-29	2016	06	29	QUARTA-FEIRA	201606	JUNHO	0
+2738	2016-06-30	2016	06	30	QUINTA-FEIRA	201606	JUNHO	0
+2739	2016-07-01	2016	07	1	SEXTA-FEIRA	201607	JULHO	0
+2740	2016-07-02	2016	07	2	SÁBADO	201607	JULHO	0
+2741	2016-07-03	2016	07	3	DOMINGO	201607	JULHO	0
+2742	2016-07-04	2016	07	4	SEGUNDA-FEIRA	201607	JULHO	0
+2743	2016-07-05	2016	07	5	TERÇA-FEIRA	201607	JULHO	0
+2744	2016-07-06	2016	07	6	QUARTA-FEIRA	201607	JULHO	0
+2745	2016-07-07	2016	07	7	QUINTA-FEIRA	201607	JULHO	0
+2746	2016-07-08	2016	07	8	SEXTA-FEIRA	201607	JULHO	0
+2747	2016-07-09	2016	07	9	SÁBADO	201607	JULHO	0
+2748	2016-07-10	2016	07	10	DOMINGO	201607	JULHO	0
+2749	2016-07-11	2016	07	11	SEGUNDA-FEIRA	201607	JULHO	0
+2750	2016-07-12	2016	07	12	TERÇA-FEIRA	201607	JULHO	0
+2751	2016-07-13	2016	07	13	QUARTA-FEIRA	201607	JULHO	0
+2752	2016-07-14	2016	07	14	QUINTA-FEIRA	201607	JULHO	0
+2753	2016-07-15	2016	07	15	SEXTA-FEIRA	201607	JULHO	0
+2754	2016-07-16	2016	07	16	SÁBADO	201607	JULHO	0
+2755	2016-07-17	2016	07	17	DOMINGO	201607	JULHO	0
+2756	2016-07-18	2016	07	18	SEGUNDA-FEIRA	201607	JULHO	0
+2757	2016-07-19	2016	07	19	TERÇA-FEIRA	201607	JULHO	0
+2758	2016-07-20	2016	07	20	QUARTA-FEIRA	201607	JULHO	0
+2759	2016-07-21	2016	07	21	QUINTA-FEIRA	201607	JULHO	0
+2760	2016-07-22	2016	07	22	SEXTA-FEIRA	201607	JULHO	0
+2761	2016-07-23	2016	07	23	SÁBADO	201607	JULHO	0
+2762	2016-07-24	2016	07	24	DOMINGO	201607	JULHO	0
+2763	2016-07-25	2016	07	25	SEGUNDA-FEIRA	201607	JULHO	0
+2764	2016-07-26	2016	07	26	TERÇA-FEIRA	201607	JULHO	0
+2765	2016-07-27	2016	07	27	QUARTA-FEIRA	201607	JULHO	0
+2766	2016-07-28	2016	07	28	QUINTA-FEIRA	201607	JULHO	0
+2767	2016-07-29	2016	07	29	SEXTA-FEIRA	201607	JULHO	0
+2768	2016-07-30	2016	07	30	SÁBADO	201607	JULHO	0
+2769	2016-07-31	2016	07	31	DOMINGO	201607	JULHO	0
+2770	2016-08-01	2016	08	1	SEGUNDA-FEIRA	201608	AGOSTO	0
+2846	2016-10-16	2016	10	16	DOMINGO	201610	OUTUBRO	0
+2847	2016-10-17	2016	10	17	SEGUNDA-FEIRA	201610	OUTUBRO	0
+2848	2016-10-18	2016	10	18	TERÇA-FEIRA	201610	OUTUBRO	0
+2849	2016-10-19	2016	10	19	QUARTA-FEIRA	201610	OUTUBRO	0
+2850	2016-10-20	2016	10	20	QUINTA-FEIRA	201610	OUTUBRO	0
+2851	2016-10-21	2016	10	21	SEXTA-FEIRA	201610	OUTUBRO	0
+2852	2016-10-22	2016	10	22	SÁBADO	201610	OUTUBRO	0
+2853	2016-10-23	2016	10	23	DOMINGO	201610	OUTUBRO	0
+2854	2016-10-24	2016	10	24	SEGUNDA-FEIRA	201610	OUTUBRO	0
+2855	2016-10-25	2016	10	25	TERÇA-FEIRA	201610	OUTUBRO	0
+2856	2016-10-26	2016	10	26	QUARTA-FEIRA	201610	OUTUBRO	0
+2857	2016-10-27	2016	10	27	QUINTA-FEIRA	201610	OUTUBRO	0
+2858	2016-10-28	2016	10	28	SEXTA-FEIRA	201610	OUTUBRO	0
+2859	2016-10-29	2016	10	29	SÁBADO	201610	OUTUBRO	0
+2860	2016-10-30	2016	10	30	DOMINGO	201610	OUTUBRO	0
+2861	2016-10-31	2016	10	31	SEGUNDA-FEIRA	201610	OUTUBRO	0
+2862	2016-11-01	2016	11	1	TERÇA-FEIRA	201611	NOVEMBRO	0
+2863	2016-11-02	2016	11	2	QUARTA-FEIRA	201611	NOVEMBRO	0
+2864	2016-11-03	2016	11	3	QUINTA-FEIRA	201611	NOVEMBRO	0
+2865	2016-11-04	2016	11	4	SEXTA-FEIRA	201611	NOVEMBRO	0
+2866	2016-11-05	2016	11	5	SÁBADO	201611	NOVEMBRO	0
+2867	2016-11-06	2016	11	6	DOMINGO	201611	NOVEMBRO	0
+2868	2016-11-07	2016	11	7	SEGUNDA-FEIRA	201611	NOVEMBRO	0
+2869	2016-11-08	2016	11	8	TERÇA-FEIRA	201611	NOVEMBRO	0
+2870	2016-11-09	2016	11	9	QUARTA-FEIRA	201611	NOVEMBRO	0
+2871	2016-11-10	2016	11	10	QUINTA-FEIRA	201611	NOVEMBRO	0
+2872	2016-11-11	2016	11	11	SEXTA-FEIRA	201611	NOVEMBRO	0
+2873	2016-11-12	2016	11	12	SÁBADO	201611	NOVEMBRO	0
+2874	2016-11-13	2016	11	13	DOMINGO	201611	NOVEMBRO	0
+2875	2016-11-14	2016	11	14	SEGUNDA-FEIRA	201611	NOVEMBRO	0
+2876	2016-11-15	2016	11	15	TERÇA-FEIRA	201611	NOVEMBRO	0
+2877	2016-11-16	2016	11	16	QUARTA-FEIRA	201611	NOVEMBRO	0
+2878	2016-11-17	2016	11	17	QUINTA-FEIRA	201611	NOVEMBRO	0
+2879	2016-11-18	2016	11	18	SEXTA-FEIRA	201611	NOVEMBRO	0
+2880	2016-11-19	2016	11	19	SÁBADO	201611	NOVEMBRO	0
+2881	2016-11-20	2016	11	20	DOMINGO	201611	NOVEMBRO	0
+2882	2016-11-21	2016	11	21	SEGUNDA-FEIRA	201611	NOVEMBRO	0
+2883	2016-11-22	2016	11	22	TERÇA-FEIRA	201611	NOVEMBRO	0
+2884	2016-11-23	2016	11	23	QUARTA-FEIRA	201611	NOVEMBRO	0
+2885	2016-11-24	2016	11	24	QUINTA-FEIRA	201611	NOVEMBRO	0
+2886	2016-11-25	2016	11	25	SEXTA-FEIRA	201611	NOVEMBRO	0
+2887	2016-11-26	2016	11	26	SÁBADO	201611	NOVEMBRO	0
+2888	2016-11-27	2016	11	27	DOMINGO	201611	NOVEMBRO	0
+2889	2016-11-28	2016	11	28	SEGUNDA-FEIRA	201611	NOVEMBRO	0
+2890	2016-11-29	2016	11	29	TERÇA-FEIRA	201611	NOVEMBRO	0
+2891	2016-11-30	2016	11	30	QUARTA-FEIRA	201611	NOVEMBRO	0
+2892	2016-12-01	2016	12	1	QUINTA-FEIRA	201612	DEZEMBRO	0
+2893	2016-12-02	2016	12	2	SEXTA-FEIRA	201612	DEZEMBRO	0
+2894	2016-12-03	2016	12	3	SÁBADO	201612	DEZEMBRO	0
+2895	2016-12-04	2016	12	4	DOMINGO	201612	DEZEMBRO	0
+2896	2016-12-05	2016	12	5	SEGUNDA-FEIRA	201612	DEZEMBRO	0
+2897	2016-12-06	2016	12	6	TERÇA-FEIRA	201612	DEZEMBRO	0
+2898	2016-12-07	2016	12	7	QUARTA-FEIRA	201612	DEZEMBRO	0
+2899	2016-12-08	2016	12	8	QUINTA-FEIRA	201612	DEZEMBRO	0
+2900	2016-12-09	2016	12	9	SEXTA-FEIRA	201612	DEZEMBRO	0
+2901	2016-12-10	2016	12	10	SÁBADO	201612	DEZEMBRO	0
+2902	2016-12-11	2016	12	11	DOMINGO	201612	DEZEMBRO	0
+2903	2016-12-12	2016	12	12	SEGUNDA-FEIRA	201612	DEZEMBRO	0
+2904	2016-12-13	2016	12	13	TERÇA-FEIRA	201612	DEZEMBRO	0
+2905	2016-12-14	2016	12	14	QUARTA-FEIRA	201612	DEZEMBRO	0
+2771	2016-08-02	2016	08	2	TERÇA-FEIRA	201608	AGOSTO	0
+2772	2016-08-03	2016	08	3	QUARTA-FEIRA	201608	AGOSTO	0
+2773	2016-08-04	2016	08	4	QUINTA-FEIRA	201608	AGOSTO	0
+2774	2016-08-05	2016	08	5	SEXTA-FEIRA	201608	AGOSTO	0
+2775	2016-08-06	2016	08	6	SÁBADO	201608	AGOSTO	0
+2776	2016-08-07	2016	08	7	DOMINGO	201608	AGOSTO	0
+2777	2016-08-08	2016	08	8	SEGUNDA-FEIRA	201608	AGOSTO	0
+2778	2016-08-09	2016	08	9	TERÇA-FEIRA	201608	AGOSTO	0
+2779	2016-08-10	2016	08	10	QUARTA-FEIRA	201608	AGOSTO	0
+2780	2016-08-11	2016	08	11	QUINTA-FEIRA	201608	AGOSTO	0
+2781	2016-08-12	2016	08	12	SEXTA-FEIRA	201608	AGOSTO	0
+2782	2016-08-13	2016	08	13	SÁBADO	201608	AGOSTO	0
+2783	2016-08-14	2016	08	14	DOMINGO	201608	AGOSTO	0
+2784	2016-08-15	2016	08	15	SEGUNDA-FEIRA	201608	AGOSTO	0
+2785	2016-08-16	2016	08	16	TERÇA-FEIRA	201608	AGOSTO	0
+2786	2016-08-17	2016	08	17	QUARTA-FEIRA	201608	AGOSTO	0
+2787	2016-08-18	2016	08	18	QUINTA-FEIRA	201608	AGOSTO	0
+2788	2016-08-19	2016	08	19	SEXTA-FEIRA	201608	AGOSTO	0
+2789	2016-08-20	2016	08	20	SÁBADO	201608	AGOSTO	0
+2790	2016-08-21	2016	08	21	DOMINGO	201608	AGOSTO	0
+2791	2016-08-22	2016	08	22	SEGUNDA-FEIRA	201608	AGOSTO	0
+2792	2016-08-23	2016	08	23	TERÇA-FEIRA	201608	AGOSTO	0
+2793	2016-08-24	2016	08	24	QUARTA-FEIRA	201608	AGOSTO	0
+2794	2016-08-25	2016	08	25	QUINTA-FEIRA	201608	AGOSTO	0
+2795	2016-08-26	2016	08	26	SEXTA-FEIRA	201608	AGOSTO	0
+2796	2016-08-27	2016	08	27	SÁBADO	201608	AGOSTO	0
+2797	2016-08-28	2016	08	28	DOMINGO	201608	AGOSTO	0
+2798	2016-08-29	2016	08	29	SEGUNDA-FEIRA	201608	AGOSTO	0
+2799	2016-08-30	2016	08	30	TERÇA-FEIRA	201608	AGOSTO	0
+2800	2016-08-31	2016	08	31	QUARTA-FEIRA	201608	AGOSTO	0
+2801	2016-09-01	2016	09	1	QUINTA-FEIRA	201609	SETEMBRO	0
+2802	2016-09-02	2016	09	2	SEXTA-FEIRA	201609	SETEMBRO	0
+2803	2016-09-03	2016	09	3	SÁBADO	201609	SETEMBRO	0
+2804	2016-09-04	2016	09	4	DOMINGO	201609	SETEMBRO	0
+2805	2016-09-05	2016	09	5	SEGUNDA-FEIRA	201609	SETEMBRO	0
+2806	2016-09-06	2016	09	6	TERÇA-FEIRA	201609	SETEMBRO	0
+2807	2016-09-07	2016	09	7	QUARTA-FEIRA	201609	SETEMBRO	0
+2808	2016-09-08	2016	09	8	QUINTA-FEIRA	201609	SETEMBRO	0
+2809	2016-09-09	2016	09	9	SEXTA-FEIRA	201609	SETEMBRO	0
+2810	2016-09-10	2016	09	10	SÁBADO	201609	SETEMBRO	0
+2811	2016-09-11	2016	09	11	DOMINGO	201609	SETEMBRO	0
+2812	2016-09-12	2016	09	12	SEGUNDA-FEIRA	201609	SETEMBRO	0
+2813	2016-09-13	2016	09	13	TERÇA-FEIRA	201609	SETEMBRO	0
+2814	2016-09-14	2016	09	14	QUARTA-FEIRA	201609	SETEMBRO	0
+2815	2016-09-15	2016	09	15	QUINTA-FEIRA	201609	SETEMBRO	0
+2816	2016-09-16	2016	09	16	SEXTA-FEIRA	201609	SETEMBRO	0
+2817	2016-09-17	2016	09	17	SÁBADO	201609	SETEMBRO	0
+2818	2016-09-18	2016	09	18	DOMINGO	201609	SETEMBRO	0
+2819	2016-09-19	2016	09	19	SEGUNDA-FEIRA	201609	SETEMBRO	0
+2820	2016-09-20	2016	09	20	TERÇA-FEIRA	201609	SETEMBRO	0
+2821	2016-09-21	2016	09	21	QUARTA-FEIRA	201609	SETEMBRO	0
+2822	2016-09-22	2016	09	22	QUINTA-FEIRA	201609	SETEMBRO	0
+2823	2016-09-23	2016	09	23	SEXTA-FEIRA	201609	SETEMBRO	0
+2824	2016-09-24	2016	09	24	SÁBADO	201609	SETEMBRO	0
+2825	2016-09-25	2016	09	25	DOMINGO	201609	SETEMBRO	0
+2826	2016-09-26	2016	09	26	SEGUNDA-FEIRA	201609	SETEMBRO	0
+2827	2016-09-27	2016	09	27	TERÇA-FEIRA	201609	SETEMBRO	0
+2828	2016-09-28	2016	09	28	QUARTA-FEIRA	201609	SETEMBRO	0
+2829	2016-09-29	2016	09	29	QUINTA-FEIRA	201609	SETEMBRO	0
+2830	2016-09-30	2016	09	30	SEXTA-FEIRA	201609	SETEMBRO	0
+2831	2016-10-01	2016	10	1	SÁBADO	201610	OUTUBRO	0
+2832	2016-10-02	2016	10	2	DOMINGO	201610	OUTUBRO	0
+2833	2016-10-03	2016	10	3	SEGUNDA-FEIRA	201610	OUTUBRO	0
+2834	2016-10-04	2016	10	4	TERÇA-FEIRA	201610	OUTUBRO	0
+2835	2016-10-05	2016	10	5	QUARTA-FEIRA	201610	OUTUBRO	0
+2836	2016-10-06	2016	10	6	QUINTA-FEIRA	201610	OUTUBRO	0
+2837	2016-10-07	2016	10	7	SEXTA-FEIRA	201610	OUTUBRO	0
+2838	2016-10-08	2016	10	8	SÁBADO	201610	OUTUBRO	0
+2839	2016-10-09	2016	10	9	DOMINGO	201610	OUTUBRO	0
+2840	2016-10-10	2016	10	10	SEGUNDA-FEIRA	201610	OUTUBRO	0
+2841	2016-10-11	2016	10	11	TERÇA-FEIRA	201610	OUTUBRO	0
+2842	2016-10-12	2016	10	12	QUARTA-FEIRA	201610	OUTUBRO	0
+2843	2016-10-13	2016	10	13	QUINTA-FEIRA	201610	OUTUBRO	0
+2844	2016-10-14	2016	10	14	SEXTA-FEIRA	201610	OUTUBRO	0
+2845	2016-10-15	2016	10	15	SÁBADO	201610	OUTUBRO	0
+2906	2016-12-15	2016	12	15	QUINTA-FEIRA	201612	DEZEMBRO	0
+2907	2016-12-16	2016	12	16	SEXTA-FEIRA	201612	DEZEMBRO	0
+2908	2016-12-17	2016	12	17	SÁBADO	201612	DEZEMBRO	0
+2909	2016-12-18	2016	12	18	DOMINGO	201612	DEZEMBRO	0
+2910	2016-12-19	2016	12	19	SEGUNDA-FEIRA	201612	DEZEMBRO	0
+2911	2016-12-20	2016	12	20	TERÇA-FEIRA	201612	DEZEMBRO	0
+2912	2016-12-21	2016	12	21	QUARTA-FEIRA	201612	DEZEMBRO	0
+2913	2016-12-22	2016	12	22	QUINTA-FEIRA	201612	DEZEMBRO	0
+2914	2016-12-23	2016	12	23	SEXTA-FEIRA	201612	DEZEMBRO	0
+2915	2016-12-24	2016	12	24	SÁBADO	201612	DEZEMBRO	0
+2916	2016-12-25	2016	12	25	DOMINGO	201612	DEZEMBRO	0
+2917	2016-12-26	2016	12	26	SEGUNDA-FEIRA	201612	DEZEMBRO	0
+2918	2016-12-27	2016	12	27	TERÇA-FEIRA	201612	DEZEMBRO	0
+2919	2016-12-28	2016	12	28	QUARTA-FEIRA	201612	DEZEMBRO	0
+2920	2016-12-29	2016	12	29	QUINTA-FEIRA	201612	DEZEMBRO	0
+2921	2016-12-30	2016	12	30	SEXTA-FEIRA	201612	DEZEMBRO	0
+2922	2016-12-31	2016	12	31	SÁBADO	201612	DEZEMBRO	0
+2923	2017-01-01	2017	01	1	DOMINGO	201701	JANEIRO	0
+2924	2017-01-02	2017	01	2	SEGUNDA-FEIRA	201701	JANEIRO	0
+2925	2017-01-03	2017	01	3	TERÇA-FEIRA	201701	JANEIRO	0
+2926	2017-01-04	2017	01	4	QUARTA-FEIRA	201701	JANEIRO	0
+2927	2017-01-05	2017	01	5	QUINTA-FEIRA	201701	JANEIRO	0
+2928	2017-01-06	2017	01	6	SEXTA-FEIRA	201701	JANEIRO	0
+2929	2017-01-07	2017	01	7	SÁBADO	201701	JANEIRO	0
+2930	2017-01-08	2017	01	8	DOMINGO	201701	JANEIRO	0
+2931	2017-01-09	2017	01	9	SEGUNDA-FEIRA	201701	JANEIRO	0
+2932	2017-01-10	2017	01	10	TERÇA-FEIRA	201701	JANEIRO	0
+2933	2017-01-11	2017	01	11	QUARTA-FEIRA	201701	JANEIRO	0
+2934	2017-01-12	2017	01	12	QUINTA-FEIRA	201701	JANEIRO	0
+2935	2017-01-13	2017	01	13	SEXTA-FEIRA	201701	JANEIRO	0
+2936	2017-01-14	2017	01	14	SÁBADO	201701	JANEIRO	0
+2937	2017-01-15	2017	01	15	DOMINGO	201701	JANEIRO	0
+2938	2017-01-16	2017	01	16	SEGUNDA-FEIRA	201701	JANEIRO	0
+2939	2017-01-17	2017	01	17	TERÇA-FEIRA	201701	JANEIRO	0
+2940	2017-01-18	2017	01	18	QUARTA-FEIRA	201701	JANEIRO	0
+2941	2017-01-19	2017	01	19	QUINTA-FEIRA	201701	JANEIRO	0
+2942	2017-01-20	2017	01	20	SEXTA-FEIRA	201701	JANEIRO	0
+2943	2017-01-21	2017	01	21	SÁBADO	201701	JANEIRO	0
+2944	2017-01-22	2017	01	22	DOMINGO	201701	JANEIRO	0
+2945	2017-01-23	2017	01	23	SEGUNDA-FEIRA	201701	JANEIRO	0
+2946	2017-01-24	2017	01	24	TERÇA-FEIRA	201701	JANEIRO	0
+2947	2017-01-25	2017	01	25	QUARTA-FEIRA	201701	JANEIRO	0
+2948	2017-01-26	2017	01	26	QUINTA-FEIRA	201701	JANEIRO	0
+2949	2017-01-27	2017	01	27	SEXTA-FEIRA	201701	JANEIRO	0
+2950	2017-01-28	2017	01	28	SÁBADO	201701	JANEIRO	0
+2951	2017-01-29	2017	01	29	DOMINGO	201701	JANEIRO	0
+2952	2017-01-30	2017	01	30	SEGUNDA-FEIRA	201701	JANEIRO	0
+2953	2017-01-31	2017	01	31	TERÇA-FEIRA	201701	JANEIRO	0
+2954	2017-02-01	2017	02	1	QUARTA-FEIRA	201702	FEVEREIRO	0
+2955	2017-02-02	2017	02	2	QUINTA-FEIRA	201702	FEVEREIRO	0
+2956	2017-02-03	2017	02	3	SEXTA-FEIRA	201702	FEVEREIRO	0
+2957	2017-02-04	2017	02	4	SÁBADO	201702	FEVEREIRO	0
+2958	2017-02-05	2017	02	5	DOMINGO	201702	FEVEREIRO	0
+2959	2017-02-06	2017	02	6	SEGUNDA-FEIRA	201702	FEVEREIRO	0
+2960	2017-02-07	2017	02	7	TERÇA-FEIRA	201702	FEVEREIRO	0
+2961	2017-02-08	2017	02	8	QUARTA-FEIRA	201702	FEVEREIRO	0
+2962	2017-02-09	2017	02	9	QUINTA-FEIRA	201702	FEVEREIRO	0
+2963	2017-02-10	2017	02	10	SEXTA-FEIRA	201702	FEVEREIRO	0
+2964	2017-02-11	2017	02	11	SÁBADO	201702	FEVEREIRO	0
+2965	2017-02-12	2017	02	12	DOMINGO	201702	FEVEREIRO	0
+2966	2017-02-13	2017	02	13	SEGUNDA-FEIRA	201702	FEVEREIRO	0
+2967	2017-02-14	2017	02	14	TERÇA-FEIRA	201702	FEVEREIRO	0
+2968	2017-02-15	2017	02	15	QUARTA-FEIRA	201702	FEVEREIRO	0
+2969	2017-02-16	2017	02	16	QUINTA-FEIRA	201702	FEVEREIRO	0
+2970	2017-02-17	2017	02	17	SEXTA-FEIRA	201702	FEVEREIRO	0
+2971	2017-02-18	2017	02	18	SÁBADO	201702	FEVEREIRO	0
+2972	2017-02-19	2017	02	19	DOMINGO	201702	FEVEREIRO	0
+2973	2017-02-20	2017	02	20	SEGUNDA-FEIRA	201702	FEVEREIRO	0
+2974	2017-02-21	2017	02	21	TERÇA-FEIRA	201702	FEVEREIRO	0
+2975	2017-02-22	2017	02	22	QUARTA-FEIRA	201702	FEVEREIRO	0
+2976	2017-02-23	2017	02	23	QUINTA-FEIRA	201702	FEVEREIRO	0
+2977	2017-02-24	2017	02	24	SEXTA-FEIRA	201702	FEVEREIRO	0
+2978	2017-02-25	2017	02	25	SÁBADO	201702	FEVEREIRO	0
+2979	2017-02-26	2017	02	26	DOMINGO	201702	FEVEREIRO	0
+2980	2017-02-27	2017	02	27	SEGUNDA-FEIRA	201702	FEVEREIRO	0
+2981	2017-02-28	2017	02	28	TERÇA-FEIRA	201702	FEVEREIRO	0
+2982	2017-03-01	2017	03	1	QUARTA-FEIRA	201703	MARÇO	0
+2983	2017-03-02	2017	03	2	QUINTA-FEIRA	201703	MARÇO	0
+2984	2017-03-03	2017	03	3	SEXTA-FEIRA	201703	MARÇO	0
+2985	2017-03-04	2017	03	4	SÁBADO	201703	MARÇO	0
+2986	2017-03-05	2017	03	5	DOMINGO	201703	MARÇO	0
+2987	2017-03-06	2017	03	6	SEGUNDA-FEIRA	201703	MARÇO	0
+2988	2017-03-07	2017	03	7	TERÇA-FEIRA	201703	MARÇO	0
+2989	2017-03-08	2017	03	8	QUARTA-FEIRA	201703	MARÇO	0
+2990	2017-03-09	2017	03	9	QUINTA-FEIRA	201703	MARÇO	0
+2991	2017-03-10	2017	03	10	SEXTA-FEIRA	201703	MARÇO	0
+2992	2017-03-11	2017	03	11	SÁBADO	201703	MARÇO	0
+2993	2017-03-12	2017	03	12	DOMINGO	201703	MARÇO	0
+2994	2017-03-13	2017	03	13	SEGUNDA-FEIRA	201703	MARÇO	0
+2995	2017-03-14	2017	03	14	TERÇA-FEIRA	201703	MARÇO	0
+2996	2017-03-15	2017	03	15	QUARTA-FEIRA	201703	MARÇO	0
+2997	2017-03-16	2017	03	16	QUINTA-FEIRA	201703	MARÇO	0
+2998	2017-03-17	2017	03	17	SEXTA-FEIRA	201703	MARÇO	0
+2999	2017-03-18	2017	03	18	SÁBADO	201703	MARÇO	0
+3000	2017-03-19	2017	03	19	DOMINGO	201703	MARÇO	0
+3001	2017-03-20	2017	03	20	SEGUNDA-FEIRA	201703	MARÇO	0
+3002	2017-03-21	2017	03	21	TERÇA-FEIRA	201703	MARÇO	0
+3003	2017-03-22	2017	03	22	QUARTA-FEIRA	201703	MARÇO	0
+3004	2017-03-23	2017	03	23	QUINTA-FEIRA	201703	MARÇO	0
+3005	2017-03-24	2017	03	24	SEXTA-FEIRA	201703	MARÇO	0
+3006	2017-03-25	2017	03	25	SÁBADO	201703	MARÇO	0
+3007	2017-03-26	2017	03	26	DOMINGO	201703	MARÇO	0
+3008	2017-03-27	2017	03	27	SEGUNDA-FEIRA	201703	MARÇO	0
+3009	2017-03-28	2017	03	28	TERÇA-FEIRA	201703	MARÇO	0
+3010	2017-03-29	2017	03	29	QUARTA-FEIRA	201703	MARÇO	0
+3011	2017-03-30	2017	03	30	QUINTA-FEIRA	201703	MARÇO	0
+3012	2017-03-31	2017	03	31	SEXTA-FEIRA	201703	MARÇO	0
+3013	2017-04-01	2017	04	1	SÁBADO	201704	ABRIL	0
+3014	2017-04-02	2017	04	2	DOMINGO	201704	ABRIL	0
+3015	2017-04-03	2017	04	3	SEGUNDA-FEIRA	201704	ABRIL	0
+3016	2017-04-04	2017	04	4	TERÇA-FEIRA	201704	ABRIL	0
+3017	2017-04-05	2017	04	5	QUARTA-FEIRA	201704	ABRIL	0
+3018	2017-04-06	2017	04	6	QUINTA-FEIRA	201704	ABRIL	0
+3019	2017-04-07	2017	04	7	SEXTA-FEIRA	201704	ABRIL	0
+3020	2017-04-08	2017	04	8	SÁBADO	201704	ABRIL	0
+3021	2017-04-09	2017	04	9	DOMINGO	201704	ABRIL	0
+3022	2017-04-10	2017	04	10	SEGUNDA-FEIRA	201704	ABRIL	0
+3023	2017-04-11	2017	04	11	TERÇA-FEIRA	201704	ABRIL	0
+3024	2017-04-12	2017	04	12	QUARTA-FEIRA	201704	ABRIL	0
+3025	2017-04-13	2017	04	13	QUINTA-FEIRA	201704	ABRIL	0
+3026	2017-04-14	2017	04	14	SEXTA-FEIRA	201704	ABRIL	0
+3027	2017-04-15	2017	04	15	SÁBADO	201704	ABRIL	0
+3028	2017-04-16	2017	04	16	DOMINGO	201704	ABRIL	0
+3029	2017-04-17	2017	04	17	SEGUNDA-FEIRA	201704	ABRIL	0
+3030	2017-04-18	2017	04	18	TERÇA-FEIRA	201704	ABRIL	0
+3031	2017-04-19	2017	04	19	QUARTA-FEIRA	201704	ABRIL	0
+3032	2017-04-20	2017	04	20	QUINTA-FEIRA	201704	ABRIL	0
+3033	2017-04-21	2017	04	21	SEXTA-FEIRA	201704	ABRIL	0
+3034	2017-04-22	2017	04	22	SÁBADO	201704	ABRIL	0
+3035	2017-04-23	2017	04	23	DOMINGO	201704	ABRIL	0
+3036	2017-04-24	2017	04	24	SEGUNDA-FEIRA	201704	ABRIL	0
+3037	2017-04-25	2017	04	25	TERÇA-FEIRA	201704	ABRIL	0
+3038	2017-04-26	2017	04	26	QUARTA-FEIRA	201704	ABRIL	0
+3039	2017-04-27	2017	04	27	QUINTA-FEIRA	201704	ABRIL	0
+3040	2017-04-28	2017	04	28	SEXTA-FEIRA	201704	ABRIL	0
+3041	2017-04-29	2017	04	29	SÁBADO	201704	ABRIL	0
+3042	2017-04-30	2017	04	30	DOMINGO	201704	ABRIL	0
+3043	2017-05-01	2017	05	1	SEGUNDA-FEIRA	201705	MAIO	0
+3044	2017-05-02	2017	05	2	TERÇA-FEIRA	201705	MAIO	0
+3045	2017-05-03	2017	05	3	QUARTA-FEIRA	201705	MAIO	0
+3046	2017-05-04	2017	05	4	QUINTA-FEIRA	201705	MAIO	0
+3047	2017-05-05	2017	05	5	SEXTA-FEIRA	201705	MAIO	0
+3048	2017-05-06	2017	05	6	SÁBADO	201705	MAIO	0
+3049	2017-05-07	2017	05	7	DOMINGO	201705	MAIO	0
+3050	2017-05-08	2017	05	8	SEGUNDA-FEIRA	201705	MAIO	0
+3051	2017-05-09	2017	05	9	TERÇA-FEIRA	201705	MAIO	0
+3052	2017-05-10	2017	05	10	QUARTA-FEIRA	201705	MAIO	0
+3053	2017-05-11	2017	05	11	QUINTA-FEIRA	201705	MAIO	0
+3054	2017-05-12	2017	05	12	SEXTA-FEIRA	201705	MAIO	0
+3055	2017-05-13	2017	05	13	SÁBADO	201705	MAIO	0
+3056	2017-05-14	2017	05	14	DOMINGO	201705	MAIO	0
+3057	2017-05-15	2017	05	15	SEGUNDA-FEIRA	201705	MAIO	0
+3058	2017-05-16	2017	05	16	TERÇA-FEIRA	201705	MAIO	0
+3059	2017-05-17	2017	05	17	QUARTA-FEIRA	201705	MAIO	0
+3060	2017-05-18	2017	05	18	QUINTA-FEIRA	201705	MAIO	0
+3061	2017-05-19	2017	05	19	SEXTA-FEIRA	201705	MAIO	0
+3062	2017-05-20	2017	05	20	SÁBADO	201705	MAIO	0
+3063	2017-05-21	2017	05	21	DOMINGO	201705	MAIO	0
+3064	2017-05-22	2017	05	22	SEGUNDA-FEIRA	201705	MAIO	0
+3065	2017-05-23	2017	05	23	TERÇA-FEIRA	201705	MAIO	0
+3066	2017-05-24	2017	05	24	QUARTA-FEIRA	201705	MAIO	0
+3067	2017-05-25	2017	05	25	QUINTA-FEIRA	201705	MAIO	0
+3068	2017-05-26	2017	05	26	SEXTA-FEIRA	201705	MAIO	0
+3069	2017-05-27	2017	05	27	SÁBADO	201705	MAIO	0
+3070	2017-05-28	2017	05	28	DOMINGO	201705	MAIO	0
+3071	2017-05-29	2017	05	29	SEGUNDA-FEIRA	201705	MAIO	0
+3072	2017-05-30	2017	05	30	TERÇA-FEIRA	201705	MAIO	0
+3073	2017-05-31	2017	05	31	QUARTA-FEIRA	201705	MAIO	0
+3074	2017-06-01	2017	06	1	QUINTA-FEIRA	201706	JUNHO	0
+3075	2017-06-02	2017	06	2	SEXTA-FEIRA	201706	JUNHO	0
+3076	2017-06-03	2017	06	3	SÁBADO	201706	JUNHO	0
+3077	2017-06-04	2017	06	4	DOMINGO	201706	JUNHO	0
+3078	2017-06-05	2017	06	5	SEGUNDA-FEIRA	201706	JUNHO	0
+3079	2017-06-06	2017	06	6	TERÇA-FEIRA	201706	JUNHO	0
+3080	2017-06-07	2017	06	7	QUARTA-FEIRA	201706	JUNHO	0
+3081	2017-06-08	2017	06	8	QUINTA-FEIRA	201706	JUNHO	0
+3082	2017-06-09	2017	06	9	SEXTA-FEIRA	201706	JUNHO	0
+3083	2017-06-10	2017	06	10	SÁBADO	201706	JUNHO	0
+3084	2017-06-11	2017	06	11	DOMINGO	201706	JUNHO	0
+3085	2017-06-12	2017	06	12	SEGUNDA-FEIRA	201706	JUNHO	0
+3086	2017-06-13	2017	06	13	TERÇA-FEIRA	201706	JUNHO	0
+3087	2017-06-14	2017	06	14	QUARTA-FEIRA	201706	JUNHO	0
+3088	2017-06-15	2017	06	15	QUINTA-FEIRA	201706	JUNHO	0
+3089	2017-06-16	2017	06	16	SEXTA-FEIRA	201706	JUNHO	0
+3090	2017-06-17	2017	06	17	SÁBADO	201706	JUNHO	0
+3091	2017-06-18	2017	06	18	DOMINGO	201706	JUNHO	0
+3092	2017-06-19	2017	06	19	SEGUNDA-FEIRA	201706	JUNHO	0
+3093	2017-06-20	2017	06	20	TERÇA-FEIRA	201706	JUNHO	0
+3094	2017-06-21	2017	06	21	QUARTA-FEIRA	201706	JUNHO	0
+3095	2017-06-22	2017	06	22	QUINTA-FEIRA	201706	JUNHO	0
+3096	2017-06-23	2017	06	23	SEXTA-FEIRA	201706	JUNHO	0
+3097	2017-06-24	2017	06	24	SÁBADO	201706	JUNHO	0
+3098	2017-06-25	2017	06	25	DOMINGO	201706	JUNHO	0
+3099	2017-06-26	2017	06	26	SEGUNDA-FEIRA	201706	JUNHO	0
+3100	2017-06-27	2017	06	27	TERÇA-FEIRA	201706	JUNHO	0
+3101	2017-06-28	2017	06	28	QUARTA-FEIRA	201706	JUNHO	0
+3102	2017-06-29	2017	06	29	QUINTA-FEIRA	201706	JUNHO	0
+3103	2017-06-30	2017	06	30	SEXTA-FEIRA	201706	JUNHO	0
+3104	2017-07-01	2017	07	1	SÁBADO	201707	JULHO	0
+3105	2017-07-02	2017	07	2	DOMINGO	201707	JULHO	0
+3106	2017-07-03	2017	07	3	SEGUNDA-FEIRA	201707	JULHO	0
+3107	2017-07-04	2017	07	4	TERÇA-FEIRA	201707	JULHO	0
+3108	2017-07-05	2017	07	5	QUARTA-FEIRA	201707	JULHO	0
+3109	2017-07-06	2017	07	6	QUINTA-FEIRA	201707	JULHO	0
+3110	2017-07-07	2017	07	7	SEXTA-FEIRA	201707	JULHO	0
+3111	2017-07-08	2017	07	8	SÁBADO	201707	JULHO	0
+3112	2017-07-09	2017	07	9	DOMINGO	201707	JULHO	0
+3113	2017-07-10	2017	07	10	SEGUNDA-FEIRA	201707	JULHO	0
+3114	2017-07-11	2017	07	11	TERÇA-FEIRA	201707	JULHO	0
+3115	2017-07-12	2017	07	12	QUARTA-FEIRA	201707	JULHO	0
+3116	2017-07-13	2017	07	13	QUINTA-FEIRA	201707	JULHO	0
+3117	2017-07-14	2017	07	14	SEXTA-FEIRA	201707	JULHO	0
+3118	2017-07-15	2017	07	15	SÁBADO	201707	JULHO	0
+3119	2017-07-16	2017	07	16	DOMINGO	201707	JULHO	0
+3120	2017-07-17	2017	07	17	SEGUNDA-FEIRA	201707	JULHO	0
+3121	2017-07-18	2017	07	18	TERÇA-FEIRA	201707	JULHO	0
+3122	2017-07-19	2017	07	19	QUARTA-FEIRA	201707	JULHO	0
+3123	2017-07-20	2017	07	20	QUINTA-FEIRA	201707	JULHO	0
+3124	2017-07-21	2017	07	21	SEXTA-FEIRA	201707	JULHO	0
+3125	2017-07-22	2017	07	22	SÁBADO	201707	JULHO	0
+3126	2017-07-23	2017	07	23	DOMINGO	201707	JULHO	0
+3127	2017-07-24	2017	07	24	SEGUNDA-FEIRA	201707	JULHO	0
+3128	2017-07-25	2017	07	25	TERÇA-FEIRA	201707	JULHO	0
+3129	2017-07-26	2017	07	26	QUARTA-FEIRA	201707	JULHO	0
+3130	2017-07-27	2017	07	27	QUINTA-FEIRA	201707	JULHO	0
+3131	2017-07-28	2017	07	28	SEXTA-FEIRA	201707	JULHO	0
+3132	2017-07-29	2017	07	29	SÁBADO	201707	JULHO	0
+3133	2017-07-30	2017	07	30	DOMINGO	201707	JULHO	0
+3134	2017-07-31	2017	07	31	SEGUNDA-FEIRA	201707	JULHO	0
+3135	2017-08-01	2017	08	1	TERÇA-FEIRA	201708	AGOSTO	0
+3136	2017-08-02	2017	08	2	QUARTA-FEIRA	201708	AGOSTO	0
+3137	2017-08-03	2017	08	3	QUINTA-FEIRA	201708	AGOSTO	0
+3138	2017-08-04	2017	08	4	SEXTA-FEIRA	201708	AGOSTO	0
+3139	2017-08-05	2017	08	5	SÁBADO	201708	AGOSTO	0
+3140	2017-08-06	2017	08	6	DOMINGO	201708	AGOSTO	0
+3141	2017-08-07	2017	08	7	SEGUNDA-FEIRA	201708	AGOSTO	0
+3142	2017-08-08	2017	08	8	TERÇA-FEIRA	201708	AGOSTO	0
+3143	2017-08-09	2017	08	9	QUARTA-FEIRA	201708	AGOSTO	0
+3144	2017-08-10	2017	08	10	QUINTA-FEIRA	201708	AGOSTO	0
+3145	2017-08-11	2017	08	11	SEXTA-FEIRA	201708	AGOSTO	0
+3146	2017-08-12	2017	08	12	SÁBADO	201708	AGOSTO	0
+3147	2017-08-13	2017	08	13	DOMINGO	201708	AGOSTO	0
+3148	2017-08-14	2017	08	14	SEGUNDA-FEIRA	201708	AGOSTO	0
+3149	2017-08-15	2017	08	15	TERÇA-FEIRA	201708	AGOSTO	0
+3150	2017-08-16	2017	08	16	QUARTA-FEIRA	201708	AGOSTO	0
+3151	2017-08-17	2017	08	17	QUINTA-FEIRA	201708	AGOSTO	0
+3152	2017-08-18	2017	08	18	SEXTA-FEIRA	201708	AGOSTO	0
+3153	2017-08-19	2017	08	19	SÁBADO	201708	AGOSTO	0
+3154	2017-08-20	2017	08	20	DOMINGO	201708	AGOSTO	0
+3155	2017-08-21	2017	08	21	SEGUNDA-FEIRA	201708	AGOSTO	0
+3156	2017-08-22	2017	08	22	TERÇA-FEIRA	201708	AGOSTO	0
+3157	2017-08-23	2017	08	23	QUARTA-FEIRA	201708	AGOSTO	0
+3158	2017-08-24	2017	08	24	QUINTA-FEIRA	201708	AGOSTO	0
+3159	2017-08-25	2017	08	25	SEXTA-FEIRA	201708	AGOSTO	0
+3160	2017-08-26	2017	08	26	SÁBADO	201708	AGOSTO	0
+3161	2017-08-27	2017	08	27	DOMINGO	201708	AGOSTO	0
+3162	2017-08-28	2017	08	28	SEGUNDA-FEIRA	201708	AGOSTO	0
+3163	2017-08-29	2017	08	29	TERÇA-FEIRA	201708	AGOSTO	0
+3164	2017-08-30	2017	08	30	QUARTA-FEIRA	201708	AGOSTO	0
+3165	2017-08-31	2017	08	31	QUINTA-FEIRA	201708	AGOSTO	0
+3166	2017-09-01	2017	09	1	SEXTA-FEIRA	201709	SETEMBRO	0
+3167	2017-09-02	2017	09	2	SÁBADO	201709	SETEMBRO	0
+3168	2017-09-03	2017	09	3	DOMINGO	201709	SETEMBRO	0
+3169	2017-09-04	2017	09	4	SEGUNDA-FEIRA	201709	SETEMBRO	0
+3170	2017-09-05	2017	09	5	TERÇA-FEIRA	201709	SETEMBRO	0
+3171	2017-09-06	2017	09	6	QUARTA-FEIRA	201709	SETEMBRO	0
+3172	2017-09-07	2017	09	7	QUINTA-FEIRA	201709	SETEMBRO	0
+3173	2017-09-08	2017	09	8	SEXTA-FEIRA	201709	SETEMBRO	0
+3174	2017-09-09	2017	09	9	SÁBADO	201709	SETEMBRO	0
+3175	2017-09-10	2017	09	10	DOMINGO	201709	SETEMBRO	0
+3176	2017-09-11	2017	09	11	SEGUNDA-FEIRA	201709	SETEMBRO	0
+3177	2017-09-12	2017	09	12	TERÇA-FEIRA	201709	SETEMBRO	0
+3178	2017-09-13	2017	09	13	QUARTA-FEIRA	201709	SETEMBRO	0
+3179	2017-09-14	2017	09	14	QUINTA-FEIRA	201709	SETEMBRO	0
+3180	2017-09-15	2017	09	15	SEXTA-FEIRA	201709	SETEMBRO	0
+3181	2017-09-16	2017	09	16	SÁBADO	201709	SETEMBRO	0
+3182	2017-09-17	2017	09	17	DOMINGO	201709	SETEMBRO	0
+3183	2017-09-18	2017	09	18	SEGUNDA-FEIRA	201709	SETEMBRO	0
+3184	2017-09-19	2017	09	19	TERÇA-FEIRA	201709	SETEMBRO	0
+4011	2019-12-25	2019	12	25	QUARTA-FEIRA	201912	DEZEMBRO	0
+4012	2019-12-26	2019	12	26	QUINTA-FEIRA	201912	DEZEMBRO	0
+4013	2019-12-27	2019	12	27	SEXTA-FEIRA	201912	DEZEMBRO	0
+4014	2019-12-28	2019	12	28	SÁBADO	201912	DEZEMBRO	0
+4015	2019-12-29	2019	12	29	DOMINGO	201912	DEZEMBRO	0
+4016	2019-12-30	2019	12	30	SEGUNDA-FEIRA	201912	DEZEMBRO	0
+4017	2019-12-31	2019	12	31	TERÇA-FEIRA	201912	DEZEMBRO	0
+4018	2020-01-01	2020	01	1	QUARTA-FEIRA	202001	JANEIRO	0
+4019	2020-01-02	2020	01	2	QUINTA-FEIRA	202001	JANEIRO	0
+4020	2020-01-03	2020	01	3	SEXTA-FEIRA	202001	JANEIRO	0
+4021	2020-01-04	2020	01	4	SÁBADO	202001	JANEIRO	0
+4022	2020-01-05	2020	01	5	DOMINGO	202001	JANEIRO	0
+4023	2020-01-06	2020	01	6	SEGUNDA-FEIRA	202001	JANEIRO	0
+4024	2020-01-07	2020	01	7	TERÇA-FEIRA	202001	JANEIRO	0
+4025	2020-01-08	2020	01	8	QUARTA-FEIRA	202001	JANEIRO	0
+4026	2020-01-09	2020	01	9	QUINTA-FEIRA	202001	JANEIRO	0
+4027	2020-01-10	2020	01	10	SEXTA-FEIRA	202001	JANEIRO	0
+4028	2020-01-11	2020	01	11	SÁBADO	202001	JANEIRO	0
+4029	2020-01-12	2020	01	12	DOMINGO	202001	JANEIRO	0
+4030	2020-01-13	2020	01	13	SEGUNDA-FEIRA	202001	JANEIRO	0
+4031	2020-01-14	2020	01	14	TERÇA-FEIRA	202001	JANEIRO	0
+4032	2020-01-15	2020	01	15	QUARTA-FEIRA	202001	JANEIRO	0
+4033	2020-01-16	2020	01	16	QUINTA-FEIRA	202001	JANEIRO	0
+4034	2020-01-17	2020	01	17	SEXTA-FEIRA	202001	JANEIRO	0
+4035	2020-01-18	2020	01	18	SÁBADO	202001	JANEIRO	0
+4036	2020-01-19	2020	01	19	DOMINGO	202001	JANEIRO	0
+4037	2020-01-20	2020	01	20	SEGUNDA-FEIRA	202001	JANEIRO	0
+4038	2020-01-21	2020	01	21	TERÇA-FEIRA	202001	JANEIRO	0
+4039	2020-01-22	2020	01	22	QUARTA-FEIRA	202001	JANEIRO	0
+4040	2020-01-23	2020	01	23	QUINTA-FEIRA	202001	JANEIRO	0
+4041	2020-01-24	2020	01	24	SEXTA-FEIRA	202001	JANEIRO	0
+4042	2020-01-25	2020	01	25	SÁBADO	202001	JANEIRO	0
+4043	2020-01-26	2020	01	26	DOMINGO	202001	JANEIRO	0
+4044	2020-01-27	2020	01	27	SEGUNDA-FEIRA	202001	JANEIRO	0
+4045	2020-01-28	2020	01	28	TERÇA-FEIRA	202001	JANEIRO	0
+4046	2020-01-29	2020	01	29	QUARTA-FEIRA	202001	JANEIRO	0
+4047	2020-01-30	2020	01	30	QUINTA-FEIRA	202001	JANEIRO	0
+4048	2020-01-31	2020	01	31	SEXTA-FEIRA	202001	JANEIRO	0
+4049	2020-02-01	2020	02	1	SÁBADO	202002	FEVEREIRO	0
+4050	2020-02-02	2020	02	2	DOMINGO	202002	FEVEREIRO	0
+4051	2020-02-03	2020	02	3	SEGUNDA-FEIRA	202002	FEVEREIRO	0
+4052	2020-02-04	2020	02	4	TERÇA-FEIRA	202002	FEVEREIRO	0
+4053	2020-02-05	2020	02	5	QUARTA-FEIRA	202002	FEVEREIRO	0
+4054	2020-02-06	2020	02	6	QUINTA-FEIRA	202002	FEVEREIRO	0
+4055	2020-02-07	2020	02	7	SEXTA-FEIRA	202002	FEVEREIRO	0
+4056	2020-02-08	2020	02	8	SÁBADO	202002	FEVEREIRO	0
+4057	2020-02-09	2020	02	9	DOMINGO	202002	FEVEREIRO	0
+4058	2020-02-10	2020	02	10	SEGUNDA-FEIRA	202002	FEVEREIRO	0
+4059	2020-02-11	2020	02	11	TERÇA-FEIRA	202002	FEVEREIRO	0
+4060	2020-02-12	2020	02	12	QUARTA-FEIRA	202002	FEVEREIRO	0
+4061	2020-02-13	2020	02	13	QUINTA-FEIRA	202002	FEVEREIRO	0
+4062	2020-02-14	2020	02	14	SEXTA-FEIRA	202002	FEVEREIRO	0
+4063	2020-02-15	2020	02	15	SÁBADO	202002	FEVEREIRO	0
+4064	2020-02-16	2020	02	16	DOMINGO	202002	FEVEREIRO	0
+4065	2020-02-17	2020	02	17	SEGUNDA-FEIRA	202002	FEVEREIRO	0
+4066	2020-02-18	2020	02	18	TERÇA-FEIRA	202002	FEVEREIRO	0
+4067	2020-02-19	2020	02	19	QUARTA-FEIRA	202002	FEVEREIRO	0
+4068	2020-02-20	2020	02	20	QUINTA-FEIRA	202002	FEVEREIRO	0
+4069	2020-02-21	2020	02	21	SEXTA-FEIRA	202002	FEVEREIRO	0
+4070	2020-02-22	2020	02	22	SÁBADO	202002	FEVEREIRO	0
+4071	2020-02-23	2020	02	23	DOMINGO	202002	FEVEREIRO	0
+4072	2020-02-24	2020	02	24	SEGUNDA-FEIRA	202002	FEVEREIRO	0
+4073	2020-02-25	2020	02	25	TERÇA-FEIRA	202002	FEVEREIRO	0
+4074	2020-02-26	2020	02	26	QUARTA-FEIRA	202002	FEVEREIRO	0
+4075	2020-02-27	2020	02	27	QUINTA-FEIRA	202002	FEVEREIRO	0
+4076	2020-02-28	2020	02	28	SEXTA-FEIRA	202002	FEVEREIRO	0
+4077	2020-02-29	2020	02	29	SÁBADO	202002	FEVEREIRO	0
+4078	2020-03-01	2020	03	1	DOMINGO	202003	MARÇO	0
+4079	2020-03-02	2020	03	2	SEGUNDA-FEIRA	202003	MARÇO	0
+4080	2020-03-03	2020	03	3	TERÇA-FEIRA	202003	MARÇO	0
+4081	2020-03-04	2020	03	4	QUARTA-FEIRA	202003	MARÇO	0
+4082	2020-03-05	2020	03	5	QUINTA-FEIRA	202003	MARÇO	0
+4083	2020-03-06	2020	03	6	SEXTA-FEIRA	202003	MARÇO	0
+4084	2020-03-07	2020	03	7	SÁBADO	202003	MARÇO	0
+4085	2020-03-08	2020	03	8	DOMINGO	202003	MARÇO	0
+4086	2020-03-09	2020	03	9	SEGUNDA-FEIRA	202003	MARÇO	0
+4087	2020-03-10	2020	03	10	TERÇA-FEIRA	202003	MARÇO	0
+4088	2020-03-11	2020	03	11	QUARTA-FEIRA	202003	MARÇO	0
+4089	2020-03-12	2020	03	12	QUINTA-FEIRA	202003	MARÇO	0
+4090	2020-03-13	2020	03	13	SEXTA-FEIRA	202003	MARÇO	0
+4091	2020-03-14	2020	03	14	SÁBADO	202003	MARÇO	0
+4092	2020-03-15	2020	03	15	DOMINGO	202003	MARÇO	0
+4093	2020-03-16	2020	03	16	SEGUNDA-FEIRA	202003	MARÇO	0
+4094	2020-03-17	2020	03	17	TERÇA-FEIRA	202003	MARÇO	0
+4095	2020-03-18	2020	03	18	QUARTA-FEIRA	202003	MARÇO	0
+4096	2020-03-19	2020	03	19	QUINTA-FEIRA	202003	MARÇO	0
+4097	2020-03-20	2020	03	20	SEXTA-FEIRA	202003	MARÇO	0
+4098	2020-03-21	2020	03	21	SÁBADO	202003	MARÇO	0
+4099	2020-03-22	2020	03	22	DOMINGO	202003	MARÇO	0
+4100	2020-03-23	2020	03	23	SEGUNDA-FEIRA	202003	MARÇO	0
+4101	2020-03-24	2020	03	24	TERÇA-FEIRA	202003	MARÇO	0
+4102	2020-03-25	2020	03	25	QUARTA-FEIRA	202003	MARÇO	0
+4103	2020-03-26	2020	03	26	QUINTA-FEIRA	202003	MARÇO	0
+4104	2020-03-27	2020	03	27	SEXTA-FEIRA	202003	MARÇO	0
+4105	2020-03-28	2020	03	28	SÁBADO	202003	MARÇO	0
+4106	2020-03-29	2020	03	29	DOMINGO	202003	MARÇO	0
+4107	2020-03-30	2020	03	30	SEGUNDA-FEIRA	202003	MARÇO	0
+4108	2020-03-31	2020	03	31	TERÇA-FEIRA	202003	MARÇO	0
+4109	2020-04-01	2020	04	1	QUARTA-FEIRA	202004	ABRIL	0
+4110	2020-04-02	2020	04	2	QUINTA-FEIRA	202004	ABRIL	0
+4111	2020-04-03	2020	04	3	SEXTA-FEIRA	202004	ABRIL	0
+4112	2020-04-04	2020	04	4	SÁBADO	202004	ABRIL	0
+4113	2020-04-05	2020	04	5	DOMINGO	202004	ABRIL	0
+4114	2020-04-06	2020	04	6	SEGUNDA-FEIRA	202004	ABRIL	0
+4115	2020-04-07	2020	04	7	TERÇA-FEIRA	202004	ABRIL	0
+4116	2020-04-08	2020	04	8	QUARTA-FEIRA	202004	ABRIL	0
+4117	2020-04-09	2020	04	9	QUINTA-FEIRA	202004	ABRIL	0
+4118	2020-04-10	2020	04	10	SEXTA-FEIRA	202004	ABRIL	0
+4119	2020-04-11	2020	04	11	SÁBADO	202004	ABRIL	0
+4120	2020-04-12	2020	04	12	DOMINGO	202004	ABRIL	0
+4121	2020-04-13	2020	04	13	SEGUNDA-FEIRA	202004	ABRIL	0
+4122	2020-04-14	2020	04	14	TERÇA-FEIRA	202004	ABRIL	0
+4123	2020-04-15	2020	04	15	QUARTA-FEIRA	202004	ABRIL	0
+4124	2020-04-16	2020	04	16	QUINTA-FEIRA	202004	ABRIL	0
+4125	2020-04-17	2020	04	17	SEXTA-FEIRA	202004	ABRIL	0
+4126	2020-04-18	2020	04	18	SÁBADO	202004	ABRIL	0
+4127	2020-04-19	2020	04	19	DOMINGO	202004	ABRIL	0
+4128	2020-04-20	2020	04	20	SEGUNDA-FEIRA	202004	ABRIL	0
+4129	2020-04-21	2020	04	21	TERÇA-FEIRA	202004	ABRIL	0
+4130	2020-04-22	2020	04	22	QUARTA-FEIRA	202004	ABRIL	0
+4131	2020-04-23	2020	04	23	QUINTA-FEIRA	202004	ABRIL	0
+4132	2020-04-24	2020	04	24	SEXTA-FEIRA	202004	ABRIL	0
+4133	2020-04-25	2020	04	25	SÁBADO	202004	ABRIL	0
+4134	2020-04-26	2020	04	26	DOMINGO	202004	ABRIL	0
+4135	2020-04-27	2020	04	27	SEGUNDA-FEIRA	202004	ABRIL	0
+4136	2020-04-28	2020	04	28	TERÇA-FEIRA	202004	ABRIL	0
+4137	2020-04-29	2020	04	29	QUARTA-FEIRA	202004	ABRIL	0
+4138	2020-04-30	2020	04	30	QUINTA-FEIRA	202004	ABRIL	0
+4139	2020-05-01	2020	05	1	SEXTA-FEIRA	202005	MAIO	0
+4140	2020-05-02	2020	05	2	SÁBADO	202005	MAIO	0
+4141	2020-05-03	2020	05	3	DOMINGO	202005	MAIO	0
+4142	2020-05-04	2020	05	4	SEGUNDA-FEIRA	202005	MAIO	0
+4143	2020-05-05	2020	05	5	TERÇA-FEIRA	202005	MAIO	0
+4144	2020-05-06	2020	05	6	QUARTA-FEIRA	202005	MAIO	0
+4145	2020-05-07	2020	05	7	QUINTA-FEIRA	202005	MAIO	0
+4146	2020-05-08	2020	05	8	SEXTA-FEIRA	202005	MAIO	0
+4147	2020-05-09	2020	05	9	SÁBADO	202005	MAIO	0
+4148	2020-05-10	2020	05	10	DOMINGO	202005	MAIO	0
+4149	2020-05-11	2020	05	11	SEGUNDA-FEIRA	202005	MAIO	0
+4150	2020-05-12	2020	05	12	TERÇA-FEIRA	202005	MAIO	0
+4151	2020-05-13	2020	05	13	QUARTA-FEIRA	202005	MAIO	0
+4152	2020-05-14	2020	05	14	QUINTA-FEIRA	202005	MAIO	0
+4153	2020-05-15	2020	05	15	SEXTA-FEIRA	202005	MAIO	0
+4154	2020-05-16	2020	05	16	SÁBADO	202005	MAIO	0
+4155	2020-05-17	2020	05	17	DOMINGO	202005	MAIO	0
+4156	2020-05-18	2020	05	18	SEGUNDA-FEIRA	202005	MAIO	0
+4157	2020-05-19	2020	05	19	TERÇA-FEIRA	202005	MAIO	0
+4158	2020-05-20	2020	05	20	QUARTA-FEIRA	202005	MAIO	0
+4159	2020-05-21	2020	05	21	QUINTA-FEIRA	202005	MAIO	0
+4160	2020-05-22	2020	05	22	SEXTA-FEIRA	202005	MAIO	0
+4161	2020-05-23	2020	05	23	SÁBADO	202005	MAIO	0
+4162	2020-05-24	2020	05	24	DOMINGO	202005	MAIO	0
+4163	2020-05-25	2020	05	25	SEGUNDA-FEIRA	202005	MAIO	0
+4164	2020-05-26	2020	05	26	TERÇA-FEIRA	202005	MAIO	0
+4165	2020-05-27	2020	05	27	QUARTA-FEIRA	202005	MAIO	0
+4166	2020-05-28	2020	05	28	QUINTA-FEIRA	202005	MAIO	0
+4167	2020-05-29	2020	05	29	SEXTA-FEIRA	202005	MAIO	0
+4168	2020-05-30	2020	05	30	SÁBADO	202005	MAIO	0
+4169	2020-05-31	2020	05	31	DOMINGO	202005	MAIO	0
+4170	2020-06-01	2020	06	1	SEGUNDA-FEIRA	202006	JUNHO	0
+4171	2020-06-02	2020	06	2	TERÇA-FEIRA	202006	JUNHO	0
+4172	2020-06-03	2020	06	3	QUARTA-FEIRA	202006	JUNHO	0
+4173	2020-06-04	2020	06	4	QUINTA-FEIRA	202006	JUNHO	0
+4174	2020-06-05	2020	06	5	SEXTA-FEIRA	202006	JUNHO	0
+4175	2020-06-06	2020	06	6	SÁBADO	202006	JUNHO	0
+4176	2020-06-07	2020	06	7	DOMINGO	202006	JUNHO	0
+4177	2020-06-08	2020	06	8	SEGUNDA-FEIRA	202006	JUNHO	0
+4178	2020-06-09	2020	06	9	TERÇA-FEIRA	202006	JUNHO	0
+4179	2020-06-10	2020	06	10	QUARTA-FEIRA	202006	JUNHO	0
+4180	2020-06-11	2020	06	11	QUINTA-FEIRA	202006	JUNHO	0
+4181	2020-06-12	2020	06	12	SEXTA-FEIRA	202006	JUNHO	0
+4182	2020-06-13	2020	06	13	SÁBADO	202006	JUNHO	0
+4183	2020-06-14	2020	06	14	DOMINGO	202006	JUNHO	0
+4184	2020-06-15	2020	06	15	SEGUNDA-FEIRA	202006	JUNHO	0
+4185	2020-06-16	2020	06	16	TERÇA-FEIRA	202006	JUNHO	0
+4186	2020-06-17	2020	06	17	QUARTA-FEIRA	202006	JUNHO	0
+4187	2020-06-18	2020	06	18	QUINTA-FEIRA	202006	JUNHO	0
+4188	2020-06-19	2020	06	19	SEXTA-FEIRA	202006	JUNHO	0
+4189	2020-06-20	2020	06	20	SÁBADO	202006	JUNHO	0
+4190	2020-06-21	2020	06	21	DOMINGO	202006	JUNHO	0
+4191	2020-06-22	2020	06	22	SEGUNDA-FEIRA	202006	JUNHO	0
+4192	2020-06-23	2020	06	23	TERÇA-FEIRA	202006	JUNHO	0
+4193	2020-06-24	2020	06	24	QUARTA-FEIRA	202006	JUNHO	0
+4194	2020-06-25	2020	06	25	QUINTA-FEIRA	202006	JUNHO	0
+4195	2020-06-26	2020	06	26	SEXTA-FEIRA	202006	JUNHO	0
+4196	2020-06-27	2020	06	27	SÁBADO	202006	JUNHO	0
+4197	2020-06-28	2020	06	28	DOMINGO	202006	JUNHO	0
+4198	2020-06-29	2020	06	29	SEGUNDA-FEIRA	202006	JUNHO	0
+4199	2020-06-30	2020	06	30	TERÇA-FEIRA	202006	JUNHO	0
+4200	2020-07-01	2020	07	1	QUARTA-FEIRA	202007	JULHO	0
+4201	2020-07-02	2020	07	2	QUINTA-FEIRA	202007	JULHO	0
+4202	2020-07-03	2020	07	3	SEXTA-FEIRA	202007	JULHO	0
+4203	2020-07-04	2020	07	4	SÁBADO	202007	JULHO	0
+4204	2020-07-05	2020	07	5	DOMINGO	202007	JULHO	0
+4205	2020-07-06	2020	07	6	SEGUNDA-FEIRA	202007	JULHO	0
+4206	2020-07-07	2020	07	7	TERÇA-FEIRA	202007	JULHO	0
+4207	2020-07-08	2020	07	8	QUARTA-FEIRA	202007	JULHO	0
+4208	2020-07-09	2020	07	9	QUINTA-FEIRA	202007	JULHO	0
+4209	2020-07-10	2020	07	10	SEXTA-FEIRA	202007	JULHO	0
+4210	2020-07-11	2020	07	11	SÁBADO	202007	JULHO	0
+4211	2020-07-12	2020	07	12	DOMINGO	202007	JULHO	0
+4212	2020-07-13	2020	07	13	SEGUNDA-FEIRA	202007	JULHO	0
+4213	2020-07-14	2020	07	14	TERÇA-FEIRA	202007	JULHO	0
+4214	2020-07-15	2020	07	15	QUARTA-FEIRA	202007	JULHO	0
+4215	2020-07-16	2020	07	16	QUINTA-FEIRA	202007	JULHO	0
+4216	2020-07-17	2020	07	17	SEXTA-FEIRA	202007	JULHO	0
+4217	2020-07-18	2020	07	18	SÁBADO	202007	JULHO	0
+4218	2020-07-19	2020	07	19	DOMINGO	202007	JULHO	0
+4219	2020-07-20	2020	07	20	SEGUNDA-FEIRA	202007	JULHO	0
+4220	2020-07-21	2020	07	21	TERÇA-FEIRA	202007	JULHO	0
+4221	2020-07-22	2020	07	22	QUARTA-FEIRA	202007	JULHO	0
+4222	2020-07-23	2020	07	23	QUINTA-FEIRA	202007	JULHO	0
+4223	2020-07-24	2020	07	24	SEXTA-FEIRA	202007	JULHO	0
+4224	2020-07-25	2020	07	25	SÁBADO	202007	JULHO	0
+4225	2020-07-26	2020	07	26	DOMINGO	202007	JULHO	0
+4226	2020-07-27	2020	07	27	SEGUNDA-FEIRA	202007	JULHO	0
+4227	2020-07-28	2020	07	28	TERÇA-FEIRA	202007	JULHO	0
+4228	2020-07-29	2020	07	29	QUARTA-FEIRA	202007	JULHO	0
+4229	2020-07-30	2020	07	30	QUINTA-FEIRA	202007	JULHO	0
+4230	2020-07-31	2020	07	31	SEXTA-FEIRA	202007	JULHO	0
+4231	2020-08-01	2020	08	1	SÁBADO	202008	AGOSTO	0
+4232	2020-08-02	2020	08	2	DOMINGO	202008	AGOSTO	0
+4233	2020-08-03	2020	08	3	SEGUNDA-FEIRA	202008	AGOSTO	0
+4234	2020-08-04	2020	08	4	TERÇA-FEIRA	202008	AGOSTO	0
+4235	2020-08-05	2020	08	5	QUARTA-FEIRA	202008	AGOSTO	0
+4236	2020-08-06	2020	08	6	QUINTA-FEIRA	202008	AGOSTO	0
+4237	2020-08-07	2020	08	7	SEXTA-FEIRA	202008	AGOSTO	0
+4238	2020-08-08	2020	08	8	SÁBADO	202008	AGOSTO	0
+4239	2020-08-09	2020	08	9	DOMINGO	202008	AGOSTO	0
+4240	2020-08-10	2020	08	10	SEGUNDA-FEIRA	202008	AGOSTO	0
+4241	2020-08-11	2020	08	11	TERÇA-FEIRA	202008	AGOSTO	0
+4242	2020-08-12	2020	08	12	QUARTA-FEIRA	202008	AGOSTO	0
+4243	2020-08-13	2020	08	13	QUINTA-FEIRA	202008	AGOSTO	0
+4244	2020-08-14	2020	08	14	SEXTA-FEIRA	202008	AGOSTO	0
+4245	2020-08-15	2020	08	15	SÁBADO	202008	AGOSTO	0
+4246	2020-08-16	2020	08	16	DOMINGO	202008	AGOSTO	0
+4247	2020-08-17	2020	08	17	SEGUNDA-FEIRA	202008	AGOSTO	0
+4248	2020-08-18	2020	08	18	TERÇA-FEIRA	202008	AGOSTO	0
+4249	2020-08-19	2020	08	19	QUARTA-FEIRA	202008	AGOSTO	0
+4250	2020-08-20	2020	08	20	QUINTA-FEIRA	202008	AGOSTO	0
+4251	2020-08-21	2020	08	21	SEXTA-FEIRA	202008	AGOSTO	0
+4252	2020-08-22	2020	08	22	SÁBADO	202008	AGOSTO	0
+4253	2020-08-23	2020	08	23	DOMINGO	202008	AGOSTO	0
+4254	2020-08-24	2020	08	24	SEGUNDA-FEIRA	202008	AGOSTO	0
+4255	2020-08-25	2020	08	25	TERÇA-FEIRA	202008	AGOSTO	0
+4256	2020-08-26	2020	08	26	QUARTA-FEIRA	202008	AGOSTO	0
+4257	2020-08-27	2020	08	27	QUINTA-FEIRA	202008	AGOSTO	0
+4258	2020-08-28	2020	08	28	SEXTA-FEIRA	202008	AGOSTO	0
+4259	2020-08-29	2020	08	29	SÁBADO	202008	AGOSTO	0
+4260	2020-08-30	2020	08	30	DOMINGO	202008	AGOSTO	0
+4261	2020-08-31	2020	08	31	SEGUNDA-FEIRA	202008	AGOSTO	0
+4262	2020-09-01	2020	09	1	TERÇA-FEIRA	202009	SETEMBRO	0
+4263	2020-09-02	2020	09	2	QUARTA-FEIRA	202009	SETEMBRO	0
+4264	2020-09-03	2020	09	3	QUINTA-FEIRA	202009	SETEMBRO	0
+4265	2020-09-04	2020	09	4	SEXTA-FEIRA	202009	SETEMBRO	0
+4266	2020-09-05	2020	09	5	SÁBADO	202009	SETEMBRO	0
+4267	2020-09-06	2020	09	6	DOMINGO	202009	SETEMBRO	0
+4268	2020-09-07	2020	09	7	SEGUNDA-FEIRA	202009	SETEMBRO	0
+4269	2020-09-08	2020	09	8	TERÇA-FEIRA	202009	SETEMBRO	0
+4270	2020-09-09	2020	09	9	QUARTA-FEIRA	202009	SETEMBRO	0
+4271	2020-09-10	2020	09	10	QUINTA-FEIRA	202009	SETEMBRO	0
+4272	2020-09-11	2020	09	11	SEXTA-FEIRA	202009	SETEMBRO	0
+4273	2020-09-12	2020	09	12	SÁBADO	202009	SETEMBRO	0
+4274	2020-09-13	2020	09	13	DOMINGO	202009	SETEMBRO	0
+4275	2020-09-14	2020	09	14	SEGUNDA-FEIRA	202009	SETEMBRO	0
+4276	2020-09-15	2020	09	15	TERÇA-FEIRA	202009	SETEMBRO	0
+4277	2020-09-16	2020	09	16	QUARTA-FEIRA	202009	SETEMBRO	0
+4278	2020-09-17	2020	09	17	QUINTA-FEIRA	202009	SETEMBRO	0
+4279	2020-09-18	2020	09	18	SEXTA-FEIRA	202009	SETEMBRO	0
+4280	2020-09-19	2020	09	19	SÁBADO	202009	SETEMBRO	0
+4281	2020-09-20	2020	09	20	DOMINGO	202009	SETEMBRO	0
+4282	2020-09-21	2020	09	21	SEGUNDA-FEIRA	202009	SETEMBRO	0
+4283	2020-09-22	2020	09	22	TERÇA-FEIRA	202009	SETEMBRO	0
+4284	2020-09-23	2020	09	23	QUARTA-FEIRA	202009	SETEMBRO	0
+4285	2020-09-24	2020	09	24	QUINTA-FEIRA	202009	SETEMBRO	0
+4286	2020-09-25	2020	09	25	SEXTA-FEIRA	202009	SETEMBRO	0
+4287	2020-09-26	2020	09	26	SÁBADO	202009	SETEMBRO	0
+4288	2020-09-27	2020	09	27	DOMINGO	202009	SETEMBRO	0
+4289	2020-09-28	2020	09	28	SEGUNDA-FEIRA	202009	SETEMBRO	0
+4290	2020-09-29	2020	09	29	TERÇA-FEIRA	202009	SETEMBRO	0
+4291	2020-09-30	2020	09	30	QUARTA-FEIRA	202009	SETEMBRO	0
+4292	2020-10-01	2020	10	1	QUINTA-FEIRA	202010	OUTUBRO	0
+4293	2020-10-02	2020	10	2	SEXTA-FEIRA	202010	OUTUBRO	0
+4294	2020-10-03	2020	10	3	SÁBADO	202010	OUTUBRO	0
+4295	2020-10-04	2020	10	4	DOMINGO	202010	OUTUBRO	0
+4296	2020-10-05	2020	10	5	SEGUNDA-FEIRA	202010	OUTUBRO	0
+4297	2020-10-06	2020	10	6	TERÇA-FEIRA	202010	OUTUBRO	0
+4298	2020-10-07	2020	10	7	QUARTA-FEIRA	202010	OUTUBRO	0
+4299	2020-10-08	2020	10	8	QUINTA-FEIRA	202010	OUTUBRO	0
+4300	2020-10-09	2020	10	9	SEXTA-FEIRA	202010	OUTUBRO	0
+4301	2020-10-10	2020	10	10	SÁBADO	202010	OUTUBRO	0
+4302	2020-10-11	2020	10	11	DOMINGO	202010	OUTUBRO	0
+4303	2020-10-12	2020	10	12	SEGUNDA-FEIRA	202010	OUTUBRO	0
+4304	2020-10-13	2020	10	13	TERÇA-FEIRA	202010	OUTUBRO	0
+4305	2020-10-14	2020	10	14	QUARTA-FEIRA	202010	OUTUBRO	0
+4306	2020-10-15	2020	10	15	QUINTA-FEIRA	202010	OUTUBRO	0
+4307	2020-10-16	2020	10	16	SEXTA-FEIRA	202010	OUTUBRO	0
+4308	2020-10-17	2020	10	17	SÁBADO	202010	OUTUBRO	0
+4309	2020-10-18	2020	10	18	DOMINGO	202010	OUTUBRO	0
+4310	2020-10-19	2020	10	19	SEGUNDA-FEIRA	202010	OUTUBRO	0
+4311	2020-10-20	2020	10	20	TERÇA-FEIRA	202010	OUTUBRO	0
+4312	2020-10-21	2020	10	21	QUARTA-FEIRA	202010	OUTUBRO	0
+4313	2020-10-22	2020	10	22	QUINTA-FEIRA	202010	OUTUBRO	0
+4314	2020-10-23	2020	10	23	SEXTA-FEIRA	202010	OUTUBRO	0
+4315	2020-10-24	2020	10	24	SÁBADO	202010	OUTUBRO	0
+4316	2020-10-25	2020	10	25	DOMINGO	202010	OUTUBRO	0
+4317	2020-10-26	2020	10	26	SEGUNDA-FEIRA	202010	OUTUBRO	0
+4318	2020-10-27	2020	10	27	TERÇA-FEIRA	202010	OUTUBRO	0
+4319	2020-10-28	2020	10	28	QUARTA-FEIRA	202010	OUTUBRO	0
+4320	2020-10-29	2020	10	29	QUINTA-FEIRA	202010	OUTUBRO	0
+4321	2020-10-30	2020	10	30	SEXTA-FEIRA	202010	OUTUBRO	0
+4322	2020-10-31	2020	10	31	SÁBADO	202010	OUTUBRO	0
+4323	2020-11-01	2020	11	1	DOMINGO	202011	NOVEMBRO	0
+4324	2020-11-02	2020	11	2	SEGUNDA-FEIRA	202011	NOVEMBRO	0
+4325	2020-11-03	2020	11	3	TERÇA-FEIRA	202011	NOVEMBRO	0
+4326	2020-11-04	2020	11	4	QUARTA-FEIRA	202011	NOVEMBRO	0
+4327	2020-11-05	2020	11	5	QUINTA-FEIRA	202011	NOVEMBRO	0
+4328	2020-11-06	2020	11	6	SEXTA-FEIRA	202011	NOVEMBRO	0
+4329	2020-11-07	2020	11	7	SÁBADO	202011	NOVEMBRO	0
+4330	2020-11-08	2020	11	8	DOMINGO	202011	NOVEMBRO	0
+4331	2020-11-09	2020	11	9	SEGUNDA-FEIRA	202011	NOVEMBRO	0
+4332	2020-11-10	2020	11	10	TERÇA-FEIRA	202011	NOVEMBRO	0
+4333	2020-11-11	2020	11	11	QUARTA-FEIRA	202011	NOVEMBRO	0
+4334	2020-11-12	2020	11	12	QUINTA-FEIRA	202011	NOVEMBRO	0
+4335	2020-11-13	2020	11	13	SEXTA-FEIRA	202011	NOVEMBRO	0
+4336	2020-11-14	2020	11	14	SÁBADO	202011	NOVEMBRO	0
+4337	2020-11-15	2020	11	15	DOMINGO	202011	NOVEMBRO	0
+4338	2020-11-16	2020	11	16	SEGUNDA-FEIRA	202011	NOVEMBRO	0
+4339	2020-11-17	2020	11	17	TERÇA-FEIRA	202011	NOVEMBRO	0
+4340	2020-11-18	2020	11	18	QUARTA-FEIRA	202011	NOVEMBRO	0
+4341	2020-11-19	2020	11	19	QUINTA-FEIRA	202011	NOVEMBRO	0
+4342	2020-11-20	2020	11	20	SEXTA-FEIRA	202011	NOVEMBRO	0
+4343	2020-11-21	2020	11	21	SÁBADO	202011	NOVEMBRO	0
+4344	2020-11-22	2020	11	22	DOMINGO	202011	NOVEMBRO	0
+4345	2020-11-23	2020	11	23	SEGUNDA-FEIRA	202011	NOVEMBRO	0
+4346	2020-11-24	2020	11	24	TERÇA-FEIRA	202011	NOVEMBRO	0
+4347	2020-11-25	2020	11	25	QUARTA-FEIRA	202011	NOVEMBRO	0
+4348	2020-11-26	2020	11	26	QUINTA-FEIRA	202011	NOVEMBRO	0
+4349	2020-11-27	2020	11	27	SEXTA-FEIRA	202011	NOVEMBRO	0
+4350	2020-11-28	2020	11	28	SÁBADO	202011	NOVEMBRO	0
+4351	2020-11-29	2020	11	29	DOMINGO	202011	NOVEMBRO	0
+4352	2020-11-30	2020	11	30	SEGUNDA-FEIRA	202011	NOVEMBRO	0
+4353	2020-12-01	2020	12	1	TERÇA-FEIRA	202012	DEZEMBRO	0
+4354	2020-12-02	2020	12	2	QUARTA-FEIRA	202012	DEZEMBRO	0
+4355	2020-12-03	2020	12	3	QUINTA-FEIRA	202012	DEZEMBRO	0
+4356	2020-12-04	2020	12	4	SEXTA-FEIRA	202012	DEZEMBRO	0
+4357	2020-12-05	2020	12	5	SÁBADO	202012	DEZEMBRO	0
+4358	2020-12-06	2020	12	6	DOMINGO	202012	DEZEMBRO	0
+4359	2020-12-07	2020	12	7	SEGUNDA-FEIRA	202012	DEZEMBRO	0
+4360	2020-12-08	2020	12	8	TERÇA-FEIRA	202012	DEZEMBRO	0
+4361	2020-12-09	2020	12	9	QUARTA-FEIRA	202012	DEZEMBRO	0
+4362	2020-12-10	2020	12	10	QUINTA-FEIRA	202012	DEZEMBRO	0
+4363	2020-12-11	2020	12	11	SEXTA-FEIRA	202012	DEZEMBRO	0
+4364	2020-12-12	2020	12	12	SÁBADO	202012	DEZEMBRO	0
+4365	2020-12-13	2020	12	13	DOMINGO	202012	DEZEMBRO	0
+4366	2020-12-14	2020	12	14	SEGUNDA-FEIRA	202012	DEZEMBRO	0
+4367	2020-12-15	2020	12	15	TERÇA-FEIRA	202012	DEZEMBRO	0
+4368	2020-12-16	2020	12	16	QUARTA-FEIRA	202012	DEZEMBRO	0
+4369	2020-12-17	2020	12	17	QUINTA-FEIRA	202012	DEZEMBRO	0
+4370	2020-12-18	2020	12	18	SEXTA-FEIRA	202012	DEZEMBRO	0
+4371	2020-12-19	2020	12	19	SÁBADO	202012	DEZEMBRO	0
+4372	2020-12-20	2020	12	20	DOMINGO	202012	DEZEMBRO	0
+4373	2020-12-21	2020	12	21	SEGUNDA-FEIRA	202012	DEZEMBRO	0
+4374	2020-12-22	2020	12	22	TERÇA-FEIRA	202012	DEZEMBRO	0
+4375	2020-12-23	2020	12	23	QUARTA-FEIRA	202012	DEZEMBRO	0
+4376	2020-12-24	2020	12	24	QUINTA-FEIRA	202012	DEZEMBRO	0
+4377	2020-12-25	2020	12	25	SEXTA-FEIRA	202012	DEZEMBRO	0
+4378	2020-12-26	2020	12	26	SÁBADO	202012	DEZEMBRO	0
+4379	2020-12-27	2020	12	27	DOMINGO	202012	DEZEMBRO	0
+4380	2020-12-28	2020	12	28	SEGUNDA-FEIRA	202012	DEZEMBRO	0
+4381	2020-12-29	2020	12	29	TERÇA-FEIRA	202012	DEZEMBRO	0
+4382	2020-12-30	2020	12	30	QUARTA-FEIRA	202012	DEZEMBRO	0
+4383	2020-12-31	2020	12	31	QUINTA-FEIRA	202012	DEZEMBRO	0
+3876	2019-08-12	2019	08	12	SEGUNDA-FEIRA	201908	AGOSTO	0
+3877	2019-08-13	2019	08	13	TERÇA-FEIRA	201908	AGOSTO	0
+3878	2019-08-14	2019	08	14	QUARTA-FEIRA	201908	AGOSTO	0
+3879	2019-08-15	2019	08	15	QUINTA-FEIRA	201908	AGOSTO	0
+3880	2019-08-16	2019	08	16	SEXTA-FEIRA	201908	AGOSTO	0
+3881	2019-08-17	2019	08	17	SÁBADO	201908	AGOSTO	0
+3882	2019-08-18	2019	08	18	DOMINGO	201908	AGOSTO	0
+3883	2019-08-19	2019	08	19	SEGUNDA-FEIRA	201908	AGOSTO	0
+3884	2019-08-20	2019	08	20	TERÇA-FEIRA	201908	AGOSTO	0
+3885	2019-08-21	2019	08	21	QUARTA-FEIRA	201908	AGOSTO	0
+3886	2019-08-22	2019	08	22	QUINTA-FEIRA	201908	AGOSTO	0
+3887	2019-08-23	2019	08	23	SEXTA-FEIRA	201908	AGOSTO	0
+3888	2019-08-24	2019	08	24	SÁBADO	201908	AGOSTO	0
+3889	2019-08-25	2019	08	25	DOMINGO	201908	AGOSTO	0
+3890	2019-08-26	2019	08	26	SEGUNDA-FEIRA	201908	AGOSTO	0
+3891	2019-08-27	2019	08	27	TERÇA-FEIRA	201908	AGOSTO	0
+3892	2019-08-28	2019	08	28	QUARTA-FEIRA	201908	AGOSTO	0
+3893	2019-08-29	2019	08	29	QUINTA-FEIRA	201908	AGOSTO	0
+3894	2019-08-30	2019	08	30	SEXTA-FEIRA	201908	AGOSTO	0
+3895	2019-08-31	2019	08	31	SÁBADO	201908	AGOSTO	0
+3896	2019-09-01	2019	09	1	DOMINGO	201909	SETEMBRO	0
+3897	2019-09-02	2019	09	2	SEGUNDA-FEIRA	201909	SETEMBRO	0
+3898	2019-09-03	2019	09	3	TERÇA-FEIRA	201909	SETEMBRO	0
+3899	2019-09-04	2019	09	4	QUARTA-FEIRA	201909	SETEMBRO	0
+3900	2019-09-05	2019	09	5	QUINTA-FEIRA	201909	SETEMBRO	0
+3901	2019-09-06	2019	09	6	SEXTA-FEIRA	201909	SETEMBRO	0
+3902	2019-09-07	2019	09	7	SÁBADO	201909	SETEMBRO	0
+3903	2019-09-08	2019	09	8	DOMINGO	201909	SETEMBRO	0
+3904	2019-09-09	2019	09	9	SEGUNDA-FEIRA	201909	SETEMBRO	0
+3905	2019-09-10	2019	09	10	TERÇA-FEIRA	201909	SETEMBRO	0
+3906	2019-09-11	2019	09	11	QUARTA-FEIRA	201909	SETEMBRO	0
+3907	2019-09-12	2019	09	12	QUINTA-FEIRA	201909	SETEMBRO	0
+3908	2019-09-13	2019	09	13	SEXTA-FEIRA	201909	SETEMBRO	0
+3909	2019-09-14	2019	09	14	SÁBADO	201909	SETEMBRO	0
+3910	2019-09-15	2019	09	15	DOMINGO	201909	SETEMBRO	0
+3911	2019-09-16	2019	09	16	SEGUNDA-FEIRA	201909	SETEMBRO	0
+3912	2019-09-17	2019	09	17	TERÇA-FEIRA	201909	SETEMBRO	0
+3913	2019-09-18	2019	09	18	QUARTA-FEIRA	201909	SETEMBRO	0
+3914	2019-09-19	2019	09	19	QUINTA-FEIRA	201909	SETEMBRO	0
+3915	2019-09-20	2019	09	20	SEXTA-FEIRA	201909	SETEMBRO	0
+3916	2019-09-21	2019	09	21	SÁBADO	201909	SETEMBRO	0
+3917	2019-09-22	2019	09	22	DOMINGO	201909	SETEMBRO	0
+3918	2019-09-23	2019	09	23	SEGUNDA-FEIRA	201909	SETEMBRO	0
+3919	2019-09-24	2019	09	24	TERÇA-FEIRA	201909	SETEMBRO	0
+3920	2019-09-25	2019	09	25	QUARTA-FEIRA	201909	SETEMBRO	0
+3921	2019-09-26	2019	09	26	QUINTA-FEIRA	201909	SETEMBRO	0
+3922	2019-09-27	2019	09	27	SEXTA-FEIRA	201909	SETEMBRO	0
+3923	2019-09-28	2019	09	28	SÁBADO	201909	SETEMBRO	0
+3924	2019-09-29	2019	09	29	DOMINGO	201909	SETEMBRO	0
+3925	2019-09-30	2019	09	30	SEGUNDA-FEIRA	201909	SETEMBRO	0
+3926	2019-10-01	2019	10	1	TERÇA-FEIRA	201910	OUTUBRO	0
+3927	2019-10-02	2019	10	2	QUARTA-FEIRA	201910	OUTUBRO	0
+3928	2019-10-03	2019	10	3	QUINTA-FEIRA	201910	OUTUBRO	0
+3929	2019-10-04	2019	10	4	SEXTA-FEIRA	201910	OUTUBRO	0
+3930	2019-10-05	2019	10	5	SÁBADO	201910	OUTUBRO	0
+3931	2019-10-06	2019	10	6	DOMINGO	201910	OUTUBRO	0
+3932	2019-10-07	2019	10	7	SEGUNDA-FEIRA	201910	OUTUBRO	0
+3933	2019-10-08	2019	10	8	TERÇA-FEIRA	201910	OUTUBRO	0
+3934	2019-10-09	2019	10	9	QUARTA-FEIRA	201910	OUTUBRO	0
+3935	2019-10-10	2019	10	10	QUINTA-FEIRA	201910	OUTUBRO	0
+3936	2019-10-11	2019	10	11	SEXTA-FEIRA	201910	OUTUBRO	0
+3937	2019-10-12	2019	10	12	SÁBADO	201910	OUTUBRO	0
+3938	2019-10-13	2019	10	13	DOMINGO	201910	OUTUBRO	0
+3939	2019-10-14	2019	10	14	SEGUNDA-FEIRA	201910	OUTUBRO	0
+3940	2019-10-15	2019	10	15	TERÇA-FEIRA	201910	OUTUBRO	0
+3941	2019-10-16	2019	10	16	QUARTA-FEIRA	201910	OUTUBRO	0
+3942	2019-10-17	2019	10	17	QUINTA-FEIRA	201910	OUTUBRO	0
+3943	2019-10-18	2019	10	18	SEXTA-FEIRA	201910	OUTUBRO	0
+3944	2019-10-19	2019	10	19	SÁBADO	201910	OUTUBRO	0
+3945	2019-10-20	2019	10	20	DOMINGO	201910	OUTUBRO	0
+3946	2019-10-21	2019	10	21	SEGUNDA-FEIRA	201910	OUTUBRO	0
+3947	2019-10-22	2019	10	22	TERÇA-FEIRA	201910	OUTUBRO	0
+3948	2019-10-23	2019	10	23	QUARTA-FEIRA	201910	OUTUBRO	0
+3949	2019-10-24	2019	10	24	QUINTA-FEIRA	201910	OUTUBRO	0
+3950	2019-10-25	2019	10	25	SEXTA-FEIRA	201910	OUTUBRO	0
+3951	2019-10-26	2019	10	26	SÁBADO	201910	OUTUBRO	0
+3952	2019-10-27	2019	10	27	DOMINGO	201910	OUTUBRO	0
+3953	2019-10-28	2019	10	28	SEGUNDA-FEIRA	201910	OUTUBRO	0
+3954	2019-10-29	2019	10	29	TERÇA-FEIRA	201910	OUTUBRO	0
+3955	2019-10-30	2019	10	30	QUARTA-FEIRA	201910	OUTUBRO	0
+3956	2019-10-31	2019	10	31	QUINTA-FEIRA	201910	OUTUBRO	0
+3957	2019-11-01	2019	11	1	SEXTA-FEIRA	201911	NOVEMBRO	0
+3958	2019-11-02	2019	11	2	SÁBADO	201911	NOVEMBRO	0
+3959	2019-11-03	2019	11	3	DOMINGO	201911	NOVEMBRO	0
+3960	2019-11-04	2019	11	4	SEGUNDA-FEIRA	201911	NOVEMBRO	0
+3961	2019-11-05	2019	11	5	TERÇA-FEIRA	201911	NOVEMBRO	0
+3962	2019-11-06	2019	11	6	QUARTA-FEIRA	201911	NOVEMBRO	0
+3963	2019-11-07	2019	11	7	QUINTA-FEIRA	201911	NOVEMBRO	0
+3964	2019-11-08	2019	11	8	SEXTA-FEIRA	201911	NOVEMBRO	0
+3965	2019-11-09	2019	11	9	SÁBADO	201911	NOVEMBRO	0
+3966	2019-11-10	2019	11	10	DOMINGO	201911	NOVEMBRO	0
+3967	2019-11-11	2019	11	11	SEGUNDA-FEIRA	201911	NOVEMBRO	0
+3968	2019-11-12	2019	11	12	TERÇA-FEIRA	201911	NOVEMBRO	0
+3969	2019-11-13	2019	11	13	QUARTA-FEIRA	201911	NOVEMBRO	0
+3970	2019-11-14	2019	11	14	QUINTA-FEIRA	201911	NOVEMBRO	0
+3971	2019-11-15	2019	11	15	SEXTA-FEIRA	201911	NOVEMBRO	0
+3972	2019-11-16	2019	11	16	SÁBADO	201911	NOVEMBRO	0
+3973	2019-11-17	2019	11	17	DOMINGO	201911	NOVEMBRO	0
+3974	2019-11-18	2019	11	18	SEGUNDA-FEIRA	201911	NOVEMBRO	0
+3975	2019-11-19	2019	11	19	TERÇA-FEIRA	201911	NOVEMBRO	0
+3976	2019-11-20	2019	11	20	QUARTA-FEIRA	201911	NOVEMBRO	0
+3977	2019-11-21	2019	11	21	QUINTA-FEIRA	201911	NOVEMBRO	0
+3978	2019-11-22	2019	11	22	SEXTA-FEIRA	201911	NOVEMBRO	0
+3979	2019-11-23	2019	11	23	SÁBADO	201911	NOVEMBRO	0
+3980	2019-11-24	2019	11	24	DOMINGO	201911	NOVEMBRO	0
+3981	2019-11-25	2019	11	25	SEGUNDA-FEIRA	201911	NOVEMBRO	0
+3982	2019-11-26	2019	11	26	TERÇA-FEIRA	201911	NOVEMBRO	0
+3983	2019-11-27	2019	11	27	QUARTA-FEIRA	201911	NOVEMBRO	0
+3984	2019-11-28	2019	11	28	QUINTA-FEIRA	201911	NOVEMBRO	0
+3985	2019-11-29	2019	11	29	SEXTA-FEIRA	201911	NOVEMBRO	0
+3986	2019-11-30	2019	11	30	SÁBADO	201911	NOVEMBRO	0
+3987	2019-12-01	2019	12	1	DOMINGO	201912	DEZEMBRO	0
+3988	2019-12-02	2019	12	2	SEGUNDA-FEIRA	201912	DEZEMBRO	0
+3989	2019-12-03	2019	12	3	TERÇA-FEIRA	201912	DEZEMBRO	0
+3990	2019-12-04	2019	12	4	QUARTA-FEIRA	201912	DEZEMBRO	0
+3991	2019-12-05	2019	12	5	QUINTA-FEIRA	201912	DEZEMBRO	0
+3992	2019-12-06	2019	12	6	SEXTA-FEIRA	201912	DEZEMBRO	0
+3993	2019-12-07	2019	12	7	SÁBADO	201912	DEZEMBRO	0
+3994	2019-12-08	2019	12	8	DOMINGO	201912	DEZEMBRO	0
+3995	2019-12-09	2019	12	9	SEGUNDA-FEIRA	201912	DEZEMBRO	0
+3996	2019-12-10	2019	12	10	TERÇA-FEIRA	201912	DEZEMBRO	0
+3997	2019-12-11	2019	12	11	QUARTA-FEIRA	201912	DEZEMBRO	0
+3998	2019-12-12	2019	12	12	QUINTA-FEIRA	201912	DEZEMBRO	0
+3999	2019-12-13	2019	12	13	SEXTA-FEIRA	201912	DEZEMBRO	0
+4000	2019-12-14	2019	12	14	SÁBADO	201912	DEZEMBRO	0
+4001	2019-12-15	2019	12	15	DOMINGO	201912	DEZEMBRO	0
+4002	2019-12-16	2019	12	16	SEGUNDA-FEIRA	201912	DEZEMBRO	0
+4003	2019-12-17	2019	12	17	TERÇA-FEIRA	201912	DEZEMBRO	0
+4004	2019-12-18	2019	12	18	QUARTA-FEIRA	201912	DEZEMBRO	0
+4005	2019-12-19	2019	12	19	QUINTA-FEIRA	201912	DEZEMBRO	0
+4006	2019-12-20	2019	12	20	SEXTA-FEIRA	201912	DEZEMBRO	0
+4007	2019-12-21	2019	12	21	SÁBADO	201912	DEZEMBRO	0
+4008	2019-12-22	2019	12	22	DOMINGO	201912	DEZEMBRO	0
+4009	2019-12-23	2019	12	23	SEGUNDA-FEIRA	201912	DEZEMBRO	0
+4010	2019-12-24	2019	12	24	TERÇA-FEIRA	201912	DEZEMBRO	0
+\.
+
+
+--
+-- Data for Name: dim_indicador; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY dim_indicador (id, nome, familia, tipo, descricao) FROM stdin;
+11	% APLICAÇÃO DE RECURSOS DO PROGRAMA SANEAR II	ECONÔMICO/FINANCEIRO	ESGOTO	ACOMPANHAMENTO DA APLICAÇÃO DOS RECURSOS DO PROGRAMA SANEAR II CONFORME PREVISTO NO CRONOGRAMA* PARA OS DIVERSOS COMPONENTES
+12	CONSUMO DE ÁGUA NO PROCESSO DE TRATAMENTO	OPERACIONAL	ÁGUA	VOLUME UTILIZADO E PERDIDO NO PROCESSO DE TRATAMENTO EM RELAÇÃO AO VOLUME TOTAL DE ÁGUA BRUTA
+13	DEX/ M3 ADUZIDO	ECONÔMICO/FINANCEIRO	ÁGUA	CORRESPONDE AS DESPESAS DA ÁREA EM RELAÇÃO AO M³ ADUZIDO.
+14	DEX/ M3 PRODUZIDO	ECONÔMICO/FINANCEIRO	ÁGUA	CORRESPONDE A DEX DA ÁREA EM RELAÇÃO AO M³ PRODUZIDO.
+16	DEX/M³ DE ESGOTO PRÉ-CONDICIONADO	ECONÔMICO/FINANCEIRO	ESGOTO	É A MÉDIA MÓVEL ANUAL DA DESPESA DE EXPLORAÇÃO DO MACROSSISTEMA DE ESGOTO((SDEX DOS 11 MESES ANTERIORES + DEX DO MÊS)/12) / VOLUME MENSAL
+2	DEX/M3 FATURADO	ECONÔMICO/FINANCEIRO	ÁGUA/ESGOTO	INDICADOR UTILIZADO NA ANÁLISE DE CUSTOS DAS EMPRESAS DE SANEAMENTO COM A FINALIDADE DE GERENCIAR OS CUSTOS DOS SERVIÇOS DE ABASTECIMENTO DE ÁGUA E ESGOTAMENTO SANITÁRIO.
+20	INCREMENTO DE LIGAÇÕES ATIVAS DE ÁGUA - CAPITAL	COMERCIAL	ÁGUA	É O Nº DE LIGAÇÕES ATIVAS DE ÁGUA INCREMENTADAS EM RELAÇÃO AO MÊS DE DEZEMBRO DO ANO ANTERIOR.
+27	INCREMENTO DE LIGAÇÕES ATIVAS DE ESGOTO - CAPITAL	COMERCIAL	ESGOTO	É O Nº DE LIGAÇÕES ATIVAS DE ESGOTO INCREMENTADAS EM RELAÇÃO AO MÊS DE DEZEMBRO DO ANO ANTERIOR.
+7	INCREMENTO DO VOLUME LIQUIDO FATURADO DE ESGOTO	ECONÔMICO/FINANCEIRO	ESGOTO	O INDICADOR REFLETE O INCREMENTO DE VOLUME LÍQUIDO FATURADO DE ESGOTO ACUMULADO NOS ÚLTIMOS DOZE MESES, DE FORMA A MINIMIZAR O IMPACTO DA SAZONALIDADE.
+21	ÍNDICE DE ÁGUA NÃO FATURADA - CAPITAL	COMERCIAL	ÁGUA	ESTE ÍNDICE RETRATA A CAPACIDADE DE FATURAMENTO DA EMPRESA EM RELAÇÃO À SUA PRODUÇÃO COMERCIAL.\nÉ OBTIDO COMPARANDO O VOLUME DE ÁGUA QUE SE FATURA EM RELAÇÃO AO QUE SE PRODUZ COMERCIALMENTE E SERVE TAMBÉM PARA AUXILIAR A AVALIAÇÃO DAS PERDAS REAIS E APARENTES.
+18	ÍNDICE DE ARRECADAÇÃO MENSAL - CAPITAL	ECONÔMICO/FINANCEIRO	ÁGUA/ESGOTO	((ARRECADAÇÃO DO MÊS + ARRECADAÇÃO ANTECIPADA (PAGA NO MÊS ANTERIOR) + ARRECADAÇÃO DE SERVIÇOS) / ROP) * 100
+3	ÍNDICE DE ATENDIMENTO À PORTARIA 518 DO MINISTÉRIO DA SAÚDE	QUALIDADE	ÁGUA	ÍNDICE DE ATENDIMENTO A QUANTIDADE DE ANÁLISES EXIGIDAS PELA PORTARIA 518 DO MINISTÉRIO DA SAÚDE, QUANTO AO MONITORAMENTO FÍSICO-QUÍMICO, BACTERIOLÓGICO E HIDROBIOLÓGICO.
+8	ÍNDICE DE COBERTURA DE ÁGUA	INFRA-ESTRUTURA	ÁGUA	VALOR PERCENTUAL OBTIDO, ATRAVÉS DA RELAÇÃO ENTRE POPULAÇÃO ABASTECIDA COM ÁGUA PELA EMPRESA, DIVIDIDA PELA POPULAÇÃO URBANA
+9	ÍNDICE DE COBERTURA DE ESGOTO	INFRA-ESTRUTURA	ESGOTO	VALOR PERCENTUAL OBTIDO, ATRAVÉS DA RELAÇÃO ENTRE POPULAÇÃO SERVIDA COM ESGOTAMENTO SANITÁRIO PELA EMPRESA, DIVIDIDA PELA POPULAÇÃO URBANA
+22	ÍNDICE DE CONTINUIDADE NO ABASTECIMENTO DE ÁGUA - CAPITAL	OPERACIONAL	ÁGUA	ICAA = (100-(DURAÇÃO DAS PARALISAÇÕES / QUANTIDADE DE HORAS DO PERÍODO)*100)
+19	ÍNDICE DE EFICIÊNCIA DA ARRECADAÇÃO - CAPITAL	ECONÔMICO/FINANCEIRO	ÁGUA/ESGOTO	A EFICIÊNCIA DE ARRECADAÇÃO É DADA PELA RELAÇÃO ENTRE A ARRECADAÇÃO E A RECEITA OPERACIONAL DA EMPRESA. ESSA RELAÇÃO REPRESENTA O QUANTO A CIA ESTÁ, MENSALMENTE, ARRECADANDO (ARRECADAÇÃO DO MÊS E ARRECADAÇÃO EM ATRASO) DO SEU FATURAMENTO. ESSE INDICADOR É NACIONALMENTE DIFUNDIDO E ACOMPANHADO ANUALMENTE PELAS EMPRESAS DE SANEAMENTO, POR MEIO DO SISTEMA DE INFORMAÇÕES DO MINISTÉRIO DAS CIDADES.
+15	ÍNDICE DE PERDA NA ADUÇÃO 	OPERACIONAL	ÁGUA	IPA = {(VOLUME PRODUZIDO PARA COMERCIALIZAÇÃO - VOLUME FORNECIDO A DISTRIBUIÇÃO)/ (VOLUME PRODUZIDO PARA COMERCIALIZAÇÃO)}*100
+23	INDICE DE PERDAS NA DISTRIBUIÇÃO - CAPITAL	OPERACIONAL	ÁGUA	INDICA O QUANTITATIVO DE PERDAS REAIS E APARENTES DE ÁGUA NOS SISTEMAS DE DISTRIBUIÇÃO. NÃO LEVA EM CONSIDERAÇÃO AS REGRAS COMERCIAIS. CONSISTE DOS DADOS PROVISÓRIOS DE FATURAMENTO.
+24	ÍNDICE DE QUALIDADE DA ÁGUA DISTRIBUÍDA - UNS CAPITAL	QUALIDADE	ÁGUA	ÍNDICE QUE TRADUZ A QUALIDADE DA ÁGUA DISTRIBUÍDA ATRAVÉS DA MÉDIA PONDERADA DOS SEGUINTES PARÂMETROS: COLIFORMES TOTAIS (CT), CLORO RESIDUAL (CR), TURBIDEZ (TB), COR (C) E POTENCIAL HIDROGENIÔNICO (PH).
+25	ÍNDICE DE RECLAMAÇÕES E COMUNICAÇÃO DE PROBLEMAS DE ÁGUA 	RECLAMAÇÕES	ÁGUA	INDICADOR QUE MEDE O PERCENTUAL DE RECLAMAÇÕES E/OU COMUNICAÇÃO DE PROBLEMAS PELO NÚMERO DE LIGAÇÕES REAIS.ESTE INDICADOR TEM COMO OBJETIVO MELHORAR A IMAGEM DA EMPRESA E ELEVAR A SATISFAÇÃO DE NOSSOS CLIENTES ATRAVÉS DA MELHORA DA PRESTAÇÃO DOS SERVIÇOS POR MEIO DA OBSERVAÇÃO E CONTROLE DOS SERVIÇOS SOLICITADOS PELOS CLIENTES OU ABERTOS INTERNAMENTE.
+5	ÍNDICE DE RECLAMAÇÕES E COMUNICAÇÃO DE PROBLEMAS DE ÁGUA E ESGOTO	RECLAMAÇÕES	ÁGUA/ESGOTO	INDICADOR QUE MEDE O PERCENTUAL DE RECLAMAÇÕES E/OU COMUNICAÇÃO DE PROBLEMAS PELO NÚMERO DE LIGAÇÕES REAIS.ESTE INDICADOR TEM COMO OBJETIVO MELHORAR A IMAGEM DA EMPRESA E ELEVAR A SATISFAÇÃO DE NOSSOS CLIENTES ATRAVÉS DA MELHORA DA PRESTAÇÃO DOS SERVIÇOS POR MEIO DA OBSERVAÇÃO E CONTROLE DOS SERVIÇOS SOLICITADOS PELOS CLIENTES OU ABERTOS INTERNAMENTE.
+28	ÍNDICE DE RECLAMAÇÕES E COMUNICAÇÃO DE PROBLEMAS DE ESGOTO	RECLAMAÇÕES	ESGOTO	INDICADOR QUE MEDE O PERCENTUAL DE RECLAMAÇÕES E/OU COMUNICAÇÃO DE PROBLEMAS PELO NÚMERO DE LIGAÇÕES REAIS.ESTE INDICADOR TEM COMO OBJETIVO MELHORAR A IMAGEM DA EMPRESA E ELEVAR A SATISFAÇÃO DE NOSSOS CLIENTES ATRAVÉS DA MELHORA DA PRESTAÇÃO DOS SERVIÇOS POR MEIO DA OBSERVAÇÃO E CONTROLE DOS SERVIÇOS SOLICITADOS PELOS CLIENTES OU ABERTOS INTERNAMENTE.
+6	ÍNDICE DE RECLAMAÇÕES PROCEDENTES JUNTO AS ENTIDADES COMPETENTES	RECLAMAÇÕES	ÁGUA/ESGOTO	Nº DE RECLAMAÇÕES PROCEDENTES JUNTO AOS ORGÃOS DE DEFESA DO CONSUMIDOR ( DECONS E PROCONS + ARCE) / (Nº TOTAL DE LIGAÇÕES REAIS DE ÁGUA + ESGOTO)
+17	ÍNDICE DE REMOÇÃO DE CARGA ORGÂNICA	QUALIDADE	ESGOTO	É O PERCENTUAL DE REMOÇÃO DE DQO DO EFLUENTE TRATADO EM RELAÇÃO AO EFLUENTE BRUTO. (1  (DQO BRUTA  DQO TRATADA)/DQO BRUTA) X 100
+10	INDICE DE SERVIÇOS GERADOS EXTERNAMENTE E EXECUTADOS DENTRO DO PRAZO - CAPITAL	COMERCIAL	ÁGUA/ESGOTO	% DE SERVIÇOS EXECUTADOS DENTRO DO PRAZO EM RELAÇÃO AO TOTAL DE SERVIÇOS SOLICITADOS
+26	INDICE DE UTILIZAÇÃO DA REDE DE ÁGUA - CAPITAL	OPERACIONAL	ÁGUA	CORRESPONDE AO PERCENTUAL DO NÚMEROS DE LIGAÇÕES ATIVAS DE ÁGUA EM RELAÇÃO AO TOTAL DE LIGAÇÕES DISPONIVEIS PARA NOVAS LIGAÇÕES. ESTE INDICADOR TEM POR FINALIDADE MEDIR A CAPACIDADE OCIOSA DA REDE DE DISTRIBUIÇÃO VISANDO A SUA OTIMIZAÇÃO. 
+29	ÍNDICE DE UTILIZAÇÃO DA REDE DE ESGOTO - CAPITAL	OPERACIONAL	ESGOTO	CORRESPONDE AO PERCENTUAL DE LIGAÇÕES ATIVAS DE ESGOTO EM RELAÇÃO AO TOTAL DE LIGAÇÕES DISPONIVEIS PARA NOVAS LIGAÇÕES. ESTE INDICADOR TEM POR FINALIDADE MEDIR A CAPACIDADE OCIOSA DA REDE DE DISTRIBUIÇÃO VISANDO A SUA OTIMIZAÇÃO. 
+1	LUCRATIVIDADE	ECONÔMICO/FINANCEIRO	ÁGUA/ESGOTO	CONCEITO: A LUCRATIVIDADE É DADA PELA RELAÇÃO ENTRE LUCRO E RECEITA LÍQUIDA. ALGUMAS EMPRESAS CALCULAM A RELAÇÃO LUCRO E RECEITA BRUTA E TEM COMO OBJETIVO AVALIAR O RENDIMENTO OBTIDO PELA EMPRESA EM DADO PERÍODO. \nO PORQUÊ DO ACOMPANHAMENTO/FINALIDADE PRINCIPAL: ACOMPANHAR QUAL O RENDIMENTO DA EMPRESA. VERIFICAR SE A EMPRESA DÁ LUCRO E EM QUAL MAGNITUDE UMA VEZ QUE O LUCRO É O GANHO FINANCEIRO NUM DETERMINADO PERÍODO. DO PONTO DE VISTA FINANCEIRO, AO SE FAZER UM INVESTIMENTO O APLICADOR DE RECURSOS DESEJA RECEBER UM RETORNO. ALGO ALÉM DOS RECURSOS USADOS NO MOMENTO DO INVESTIMENTO. A LUCRATIVIDADE, RELAÇÃO LUCRO LÍQUIDO/RECEITA LÍQUIDA, USADA COMO INDICADOR NO PLANEJAMENTO ESTRATÉGICO DA CAGECE FAZ REFERÊNCIA AO LUCRO CONTÁBIL (UMA VEZ QUE O LUCRO PODE SER ANALISADO SOB OUTRAS ÓTICAS, INCLUSIVE DO LUCRO ECONÔMICO E DO LUCRO SOCIAL). A LUCRATIVIDADE PODE SER UM INDICATIVO DA ESTABILIDADE FINANCEIRA DA EMPRESA (UMA VEZ QUE NEM TODA EMPRESA COM LUCRO POSSUI DISPONIBILIDADE DE RECURSOS).
+4	PERCENTUAL DE CUMPRIMENTO DO MONITORAMENTO EXIGIDO PELA PORTARIA Nº 154/2002 DA SEMACE	QUALIDADE	ESGOTO	ÍNDICE TRADUZ O CUMPRIMENTO DA QUANTIDADE DE PARÂMETROS ANALISADOS, EXIGIDO PELA PORTARIA N°154/2002 DA SEMACE, DURANTE O MÊS, NAS AMOSTRAS DO EFLUENTE TRATADO DAS ESTAÇÕES DE TRATAMENTO DE ESGOTO (ETES) DA CAGECE, DO SISTEMA INTEGRADO DO DISTRITO INDUSTRIAL (SIDI), E ESTAÇÃO DE PRÉ-CONDICIONAMENTO (EPC) E DAS INDÚSTRIAS INTERLIGADAS A REDE DE ESGOTAMENTO.\n\n% = ((N°_ANA_REALIZADAS/N°_ANA_EXIGIDAS)*100)
+\.
+
+
+--
+-- Data for Name: dim_municipio; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY dim_municipio (id, codigo, nome) FROM stdin;
+1	9869	FORTALEZA
+-1	0	NI
+\.
+
+
+--
+-- Data for Name: dim_tempo; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY dim_tempo (id, ano_mes, ano, id_mes, semana, dia, mes_desc) FROM stdin;
+20	201008	2010	8	\N	\N	AGOSTO                                  
+21	201009	2010	9	\N	\N	SETEMBRO                                
+22	201010	2010	10	\N	\N	OUTUBRO                                 
+23	201011	2010	11	\N	\N	NOVEMBRO                                
+24	201012	2010	12	\N	\N	DEZEMBRO                                
+19	201007	2010	7	\N	\N	JULHO                                   
+18	201006	2010	6	\N	\N	JUNHO                                   
+1	200901	2009	1	\N	\N	JANEIRO                                 
+2	200902	2009	2	\N	\N	FEVEREIRO                               
+3	200903	2009	3	\N	\N	MARÇO                                   
+4	200904	2009	4	\N	\N	ABRIL                                   
+5	200905	2009	5	\N	\N	MAIO                                    
+6	200906	2009	6	\N	\N	JUNHO                                   
+7	200907	2009	7	\N	\N	JULHO                                   
+8	200908	2009	8	\N	\N	AGOSTO                                  
+9	200909	2009	9	\N	\N	SETEMBRO                                
+10	200910	2009	10	\N	\N	OUTUBRO                                 
+11	200911	2009	11	\N	\N	NOVEMBRO                                
+12	200912	2009	12	\N	\N	DEZEMBRO                                
+13	201001	2010	1	\N	\N	JANEIRO                                 
+14	201002	2010	2	\N	\N	FEVEREIRO                               
+15	201003	2010	3	\N	\N	MARÇO                                   
+16	201004	2010	4	\N	\N	ABRIL                                   
+17	201005	2010	5	\N	\N	MAIO                                    
+\.
+
+
+--
+-- Data for Name: dim_unidade_administrativa; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY dim_unidade_administrativa (id, codigo_pai, sigla_pai, descricao_pai, tipo_pai, codigo, sigla, descricao, tipo) FROM stdin;
+-1	0	NI	NI	NI	0	NI	NI	NI
+84	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	9	DDO	DIRETORIA DE OPERAÇÕES                            	D
+95	10	DIC	DIRETORIA COMERCIAL                               	D	10	DIC	DIRETORIA COMERCIAL                               	D
+114	11	DEN	DIRETORIA DE ENGENHARIA                           	D	11	DEN	DIRETORIA DE ENGENHARIA                           	D
+139	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D
+74	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	1	AKN	ASSOCIACAO KLAUS NÓBREGA                          	serviços
+75	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria
+76	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	30	GEFIN	GERÊNCIA FINANCEIRA                               	S
+77	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	37	GEINF	GERÊNCIA DE INFORMÁTICA                           	S
+78	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	66	GEPES	GERÊNCIA DE PESSOAS                               	S
+79	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	74	GELOG	GERENCIA DE LOGISTICA                             	S
+80	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	103	GTRAN	GERÊNCIA DE TRANSPORTE                            	S
+81	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	167	GESAM	GERENCIA DE SUPORTE ADMINISTRATIVO                	S
+82	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	192	GETRA	GERENCIA DE REL.TRABALHO E RESPONSABILIDADE SOCIAL	S
+83	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	422	GESEP	GERENCIA SEGURANCA E PATRIMONIO                   	S
+85	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	89	GPROD	GERÊNCIA DE PRODUÇÃO DE ÁGUA                      	S
+86	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	108	GEMAG	GERÊNCIA DE MACRODISTRIBUIÇÃO DE ÁGUA             	S
+87	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	109	GETES	GERÊNCIA DE MACROCOLETA E TRATRATAMENTO DE ESGOTO 	S
+88	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	111	GEMEA	GER. MANUT. ELETOM. E AUTOMACAO                   	S
+89	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	172	GECOQ	GER. CONTROLE DE QUALIDADE DO PRODUTO             	S
+90	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	174	GCOPE	GER. CONTROLE DE PERDAS E EFICIENT. ENERGETICA    	S
+91	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	187	GERAP	GER. DE APOIO OPERACIONAL                         	S
+92	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	225	UN-MPA	UNID. NEG. METROP. PROD. E MACRODISTRIBUICAO AGUA 	negocio
+93	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	228	UN-MTE	UNID. NEG. METROP. MACROLETA TRATAMENTO ESGOTO    	N
+94	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	232	GEPED	GER. PESQUISA E DESENV. OPERACIONAL               	S
+96	10	DIC	DIRETORIA COMERCIAL                               	D	45	UN-MTL	UNIDADE DE NEGÓCIO METROPOLITANA LESTE (ALDEOTA)  	N
+97	10	DIC	DIRETORIA COMERCIAL                               	D	48	UN-MTO	UNIDADE DE NEGÓCIO METROPOLITANA OESTE(CONJ.CEARÁ)	N
+98	10	DIC	DIRETORIA COMERCIAL                               	D	51	UN-MTS	UNIDADE DE NEGÓCIO METROPOLITANA SUL (JOSÉ WALTER)	N
+99	10	DIC	DIRETORIA COMERCIAL                               	D	104	GEDER	GERENCIA DE RELAC. DEFESA CONSUMIDOR E REGULACAO  	S
+100	10	DIC	DIRETORIA COMERCIAL                               	D	117	UN-MTN	UNIDADE DE NEGÓCIO METROPOLITANA NORTE (FLORESTA) 	N
+101	10	DIC	DIRETORIA COMERCIAL                               	D	123	UN-BME	UNIDADE DE NEGÓCIO BACIA METROPOLITANA            	N
+102	10	DIC	DIRETORIA COMERCIAL                               	D	128	UN-BAC	UNIDADE DE NEGÓCIO BACIA DO ACARAÚ E COREAÚ       	N
+103	10	DIC	DIRETORIA COMERCIAL                               	D	133	UN-BSA	UNIDADE DE NEGÓCIO BACIA DO SALGADO               	N
+104	10	DIC	DIRETORIA COMERCIAL                               	D	138	UN-BBA	UNIDADE DE NEGÓCIO BACIA DO BANABUIU              	N
+105	10	DIC	DIRETORIA COMERCIAL                               	D	143	UN-BPA	UNIDADE DE NEGÓCIO BACIA DO PARNAÍBA              	N
+106	10	DIC	DIRETORIA COMERCIAL                               	D	148	UN-BBJ	UNIDADE DE NEGÓCIO BACIA DO BAIXO-MÉDIO JAGUARIBE 	N
+107	10	DIC	DIRETORIA COMERCIAL                               	D	153	UN-BAJ	UNIDADE DE NEGÓCIO BACIA DO ALTO JAGUARIBE        	N
+108	10	DIC	DIRETORIA COMERCIAL                               	D	158	UN-BCL	UNIDADE DE NEGÓCIO BACIA DO CURU E LITORAL        	N
+109	10	DIC	DIRETORIA COMERCIAL                               	D	163	OUVID	OUVIDORIA                                         	S
+110	10	DIC	DIRETORIA COMERCIAL                               	D	168	GEFAR	GERÊNCIA FATURAMENTO E ARRECADAÇÃO                	S
+111	10	DIC	DIRETORIA COMERCIAL                               	D	189	GEMEC	GERENCIA DE MERCADO E CONCESSOES                  	S
+112	10	DIC	DIRETORIA COMERCIAL                               	D	236	GEINS	GER DE EDUC AMBIENT E INTER SOC                   	S
+113	10	DIC	DIRETORIA COMERCIAL                               	D	428	GEREC	GEREC - GER DE RELAC C/ GRANDES CLIENTES          	S
+115	11	DEN	DIRETORIA DE ENGENHARIA                           	D	81	GOMET	GERÊNCIA DE OBRAS METROPOLITANA                   	S
+116	11	DEN	DIRETORIA DE ENGENHARIA                           	D	164	GESAR	GERÊNCIA DE SANEAMENTO RURAL                      	S
+117	11	DEN	DIRETORIA DE ENGENHARIA                           	D	166	GEMAM	GERÊNCIA DE MEIO AMBIENTE                         	S
+118	11	DEN	DIRETORIA DE ENGENHARIA                           	D	190	GOINT	GERENCIA DE OBRAS DO INTERIOR                     	S
+119	11	DEN	DIRETORIA DE ENGENHARIA                           	D	198	UEPSJ	UNIDADE EXEC. PROJETO SAO JOSE                    	S
+120	11	DEN	DIRETORIA DE ENGENHARIA                           	D	205	GOPAC	GERENCIA DE OBRAS DO PROG. ACELERACAO CRESCIMENTO 	S
+121	12	DPR	PRESIDÊNCIA                                       	D	3	AUDIN	AUDITORIA INTERNA                                 	S
+122	12	DPR	PRESIDÊNCIA                                       	D	12	DPR	PRESIDÊNCIA                                       	D
+123	12	DPR	PRESIDÊNCIA                                       	D	14	A DISPOS	FUNC.A DISPOSIÇÃO                                 	S
+124	12	DPR	PRESIDÊNCIA                                       	D	15	GAPRE	GABINETE DA PRESIDÊNCIA                           	S
+125	12	DPR	PRESIDÊNCIA                                       	D	18	GCONT	GERÊNCIA DE CONTROLADORIA                         	S
+126	12	DPR	PRESIDÊNCIA                                       	D	77	GDEMP	GERÊNCIA DE DESENVOLVIMENTO EMPRESARIAL           	S
+127	12	DPR	PRESIDÊNCIA                                       	D	97	PROJU	PROCURADORIA JURÍDICA                             	S
+128	12	DPR	PRESIDÊNCIA                                       	D	191	CAGEPREV	CAGECE PREVIDENCIA COMPLEMENTAR                   	S
+129	12	DPR	PRESIDÊNCIA                                       	D	194	GECON	GERENCIA DE APOIO A CONTRATACOES                  	S
+130	12	DPR	PRESIDÊNCIA                                       	D	195	SINDIAGUA	SINDIAGUA S/ONUS                                  	S
+131	12	DPR	PRESIDÊNCIA                                       	D	199	APOSINV	FUNCIONARIOS APOSENTADOS POR INVALIDEZ            	S
+132	12	DPR	PRESIDÊNCIA                                       	D	202	ASIMP	ASSESSORIA DE IMPRENSA                            	S
+133	12	DPR	PRESIDÊNCIA                                       	D	203	GECSA	GERENCIA DE APOIO A COORD SANEAMENTO AMBIENTAL    	S
+134	12	DPR	PRESIDÊNCIA                                       	D	206	NECOC	NUCLEO DE COOPERACAO TECNICA E CONSULTORIA        	S
+135	12	DPR	PRESIDÊNCIA                                       	D	208	ASCAD	ASSESSORIA DE CONTROLE ADMINISTRATIVO             	S
+136	12	DPR	PRESIDÊNCIA                                       	D	217	GEORC	GEORC - GER DE EST ESTRAT E DE ORCAMENTO          	S
+137	12	DPR	PRESIDÊNCIA                                       	D	220	GESEQ	GESEQ - GER DE ESTRAT DE EXCEL. E QUALID          	S
+138	12	DPR	PRESIDÊNCIA                                       	D	235	GCORI	GCORI - GER DE COMUNIC E RELAC INTERNO            	S
+140	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	78	GEATE	GERÊNCIA DE APOIO TÉCNICO                         	S
+141	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	88	GPLAN	GERÊNCIA DE PLANEJAMENTO DE EXPANSÃO              	S
+142	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	94	GPROJ	GERÊNCIA DE PROJETOS                              	S
+143	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	178	UGP-SANEAR	UNIDADE GERENCIADORA DO PROGRAMA SANEAR           	S
+144	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	186	GEADI	GERENCIA DE AVALIACÄO E DESAPROP DE IMOVEIS       	S
+145	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	188	UGP Federais	UNIDADE DE GESTAO DOS PROGRAMAS FEDERAIS          	S
+146	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	219	UGP	UGP - UNIDADE DE GESTAO DOS PROGRAMAS             	S
+147	45	UN-MTL	UNIDADE DE NEGÓCIO METROPOLITANA LESTE (ALDEOTA)  	N	46	UN-MTL10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MTL    	coordenacao
+148	45	UN-MTL	UNIDADE DE NEGÓCIO METROPOLITANA LESTE (ALDEOTA)  	N	47	UN-MTL20	COORDENADORIA DE SUPORTE TECNICO UN-MTL           	C
+149	45	UN-MTL	UNIDADE DE NEGÓCIO METROPOLITANA LESTE (ALDEOTA)  	N	115	UN-MTL30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-MTL       	C
+150	48	UN-MTO	UNIDADE DE NEGÓCIO METROPOLITANA OESTE(CONJ.CEARÁ)	N	49	UN-MTO10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MTO    	C
+151	48	UN-MTO	UNIDADE DE NEGÓCIO METROPOLITANA OESTE(CONJ.CEARÁ)	N	50	UN-MTO20	COORDENADORIA DE SUPORTE TECNICO UN-MTO           	C
+152	48	UN-MTO	UNIDADE DE NEGÓCIO METROPOLITANA OESTE(CONJ.CEARÁ)	N	116	UN-MTO30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-MTO       	C
+153	51	UN-MTS	UNIDADE DE NEGÓCIO METROPOLITANA SUL (JOSÉ WALTER)	N	52	UN-MTS10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MTS    	C
+154	51	UN-MTS	UNIDADE DE NEGÓCIO METROPOLITANA SUL (JOSÉ WALTER)	N	53	UN-MTS20	COORDENADORIA DE SUPORTE TÉCNICO UN-MTS           	C
+155	51	UN-MTS	UNIDADE DE NEGÓCIO METROPOLITANA SUL (JOSÉ WALTER)	N	119	UN-MTS30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-MTS       	C
+156	117	UN-MTN	UNIDADE DE NEGÓCIO METROPOLITANA NORTE (FLORESTA) 	N	118	UN-MTN30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-MTN       	C
+157	117	UN-MTN	UNIDADE DE NEGÓCIO METROPOLITANA NORTE (FLORESTA) 	N	221	UN-MTN-20	COORDENADORIA DE SUPORTE TECNICO - UNMTN          	C
+158	123	UN-BME	UNIDADE DE NEGÓCIO BACIA METROPOLITANA            	N	124	UN-BME10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BME    	C
+159	123	UN-BME	UNIDADE DE NEGÓCIO BACIA METROPOLITANA            	N	125	UN-BME20	COORDENADORIA DE SUPORTE TÉCNICO UN-BME           	C
+160	123	UN-BME	UNIDADE DE NEGÓCIO BACIA METROPOLITANA            	N	126	UN-BME30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BME       	C
+161	128	UN-BAC	UNIDADE DE NEGÓCIO BACIA DO ACARAÚ E COREAÚ       	N	129	UN-BAC10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BAC    	C
+162	128	UN-BAC	UNIDADE DE NEGÓCIO BACIA DO ACARAÚ E COREAÚ       	N	130	UN-BAC20	COORDENADORIA DE SUPORTE TÉCNICO UN-BAC           	C
+163	128	UN-BAC	UNIDADE DE NEGÓCIO BACIA DO ACARAÚ E COREAÚ       	N	131	UN-BAC30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BAC       	C
+164	133	UN-BSA	UNIDADE DE NEGÓCIO BACIA DO SALGADO               	N	134	UN-BSA10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BSA    	C
+165	133	UN-BSA	UNIDADE DE NEGÓCIO BACIA DO SALGADO               	N	135	UN-BSA20	COORDENADORIA DE SUPORTE TÉCNICO UN-BSA           	C
+166	133	UN-BSA	UNIDADE DE NEGÓCIO BACIA DO SALGADO               	N	136	UN-BSA30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BSA       	C
+167	138	UN-BBA	UNIDADE DE NEGÓCIO BACIA DO BANABUIU              	N	139	UN-BBA10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BBA    	C
+168	138	UN-BBA	UNIDADE DE NEGÓCIO BACIA DO BANABUIU              	N	140	UN-BBA20	COORDENADORIA DE SUPORTE TÉCNICO UN-BBA           	C
+169	138	UN-BBA	UNIDADE DE NEGÓCIO BACIA DO BANABUIU              	N	141	UN-BBA30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BBA       	C
+170	143	UN-BPA	UNIDADE DE NEGÓCIO BACIA DO PARNAÍBA              	N	144	UN-BPA10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BPA    	C
+171	143	UN-BPA	UNIDADE DE NEGÓCIO BACIA DO PARNAÍBA              	N	145	UN-BPA20	COORDENADORIA DE SUPORTE TÉCNICO UN-BPA           	C
+172	143	UN-BPA	UNIDADE DE NEGÓCIO BACIA DO PARNAÍBA              	N	146	UN-BPA30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BPA       	C
+173	143	UN-BPA	UNIDADE DE NEGÓCIO BACIA DO PARNAÍBA              	N	175	UN-BPA40	COORDENADORIA TÉCNICA ADMINISTRATIVA IBIAPABA     	C
+174	148	UN-BBJ	UNIDADE DE NEGÓCIO BACIA DO BAIXO-MÉDIO JAGUARIBE 	N	149	UN-BBJ10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BBJ    	C
+175	148	UN-BBJ	UNIDADE DE NEGÓCIO BACIA DO BAIXO-MÉDIO JAGUARIBE 	N	150	UN-BBJ20	COORDENADORIA DE SUPORTE TÉCNICO UN-BBJ           	C
+176	148	UN-BBJ	UNIDADE DE NEGÓCIO BACIA DO BAIXO-MÉDIO JAGUARIBE 	N	151	UN-BBJ30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BBJ       	C
+177	153	UN-BAJ	UNIDADE DE NEGÓCIO BACIA DO ALTO JAGUARIBE        	N	154	UN-BAJ10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BAJ    	C
+178	153	UN-BAJ	UNIDADE DE NEGÓCIO BACIA DO ALTO JAGUARIBE        	N	155	UN-BAJ20	COORDENADORIA DE SUPORTE TÉCNICO UN-BAJ           	C
+179	153	UN-BAJ	UNIDADE DE NEGÓCIO BACIA DO ALTO JAGUARIBE        	N	156	UN-BAJ30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BAJ       	C
+180	158	UN-BCL	UNIDADE DE NEGÓCIO BACIA DO CURU E LITORAL        	N	159	UN-BCL10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BCL    	C
+181	158	UN-BCL	UNIDADE DE NEGÓCIO BACIA DO CURU E LITORAL        	N	160	UN-BCL20	COORDENADORIA DE SUPORTE TÉCNICO UN-BCL           	C
+182	158	UN-BCL	UNIDADE DE NEGÓCIO BACIA DO CURU E LITORAL        	N	161	UN-BCL30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BCL       	C
+183	225	UN-MPA	UNID. NEG. METROP. PROD. E MACRODISTRIBUICAO AGUA 	negocio	226	UN-MPA-10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MPA    	C
+184	225	UN-MPA	UNID. NEG. METROP. PROD. E MACRODISTRIBUICAO AGUA 	negocio	227	UN-MPA-20	COORDENADORIA DE SUPORTE TECNICO - UN-MPA         	C
+185	228	UN-MTE	UNID. NEG. METROP. MACROLETA TRATAMENTO ESGOTO    	N	229	UN-MTE-10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MTE    	C
+186	228	UN-MTE	UNID. NEG. METROP. MACROLETA TRATAMENTO ESGOTO    	N	230	UN-MTE-20	COORDENADORIA DE SUPORTE TECNICO UN-MTE           	C
+\.
+
+
+--
+-- Data for Name: dim_variavel; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY dim_variavel (id, codigo, nome, sigla, descricao, unidade_medida) FROM stdin;
+39	4801	% CUMPRIMENTO MONITORAMENTO PORTARIA 154/02-SEMACE	%_CUMPRIM_SEMACE_154	% CUMPRIMENTO MONITORAMENTO PORTARIA 154/02-SEMACE	UNIDADE
+40	3581	ARRECADAÇÃO ANTECIPADA	ARREC_ANTECIPADA	ARRECADAÇÃO ANTECIPADA	R$
+41	3561	ARRECADAÇÃO COM SERVIÇOS	ARREC_SERVICOS	VALOR ARRECADADO COM SERVIÇOS EXECUTADOS	R$
+42	881	ARRECADAÇÃO DO MÊS	ARRECADAÇÃO_DO_MES	ARRECADAÇÃO DO MÊS	R$
+43	882	ARRECADAÇÃO NO MÊS	ARRECADAÇÃO_NO_MES	ARRECADAÇÃO NO MÊS	R$
+44	5732	DEX ADUZIDO	DEX_ADUZIDO	DEX M3 ADUZIDO (DADOS SOMENTE DA UN-MPA)	R$
+45	5751	DEX COMUM AO SISTEMAS UNMPA	DEX_COM_SIST_UNMPA	DEX COMUM AO MACRO SISTEMA E AO PROCESSO DE PRODUÇÃO DE ÁGUA (ETA GAVIÃO)	R$
+46	5791	DEX COMUM MTE	DEX_COMUM_MTE	DEX COMUM UN-MTE	R$
+47	5771	DEX EPC	DEX_EPC	DEX DA EPC	R$
+48	5731	DEX PRODUZIDO	DEX_PRODUZIDO	DEX M3 PRODUZIDO (DADOS SOMENTE DA UN-MPA)	R$
+49	5851	DEX SISTEMA ISOLADO	DEX_SIST_ISOLADO	DEX DO SISTEMA ISOLADO	R$
+50	4	DEX TOTAL	DEX_TOTAL	VALOR DAS DESPESAS REALIZADAS PARA A EXPLORAÇÃO DOS SERVIÇOS COMPREENDENDO: DESPESAS DE PESSOAL, DE MANUTENÇÃO DE SISTEMA, DE TRANSPORTE, DE MATERIAL, DE SERVIÇOS DE TERCEIROS, DESPESAS GERAIS, PMF E CRÉDITO PASEP/ COFINS.	R$
+51	5251	DURAÇÃO DAS PARALISAÇÕES	DUR_PARALIS	DURAÇÃO DAS PARALISAÇÕES	HORAS
+52	741	ÍNDICE DE COBERTURA DE ÁGUA	IND_COB_AGUA	ÍNDICE DE COBERTURA DE ÁGUA	%
+53	742	ÍNDICE DE COBERTURA DE ESGOTO	IND_COB_ESGOTO	ÍNDICE DE COBERTURA DE ESGOTO	%
+54	994	ÍNDICE DE QUALIDADE DA ÁGUA DISTRIBUÍDA 	IND_QUAL_AGUA_DISTR	ÍNDICE DE QUALIDADE DA ÁGUA DISTRIBUÍDA 	%
+55	701	LUCRO LÍQUIDO	LUCRO_LIQUIDO	LUCRO LÍQUIDO	R$
+56	5332	M³ MEDIDO NA EPC	M3_MED_EPC	M³ MEDIDO NA EPC	M3
+57	5311	Nº DE ESTAÇÕES QUE ATENDEM O PARAM POR TECNOLOGIA	N_EST_ATEN_PARAM_TEC	Nº DE ESTAÇÕES QUE ATENDEM O PARÂMETRO POR TECNOLOGIA	UNIDADE
+58	5312	NUMERO TOTAL DE ESTAÇÕES MONITORADAS	N_TOT_EST_MONIT	NUMERO TOTAL DE ESTAÇÕES MONITORADAS	UNIDADE
+59	986	NÚMERO DE ANÁLISES REALIZADAS	N°_ANA_REALIZADAS	NÚMERO DE ANÁLISES REALIZADAS	UNIDADE
+60	987	NÚMERO DE ANÁLISES EXIGIDAS	Nº_ANA_EXIGIDAS	NÚMERO DE ANÁLISES EXIGIDAS	UNIDADE
+61	3601	Nº DE LIGAÇÕES DE ÁGUA FATURADAS POR OUTRO IMÓVEL 	Nº_LIG_AG_FAT_OUT_IM	NÚMERO DE LIGAÇÕES DE ÁGUA FATURADAS POR OUTRO IMÓVEL 	LIGAÇÕES
+62	761	NÚMERO DE LIGAÇÕES ATIVAS DE ÁGUA	Nº_LIG_ATIVAS_AGUA	NÚMERO DE LIGAÇÕES ATIVAS DE ÁGUA	LIGAÇÕES
+63	786	NÚMERO DE LIGAÇÕES DE ATIVAS DE ESGOTO 	Nº_LIG_ATIVAS_ESGOTO	NÚMERO DE LIGAÇÕES DE ATIVAS DE ESGOTO	LIGAÇÕES
+64	801	NÚMERO DE LIGAÇÕES CONDOMINIAIS DE ESGOTO	Nº_LIG_COND_ESGOTO	NÚMERO DE LIGAÇÕES CONDOMINIAIS DE ESGOTO	LIGAÇÕES
+65	763	NÚMERO DE LIGAÇÕES CORTADAS DE ÁGUA	Nº_LIG_CORT_AGUA	NÚMERO DE LIGAÇÕES CORTADAS DE ÁGUA	LIGAÇÕES
+66	3621	Nº DE LIGAÇÕES DE ESGOTO FATURADA POR OUTRO IMÓVEL	Nº_LIG_ES_FAT_OUT_IM	NÚMERO DE LIGAÇÕES DE ESGOTO FATURADA POR OUTRO IMÓVEL 	LIGAÇÕES
+67	781	NÚMERO DE LIGAÇÕES FACTÍVEIS DE ÁGUA	Nº_LIG_FACT_AGUA	NÚMERO DE LIGAÇÕES FACTÍVEIS DE ÁGUA	LIGAÇÕES
+68	803	NÚMERO DE LIGAÇÕES DE FACTÍVEIS DE ESGOTO 	Nº_LIG_FACT_ESGOTO	NÚMERO DE LIGAÇÕES DE FACTÍVEIS DE ESGOTO	LIGAÇÕES
+69	3641	NÚMERO DE LIGAÇÕES SEM INTERLIGAÇÃO DE ESGOTO 	Nº_LIG_LSIN_ESGOTO	NÚMERO DE LIGAÇÕES LIGADAS SEM INTERLIGAÇÃO DE ESGOTO 	LIGAÇÕES
+70	1181	NÚMERO DE LIGAÇÕES REAIS DE ÁGUA	Nº_LIG_REAIS_AGUA	NÚMERO DE LIGAÇÕES REAIS DE ÁGUA	LIGAÇÕES
+71	1182	NÚMERO DE LIGAÇÕES REAIS DE ESGOTO	Nº_LIG_REAIS_ESGOTO	NÚMERO DE LIGAÇÕES REAIS DE ESGOTO	LIGAÇÕES
+72	762	NÚMERO DE LIGAÇÕES SUPRIMIDAS DE ÁGUA 	Nº_LIG_SUPR_AGUA	NÚMERO DELIGAÇÕES SUPRIMIDAS DE ÁGUA 	LIGAÇÕES
+73	1861	Nº DE LIGAÇÕES SUSPENSAS DE ÁGUA	Nº_LIG_SUSP_AGUA	NÚMERO DE LIGAÇÕES SUSPENSAS DE ÁGUA	LIGAÇÕES
+74	1862	Nº DE LIGAÇÕES SUSPENSAS DE ESGOTO	Nº_LIG_SUSP_ESGOTO	NÚMERO DE LIGAÇÕES SUSPENSAS DE ESGOTO	LIGAÇÕES
+75	802	NÚMERO DE LIGAÇÕES TAMPONADAS DE ESGOTO 	Nº_LIG_TAMP_ESGOTO	NÚMERO DE LIGAÇÕES TAMPONADAS DE ESGOTO 	LIGAÇÕES
+76	861	NÚMERO DE RECLAMAÇÕES JUNTO A ENT. COMPETENTES	Nº_RECL_PROC_ENT_COM	NÚMERO DE RECLAMAÇÕES PROCEDENTES JUNTO AS ENTIDADES COMPETENTES: ARCE, DECON, DECOM, PROCOM E PROCESSOS JUDICIAIS.	RECLAMAÇÕES
+77	5253	QUANTIDADE DE HORAS NO PERIODO	QTD_HOR_PERIODO	QUANTIDADE DE HORAS NO PERIODO	HORAS
+78	5351	QUANT. DE RECL. E COMUN. DE PROBLEMAS DE ÁGUA.	QTD_REC_COMUN_PROB_A	QUANT. DE RECL. E COMUN. DE PROBLEMAS DE ÁGUA.	UNIDADE
+79	5352	QUANT. DE RECL. E COMUN. DE PROBLEMAS DE ESGOTO	QTD_REC_COMUN_PROB_E	QUANT. DE RECL. E COMUN. DE PROBLEMAS DE ESGOTO	UNIDADE
+80	4861	RECEITA DE ÁGUA	RECEITA_AGUA	RECEITA DE ÁGUA	R$
+81	4862	RECEITA DE ESGOTO	RECEITA_ESGOTO	RECEITA DE ESGOTO	R$
+82	1824	RECEITA LÍQUIDA	RECEITA_LIQUIDA	RECEITA LÍQUIDA	R$
+83	4042	TOTAL DE SERVIÇOS SOLICITADOS - CAPITAL	SOL_CAP	TOTAL DE SERVIÇOS SOLICITADOS	UNIDADE
+84	4041	TOTAL DE SERVIÇOS FORA DO PRAZO - CAPITAL	TFP_CAP	TOTAL DE SERVIÇOS FORA DO PRAZO QUE É CALCULADO POR EFP+PPV, ONDE EFP É O TOTAL DE SERV. EXECUTADOS FORA DO PRAZO E PPV É TOTAL DE SERV. EXECUTADOS NO PRAZO.	UNIDADE
+85	2022	VALOR TOTAL DOS RECURSOS PREVISTOS NO SANEAR	VL_PREVISTO_SANEAR	VALOR TOTAL DOS RECURSOS PREVISTOS NO SANEAR	R$
+86	2021	VALOR TOTAL DOS RECURSOS APLICADOS NO SANEAR	VL_REC_APLIC_SANEAR	VALOR TOTAL DOS RECURSOS APLICADOS NO SANEAR	R$
+87	2401	VOLUME ADUZIDO DE ÁGUA TRATADA	VOL_ADU_AGUA_TRATADA	É O VOLUME DE ÁGUA  TRATADA QUE É BOMBEADO PARA MACRO-DISTRIBUIÇÃO.	M3
+88	5515	VOLUME BOMBEIROS	VOL_BOMBEIROS	VOLUME BOMBEIROS	M3
+89	4082	VOLUME DE CARRO PIPA	VOL_CARRO_PIPA	VOLUME DE CARRO PIPA	M3
+90	5511	VOLUME CONSUMIDO HIDROMETRADO	VOL_CONS_HIDROMET	VOLUME CONSUMIDO HIDROMETRADO	M3
+91	5514	VOLUMES DISPENSADOS	VOL_DISPENSADOS	VOLUMES DISPENSADOS	M3
+92	5021	VOLUME DISTRIBUIDO (PROVISORIO)	VOL_DISTRIBUIDO_PROV	VOLUME DE ÁGUA TRATADA MEDIDO OU ESTIMADO DISPONIBILIZADO PARA A UNIDADE DE DISTRIBUIÇÃO, PARA ATENDIMENTO AOS CLIENTES (PROVISORIO)	M3
+93	9	VOLUME FATURADO DE ÁGUA	VOL_FAT_AGUA	VOLUME VENDIDO AOS CLIENTES COM BASE NOS CRITÉRIOS DA ESTRUTURA TARIFÁRIA VIGENTE	M3
+94	21	VOLUME FATURADO DE ESGOTO	VOL_FAT_ESGOTO	VOLUME DE ESGOTO COLETADO, FATURADO NO MÊS, RELATIVO ÀS ECONOMIAS RESIDENCIAIS, COMERCIAIS, INDUSTRIAIS E PUBLICAS.	M3
+95	984	VOLUME FORNECIDO A DISTRIBUIÇÃO MACROMEDIDO	VOL_FORN_DISTR_MACRO	VOLUME FORNECIDO A DISTRIBUIÇÃO MACROMEDIDO	M3
+96	5513	VOLUME DOS IMOVEIS PROPRIOS	VOL_IMOVEIS_PROPRIOS	VOLUME DOS IMOVEIS PROPRIOS	M3
+97	5512	VOLUMES ISENTOS DE FATURAMENTO	VOL_ISENTOS_FAT	VOLUMES ISENTOS DE FATURAMENTO, INCLUIDOS ATUALMENTE: IJF, SNTA CASA E HSPV	M3
+98	5631	VOLUMES OPERACIONAIS DA CAPITAL	VOL_OPERAC_CAPITAL	VOLUMES UTILIZADOS EM DESCARGA DE REDE. ESVAZIAMENTO DE REDES PARA MANUTENÇÃO E LIMPEZA DE RESERVATÓRIOS DO SISTEMA DISTRIBUIDOR DA CAPITAL.	M3
+99	1047	VOLUME UTILIZADO PERDIDO NO PROCESSO DE TRATAMENTO	VOL_PERD_PROC_TRATAM	VOLUME UTILIZADO E PERDIDO NO PROCESSO DE TRATAMENTO	M3
+100	1721	VOL. PROD. COMERCIAL SISTEMA INTEGRADO/FORTALEZA	VOL_PROD_COM_FOR	VOL. PROD. COMERCIAL SISTEMA INTEGRADO/FORTALEZA	M3
+101	2762	VOLUME PRODUZIDO DE ÁGUA	VOL_PRODUZIDO_AGUA	VOLUME PRODUZIDO DE ÁGUA	M3
+102	4061	VOLUME RECUPERADO DE FRAUDE	VOL_REC_FRAUDE	VOLUME RECUPERADO DE FRAUDE	M3
+103	1048	VOLUME TOTAL DE ÁGUA BRUTA	VOL_TOT_AG_BRUTA	VOLUME TOTAL DE ÁGUA BRUTA	M3
+-1	0	NI	NI	NI	NI
+\.
+
+
+--
+-- Data for Name: fato_indicador; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY fato_indicador (id, id_dim_tempo, id_dim_municipio, id_dim_unidade_administrativa, id_dim_indicador, valor_indicador) FROM stdin;
+49	24	1	-1	2	100.00
+50	24	1	98	2	100.00
+51	24	1	92	2	100.00
+52	24	1	93	2	100.00
+53	24	1	97	2	100.00
+54	24	1	100	2	0.00
+55	24	1	96	2	100.00
+56	24	1	89	3	0.00
+57	24	1	89	4	58.08
+43	24	1	97	1	72.83
+44	24	1	92	1	100.00
+45	24	1	100	1	65.23
+46	24	1	-1	1	100.00
+47	24	1	98	1	79.06
+48	24	1	96	1	79.21
+70	24	1	96	8	98.29
+71	24	1	97	8	98.96
+72	24	1	98	8	97.97
+42	24	1	93	1	130.20
+58	24	1	98	5	11.05
+59	24	1	97	5	96.05
+60	24	1	100	5	89.63
+61	24	1	96	5	14.69
+62	24	1	96	6	9.73
+63	24	1	100	6	100.00
+64	24	1	98	6	99.80
+65	24	1	97	6	15.60
+66	24	1	98	7	85.20
+67	24	1	100	7	96.30
+68	24	1	96	7	14.78
+69	24	1	97	7	78.96
+73	24	1	100	8	97.19
+74	24	1	97	9	32.68
+75	24	1	96	9	67.79
+76	24	1	98	9	26.15
+77	24	1	100	9	88.38
+78	24	1	92	-1	3.97
+79	24	1	97	-1	50.00
+80	24	1	100	-1	71.43
+81	24	1	106	-1	60.00
+82	24	1	-1	-1	100.00
+83	24	1	105	-1	59.09
+84	24	1	89	-1	70.18
+85	24	1	103	-1	62.50
+86	24	1	108	-1	66.67
+87	24	1	107	-1	83.33
+88	24	1	98	-1	39.29
+89	24	1	102	-1	57.14
+90	24	1	104	-1	40.00
+91	24	1	101	-1	51.85
+92	24	1	93	-1	44.83
+97	24	1	96	24	100.00
+98	24	1	97	24	100.00
+99	24	1	100	24	99.00
+100	24	1	98	24	100.00
+102	24	1	97	26	83.81
+103	24	1	100	26	80.07
+104	24	1	96	26	85.16
+105	24	1	98	26	86.48
+93	24	1	96	20	65.47
+94	24	1	100	20	45.63
+95	24	1	98	20	23.65
+96	24	1	97	20	95.10
+101	24	1	96	-1	16.68
+106	24	1	97	27	14.79
+107	24	1	96	27	16.98
+108	24	1	100	27	16.36
+109	24	1	98	27	19.74
+110	24	1	96	28	10.03
+111	24	1	97	28	11.05
+112	24	1	100	28	19.90
+113	24	1	98	28	1.09
+114	1	1	-1	2	100.00
+115	1	1	98	2	100.00
+116	1	1	92	2	100.00
+117	1	1	93	2	100.00
+118	1	1	97	2	100.00
+119	1	1	100	2	0.00
+120	1	1	96	2	100.00
+121	1	1	89	3	0.00
+122	1	1	89	4	58.08
+123	1	1	97	1	72.83
+124	1	1	92	1	100.00
+125	1	1	100	1	65.23
+126	1	1	-1	1	100.00
+127	1	1	98	1	79.06
+128	1	1	96	1	79.21
+129	1	1	96	8	98.29
+130	1	1	97	8	98.96
+131	1	1	98	8	97.97
+132	1	1	93	1	130.20
+133	1	1	98	5	11.05
+134	1	1	97	5	96.05
+135	1	1	100	5	89.63
+136	1	1	96	5	14.69
+137	1	1	96	6	9.73
+138	1	1	100	6	100.00
+139	1	1	98	6	99.80
+140	1	1	97	6	15.60
+141	1	1	98	7	85.20
+142	1	1	100	7	96.30
+143	1	1	96	7	14.78
+144	1	1	97	7	78.96
+145	1	1	100	8	97.19
+146	1	1	97	9	32.68
+147	1	1	96	9	67.79
+148	1	1	98	9	26.15
+149	1	1	100	9	88.38
+150	1	1	92	-1	3.97
+151	1	1	97	-1	50.00
+152	1	1	100	-1	71.43
+153	1	1	106	-1	60.00
+154	1	1	-1	-1	100.00
+155	1	1	105	-1	59.09
+156	1	1	89	-1	70.18
+157	1	1	103	-1	62.50
+158	1	1	108	-1	66.67
+159	1	1	107	-1	83.33
+160	1	1	98	-1	39.29
+161	1	1	102	-1	57.14
+162	1	1	104	-1	40.00
+163	1	1	101	-1	51.85
+164	1	1	93	-1	44.83
+165	1	1	96	24	100.00
+166	1	1	97	24	100.00
+167	1	1	100	24	99.00
+168	1	1	98	24	100.00
+169	1	1	97	26	83.81
+170	1	1	100	26	80.07
+171	1	1	96	26	85.16
+172	1	1	98	26	86.48
+173	1	1	96	20	65.47
+174	1	1	100	20	45.63
+175	1	1	98	20	23.65
+176	1	1	97	20	95.10
+177	1	1	96	-1	16.68
+178	1	1	97	27	14.79
+179	1	1	96	27	16.98
+180	1	1	100	27	16.36
+181	1	1	98	27	19.74
+182	1	1	96	28	10.03
+183	1	1	97	28	11.05
+184	1	1	100	28	19.90
+185	1	1	98	28	1.09
+199	2	1	100	2	100.00
+200	2	1	98	2	100.00
+201	2	1	92	2	100.00
+202	2	1	93	2	100.00
+203	2	1	97	2	100.00
+204	2	1	100	2	0.00
+205	2	1	96	2	100.00
+206	2	1	89	3	0.00
+207	2	1	89	4	58.08
+208	2	1	97	1	72.83
+209	2	1	92	1	100.00
+210	2	1	100	1	65.23
+211	2	1	100	1	100.00
+212	2	1	98	1	79.06
+213	2	1	96	1	79.21
+214	2	1	96	8	98.29
+215	2	1	97	8	98.96
+216	2	1	98	8	97.97
+217	2	1	93	1	130.20
+218	2	1	98	5	11.05
+219	2	1	97	5	96.05
+220	2	1	100	5	89.63
+221	2	1	96	5	14.69
+222	2	1	96	6	9.73
+223	2	1	100	6	100.00
+224	2	1	98	6	99.80
+225	2	1	97	6	15.60
+226	2	1	98	7	85.20
+227	2	1	100	7	96.30
+228	2	1	96	7	14.78
+229	2	1	97	7	78.96
+230	2	1	100	8	97.19
+231	2	1	97	9	32.68
+232	2	1	96	9	67.79
+233	2	1	98	9	26.15
+234	2	1	100	9	88.38
+235	2	1	92	9	3.97
+236	2	1	97	9	50.00
+237	2	1	100	6	71.43
+238	2	1	106	6	60.00
+239	2	1	100	6	100.00
+240	2	1	105	5	59.09
+241	2	1	89	1	70.18
+242	2	1	103	1	62.50
+243	2	1	108	1	66.67
+244	2	1	107	7	83.33
+245	2	1	98	24	39.29
+246	2	1	102	20	57.14
+247	2	1	104	20	40.00
+248	2	1	101	28	51.85
+249	2	1	93	27	44.83
+250	2	1	96	24	100.00
+251	2	1	97	24	100.00
+252	2	1	100	24	99.00
+253	2	1	98	24	100.00
+254	2	1	97	26	83.81
+255	2	1	100	26	80.07
+256	2	1	96	26	85.16
+257	2	1	98	26	86.48
+258	2	1	96	20	65.47
+259	2	1	100	20	45.63
+260	2	1	98	20	23.65
+261	2	1	97	20	95.10
+262	2	1	96	20	16.68
+263	2	1	97	27	14.79
+264	2	1	96	27	16.98
+265	2	1	100	27	16.36
+266	2	1	98	27	19.74
+267	2	1	96	28	10.03
+268	2	1	97	28	11.05
+269	2	1	100	28	19.90
+270	2	1	98	28	1.09
+271	3	1	100	2	100.00
+272	3	1	98	2	100.00
+273	3	1	92	2	100.00
+274	3	1	93	2	100.00
+275	3	1	97	2	100.00
+276	3	1	100	2	0.00
+277	3	1	96	2	100.00
+278	3	1	89	3	0.00
+279	3	1	89	4	58.08
+280	3	1	97	1	72.83
+281	3	1	93	1	100.00
+282	3	1	100	1	65.23
+283	3	1	100	1	100.00
+284	3	1	98	1	79.06
+285	3	1	96	1	79.21
+286	3	1	96	8	98.29
+287	3	1	97	8	98.96
+288	3	1	98	8	97.97
+289	3	1	93	1	130.20
+290	3	1	98	5	11.05
+291	3	1	97	5	96.05
+292	3	1	100	5	89.63
+293	3	1	96	5	14.69
+294	3	1	96	6	9.73
+295	3	1	100	6	100.00
+296	3	1	98	6	99.80
+297	3	1	97	6	15.60
+298	3	1	98	7	85.20
+299	3	1	100	7	96.30
+300	3	1	96	7	14.78
+301	3	1	97	7	78.96
+302	3	1	100	8	97.19
+303	3	1	97	9	32.68
+304	3	1	96	9	67.79
+305	3	1	98	9	26.15
+306	3	1	100	9	88.38
+307	3	1	92	9	3.97
+308	3	1	97	9	50.00
+309	3	1	100	6	71.43
+310	3	1	106	6	60.00
+311	3	1	100	6	100.00
+312	3	1	105	5	59.09
+313	3	1	89	1	70.18
+314	3	1	103	1	62.50
+315	3	1	108	1	66.67
+316	3	1	107	7	83.33
+317	3	1	98	24	39.29
+318	3	1	102	20	57.14
+319	3	1	104	20	40.00
+320	3	1	101	28	51.85
+321	3	1	93	27	44.83
+322	3	1	96	24	100.00
+323	3	1	97	24	100.00
+324	3	1	100	24	99.00
+325	3	1	98	24	100.00
+326	3	1	97	26	83.81
+327	3	1	100	26	80.07
+328	3	1	96	26	85.16
+329	3	1	98	26	86.48
+330	3	1	96	20	65.47
+331	3	1	100	20	45.63
+332	3	1	98	20	23.65
+333	3	1	97	20	95.10
+334	3	1	96	20	16.68
+335	3	1	97	27	14.79
+336	3	1	96	27	16.98
+337	3	1	100	27	16.36
+338	3	1	98	27	19.74
+339	3	1	96	28	10.03
+340	3	1	97	28	11.05
+341	3	1	100	28	19.90
+342	3	1	98	28	1.09
+343	4	1	100	2	100.00
+344	4	1	98	2	100.00
+345	4	1	92	2	100.00
+346	4	1	93	2	100.00
+347	4	1	97	2	100.00
+348	4	1	100	2	0.00
+349	4	1	96	2	100.00
+350	4	1	89	3	0.00
+351	4	1	89	4	58.08
+352	4	1	94	1	72.83
+353	4	1	94	1	100.00
+354	4	1	100	1	65.23
+355	4	1	100	1	100.00
+356	4	1	98	1	79.06
+357	4	1	94	1	79.21
+358	4	1	96	8	98.29
+359	4	1	97	8	98.96
+360	4	1	98	8	97.97
+361	4	1	94	1	130.20
+362	4	1	98	5	11.05
+363	4	1	97	5	96.05
+364	4	1	100	5	89.63
+365	4	1	96	5	14.69
+366	4	1	96	6	9.73
+367	4	1	100	6	100.00
+368	4	1	98	6	99.80
+369	4	1	97	6	15.60
+370	4	1	98	7	85.20
+371	4	1	100	7	96.30
+372	4	1	96	7	14.78
+373	4	1	97	7	78.96
+374	4	1	100	8	97.19
+375	4	1	97	9	32.68
+376	4	1	96	9	67.79
+377	4	1	98	9	26.15
+378	4	1	100	9	88.38
+379	4	1	92	9	3.97
+380	4	1	97	9	50.00
+381	4	1	100	6	71.43
+382	4	1	106	6	60.00
+383	4	1	100	6	100.00
+384	4	1	105	5	59.09
+385	4	1	89	1	70.18
+386	4	1	104	1	62.50
+387	4	1	108	1	66.67
+388	4	1	107	7	83.33
+389	4	1	98	24	39.29
+390	4	1	102	20	57.14
+391	4	1	104	20	40.00
+392	4	1	101	28	51.85
+393	4	1	93	27	44.83
+394	4	1	96	24	100.00
+395	4	1	97	24	100.00
+396	4	1	100	24	99.00
+397	4	1	98	24	100.00
+398	4	1	97	26	83.81
+399	4	1	100	26	80.07
+400	4	1	96	26	85.16
+401	4	1	98	26	86.48
+402	4	1	96	20	65.47
+403	4	1	100	20	45.63
+404	4	1	98	20	23.65
+405	4	1	97	20	95.10
+406	4	1	96	20	16.68
+407	4	1	97	27	14.79
+408	4	1	96	27	16.98
+409	4	1	100	27	16.36
+410	4	1	98	27	19.74
+411	4	1	96	28	10.03
+412	4	1	97	28	11.05
+413	4	1	100	28	19.90
+414	4	1	98	28	1.09
+415	5	1	100	2	100.00
+416	5	1	98	2	100.00
+417	5	1	92	2	100.00
+418	5	1	93	2	100.00
+419	5	1	97	2	100.00
+420	5	1	100	2	0.00
+421	5	1	96	2	100.00
+422	5	1	89	3	0.00
+423	5	1	89	4	58.08
+424	5	1	95	1	72.83
+425	5	1	95	1	100.00
+426	5	1	100	1	65.23
+427	5	1	100	1	100.00
+428	5	1	98	1	79.06
+429	5	1	95	1	79.21
+430	5	1	96	8	98.29
+431	5	1	97	8	98.96
+432	5	1	98	8	97.97
+433	5	1	95	1	130.20
+434	5	1	98	5	11.05
+435	5	1	97	5	96.05
+436	5	1	100	5	89.63
+437	5	1	96	5	14.69
+438	5	1	96	6	9.73
+439	5	1	100	6	100.00
+440	5	1	98	6	99.80
+441	5	1	97	6	15.60
+442	5	1	98	7	85.20
+443	5	1	100	7	96.30
+444	5	1	96	7	14.78
+445	5	1	97	7	78.96
+446	5	1	100	8	97.19
+447	5	1	97	9	32.68
+448	5	1	96	9	67.79
+449	5	1	98	9	26.15
+450	5	1	100	9	88.38
+451	5	1	92	9	3.97
+452	5	1	97	9	50.00
+453	5	1	100	6	71.43
+454	5	1	106	6	60.00
+455	5	1	100	6	100.00
+456	5	1	105	5	59.09
+457	5	1	89	1	70.18
+458	5	1	105	1	62.50
+459	5	1	108	1	66.67
+460	5	1	107	7	83.33
+461	5	1	98	24	39.29
+462	5	1	102	20	57.14
+463	5	1	104	20	40.00
+464	5	1	101	28	51.85
+465	5	1	93	27	44.83
+466	5	1	96	24	100.00
+467	5	1	97	24	100.00
+468	5	1	100	24	99.00
+469	5	1	98	24	100.00
+470	5	1	97	26	83.81
+471	5	1	100	26	80.07
+472	5	1	96	26	85.16
+473	5	1	98	26	86.48
+474	5	1	96	20	65.47
+475	5	1	100	20	45.63
+476	5	1	98	20	23.65
+477	5	1	97	20	95.10
+478	5	1	96	20	16.68
+479	5	1	97	27	14.79
+480	5	1	96	27	16.98
+481	5	1	100	27	16.36
+482	5	1	98	27	19.74
+483	5	1	96	28	10.03
+484	5	1	97	28	11.05
+485	5	1	100	28	19.90
+486	5	1	98	28	1.09
+487	6	1	100	2	100.00
+488	6	1	98	2	100.00
+489	6	1	92	2	100.00
+490	6	1	93	2	100.00
+491	6	1	97	2	100.00
+492	6	1	100	2	0.00
+493	6	1	96	2	100.00
+494	6	1	89	3	0.00
+495	6	1	89	4	58.08
+496	6	1	96	1	72.83
+497	6	1	96	1	100.00
+498	6	1	100	1	65.23
+499	6	1	100	1	100.00
+500	6	1	98	1	79.06
+501	6	1	96	1	79.21
+502	6	1	96	8	98.29
+503	6	1	97	8	98.96
+504	6	1	98	8	97.97
+505	6	1	96	1	130.20
+506	6	1	98	5	11.05
+507	6	1	97	5	96.05
+508	6	1	100	5	89.63
+509	6	1	96	5	14.69
+510	6	1	96	6	9.73
+511	6	1	100	6	100.00
+512	6	1	98	6	99.80
+513	6	1	97	6	15.60
+514	6	1	98	7	85.20
+515	6	1	100	7	96.30
+516	6	1	96	7	14.78
+517	6	1	97	7	78.96
+518	6	1	100	8	97.19
+519	6	1	97	9	32.68
+520	6	1	96	9	67.79
+521	6	1	98	9	26.15
+522	6	1	100	9	88.38
+523	6	1	92	9	3.97
+524	6	1	97	9	50.00
+525	6	1	100	6	71.43
+526	6	1	106	6	60.00
+527	6	1	100	6	100.00
+528	6	1	105	5	59.09
+529	6	1	89	1	70.18
+530	6	1	106	1	62.50
+531	6	1	108	1	66.67
+532	6	1	107	7	83.33
+533	6	1	98	24	39.29
+534	6	1	102	20	57.14
+535	6	1	104	20	40.00
+536	6	1	101	28	51.85
+537	6	1	93	27	44.83
+538	6	1	96	24	100.00
+539	6	1	97	24	100.00
+540	6	1	100	24	99.00
+541	6	1	98	24	100.00
+542	6	1	97	26	83.81
+543	6	1	100	26	80.07
+544	6	1	96	26	85.16
+545	6	1	98	26	86.48
+546	6	1	96	20	65.47
+547	6	1	100	20	45.63
+548	6	1	98	20	23.65
+549	6	1	97	20	95.10
+550	6	1	96	20	16.68
+551	6	1	97	27	14.79
+552	6	1	96	27	16.98
+553	6	1	100	27	16.36
+554	6	1	98	27	19.74
+555	6	1	96	28	10.03
+556	6	1	97	28	11.05
+557	6	1	100	28	19.90
+558	6	1	98	28	1.09
+559	7	1	100	2	100.00
+560	7	1	98	2	100.00
+561	7	1	92	2	100.00
+562	7	1	93	2	100.00
+563	7	1	97	2	100.00
+564	7	1	100	2	0.00
+565	7	1	96	2	100.00
+566	7	1	89	3	0.00
+567	7	1	89	4	58.08
+568	7	1	97	1	72.83
+569	7	1	97	1	100.00
+570	7	1	100	1	65.23
+571	7	1	100	1	100.00
+572	7	1	98	1	79.06
+573	7	1	97	1	79.21
+574	7	1	96	8	98.29
+575	7	1	97	8	98.96
+576	7	1	98	8	97.97
+577	7	1	97	1	130.20
+578	7	1	98	5	11.05
+579	7	1	97	5	96.05
+580	7	1	100	5	89.63
+581	7	1	96	5	14.69
+582	7	1	96	6	9.73
+583	7	1	100	6	100.00
+584	7	1	98	6	99.80
+585	7	1	97	6	15.60
+586	7	1	98	7	85.20
+587	7	1	100	7	96.30
+588	7	1	96	7	14.78
+589	7	1	97	7	78.96
+590	7	1	100	8	97.19
+591	7	1	97	9	32.68
+592	7	1	96	9	67.79
+593	7	1	98	9	26.15
+594	7	1	100	9	88.38
+595	7	1	92	9	3.97
+596	7	1	97	9	50.00
+597	7	1	100	6	71.43
+598	7	1	106	6	60.00
+599	7	1	100	6	100.00
+600	7	1	105	5	59.09
+601	7	1	89	1	70.18
+602	7	1	107	1	62.50
+603	7	1	108	1	66.67
+604	7	1	107	7	83.33
+605	7	1	98	24	39.29
+606	7	1	102	20	57.14
+607	7	1	104	20	40.00
+608	7	1	101	28	51.85
+609	7	1	93	27	44.83
+610	7	1	96	24	100.00
+611	7	1	97	24	100.00
+612	7	1	100	24	99.00
+613	7	1	98	24	100.00
+614	7	1	97	26	83.81
+615	7	1	100	26	80.07
+616	7	1	96	26	85.16
+617	7	1	98	26	86.48
+618	7	1	96	20	65.47
+619	7	1	100	20	45.63
+620	7	1	98	20	23.65
+621	7	1	97	20	95.10
+622	7	1	96	20	16.68
+623	7	1	97	27	14.79
+624	7	1	96	27	16.98
+625	7	1	100	27	16.36
+626	7	1	98	27	19.74
+627	7	1	96	28	10.03
+628	7	1	97	28	11.05
+629	7	1	100	28	19.90
+630	7	1	98	28	1.09
+631	8	1	100	2	100.00
+632	8	1	98	2	100.00
+633	8	1	92	2	100.00
+634	8	1	93	2	100.00
+635	8	1	97	2	100.00
+636	8	1	100	2	0.00
+637	8	1	96	2	100.00
+638	8	1	89	3	0.00
+639	8	1	89	4	58.08
+640	8	1	98	1	72.83
+641	8	1	98	1	100.00
+642	8	1	100	1	65.23
+643	8	1	100	1	100.00
+644	8	1	98	1	79.06
+645	8	1	98	1	79.21
+646	8	1	96	8	98.29
+647	8	1	97	8	98.96
+648	8	1	98	8	97.97
+649	8	1	98	1	130.20
+650	8	1	98	5	11.05
+651	8	1	97	5	96.05
+652	8	1	100	5	89.63
+653	8	1	96	5	14.69
+654	8	1	96	6	9.73
+655	8	1	100	6	100.00
+656	8	1	98	6	99.80
+657	8	1	97	6	15.60
+658	8	1	98	7	85.20
+659	8	1	100	7	96.30
+660	8	1	96	7	14.78
+661	8	1	97	7	78.96
+662	8	1	100	8	97.19
+663	8	1	97	9	32.68
+664	8	1	96	9	67.79
+665	8	1	98	9	26.15
+666	8	1	100	9	88.38
+667	8	1	92	9	3.97
+668	8	1	97	9	50.00
+669	8	1	100	6	71.43
+670	8	1	106	6	60.00
+671	8	1	100	6	100.00
+672	8	1	105	5	59.09
+673	8	1	89	1	70.18
+674	8	1	108	1	62.50
+675	8	1	108	1	66.67
+676	8	1	107	7	83.33
+677	8	1	98	24	39.29
+678	8	1	102	20	57.14
+679	8	1	104	20	40.00
+680	8	1	101	28	51.85
+681	8	1	93	27	44.83
+682	8	1	96	24	100.00
+683	8	1	97	24	100.00
+684	8	1	100	24	99.00
+685	8	1	98	24	100.00
+686	8	1	97	26	83.81
+687	8	1	100	26	80.07
+688	8	1	96	26	85.16
+689	8	1	98	26	86.48
+690	8	1	96	20	65.47
+691	8	1	100	20	45.63
+692	8	1	98	20	23.65
+693	8	1	97	20	95.10
+694	8	1	96	20	16.68
+695	8	1	97	27	14.79
+696	8	1	96	27	16.98
+697	8	1	100	27	16.36
+698	8	1	98	27	19.74
+699	8	1	96	28	10.03
+700	8	1	97	28	11.05
+701	8	1	100	28	19.90
+702	8	1	98	28	1.09
+703	9	1	100	2	100.00
+704	9	1	98	2	100.00
+705	9	1	92	2	100.00
+706	9	1	93	2	100.00
+707	9	1	97	2	100.00
+708	9	1	100	2	0.00
+709	9	1	96	2	100.00
+710	9	1	89	3	0.00
+711	9	1	89	4	58.08
+712	9	1	99	1	72.83
+713	9	1	99	1	100.00
+714	9	1	100	1	65.23
+715	9	1	100	1	100.00
+716	9	1	99	1	79.06
+717	9	1	99	1	79.21
+718	9	1	96	8	98.29
+719	9	1	97	8	98.96
+720	9	1	98	8	97.97
+721	9	1	99	1	130.20
+722	9	1	98	5	11.05
+723	9	1	97	5	96.05
+724	9	1	100	5	89.63
+725	9	1	96	5	14.69
+726	9	1	96	6	9.73
+727	9	1	100	6	100.00
+728	9	1	98	6	99.80
+729	9	1	97	6	15.60
+730	9	1	98	7	85.20
+731	9	1	100	7	96.30
+732	9	1	96	7	14.78
+733	9	1	97	7	78.96
+734	9	1	100	8	97.19
+735	9	1	97	9	32.68
+736	9	1	96	9	67.79
+737	9	1	98	9	26.15
+738	9	1	100	9	88.38
+739	9	1	92	9	3.97
+740	9	1	97	9	50.00
+741	9	1	100	6	71.43
+742	9	1	106	6	60.00
+743	9	1	100	6	100.00
+744	9	1	105	5	59.09
+745	9	1	89	1	70.18
+746	9	1	109	1	62.50
+747	9	1	109	1	66.67
+748	9	1	107	7	83.33
+749	9	1	98	24	39.29
+750	9	1	102	20	57.14
+751	9	1	104	20	40.00
+752	9	1	101	28	51.85
+753	9	1	93	27	44.83
+754	9	1	96	24	100.00
+755	9	1	97	24	100.00
+756	9	1	100	24	99.00
+757	9	1	98	24	100.00
+758	9	1	97	26	83.81
+759	9	1	100	26	80.07
+760	9	1	96	26	85.16
+761	9	1	98	26	86.48
+762	9	1	96	20	65.47
+763	9	1	100	20	45.63
+764	9	1	98	20	23.65
+765	9	1	97	20	95.10
+766	9	1	96	20	16.68
+767	9	1	97	27	14.79
+768	9	1	96	27	16.98
+769	9	1	100	27	16.36
+770	9	1	98	27	19.74
+771	9	1	96	28	10.03
+772	9	1	97	28	11.05
+773	9	1	100	28	19.90
+774	9	1	98	28	1.09
+795	10	1	100	2	100.00
+796	10	1	98	2	100.00
+797	10	1	92	2	100.00
+798	10	1	93	2	100.00
+799	10	1	97	2	100.00
+800	10	1	100	2	0.00
+801	10	1	96	2	100.00
+802	10	1	89	3	0.00
+803	10	1	89	4	58.08
+804	10	1	99	1	72.83
+805	10	1	99	1	100.00
+806	10	1	100	1	65.23
+807	10	1	100	1	100.00
+808	10	1	99	1	79.06
+809	10	1	99	1	79.21
+810	10	1	96	8	98.29
+811	10	1	97	8	98.96
+812	10	1	98	8	97.97
+813	10	1	99	1	130.20
+814	10	1	98	5	11.05
+815	10	1	97	5	96.05
+816	10	1	100	5	89.63
+817	10	1	96	5	14.69
+818	10	1	96	6	9.73
+819	10	1	100	6	100.00
+820	10	1	98	6	99.80
+821	10	1	97	6	15.60
+822	10	1	98	7	85.20
+823	10	1	100	7	96.30
+824	10	1	96	7	14.78
+825	10	1	97	7	78.96
+826	10	1	100	8	97.19
+827	10	1	97	9	32.68
+828	10	1	96	9	67.79
+829	10	1	98	9	26.15
+830	10	1	100	9	88.38
+831	10	1	92	9	3.97
+832	10	1	97	9	50.00
+833	10	1	100	6	71.43
+834	10	1	106	6	60.00
+835	10	1	100	6	100.00
+836	10	1	105	5	59.09
+837	10	1	89	1	70.18
+838	10	1	109	1	62.50
+839	10	1	109	1	66.67
+840	10	1	107	7	83.33
+841	10	1	98	24	39.29
+842	10	1	102	20	57.14
+843	10	1	104	20	40.00
+844	10	1	101	28	51.85
+845	10	1	93	27	44.83
+846	10	1	96	24	100.00
+847	10	1	97	24	100.00
+848	10	1	100	24	99.00
+849	10	1	98	24	100.00
+850	10	1	97	26	83.81
+851	10	1	100	26	80.07
+852	10	1	96	26	85.16
+853	10	1	98	26	86.48
+854	10	1	96	20	65.47
+855	10	1	100	20	45.63
+856	10	1	98	20	23.65
+857	10	1	97	20	95.10
+858	10	1	96	20	16.68
+859	10	1	97	27	14.79
+860	10	1	96	27	16.98
+861	10	1	100	27	16.36
+862	10	1	98	27	19.74
+863	10	1	96	28	10.03
+864	10	1	97	28	11.05
+865	10	1	100	28	19.90
+866	10	1	98	28	1.09
+867	10	1	100	2	100.00
+868	10	1	98	2	100.00
+869	10	1	92	2	100.00
+870	10	1	93	2	100.00
+871	10	1	97	2	100.00
+872	10	1	100	2	0.00
+873	10	1	96	2	100.00
+874	10	1	89	3	0.00
+875	10	1	89	4	58.08
+876	10	1	99	1	72.83
+877	10	1	99	1	100.00
+878	10	1	100	1	65.23
+879	10	1	100	1	100.00
+880	10	1	99	1	79.06
+881	10	1	99	1	79.21
+882	10	1	96	8	98.29
+883	10	1	97	8	98.96
+884	10	1	98	8	97.97
+885	10	1	99	1	130.20
+886	10	1	98	5	11.05
+887	10	1	97	5	96.05
+888	10	1	100	5	89.63
+889	10	1	96	5	14.69
+890	10	1	96	6	9.73
+891	10	1	100	6	100.00
+892	10	1	98	6	99.80
+893	10	1	97	6	15.60
+894	10	1	98	7	85.20
+895	10	1	100	7	96.30
+896	10	1	96	7	14.78
+897	10	1	97	7	78.96
+898	10	1	100	8	97.19
+899	10	1	97	9	32.68
+900	10	1	96	9	67.79
+901	10	1	98	9	26.15
+902	10	1	100	9	88.38
+903	10	1	92	9	3.97
+904	10	1	97	9	50.00
+905	10	1	100	6	71.43
+906	10	1	106	6	60.00
+907	10	1	100	6	100.00
+908	10	1	105	5	59.09
+909	10	1	89	1	70.18
+910	10	1	109	1	62.50
+911	10	1	109	1	66.67
+912	10	1	107	7	83.33
+913	10	1	98	24	39.29
+914	10	1	102	20	57.14
+915	10	1	104	20	40.00
+916	10	1	101	28	51.85
+917	10	1	93	27	44.83
+918	10	1	96	24	100.00
+919	10	1	97	24	100.00
+920	10	1	100	24	99.00
+921	10	1	98	24	100.00
+922	10	1	97	26	83.81
+923	10	1	100	26	80.07
+924	10	1	96	26	85.16
+925	10	1	98	26	86.48
+926	10	1	96	20	65.47
+927	10	1	100	20	45.63
+928	10	1	98	20	23.65
+929	10	1	97	20	95.10
+930	10	1	96	20	16.68
+931	10	1	97	27	14.79
+932	10	1	96	27	16.98
+933	10	1	100	27	16.36
+934	10	1	98	27	19.74
+935	10	1	96	28	10.03
+936	10	1	97	28	11.05
+937	10	1	100	28	19.90
+938	10	1	98	28	1.09
+939	11	1	100	2	100.00
+940	11	1	98	2	100.00
+941	11	1	92	2	100.00
+942	11	1	93	2	100.00
+943	11	1	97	2	100.00
+944	11	1	100	2	0.00
+945	11	1	96	2	100.00
+946	11	1	89	3	0.00
+947	11	1	89	4	58.08
+948	11	1	99	1	72.83
+949	11	1	99	1	100.00
+950	11	1	100	1	65.23
+951	11	1	100	1	100.00
+952	11	1	99	1	79.06
+953	11	1	99	1	79.21
+954	11	1	96	8	98.29
+955	11	1	97	8	98.96
+956	11	1	98	8	97.97
+957	11	1	99	1	130.20
+958	11	1	98	5	11.05
+959	11	1	97	5	96.05
+960	11	1	100	5	89.63
+961	11	1	96	5	14.69
+962	11	1	96	6	9.73
+963	11	1	100	6	100.00
+964	11	1	98	6	99.80
+965	11	1	97	6	15.60
+966	11	1	98	7	85.20
+967	11	1	100	7	96.30
+968	11	1	96	7	14.78
+969	11	1	97	7	78.96
+970	11	1	100	8	97.19
+971	11	1	97	9	32.68
+972	11	1	96	9	67.79
+973	11	1	98	9	26.15
+974	11	1	100	9	88.38
+975	11	1	92	9	3.97
+976	11	1	97	9	50.00
+977	11	1	100	6	71.43
+978	11	1	106	6	60.00
+979	11	1	100	6	100.00
+980	11	1	105	5	59.09
+981	11	1	89	1	70.18
+982	11	1	109	1	62.50
+983	11	1	109	1	66.67
+984	11	1	107	7	83.33
+985	11	1	98	24	39.29
+986	11	1	102	20	57.14
+987	11	1	104	20	40.00
+988	11	1	101	28	51.85
+989	11	1	93	27	44.83
+990	11	1	96	24	100.00
+991	11	1	97	24	100.00
+992	11	1	100	24	99.00
+993	11	1	98	24	100.00
+994	11	1	97	26	83.81
+995	11	1	100	26	80.07
+996	11	1	96	26	85.16
+997	11	1	98	26	86.48
+998	11	1	96	20	65.47
+999	11	1	100	20	45.63
+1000	11	1	98	20	23.65
+1001	11	1	97	20	95.10
+1002	11	1	96	20	16.68
+1003	11	1	97	27	14.79
+1004	11	1	96	27	16.98
+1005	11	1	100	27	16.36
+1006	11	1	98	27	19.74
+1007	11	1	96	28	10.03
+1008	11	1	97	28	11.05
+1009	11	1	100	28	19.90
+1010	11	1	98	28	1.09
+1011	12	1	100	2	100.00
+1012	12	1	98	2	100.00
+1013	12	1	92	2	100.00
+1014	12	1	93	2	100.00
+1015	12	1	97	2	100.00
+1016	12	1	100	2	0.00
+1017	12	1	96	2	100.00
+1018	12	1	89	3	0.00
+1019	12	1	89	4	58.08
+1020	12	1	99	1	72.83
+1021	12	1	99	1	100.00
+1022	12	1	100	1	65.23
+1023	12	1	100	1	100.00
+1024	12	1	99	1	79.06
+1025	12	1	99	1	79.21
+1026	12	1	96	8	98.29
+1027	12	1	97	8	98.96
+1028	12	1	98	8	97.97
+1029	12	1	99	1	130.20
+1030	12	1	98	5	11.05
+1031	12	1	97	5	96.05
+1032	12	1	100	5	89.63
+1033	12	1	96	5	14.69
+1034	12	1	96	6	9.73
+1035	12	1	100	6	100.00
+1036	12	1	98	6	99.80
+1037	12	1	97	6	15.60
+1038	12	1	98	7	85.20
+1039	12	1	100	7	96.30
+1040	12	1	96	7	14.78
+1041	12	1	97	7	78.96
+1042	12	1	100	8	97.19
+1043	12	1	97	9	32.68
+1044	12	1	96	9	67.79
+1045	12	1	98	9	26.15
+1046	12	1	100	9	88.38
+1047	12	1	92	9	3.97
+1048	12	1	97	9	50.00
+1049	12	1	100	6	71.43
+1050	12	1	106	6	60.00
+1051	12	1	100	6	100.00
+1052	12	1	105	5	59.09
+1053	12	1	89	1	70.18
+1054	12	1	109	1	62.50
+1055	12	1	109	1	66.67
+1056	12	1	107	7	83.33
+1057	12	1	98	24	39.29
+1058	12	1	102	20	57.14
+1059	12	1	104	20	40.00
+1060	12	1	101	28	51.85
+1061	12	1	93	27	44.83
+1062	12	1	96	24	100.00
+1063	12	1	97	24	100.00
+1064	12	1	100	24	99.00
+1065	12	1	98	24	100.00
+1066	12	1	97	26	83.81
+1067	12	1	100	26	80.07
+1068	12	1	96	26	85.16
+1069	12	1	98	26	86.48
+1070	12	1	96	20	65.47
+1071	12	1	100	20	45.63
+1072	12	1	98	20	23.65
+1073	12	1	97	20	95.10
+1074	12	1	96	20	16.68
+1075	12	1	97	27	14.79
+1076	12	1	96	27	16.98
+1077	12	1	100	27	16.36
+1078	12	1	98	27	19.74
+1079	12	1	96	28	10.03
+1080	12	1	97	28	11.05
+1081	12	1	100	28	19.90
+1082	12	1	98	28	1.09
+1083	13	1	100	2	100.00
+1084	13	1	98	2	100.00
+1085	13	1	92	2	100.00
+1086	13	1	93	2	100.00
+1087	13	1	97	2	100.00
+1088	13	1	100	2	0.00
+1089	13	1	96	2	100.00
+1090	13	1	89	3	0.00
+1091	13	1	89	4	58.08
+1092	13	1	99	1	72.83
+1093	13	1	99	1	100.00
+1094	13	1	100	1	65.23
+1095	13	1	100	1	100.00
+1096	13	1	99	1	79.06
+1097	13	1	99	1	79.21
+1098	13	1	96	8	98.29
+1099	13	1	97	8	98.96
+1100	13	1	98	8	97.97
+1101	13	1	99	1	130.20
+1102	13	1	98	5	11.05
+1103	13	1	97	5	96.05
+1104	13	1	100	5	89.63
+1105	13	1	96	5	14.69
+1106	13	1	96	6	9.73
+1107	13	1	100	6	100.00
+1108	13	1	98	6	99.80
+1109	13	1	97	6	15.60
+1110	13	1	98	7	85.20
+1111	13	1	100	7	96.30
+1112	13	1	96	7	14.78
+1113	13	1	97	7	78.96
+1114	13	1	100	8	97.19
+1115	13	1	97	9	32.68
+1116	13	1	96	9	67.79
+1117	13	1	98	9	26.15
+1118	13	1	100	9	88.38
+1119	13	1	92	9	3.97
+1120	13	1	97	9	50.00
+1121	13	1	100	6	71.43
+1122	13	1	106	6	60.00
+1123	13	1	100	6	100.00
+1124	13	1	105	5	59.09
+1125	13	1	89	1	70.18
+1126	13	1	109	1	62.50
+1127	13	1	109	1	66.67
+1128	13	1	107	7	83.33
+1129	13	1	98	24	39.29
+1130	13	1	102	20	57.14
+1131	13	1	104	20	40.00
+1132	13	1	101	28	51.85
+1133	13	1	93	27	44.83
+1134	13	1	96	24	100.00
+1135	13	1	97	24	100.00
+1136	13	1	100	24	99.00
+1137	13	1	98	24	100.00
+1138	13	1	97	26	83.81
+1139	13	1	100	26	80.07
+1140	13	1	96	26	85.16
+1141	13	1	98	26	86.48
+1142	13	1	96	20	65.47
+1143	13	1	100	20	45.63
+1144	13	1	98	20	23.65
+1145	13	1	97	20	95.10
+1146	13	1	96	20	16.68
+1147	13	1	97	27	14.79
+1148	13	1	96	27	16.98
+1149	13	1	100	27	16.36
+1150	13	1	98	27	19.74
+1151	13	1	96	28	10.03
+1152	13	1	97	28	11.05
+1153	13	1	100	28	19.90
+1154	13	1	98	28	1.09
+1155	14	1	100	2	100.00
+1156	14	1	98	2	100.00
+1157	14	1	92	2	100.00
+1158	14	1	93	2	100.00
+1159	14	1	97	2	100.00
+1160	14	1	100	2	0.00
+1161	14	1	96	2	100.00
+1162	14	1	89	3	0.00
+1163	14	1	89	4	58.08
+1164	14	1	99	1	72.83
+1165	14	1	99	1	100.00
+1166	14	1	100	1	65.23
+1167	14	1	100	1	100.00
+1168	14	1	99	1	79.06
+1169	14	1	99	1	79.21
+1170	14	1	96	8	98.29
+1171	14	1	97	8	98.96
+1172	14	1	98	8	97.97
+1173	14	1	99	1	130.20
+1174	14	1	98	5	11.05
+1175	14	1	97	5	96.05
+1176	14	1	100	5	89.63
+1177	14	1	96	5	14.69
+1178	14	1	96	6	9.73
+1179	14	1	100	6	100.00
+1180	14	1	98	6	99.80
+1181	14	1	97	6	15.60
+1182	14	1	98	7	85.20
+1183	14	1	100	7	96.30
+1184	14	1	96	7	14.78
+1185	14	1	97	7	78.96
+1186	14	1	100	8	97.19
+1187	14	1	97	9	32.68
+1188	14	1	96	9	67.79
+1189	14	1	98	9	26.15
+1190	14	1	100	9	88.38
+1191	14	1	92	9	3.97
+1192	14	1	97	9	50.00
+1193	14	1	100	6	71.43
+1194	14	1	106	6	60.00
+1195	14	1	100	6	100.00
+1196	14	1	105	5	59.09
+1197	14	1	89	1	70.18
+1198	14	1	109	1	62.50
+1199	14	1	109	1	66.67
+1200	14	1	107	7	83.33
+1201	14	1	98	24	39.29
+1202	14	1	102	20	57.14
+1203	14	1	104	20	40.00
+1204	14	1	101	28	51.85
+1205	14	1	93	27	44.83
+1206	14	1	96	24	100.00
+1207	14	1	97	24	100.00
+1208	14	1	100	24	99.00
+1209	14	1	98	24	100.00
+1210	14	1	97	26	83.81
+1211	14	1	100	26	80.07
+1212	14	1	96	26	85.16
+1213	14	1	98	26	86.48
+1214	14	1	96	20	65.47
+1215	14	1	100	20	45.63
+1216	14	1	98	20	23.65
+1217	14	1	97	20	95.10
+1218	14	1	96	20	16.68
+1219	14	1	97	27	14.79
+1220	14	1	96	27	16.98
+1221	14	1	100	27	16.36
+1222	14	1	98	27	19.74
+1223	14	1	96	28	10.03
+1224	14	1	97	28	11.05
+1225	14	1	100	28	19.90
+1226	14	1	98	28	1.09
+1227	15	1	100	2	100.00
+1228	15	1	98	2	100.00
+1229	15	1	92	2	100.00
+1230	15	1	93	2	100.00
+1231	15	1	97	2	100.00
+1232	15	1	100	2	0.00
+1233	15	1	96	2	100.00
+1234	15	1	89	3	0.00
+1235	15	1	89	4	58.08
+1236	15	1	99	1	72.83
+1237	15	1	99	1	100.00
+1238	15	1	100	1	65.23
+1239	15	1	100	1	100.00
+1240	15	1	99	1	79.06
+1241	15	1	99	1	79.21
+1242	15	1	96	8	98.29
+1243	15	1	97	8	98.96
+1244	15	1	98	8	97.97
+1245	15	1	99	1	130.20
+1246	15	1	98	5	11.05
+1247	15	1	97	5	96.05
+1248	15	1	100	5	89.63
+1249	15	1	96	5	14.69
+1250	15	1	96	6	9.73
+1251	15	1	100	6	100.00
+1252	15	1	98	6	99.80
+1253	15	1	97	6	15.60
+1254	15	1	98	7	85.20
+1255	15	1	100	7	96.30
+1256	15	1	96	7	14.78
+1257	15	1	97	7	78.96
+1258	15	1	100	8	97.19
+1259	15	1	97	9	32.68
+1260	15	1	96	9	67.79
+1261	15	1	98	9	26.15
+1262	15	1	100	9	88.38
+1263	15	1	92	9	3.97
+1264	15	1	97	9	50.00
+1265	15	1	100	6	71.43
+1266	15	1	106	6	60.00
+1267	15	1	100	6	100.00
+1268	15	1	105	5	59.09
+1269	15	1	89	1	70.18
+1270	15	1	109	1	62.50
+1271	15	1	109	1	66.67
+1272	15	1	107	7	83.33
+1273	15	1	98	24	39.29
+1274	15	1	102	20	57.14
+1275	15	1	104	20	40.00
+1276	15	1	101	28	51.85
+1277	15	1	93	27	44.83
+1278	15	1	96	24	100.00
+1279	15	1	97	24	100.00
+1280	15	1	100	24	99.00
+1281	15	1	98	24	100.00
+1282	15	1	97	26	83.81
+1283	15	1	100	26	80.07
+1284	15	1	96	26	85.16
+1285	15	1	98	26	86.48
+1286	15	1	96	20	65.47
+1287	15	1	100	20	45.63
+1288	15	1	98	20	23.65
+1289	15	1	97	20	95.10
+1290	15	1	96	20	16.68
+1291	15	1	97	27	14.79
+1292	15	1	96	27	16.98
+1293	15	1	100	27	16.36
+1294	15	1	98	27	19.74
+1295	15	1	96	28	10.03
+1296	15	1	97	28	11.05
+1297	15	1	100	28	19.90
+1298	15	1	98	28	1.09
+1299	16	1	100	2	100.00
+1300	16	1	98	2	100.00
+1301	16	1	92	2	100.00
+1302	16	1	93	2	100.00
+1303	16	1	97	2	100.00
+1304	16	1	100	2	0.00
+1305	16	1	96	2	100.00
+1306	16	1	89	3	0.00
+1307	16	1	89	4	58.08
+1308	16	1	99	1	72.83
+1309	16	1	99	1	100.00
+1310	16	1	100	1	65.23
+1311	16	1	100	1	100.00
+1312	16	1	99	1	79.06
+1313	16	1	99	1	79.21
+1314	16	1	96	8	98.29
+1315	16	1	97	8	98.96
+1316	16	1	98	8	97.97
+1317	16	1	99	1	130.20
+1318	16	1	98	5	11.05
+1319	16	1	97	5	96.05
+1320	16	1	100	5	89.63
+1321	16	1	96	5	14.69
+1322	16	1	96	6	9.73
+1323	16	1	100	6	100.00
+1324	16	1	98	6	99.80
+1325	16	1	97	6	15.60
+1326	16	1	98	7	85.20
+1327	16	1	100	7	96.30
+1328	16	1	96	7	14.78
+1329	16	1	97	7	78.96
+1330	16	1	100	8	97.19
+1331	16	1	97	9	32.68
+1332	16	1	96	9	67.79
+1333	16	1	98	9	26.15
+1334	16	1	100	9	88.38
+1335	16	1	92	9	3.97
+1336	16	1	97	9	50.00
+1337	16	1	100	6	71.43
+1338	16	1	106	6	60.00
+1339	16	1	100	6	100.00
+1340	16	1	105	5	59.09
+1341	16	1	89	1	70.18
+1342	16	1	109	1	62.50
+1343	16	1	109	1	66.67
+1344	16	1	107	7	83.33
+1345	16	1	98	24	39.29
+1346	16	1	102	20	57.14
+1347	16	1	104	20	40.00
+1348	16	1	101	28	51.85
+1349	16	1	93	27	44.83
+1350	16	1	96	24	100.00
+1351	16	1	97	24	100.00
+1352	16	1	100	24	99.00
+1353	16	1	98	24	100.00
+1354	16	1	97	26	83.81
+1355	16	1	100	26	80.07
+1356	16	1	96	26	85.16
+1357	16	1	98	26	86.48
+1358	16	1	96	20	65.47
+1359	16	1	100	20	45.63
+1360	16	1	98	20	23.65
+1361	16	1	97	20	95.10
+1362	16	1	96	20	16.68
+1363	16	1	97	27	14.79
+1364	16	1	96	27	16.98
+1365	16	1	100	27	16.36
+1366	16	1	98	27	19.74
+1367	16	1	96	28	10.03
+1368	16	1	97	28	11.05
+1369	16	1	100	28	19.90
+1370	16	1	98	28	1.09
+1371	17	1	100	2	100.00
+1372	17	1	98	2	100.00
+1373	17	1	92	2	100.00
+1374	17	1	93	2	100.00
+1375	17	1	97	2	100.00
+1376	17	1	100	2	0.00
+1377	17	1	96	2	100.00
+1378	17	1	89	3	0.00
+1379	17	1	89	4	58.08
+1380	17	1	99	1	72.83
+1381	17	1	99	1	100.00
+1382	17	1	100	1	65.23
+1383	17	1	100	1	100.00
+1384	17	1	99	1	79.06
+1385	17	1	99	1	79.21
+1386	17	1	96	8	98.29
+1387	17	1	97	8	98.96
+1388	17	1	98	8	97.97
+1389	17	1	99	1	130.20
+1390	17	1	98	5	11.05
+1391	17	1	97	5	96.05
+1392	17	1	100	5	89.63
+1393	17	1	96	5	14.69
+1394	17	1	96	6	9.73
+1395	17	1	100	6	100.00
+1396	17	1	98	6	99.80
+1397	17	1	97	6	15.60
+1398	17	1	98	7	85.20
+1399	17	1	100	7	96.30
+1400	17	1	96	7	14.78
+1401	17	1	97	7	78.96
+1402	17	1	100	8	97.19
+1403	17	1	97	9	32.68
+1404	17	1	96	9	67.79
+1405	17	1	98	9	26.15
+1406	17	1	100	9	88.38
+1407	17	1	92	9	3.97
+1408	17	1	97	9	50.00
+1409	17	1	100	6	71.43
+1410	17	1	106	6	60.00
+1411	17	1	100	6	100.00
+1412	17	1	105	5	59.09
+1413	17	1	89	1	70.18
+1414	17	1	109	1	62.50
+1415	17	1	109	1	66.67
+1416	17	1	107	7	83.33
+1417	17	1	98	24	39.29
+1418	17	1	102	20	57.14
+1419	17	1	104	20	40.00
+1420	17	1	101	28	51.85
+1421	17	1	93	27	44.83
+1422	17	1	96	24	100.00
+1423	17	1	97	24	100.00
+1424	17	1	100	24	99.00
+1425	17	1	98	24	100.00
+1426	17	1	97	26	83.81
+1427	17	1	100	26	80.07
+1428	17	1	96	26	85.16
+1429	17	1	98	26	86.48
+1430	17	1	96	20	65.47
+1431	17	1	100	20	45.63
+1432	17	1	98	20	23.65
+1433	17	1	97	20	95.10
+1434	17	1	96	20	16.68
+1435	17	1	97	27	14.79
+1436	17	1	96	27	16.98
+1437	17	1	100	27	16.36
+1438	17	1	98	27	19.74
+1439	17	1	96	28	10.03
+1440	17	1	97	28	11.05
+1441	17	1	100	28	19.90
+1442	17	1	98	28	1.09
+1443	18	1	100	2	100.00
+1444	18	1	98	2	100.00
+1445	18	1	92	2	100.00
+1446	18	1	93	2	100.00
+1447	18	1	97	2	100.00
+1448	18	1	100	2	0.00
+1449	18	1	96	2	100.00
+1450	18	1	89	3	0.00
+1451	18	1	89	4	58.08
+1452	18	1	99	1	72.83
+1453	18	1	99	1	100.00
+1454	18	1	100	1	65.23
+1455	18	1	100	1	100.00
+1456	18	1	99	1	79.06
+1457	18	1	99	1	79.21
+1458	18	1	96	8	98.29
+1459	18	1	97	8	98.96
+1460	18	1	98	8	97.97
+1461	18	1	99	1	130.20
+1462	18	1	98	5	11.05
+1463	18	1	97	5	96.05
+1464	18	1	100	5	89.63
+1465	18	1	96	5	14.69
+1466	18	1	96	6	9.73
+1467	18	1	100	6	100.00
+1468	18	1	98	6	99.80
+1469	18	1	97	6	15.60
+1470	18	1	98	7	85.20
+1471	18	1	100	7	96.30
+1472	18	1	96	7	14.78
+1473	18	1	97	7	78.96
+1474	18	1	100	8	97.19
+1475	18	1	97	9	32.68
+1476	18	1	96	9	67.79
+1477	18	1	98	9	26.15
+1478	18	1	100	9	88.38
+1479	18	1	92	9	3.97
+1480	18	1	97	9	50.00
+1481	18	1	100	6	71.43
+1482	18	1	106	6	60.00
+1483	18	1	100	6	100.00
+1484	18	1	105	5	59.09
+1485	18	1	89	1	70.18
+1486	18	1	109	1	62.50
+1487	18	1	109	1	66.67
+1488	18	1	107	7	83.33
+1489	18	1	98	24	39.29
+1490	18	1	102	20	57.14
+1491	18	1	104	20	40.00
+1492	18	1	101	28	51.85
+1493	18	1	93	27	44.83
+1494	18	1	96	24	100.00
+1495	18	1	97	24	100.00
+1496	18	1	100	24	99.00
+1497	18	1	98	24	100.00
+1498	18	1	97	26	83.81
+1499	18	1	100	26	80.07
+1500	18	1	96	26	85.16
+1501	18	1	98	26	86.48
+1502	18	1	96	20	65.47
+1503	18	1	100	20	45.63
+1504	18	1	98	20	23.65
+1505	18	1	97	20	95.10
+1506	18	1	96	20	16.68
+1507	18	1	97	27	14.79
+1508	18	1	96	27	16.98
+1509	18	1	100	27	16.36
+1510	18	1	98	27	19.74
+1511	18	1	96	28	10.03
+1512	18	1	97	28	11.05
+1513	18	1	100	28	19.90
+1514	18	1	98	28	1.09
+1515	19	1	100	2	100.00
+1516	19	1	98	2	100.00
+1517	19	1	92	2	100.00
+1518	19	1	93	2	100.00
+1519	19	1	97	2	100.00
+1520	19	1	100	2	0.00
+1521	19	1	96	2	100.00
+1522	19	1	89	3	0.00
+1523	19	1	89	4	58.08
+1524	19	1	99	1	72.83
+1525	19	1	99	1	100.00
+1526	19	1	100	1	65.23
+1527	19	1	100	1	100.00
+1528	19	1	99	1	79.06
+1529	19	1	99	1	79.21
+1530	19	1	96	8	98.29
+1531	19	1	97	8	98.96
+1532	19	1	98	8	97.97
+1533	19	1	99	1	130.20
+1534	19	1	98	5	11.05
+1535	19	1	97	5	96.05
+1536	19	1	100	5	89.63
+1537	19	1	96	5	14.69
+1538	19	1	96	6	9.73
+1539	19	1	100	6	100.00
+1540	19	1	98	6	99.80
+1541	19	1	97	6	15.60
+1542	19	1	98	7	85.20
+1543	19	1	100	7	96.30
+1544	19	1	96	7	14.78
+1545	19	1	97	7	78.96
+1546	19	1	100	8	97.19
+1547	19	1	97	9	32.68
+1548	19	1	96	9	67.79
+1549	19	1	98	9	26.15
+1550	19	1	100	9	88.38
+1551	19	1	92	9	3.97
+1552	19	1	97	9	50.00
+1553	19	1	100	6	71.43
+1554	19	1	106	6	60.00
+1555	19	1	100	6	100.00
+1556	19	1	105	5	59.09
+1557	19	1	89	1	70.18
+1558	19	1	109	1	62.50
+1559	19	1	109	1	66.67
+1560	19	1	107	7	83.33
+1561	19	1	98	24	39.29
+1562	19	1	102	20	57.14
+1563	19	1	104	20	40.00
+1564	19	1	101	28	51.85
+1565	19	1	93	27	44.83
+1566	19	1	96	24	100.00
+1567	19	1	97	24	100.00
+1568	19	1	100	24	99.00
+1569	19	1	98	24	100.00
+1570	19	1	97	26	83.81
+1571	19	1	100	26	80.07
+1572	19	1	96	26	85.16
+1573	19	1	98	26	86.48
+1574	19	1	96	20	65.47
+1575	19	1	100	20	45.63
+1576	19	1	98	20	23.65
+1577	19	1	97	20	95.10
+1578	19	1	96	20	16.68
+1579	19	1	97	27	14.79
+1580	19	1	96	27	16.98
+1581	19	1	100	27	16.36
+1582	19	1	98	27	19.74
+1583	19	1	96	28	10.03
+1584	19	1	97	28	11.05
+1585	19	1	100	28	19.90
+1586	19	1	98	28	1.09
+1587	20	1	100	2	100.00
+1588	20	1	98	2	100.00
+1589	20	1	92	2	100.00
+1590	20	1	93	2	100.00
+1591	20	1	97	2	100.00
+1592	20	1	100	2	0.00
+1593	20	1	96	2	100.00
+1594	20	1	89	3	0.00
+1595	20	1	89	4	58.08
+1596	20	1	99	1	72.83
+1597	20	1	99	1	100.00
+1598	20	1	100	1	65.23
+1599	20	1	100	1	100.00
+1600	20	1	99	1	79.06
+1601	20	1	99	1	79.21
+1602	20	1	96	8	98.29
+1603	20	1	97	8	98.96
+1604	20	1	98	8	97.97
+1605	20	1	99	1	130.20
+1606	20	1	98	5	11.05
+1607	20	1	97	5	96.05
+1608	20	1	100	5	89.63
+1609	20	1	96	5	14.69
+1610	20	1	96	6	9.73
+1611	20	1	100	6	100.00
+1612	20	1	98	6	99.80
+1613	20	1	97	6	15.60
+1614	20	1	98	7	85.20
+1615	20	1	100	7	96.30
+1616	20	1	96	7	14.78
+1617	20	1	97	7	78.96
+1618	20	1	100	8	97.19
+1619	20	1	97	9	32.68
+1620	20	1	96	9	67.79
+1621	20	1	98	9	26.15
+1622	20	1	100	9	88.38
+1623	20	1	92	9	3.97
+1624	20	1	97	9	50.00
+1625	20	1	100	6	71.43
+1626	20	1	106	6	60.00
+1627	20	1	100	6	100.00
+1628	20	1	105	5	59.09
+1629	20	1	89	1	70.18
+1630	20	1	109	1	62.50
+1631	20	1	109	1	66.67
+1632	20	1	107	7	83.33
+1633	20	1	98	24	39.29
+1634	20	1	102	20	57.14
+1635	20	1	104	20	40.00
+1636	20	1	101	28	51.85
+1637	20	1	93	27	44.83
+1638	20	1	96	24	100.00
+1639	20	1	97	24	100.00
+1640	20	1	100	24	99.00
+1641	20	1	98	24	100.00
+1642	20	1	97	26	83.81
+1643	20	1	100	26	80.07
+1644	20	1	96	26	85.16
+1645	20	1	98	26	86.48
+1646	20	1	96	20	65.47
+1647	20	1	100	20	45.63
+1648	20	1	98	20	23.65
+1649	20	1	97	20	95.10
+1650	20	1	96	20	16.68
+1651	20	1	97	27	14.79
+1652	20	1	96	27	16.98
+1653	20	1	100	27	16.36
+1654	20	1	98	27	19.74
+1655	20	1	96	28	10.03
+1656	20	1	97	28	11.05
+1657	20	1	100	28	19.90
+1658	20	1	98	28	1.09
+1659	21	1	100	2	100.00
+1660	21	1	98	2	100.00
+1661	21	1	92	2	100.00
+1662	21	1	93	2	100.00
+1663	21	1	97	2	100.00
+1664	21	1	100	2	0.00
+1665	21	1	96	2	100.00
+1666	21	1	89	3	0.00
+1667	21	1	89	4	58.08
+1668	21	1	99	1	72.83
+1669	21	1	99	1	100.00
+1670	21	1	100	1	65.23
+1671	21	1	100	1	100.00
+1672	21	1	99	1	79.06
+1673	21	1	99	1	79.21
+1674	21	1	96	8	98.29
+1675	21	1	97	8	98.96
+1676	21	1	98	8	97.97
+1677	21	1	99	1	130.20
+1678	21	1	98	5	11.05
+1679	21	1	97	5	96.05
+1680	21	1	100	5	89.63
+1681	21	1	96	5	14.69
+1682	21	1	96	6	9.73
+1683	21	1	100	6	100.00
+1684	21	1	98	6	99.80
+1685	21	1	97	6	15.60
+1686	21	1	98	7	85.20
+1687	21	1	100	7	96.30
+1688	21	1	96	7	14.78
+1689	21	1	97	7	78.96
+1690	21	1	100	8	97.19
+1691	21	1	97	9	32.68
+1692	21	1	96	9	67.79
+1693	21	1	98	9	26.15
+1694	21	1	100	9	88.38
+1695	21	1	92	9	3.97
+1696	21	1	97	9	50.00
+1697	21	1	100	6	71.43
+1698	21	1	106	6	60.00
+1699	21	1	100	6	100.00
+1700	21	1	105	5	59.09
+1701	21	1	89	1	70.18
+1702	21	1	109	1	62.50
+1703	21	1	109	1	66.67
+1704	21	1	107	7	83.33
+1705	21	1	98	24	39.29
+1706	21	1	102	20	57.14
+1707	21	1	104	20	40.00
+1708	21	1	101	28	51.85
+1709	21	1	93	27	44.83
+1710	21	1	96	24	100.00
+1711	21	1	97	24	100.00
+1712	21	1	100	24	99.00
+1713	21	1	98	24	100.00
+1714	21	1	97	26	83.81
+1715	21	1	100	26	80.07
+1716	21	1	96	26	85.16
+1717	21	1	98	26	86.48
+1718	21	1	96	20	65.47
+1719	21	1	100	20	45.63
+1720	21	1	98	20	23.65
+1721	21	1	97	20	95.10
+1722	21	1	96	20	16.68
+1723	21	1	97	27	14.79
+1724	21	1	96	27	16.98
+1725	21	1	100	27	16.36
+1726	21	1	98	27	19.74
+1727	21	1	96	28	10.03
+1728	21	1	97	28	11.05
+1729	21	1	100	28	19.90
+1730	21	1	98	28	1.09
+1731	22	1	100	2	100.00
+1732	22	1	98	2	100.00
+1733	22	1	92	2	100.00
+1734	22	1	93	2	100.00
+1735	22	1	97	2	100.00
+1736	22	1	100	2	0.00
+1737	22	1	96	2	100.00
+1738	22	1	89	3	0.00
+1739	22	1	89	4	58.08
+1740	22	1	99	1	72.83
+1741	22	1	99	1	100.00
+1742	22	1	100	1	65.23
+1743	22	1	100	1	100.00
+1744	22	1	99	1	79.06
+1745	22	1	99	1	79.21
+1746	22	1	96	8	98.29
+1747	22	1	97	8	98.96
+1748	22	1	98	8	97.97
+1749	22	1	99	1	130.20
+1750	22	1	98	5	11.05
+1751	22	1	97	5	96.05
+1752	22	1	100	5	89.63
+1753	22	1	96	5	14.69
+1754	22	1	96	6	9.73
+1755	22	1	100	6	100.00
+1756	22	1	98	6	99.80
+1757	22	1	97	6	15.60
+1758	22	1	98	7	85.20
+1759	22	1	100	7	96.30
+1760	22	1	96	7	14.78
+1761	22	1	97	7	78.96
+1762	22	1	100	8	97.19
+1763	22	1	97	9	32.68
+1764	22	1	96	9	67.79
+1765	22	1	98	9	26.15
+1766	22	1	100	9	88.38
+1767	22	1	92	9	3.97
+1768	22	1	97	9	50.00
+1769	22	1	100	6	71.43
+1770	22	1	106	6	60.00
+1771	22	1	100	6	100.00
+1772	22	1	105	5	59.09
+1773	22	1	89	1	70.18
+1774	22	1	109	1	62.50
+1775	22	1	109	1	66.67
+1776	22	1	107	7	83.33
+1777	22	1	98	24	39.29
+1778	22	1	102	20	57.14
+1779	22	1	104	20	40.00
+1780	22	1	101	28	51.85
+1781	22	1	93	27	44.83
+1782	22	1	96	24	100.00
+1783	22	1	97	24	100.00
+1784	22	1	100	24	99.00
+1785	22	1	98	24	100.00
+1786	22	1	97	26	83.81
+1787	22	1	100	26	80.07
+1788	22	1	96	26	85.16
+1789	22	1	98	26	86.48
+1790	22	1	96	20	65.47
+1791	22	1	100	20	45.63
+1792	22	1	98	20	23.65
+1793	22	1	97	20	95.10
+1794	22	1	96	20	16.68
+1795	22	1	97	27	14.79
+1796	22	1	96	27	16.98
+1797	22	1	100	27	16.36
+1798	22	1	98	27	19.74
+1799	22	1	96	28	10.03
+1800	22	1	97	28	11.05
+1801	22	1	100	28	19.90
+1802	22	1	98	28	1.09
+1803	23	1	100	2	100.00
+1804	23	1	98	2	100.00
+1805	23	1	92	2	100.00
+1806	23	1	93	2	100.00
+1807	23	1	97	2	100.00
+1808	23	1	100	2	0.00
+1809	23	1	96	2	100.00
+1810	23	1	89	3	0.00
+1811	23	1	89	4	58.08
+1812	23	1	99	1	72.83
+1813	23	1	99	1	100.00
+1814	23	1	100	1	65.23
+1815	23	1	100	1	100.00
+1816	23	1	99	1	79.06
+1817	23	1	99	1	79.21
+1818	23	1	96	8	98.29
+1819	23	1	97	8	98.96
+1820	23	1	98	8	97.97
+1821	23	1	99	1	130.20
+1822	23	1	98	5	11.05
+1823	23	1	97	5	96.05
+1824	23	1	100	5	89.63
+1825	23	1	96	5	14.69
+1826	23	1	96	6	9.73
+1827	23	1	100	6	100.00
+1828	23	1	98	6	99.80
+1829	23	1	97	6	15.60
+1830	23	1	98	7	85.20
+1831	23	1	100	7	96.30
+1832	23	1	96	7	14.78
+1833	23	1	97	7	78.96
+1834	23	1	100	8	97.19
+1835	23	1	97	9	32.68
+1836	23	1	96	9	67.79
+1837	23	1	98	9	26.15
+1838	23	1	100	9	88.38
+1839	23	1	92	9	3.97
+1840	23	1	97	9	50.00
+1841	23	1	100	6	71.43
+1842	23	1	106	6	60.00
+1843	23	1	100	6	100.00
+1844	23	1	105	5	59.09
+1845	23	1	89	1	70.18
+1846	23	1	109	1	62.50
+1847	23	1	109	1	66.67
+1848	23	1	107	7	83.33
+1849	23	1	98	24	39.29
+1850	23	1	102	20	57.14
+1851	23	1	104	20	40.00
+1852	23	1	101	28	51.85
+1853	23	1	93	27	44.83
+1854	23	1	96	24	100.00
+1855	23	1	97	24	100.00
+1856	23	1	100	24	99.00
+1857	23	1	98	24	100.00
+1858	23	1	97	26	83.81
+1859	23	1	100	26	80.07
+1860	23	1	96	26	85.16
+1861	23	1	98	26	86.48
+1862	23	1	96	20	65.47
+1863	23	1	100	20	45.63
+1864	23	1	98	20	23.65
+1865	23	1	97	20	95.10
+1866	23	1	96	20	16.68
+1867	23	1	97	27	14.79
+1868	23	1	96	27	16.98
+1869	23	1	100	27	16.36
+1870	23	1	98	27	19.74
+1871	23	1	96	28	10.03
+1872	23	1	97	28	11.05
+1873	23	1	100	28	19.90
+1874	23	1	98	28	1.09
+\.
+
+
+--
+-- Data for Name: fato_variavel; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY fato_variavel (id, id_dim_tempo, id_dim_variavel, id_dim_municipio, id_dim_unidade_administrativa, valor_variavel) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ods_dim_unid_administrativa; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_dim_unid_administrativa (id, codigo, sigla, descricao, tipo, codigo_pai) FROM stdin;
+361	1	AKN	ASSOCIACAO KLAUS NÓBREGA                          	serviços	8
+362	8	DGE	DIRETORIA DE GESTÃO EMPRESARIAL                   	diretoria	8
+363	30	GEFIN	GERÊNCIA FINANCEIRA                               	S	8
+364	37	GEINF	GERÊNCIA DE INFORMÁTICA                           	S	8
+365	66	GEPES	GERÊNCIA DE PESSOAS                               	S	8
+366	74	GELOG	GERENCIA DE LOGISTICA                             	S	8
+367	103	GTRAN	GERÊNCIA DE TRANSPORTE                            	S	8
+368	167	GESAM	GERENCIA DE SUPORTE ADMINISTRATIVO                	S	8
+369	192	GETRA	GERENCIA DE REL.TRABALHO E RESPONSABILIDADE SOCIAL	S	8
+370	422	GESEP	GERENCIA SEGURANCA E PATRIMONIO                   	S	8
+371	9	DDO	DIRETORIA DE OPERAÇÕES                            	D	9
+372	89	GPROD	GERÊNCIA DE PRODUÇÃO DE ÁGUA                      	S	9
+373	108	GEMAG	GERÊNCIA DE MACRODISTRIBUIÇÃO DE ÁGUA             	S	9
+374	109	GETES	GERÊNCIA DE MACROCOLETA E TRATRATAMENTO DE ESGOTO 	S	9
+375	111	GEMEA	GER. MANUT. ELETOM. E AUTOMACAO                   	S	9
+376	172	GECOQ	GER. CONTROLE DE QUALIDADE DO PRODUTO             	S	9
+377	174	GCOPE	GER. CONTROLE DE PERDAS E EFICIENT. ENERGETICA    	S	9
+378	187	GERAP	GER. DE APOIO OPERACIONAL                         	S	9
+379	225	UN-MPA	UNID. NEG. METROP. PROD. E MACRODISTRIBUICAO AGUA 	negocio	9
+380	228	UN-MTE	UNID. NEG. METROP. MACROLETA TRATAMENTO ESGOTO    	N	9
+381	232	GEPED	GER. PESQUISA E DESENV. OPERACIONAL               	S	9
+382	10	DIC	DIRETORIA COMERCIAL                               	D	10
+383	45	UN-MTL	UNIDADE DE NEGÓCIO METROPOLITANA LESTE (ALDEOTA)  	N	10
+384	48	UN-MTO	UNIDADE DE NEGÓCIO METROPOLITANA OESTE(CONJ.CEARÁ)	N	10
+385	51	UN-MTS	UNIDADE DE NEGÓCIO METROPOLITANA SUL (JOSÉ WALTER)	N	10
+386	104	GEDER	GERENCIA DE RELAC. DEFESA CONSUMIDOR E REGULACAO  	S	10
+387	117	UN-MTN	UNIDADE DE NEGÓCIO METROPOLITANA NORTE (FLORESTA) 	N	10
+388	123	UN-BME	UNIDADE DE NEGÓCIO BACIA METROPOLITANA            	N	10
+389	128	UN-BAC	UNIDADE DE NEGÓCIO BACIA DO ACARAÚ E COREAÚ       	N	10
+390	133	UN-BSA	UNIDADE DE NEGÓCIO BACIA DO SALGADO               	N	10
+391	138	UN-BBA	UNIDADE DE NEGÓCIO BACIA DO BANABUIU              	N	10
+392	143	UN-BPA	UNIDADE DE NEGÓCIO BACIA DO PARNAÍBA              	N	10
+393	148	UN-BBJ	UNIDADE DE NEGÓCIO BACIA DO BAIXO-MÉDIO JAGUARIBE 	N	10
+394	153	UN-BAJ	UNIDADE DE NEGÓCIO BACIA DO ALTO JAGUARIBE        	N	10
+395	158	UN-BCL	UNIDADE DE NEGÓCIO BACIA DO CURU E LITORAL        	N	10
+396	163	OUVID	OUVIDORIA                                         	S	10
+397	168	GEFAR	GERÊNCIA FATURAMENTO E ARRECADAÇÃO                	S	10
+398	189	GEMEC	GERENCIA DE MERCADO E CONCESSOES                  	S	10
+399	236	GEINS	GER DE EDUC AMBIENT E INTER SOC                   	S	10
+400	428	GEREC	GEREC - GER DE RELAC C/ GRANDES CLIENTES          	S	10
+401	11	DEN	DIRETORIA DE ENGENHARIA                           	D	11
+402	81	GOMET	GERÊNCIA DE OBRAS METROPOLITANA                   	S	11
+403	164	GESAR	GERÊNCIA DE SANEAMENTO RURAL                      	S	11
+404	166	GEMAM	GERÊNCIA DE MEIO AMBIENTE                         	S	11
+405	190	GOINT	GERENCIA DE OBRAS DO INTERIOR                     	S	11
+406	198	UEPSJ	UNIDADE EXEC. PROJETO SAO JOSE                    	S	11
+407	205	GOPAC	GERENCIA DE OBRAS DO PROG. ACELERACAO CRESCIMENTO 	S	11
+408	3	AUDIN	AUDITORIA INTERNA                                 	S	12
+409	12	DPR	PRESIDÊNCIA                                       	D	12
+410	14	A DISPOS	FUNC.A DISPOSIÇÃO                                 	S	12
+411	15	GAPRE	GABINETE DA PRESIDÊNCIA                           	S	12
+412	18	GCONT	GERÊNCIA DE CONTROLADORIA                         	S	12
+413	77	GDEMP	GERÊNCIA DE DESENVOLVIMENTO EMPRESARIAL           	S	12
+414	97	PROJU	PROCURADORIA JURÍDICA                             	S	12
+415	191	CAGEPREV	CAGECE PREVIDENCIA COMPLEMENTAR                   	S	12
+416	194	GECON	GERENCIA DE APOIO A CONTRATACOES                  	S	12
+417	195	SINDIAGUA	SINDIAGUA S/ONUS                                  	S	12
+418	199	APOSINV	FUNCIONARIOS APOSENTADOS POR INVALIDEZ            	S	12
+419	202	ASIMP	ASSESSORIA DE IMPRENSA                            	S	12
+420	203	GECSA	GERENCIA DE APOIO A COORD SANEAMENTO AMBIENTAL    	S	12
+421	206	NECOC	NUCLEO DE COOPERACAO TECNICA E CONSULTORIA        	S	12
+422	208	ASCAD	ASSESSORIA DE CONTROLE ADMINISTRATIVO             	S	12
+423	217	GEORC	GEORC - GER DE EST ESTRAT E DE ORCAMENTO          	S	12
+424	220	GESEQ	GESEQ - GER DE ESTRAT DE EXCEL. E QUALID          	S	12
+425	235	GCORI	GCORI - GER DE COMUNIC E RELAC INTERNO            	S	12
+426	13	DPC	DIRETORIA DE PLANEJAMENTO E CONTROLE              	D	13
+427	78	GEATE	GERÊNCIA DE APOIO TÉCNICO                         	S	13
+428	88	GPLAN	GERÊNCIA DE PLANEJAMENTO DE EXPANSÃO              	S	13
+429	94	GPROJ	GERÊNCIA DE PROJETOS                              	S	13
+430	178	UGP-SANEAR	UNIDADE GERENCIADORA DO PROGRAMA SANEAR           	S	13
+431	186	GEADI	GERENCIA DE AVALIACÄO E DESAPROP DE IMOVEIS       	S	13
+432	188	UGP Federais	UNIDADE DE GESTAO DOS PROGRAMAS FEDERAIS          	S	13
+433	219	UGP	UGP - UNIDADE DE GESTAO DOS PROGRAMAS             	S	13
+434	46	UN-MTL10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MTL    	coordenacao	45
+435	47	UN-MTL20	COORDENADORIA DE SUPORTE TECNICO UN-MTL           	C	45
+436	115	UN-MTL30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-MTL       	C	45
+437	49	UN-MTO10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MTO    	C	48
+438	50	UN-MTO20	COORDENADORIA DE SUPORTE TECNICO UN-MTO           	C	48
+439	116	UN-MTO30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-MTO       	C	48
+440	52	UN-MTS10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MTS    	C	51
+441	53	UN-MTS20	COORDENADORIA DE SUPORTE TÉCNICO UN-MTS           	C	51
+442	119	UN-MTS30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-MTS       	C	51
+443	118	UN-MTN30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-MTN       	C	117
+444	221	UN-MTN-20	COORDENADORIA DE SUPORTE TECNICO - UNMTN          	C	117
+445	124	UN-BME10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BME    	C	123
+446	125	UN-BME20	COORDENADORIA DE SUPORTE TÉCNICO UN-BME           	C	123
+447	126	UN-BME30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BME       	C	123
+448	129	UN-BAC10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BAC    	C	128
+449	130	UN-BAC20	COORDENADORIA DE SUPORTE TÉCNICO UN-BAC           	C	128
+450	131	UN-BAC30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BAC       	C	128
+451	134	UN-BSA10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BSA    	C	133
+452	135	UN-BSA20	COORDENADORIA DE SUPORTE TÉCNICO UN-BSA           	C	133
+453	136	UN-BSA30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BSA       	C	133
+454	139	UN-BBA10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BBA    	C	138
+455	140	UN-BBA20	COORDENADORIA DE SUPORTE TÉCNICO UN-BBA           	C	138
+456	141	UN-BBA30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BBA       	C	138
+457	144	UN-BPA10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BPA    	C	143
+458	145	UN-BPA20	COORDENADORIA DE SUPORTE TÉCNICO UN-BPA           	C	143
+459	146	UN-BPA30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BPA       	C	143
+460	175	UN-BPA40	COORDENADORIA TÉCNICA ADMINISTRATIVA IBIAPABA     	C	143
+461	149	UN-BBJ10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BBJ    	C	148
+462	150	UN-BBJ20	COORDENADORIA DE SUPORTE TÉCNICO UN-BBJ           	C	148
+463	151	UN-BBJ30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BBJ       	C	148
+464	154	UN-BAJ10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BAJ    	C	153
+465	155	UN-BAJ20	COORDENADORIA DE SUPORTE TÉCNICO UN-BAJ           	C	153
+466	156	UN-BAJ30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BAJ       	C	153
+467	159	UN-BCL10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-BCL    	C	158
+468	160	UN-BCL20	COORDENADORIA DE SUPORTE TÉCNICO UN-BCL           	C	158
+469	161	UN-BCL30	COORDENADORIA DE SERVIÇOS A CLIENTES UN-BCL       	C	158
+470	226	UN-MPA-10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MPA    	C	225
+471	227	UN-MPA-20	COORDENADORIA DE SUPORTE TECNICO - UN-MPA         	C	225
+472	229	UN-MTE-10	COORDENADORIA DE SUPORTE ADMINISTRATIVO UN-MTE    	C	228
+473	230	UN-MTE-20	COORDENADORIA DE SUPORTE TECNICO UN-MTE           	C	228
+\.
+
+
+--
+-- Data for Name: ods_dim_variaveis; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_dim_variaveis (rownum, codigo, nome, sigla, descricao, unidade_medida) FROM stdin;
+1	4801	% CUMPRIMENTO MONITORAMENTO PORTARIA 154/02-SEMACE	%_CUMPRIM_SEMACE_154	% CUMPRIMENTO MONITORAMENTO PORTARIA 154/02-SEMACE	UNIDADE
+2	3581	ARRECADAÇÃO ANTECIPADA	ARREC_ANTECIPADA	ARRECADAÇÃO ANTECIPADA	R$
+3	3561	ARRECADAÇÃO COM SERVIÇOS	ARREC_SERVICOS	VALOR ARRECADADO COM SERVIÇOS EXECUTADOS	R$
+4	881	ARRECADAÇÃO DO MÊS	ARRECADAÇÃO_DO_MES	ARRECADAÇÃO DO MÊS	R$
+5	882	ARRECADAÇÃO NO MÊS	ARRECADAÇÃO_NO_MES	ARRECADAÇÃO NO MÊS	R$
+6	5732	DEX ADUZIDO	DEX_ADUZIDO	DEX M3 ADUZIDO (DADOS SOMENTE DA UN-MPA)	R$
+7	5751	DEX COMUM AO SISTEMAS UNMPA	DEX_COM_SIST_UNMPA	DEX COMUM AO MACRO SISTEMA E AO PROCESSO DE PRODUÇÃO DE ÁGUA (ETA GAVIÃO)	R$
+8	5791	DEX COMUM MTE	DEX_COMUM_MTE	DEX COMUM UN-MTE	R$
+9	5771	DEX EPC	DEX_EPC	DEX DA EPC	R$
+10	5731	DEX PRODUZIDO	DEX_PRODUZIDO	DEX M3 PRODUZIDO (DADOS SOMENTE DA UN-MPA)	R$
+11	5851	DEX SISTEMA ISOLADO	DEX_SIST_ISOLADO	DEX DO SISTEMA ISOLADO	R$
+12	4	DEX TOTAL	DEX_TOTAL	VALOR DAS DESPESAS REALIZADAS PARA A EXPLORAÇÃO DOS SERVIÇOS COMPREENDENDO: DESPESAS DE PESSOAL, DE MANUTENÇÃO DE SISTEMA, DE TRANSPORTE, DE MATERIAL, DE SERVIÇOS DE TERCEIROS, DESPESAS GERAIS, PMF E CRÉDITO PASEP/ COFINS.	R$
+13	5251	DURAÇÃO DAS PARALISAÇÕES	DUR_PARALIS	DURAÇÃO DAS PARALISAÇÕES	HORAS
+14	741	ÍNDICE DE COBERTURA DE ÁGUA	IND_COB_AGUA	ÍNDICE DE COBERTURA DE ÁGUA	%
+15	742	ÍNDICE DE COBERTURA DE ESGOTO	IND_COB_ESGOTO	ÍNDICE DE COBERTURA DE ESGOTO	%
+16	994	ÍNDICE DE QUALIDADE DA ÁGUA DISTRIBUÍDA 	IND_QUAL_AGUA_DISTR	ÍNDICE DE QUALIDADE DA ÁGUA DISTRIBUÍDA 	%
+17	701	LUCRO LÍQUIDO	LUCRO_LIQUIDO	LUCRO LÍQUIDO	R$
+18	5332	M³ MEDIDO NA EPC	M3_MED_EPC	M³ MEDIDO NA EPC	M3
+19	5311	Nº DE ESTAÇÕES QUE ATENDEM O PARAM POR TECNOLOGIA	N_EST_ATEN_PARAM_TEC	Nº DE ESTAÇÕES QUE ATENDEM O PARÂMETRO POR TECNOLOGIA	UNIDADE
+20	5312	NUMERO TOTAL DE ESTAÇÕES MONITORADAS	N_TOT_EST_MONIT	NUMERO TOTAL DE ESTAÇÕES MONITORADAS	UNIDADE
+21	986	NÚMERO DE ANÁLISES REALIZADAS	N°_ANA_REALIZADAS	NÚMERO DE ANÁLISES REALIZADAS	UNIDADE
+22	987	NÚMERO DE ANÁLISES EXIGIDAS	Nº_ANA_EXIGIDAS	NÚMERO DE ANÁLISES EXIGIDAS	UNIDADE
+23	3601	Nº DE LIGAÇÕES DE ÁGUA FATURADAS POR OUTRO IMÓVEL 	Nº_LIG_AG_FAT_OUT_IM	NÚMERO DE LIGAÇÕES DE ÁGUA FATURADAS POR OUTRO IMÓVEL 	LIGAÇÕES
+24	761	NÚMERO DE LIGAÇÕES ATIVAS DE ÁGUA	Nº_LIG_ATIVAS_AGUA	NÚMERO DE LIGAÇÕES ATIVAS DE ÁGUA	LIGAÇÕES
+25	786	NÚMERO DE LIGAÇÕES DE ATIVAS DE ESGOTO 	Nº_LIG_ATIVAS_ESGOTO	NÚMERO DE LIGAÇÕES DE ATIVAS DE ESGOTO	LIGAÇÕES
+26	801	NÚMERO DE LIGAÇÕES CONDOMINIAIS DE ESGOTO	Nº_LIG_COND_ESGOTO	NÚMERO DE LIGAÇÕES CONDOMINIAIS DE ESGOTO	LIGAÇÕES
+27	763	NÚMERO DE LIGAÇÕES CORTADAS DE ÁGUA	Nº_LIG_CORT_AGUA	NÚMERO DE LIGAÇÕES CORTADAS DE ÁGUA	LIGAÇÕES
+28	3621	Nº DE LIGAÇÕES DE ESGOTO FATURADA POR OUTRO IMÓVEL	Nº_LIG_ES_FAT_OUT_IM	NÚMERO DE LIGAÇÕES DE ESGOTO FATURADA POR OUTRO IMÓVEL 	LIGAÇÕES
+29	781	NÚMERO DE LIGAÇÕES FACTÍVEIS DE ÁGUA	Nº_LIG_FACT_AGUA	NÚMERO DE LIGAÇÕES FACTÍVEIS DE ÁGUA	LIGAÇÕES
+30	803	NÚMERO DE LIGAÇÕES DE FACTÍVEIS DE ESGOTO 	Nº_LIG_FACT_ESGOTO	NÚMERO DE LIGAÇÕES DE FACTÍVEIS DE ESGOTO	LIGAÇÕES
+31	3641	NÚMERO DE LIGAÇÕES SEM INTERLIGAÇÃO DE ESGOTO 	Nº_LIG_LSIN_ESGOTO	NÚMERO DE LIGAÇÕES LIGADAS SEM INTERLIGAÇÃO DE ESGOTO 	LIGAÇÕES
+32	1181	NÚMERO DE LIGAÇÕES REAIS DE ÁGUA	Nº_LIG_REAIS_AGUA	NÚMERO DE LIGAÇÕES REAIS DE ÁGUA	LIGAÇÕES
+33	1182	NÚMERO DE LIGAÇÕES REAIS DE ESGOTO	Nº_LIG_REAIS_ESGOTO	NÚMERO DE LIGAÇÕES REAIS DE ESGOTO	LIGAÇÕES
+34	762	NÚMERO DE LIGAÇÕES SUPRIMIDAS DE ÁGUA 	Nº_LIG_SUPR_AGUA	NÚMERO DELIGAÇÕES SUPRIMIDAS DE ÁGUA 	LIGAÇÕES
+35	1861	Nº DE LIGAÇÕES SUSPENSAS DE ÁGUA	Nº_LIG_SUSP_AGUA	NÚMERO DE LIGAÇÕES SUSPENSAS DE ÁGUA	LIGAÇÕES
+36	1862	Nº DE LIGAÇÕES SUSPENSAS DE ESGOTO	Nº_LIG_SUSP_ESGOTO	NÚMERO DE LIGAÇÕES SUSPENSAS DE ESGOTO	LIGAÇÕES
+37	802	NÚMERO DE LIGAÇÕES TAMPONADAS DE ESGOTO 	Nº_LIG_TAMP_ESGOTO	NÚMERO DE LIGAÇÕES TAMPONADAS DE ESGOTO 	LIGAÇÕES
+38	861	NÚMERO DE RECLAMAÇÕES JUNTO A ENT. COMPETENTES	Nº_RECL_PROC_ENT_COM	NÚMERO DE RECLAMAÇÕES PROCEDENTES JUNTO AS ENTIDADES COMPETENTES: ARCE, DECON, DECOM, PROCOM E PROCESSOS JUDICIAIS.	RECLAMAÇÕES
+39	5253	QUANTIDADE DE HORAS NO PERIODO	QTD_HOR_PERIODO	QUANTIDADE DE HORAS NO PERIODO	HORAS
+40	5351	QUANT. DE RECL. E COMUN. DE PROBLEMAS DE ÁGUA.	QTD_REC_COMUN_PROB_A	QUANT. DE RECL. E COMUN. DE PROBLEMAS DE ÁGUA.	UNIDADE
+41	5352	QUANT. DE RECL. E COMUN. DE PROBLEMAS DE ESGOTO	QTD_REC_COMUN_PROB_E	QUANT. DE RECL. E COMUN. DE PROBLEMAS DE ESGOTO	UNIDADE
+42	4861	RECEITA DE ÁGUA	RECEITA_AGUA	RECEITA DE ÁGUA	R$
+43	4862	RECEITA DE ESGOTO	RECEITA_ESGOTO	RECEITA DE ESGOTO	R$
+44	1824	RECEITA LÍQUIDA	RECEITA_LIQUIDA	RECEITA LÍQUIDA	R$
+45	4042	TOTAL DE SERVIÇOS SOLICITADOS - CAPITAL	SOL_CAP	TOTAL DE SERVIÇOS SOLICITADOS	UNIDADE
+46	4041	TOTAL DE SERVIÇOS FORA DO PRAZO - CAPITAL	TFP_CAP	TOTAL DE SERVIÇOS FORA DO PRAZO QUE É CALCULADO POR EFP+PPV, ONDE EFP É O TOTAL DE SERV. EXECUTADOS FORA DO PRAZO E PPV É TOTAL DE SERV. EXECUTADOS NO PRAZO.	UNIDADE
+47	2022	VALOR TOTAL DOS RECURSOS PREVISTOS NO SANEAR	VL_PREVISTO_SANEAR	VALOR TOTAL DOS RECURSOS PREVISTOS NO SANEAR	R$
+48	2021	VALOR TOTAL DOS RECURSOS APLICADOS NO SANEAR	VL_REC_APLIC_SANEAR	VALOR TOTAL DOS RECURSOS APLICADOS NO SANEAR	R$
+49	2401	VOLUME ADUZIDO DE ÁGUA TRATADA	VOL_ADU_AGUA_TRATADA	É O VOLUME DE ÁGUA  TRATADA QUE É BOMBEADO PARA MACRO-DISTRIBUIÇÃO.	M3
+50	5515	VOLUME BOMBEIROS	VOL_BOMBEIROS	VOLUME BOMBEIROS	M3
+51	4082	VOLUME DE CARRO PIPA	VOL_CARRO_PIPA	VOLUME DE CARRO PIPA	M3
+52	5511	VOLUME CONSUMIDO HIDROMETRADO	VOL_CONS_HIDROMET	VOLUME CONSUMIDO HIDROMETRADO	M3
+53	5514	VOLUMES DISPENSADOS	VOL_DISPENSADOS	VOLUMES DISPENSADOS	M3
+54	5021	VOLUME DISTRIBUIDO (PROVISORIO)	VOL_DISTRIBUIDO_PROV	VOLUME DE ÁGUA TRATADA MEDIDO OU ESTIMADO DISPONIBILIZADO PARA A UNIDADE DE DISTRIBUIÇÃO, PARA ATENDIMENTO AOS CLIENTES (PROVISORIO)	M3
+55	9	VOLUME FATURADO DE ÁGUA	VOL_FAT_AGUA	VOLUME VENDIDO AOS CLIENTES COM BASE NOS CRITÉRIOS DA ESTRUTURA TARIFÁRIA VIGENTE	M3
+56	21	VOLUME FATURADO DE ESGOTO	VOL_FAT_ESGOTO	VOLUME DE ESGOTO COLETADO, FATURADO NO MÊS, RELATIVO ÀS ECONOMIAS RESIDENCIAIS, COMERCIAIS, INDUSTRIAIS E PUBLICAS.	M3
+57	984	VOLUME FORNECIDO A DISTRIBUIÇÃO MACROMEDIDO	VOL_FORN_DISTR_MACRO	VOLUME FORNECIDO A DISTRIBUIÇÃO MACROMEDIDO	M3
+58	5513	VOLUME DOS IMOVEIS PROPRIOS	VOL_IMOVEIS_PROPRIOS	VOLUME DOS IMOVEIS PROPRIOS	M3
+59	5512	VOLUMES ISENTOS DE FATURAMENTO	VOL_ISENTOS_FAT	VOLUMES ISENTOS DE FATURAMENTO, INCLUIDOS ATUALMENTE: IJF, SNTA CASA E HSPV	M3
+60	5631	VOLUMES OPERACIONAIS DA CAPITAL	VOL_OPERAC_CAPITAL	VOLUMES UTILIZADOS EM DESCARGA DE REDE. ESVAZIAMENTO DE REDES PARA MANUTENÇÃO E LIMPEZA DE RESERVATÓRIOS DO SISTEMA DISTRIBUIDOR DA CAPITAL.	M3
+61	1047	VOLUME UTILIZADO PERDIDO NO PROCESSO DE TRATAMENTO	VOL_PERD_PROC_TRATAM	VOLUME UTILIZADO E PERDIDO NO PROCESSO DE TRATAMENTO	M3
+62	1721	VOL. PROD. COMERCIAL SISTEMA INTEGRADO/FORTALEZA	VOL_PROD_COM_FOR	VOL. PROD. COMERCIAL SISTEMA INTEGRADO/FORTALEZA	M3
+63	2762	VOLUME PRODUZIDO DE ÁGUA	VOL_PRODUZIDO_AGUA	VOLUME PRODUZIDO DE ÁGUA	M3
+64	4061	VOLUME RECUPERADO DE FRAUDE	VOL_REC_FRAUDE	VOLUME RECUPERADO DE FRAUDE	M3
+65	1048	VOLUME TOTAL DE ÁGUA BRUTA	VOL_TOT_AG_BRUTA	VOLUME TOTAL DE ÁGUA BRUTA	M3
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+1	2012	7	9869	45	882	15598622.97	3
+1	2012	7	9869	45	3561	33010.78	4
+1	2012	7	9869	45	3581	10434161.22	5
+1	2012	7	9869	48	881	5085479.57	6
+1	2012	7	9869	48	882	7368937.01	7
+1	2012	7	9869	48	3561	9011.43	8
+1	2012	7	9869	48	3581	1067043.81	9
+1	2012	7	9869	51	881	2334536.65	10
+1	2012	7	9869	51	882	6019774.37	11
+1	2012	7	9869	51	3561	8965.68	12
+1	2012	7	9869	51	3581	3145811.92	13
+1	2012	7	9869	117	881	6000374.98	14
+1	2012	7	9869	117	882	8110608.42	15
+1	2012	7	9869	117	3561	10058.6	16
+1	2012	7	9869	117	3581	918581.81	17
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+1	2011	3	9869	48	881	3984270.56	3
+1	2011	3	9869	117	3581	580012.35	4
+1	2011	3	9869	51	3581	2233976.74	5
+1	2011	3	9869	48	3581	607905.11	6
+1	2011	3	9869	45	3581	7659854.14	7
+1	2011	3	9869	117	3561	49920.64	8
+1	2011	3	9869	51	3561	65474.82	9
+1	2011	3	9869	48	3561	38249.18	10
+1	2011	3	9869	45	3561	79286.54	11
+1	2011	3	9869	117	882	6521975.05	12
+1	2011	3	9869	51	882	4670599.82	13
+1	2011	3	9869	48	882	5704177.15	14
+1	2011	3	9869	45	882	12217782.13	15
+1	2011	3	9869	117	881	4673563.66	16
+1	2011	3	9869	51	881	1873070.11	17
+2	2010	1	9869	45	762	10423	3
+2	2010	1	9869	45	763	5986	4
+2	2010	1	9869	45	781	7004	5
+2	2010	1	9869	45	786	72567	6
+2	2010	1	9869	45	801	1274	7
+2	2010	1	9869	45	802	376	8
+2	2010	1	9869	45	803	4121	9
+2	2010	1	9869	45	1861	45	10
+2	2010	1	9869	45	1862	3389	11
+2	2010	1	9869	45	3601	7198	12
+2	2010	1	9869	45	3621	4961	13
+2	2010	1	9869	45	3641	1163	14
+2	2010	1	9869	48	761	173660	15
+2	2010	1	9869	48	762	10434	16
+2	2010	1	9869	48	763	13763	17
+2	2010	1	9869	48	781	11403	18
+2	2010	1	9869	48	786	45151	19
+2	2010	1	9869	48	801	8770	20
+2	2010	1	9869	48	802	59	21
+2	2010	1	9869	48	803	5469	22
+2	2010	1	9869	48	1861	38	23
+2	2010	1	9869	48	1862	2412	24
+2	2010	1	9869	48	3601	8607	25
+2	2010	1	9869	48	3621	2904	26
+2	2010	1	9869	48	3641	2713	27
+2	2010	1	9869	51	761	140787	28
+2	2010	1	9869	51	762	7784	29
+2	2010	1	9869	51	763	8989	30
+2	2010	1	9869	51	781	4231	31
+2	2010	1	9869	51	786	20168	32
+2	2010	1	9869	51	801	20157	33
+2	2010	1	9869	51	802	22	34
+2	2010	1	9869	51	803	261	35
+2	2010	1	9869	51	1861	80	36
+2	2010	1	9869	51	1862	1052	37
+2	2010	1	9869	51	3601	5778	38
+2	2010	1	9869	51	3621	1151	39
+2	2010	1	9869	51	3641	560	40
+2	2010	1	9869	117	761	125670	41
+2	2010	1	9869	117	762	7738	42
+2	2010	1	9869	117	763	14547	43
+2	2010	1	9869	117	781	10879	44
+2	2010	1	9869	117	786	109647	45
+2	2010	1	9869	117	801	2538	46
+2	2010	1	9869	117	802	317	47
+2	2010	1	9869	117	803	15809	48
+2	2010	1	9869	117	1861	40	49
+2	2010	1	9869	117	1862	3745	50
+2	2010	1	9869	117	3601	3447	51
+2	2010	1	9869	117	3621	3328	52
+2	2010	1	9869	117	3641	10709	53
+1	2012	5	9869	51	881	2223822.52	3
+1	2012	5	9869	48	881	4666276.75	4
+1	2012	5	9869	45	881	4344884.94	5
+1	2012	5	9869	117	882	7501040.43	6
+1	2012	5	9869	51	882	5629585.77	7
+1	2012	5	9869	48	882	6830052.51	8
+1	2012	5	9869	45	882	14830910.4	9
+1	2012	5	9869	117	3561	9539.18	10
+1	2012	5	9869	51	3561	7918.1	11
+1	2012	5	9869	48	3561	11942.03	12
+1	2012	5	9869	45	3561	33237.22	13
+1	2012	5	9869	117	3581	858120.18	14
+1	2012	5	9869	51	3581	2888915.35	15
+1	2012	5	9869	48	3581	962446.5	16
+1	2012	5	9869	45	3581	9853066.38	17
+3	2010	6	9869	45	4862	5528001.09	3
+3	2010	6	9869	45	10511	0	4
+3	2010	6	9869	48	4861	4786855.15	5
+3	2010	6	9869	48	4862	1218473.9	6
+3	2010	6	9869	48	10511	0	7
+3	2010	6	9869	51	4861	4086271.28	8
+3	2010	6	9869	51	4862	718420.84	9
+3	2010	6	9869	51	10511	0	10
+3	2010	6	9869	117	4861	3669088.13	11
+3	2010	6	9869	117	4862	3130909.78	12
+3	2010	6	9869	117	10511	0	13
+3	2010	6	9869	225	10511	0	14
+3	2010	6	9869	228	4862	40637.5	15
+3	2010	6	9869	228	10511	0	16
+2	2012	3	9869	48	761	185410	3
+2	2012	3	9869	51	761	154184	4
+2	2012	3	9869	117	761	132852	5
+2	2012	3	9869	45	762	12051	6
+2	2012	3	9869	48	762	11318	7
+2	2012	3	9869	51	762	8205	8
+2	2012	3	9869	117	762	8864	9
+2	2012	3	9869	45	763	4161	10
+2	2012	3	9869	48	763	15016	11
+2	2012	3	9869	51	763	10407	12
+2	2012	3	9869	117	763	13859	13
+2	2012	3	9869	45	781	5529	14
+2	2012	3	9869	48	781	10738	15
+2	2012	3	9869	51	781	4698	16
+2	2012	3	9869	117	781	9772	17
+2	2012	3	9869	45	786	76223	18
+2	2012	3	9869	48	786	50710	19
+2	2012	3	9869	51	786	21332	20
+2	2012	3	9869	117	786	118751	21
+2	2012	3	9869	45	801	1377	22
+2	2012	3	9869	48	801	9509	23
+2	2012	3	9869	51	801	21000	24
+2	2012	3	9869	117	801	2641	25
+2	2012	3	9869	45	802	303	26
+2	2012	3	9869	48	802	55	27
+2	2012	3	9869	51	802	22	28
+2	2012	3	9869	117	802	443	29
+2	2012	3	9869	45	803	2731	30
+2	2012	3	9869	48	803	7521	31
+2	2012	3	9869	51	803	1657	32
+2	2012	3	9869	117	803	16132	33
+2	2012	3	9869	45	1861	44	34
+2	2012	3	9869	48	1861	41	35
+2	2012	3	9869	51	1861	103	36
+2	2012	3	9869	117	1861	45	37
+2	2012	3	9869	45	1862	3968	38
+2	2012	3	9869	48	1862	3133	39
+2	2012	3	9869	51	1862	931	40
+2	2012	3	9869	117	1862	4861	41
+2	2012	3	9869	45	3601	8344	42
+2	2012	3	9869	48	3601	8500	43
+2	2012	3	9869	51	3601	5998	44
+2	2012	3	9869	117	3601	3990	45
+2	2012	3	9869	45	3621	6048	46
+2	2012	3	9869	48	3621	3128	47
+2	2012	3	9869	51	3621	1304	48
+2	2012	3	9869	117	3621	3988	49
+2	2012	3	9869	45	3641	1761	50
+2	2012	3	9869	48	3641	3849	51
+2	2012	3	9869	51	3641	682	52
+2	2012	3	9869	117	3641	10016	53
+3	2010	2	9869	45	4862	5845635.23	3
+3	2010	2	9869	45	10511	0	4
+3	2010	2	9869	48	4861	5043345.81	5
+3	2010	2	9869	48	4862	1332547.38	6
+3	2010	2	9869	48	10511	0	7
+3	2010	2	9869	51	4861	4139763.3	8
+3	2010	2	9869	51	4862	714215.04	9
+3	2010	2	9869	51	10511	0	10
+3	2010	2	9869	117	4861	3985137.19	11
+3	2010	2	9869	117	4862	3159567.45	12
+3	2010	2	9869	117	10511	0	13
+3	2010	2	9869	225	10511	0	14
+3	2010	2	9869	228	10511	0	15
+1	2010	7	9869	45	882	13111451.96	3
+1	2010	7	9869	45	3561	50074.16	4
+1	2010	7	9869	45	3581	8333173.17	5
+1	2010	7	9869	48	881	4259219.81	6
+1	2010	7	9869	48	882	6247929.57	7
+1	2010	7	9869	48	3561	34043.53	8
+1	2010	7	9869	48	3581	808560.9	9
+1	2010	7	9869	51	881	2066219.52	10
+1	2010	7	9869	51	882	5225977.85	11
+1	2010	7	9869	51	3561	68634.37	12
+1	2010	7	9869	51	3581	2408306.87	13
+1	2010	7	9869	117	881	5116759.23	14
+1	2010	7	9869	117	882	7278748.83	15
+1	2010	7	9869	117	3561	45712.46	16
+1	2010	7	9869	117	3581	784073.72	17
+1	2011	4	9869	51	3581	2384692.24	3
+1	2011	4	9869	48	3581	777610.78	4
+1	2011	4	9869	117	3581	710145.36	5
+1	2011	4	9869	51	3561	40569.13	6
+1	2011	4	9869	45	3561	68087.33	7
+1	2011	4	9869	48	3561	50932.46	8
+1	2011	4	9869	117	3561	61532.89	9
+1	2011	4	9869	51	882	5326910.63	10
+1	2011	4	9869	45	882	12910048.94	11
+1	2011	4	9869	48	882	6509136.86	12
+1	2011	4	9869	117	882	7141852.06	13
+1	2011	4	9869	51	881	2228317.67	14
+1	2011	4	9869	45	881	4185926.33	15
+1	2011	4	9869	48	881	4271120.63	16
+1	2011	4	9869	45	3581	7775986.95	17
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+4	2012	7	9869	48	9	2867909	3
+4	2012	7	9869	51	9	2409295	4
+4	2012	7	9869	117	9	2172713	5
+4	2012	7	9869	45	21	2154709	6
+4	2012	7	9869	48	21	747847	7
+4	2012	7	9869	51	21	505979	8
+4	2012	7	9869	117	21	1638954	9
+3	2011	5	9869	117	4861	3909403.83	3
+3	2011	5	9869	48	4861	5072232.2	4
+3	2011	5	9869	45	4861	7646400.54	5
+3	2011	5	9869	45	4862	4539306.7	6
+3	2011	5	9869	117	4862	2568348.69	7
+3	2011	5	9869	51	4862	580309.92	8
+3	2011	5	9869	228	4862	20737.25	9
+3	2011	5	9869	48	4862	1072318.9	10
+1	2011	12	9869	48	881	4535180.18	3
+1	2011	12	9869	51	881	2064485.49	4
+1	2011	12	9869	45	881	3755902.42	5
+1	2011	12	9869	117	882	7318747.7	6
+1	2011	12	9869	48	882	6720293.23	7
+1	2011	12	9869	51	882	5382008.85	8
+1	2011	12	9869	45	882	13464012.89	9
+1	2011	12	9869	117	3561	1218.91	10
+1	2011	12	9869	48	3561	119.78	11
+1	2011	12	9869	51	3561	2124.38	12
+1	2011	12	9869	45	3561	20416.35	13
+1	2011	12	9869	117	3581	880313.98	14
+1	2011	12	9869	48	3581	975348.02	15
+1	2011	12	9869	51	3581	2840497.2	16
+1	2011	12	9869	45	3581	8973002.66	17
+3	2011	3	9869	51	4862	566803.92	3
+3	2011	3	9869	48	4862	1021067.74	4
+3	2011	3	9869	45	4862	4413918.32	5
+3	2011	3	9869	117	4861	3954301.31	6
+3	2011	3	9869	51	4861	4289118.89	7
+3	2011	3	9869	45	4861	7882792.85	8
+3	2011	3	9869	48	4861	5059163.18	9
+3	2011	3	9869	228	4862	12023.85	10
+3	2011	3	9869	51	10511	105601.72	11
+3	2011	3	9869	48	10511	84287.99	12
+3	2011	3	9869	117	10511	92917.06	13
+3	2011	3	9869	45	10511	213443.44	14
+3	2010	9	9869	45	4862	5719232.97	3
+3	2010	9	9869	45	10511	0	4
+3	2010	9	9869	48	4861	4911084.16	5
+3	2010	9	9869	48	4862	1296952.31	6
+3	2010	9	9869	48	10511	0	7
+3	2010	9	9869	51	4861	4112011.13	8
+3	2010	9	9869	51	4862	475127.61	9
+3	2010	9	9869	51	10511	0	10
+3	2010	9	9869	117	4861	3674594.21	11
+3	2010	9	9869	117	4862	3197862.63	12
+3	2010	9	9869	117	10511	0	13
+3	2010	9	9869	225	10511	0	14
+3	2010	9	9869	228	10511	0	15
+2	2012	1	9869	51	3641	675	3
+2	2012	1	9869	48	3641	3563	4
+2	2012	1	9869	45	3641	1734	5
+2	2012	1	9869	117	1861	45	6
+2	2012	1	9869	51	1861	103	7
+2	2012	1	9869	48	1861	41	8
+2	2012	1	9869	45	1861	43	9
+2	2012	1	9869	117	1862	4736	10
+2	2012	1	9869	51	1862	938	11
+2	2012	1	9869	48	1862	3040	12
+2	2012	1	9869	45	1862	3996	13
+2	2012	1	9869	117	761	132484	14
+2	2012	1	9869	51	761	153462	15
+2	2012	1	9869	48	761	184916	16
+2	2012	1	9869	45	761	125014	17
+2	2012	1	9869	117	762	8744	18
+2	2012	1	9869	51	762	8088	19
+2	2012	1	9869	48	762	11266	20
+2	2012	1	9869	45	762	11881	21
+2	2012	1	9869	117	763	13934	22
+2	2012	1	9869	51	763	10197	23
+2	2012	1	9869	48	763	14527	24
+2	2012	1	9869	45	763	3978	25
+2	2012	1	9869	117	781	9704	26
+2	2012	1	9869	51	781	4052	27
+2	2012	1	9869	48	781	10816	28
+2	2012	1	9869	45	781	5548	29
+2	2012	1	9869	117	786	118428	30
+2	2012	1	9869	51	786	21302	31
+2	2012	1	9869	48	786	49775	32
+2	2012	1	9869	45	786	75913	33
+2	2012	1	9869	117	801	2569	34
+2	2012	1	9869	51	801	20997	35
+2	2012	1	9869	48	801	9483	36
+2	2012	1	9869	45	801	1373	37
+2	2012	1	9869	117	802	441	38
+2	2012	1	9869	51	802	22	39
+2	2012	1	9869	48	802	55	40
+2	2012	1	9869	45	802	303	41
+2	2012	1	9869	117	803	16132	42
+2	2012	1	9869	51	803	1422	43
+2	2012	1	9869	48	803	7525	44
+2	2012	1	9869	45	803	2686	45
+2	2012	1	9869	117	3621	3960	46
+2	2012	1	9869	51	3621	1310	47
+2	2012	1	9869	48	3621	3135	48
+2	2012	1	9869	45	3621	6080	49
+2	2012	1	9869	117	3601	4006	50
+2	2012	1	9869	51	3601	6021	51
+2	2012	1	9869	48	3601	8547	52
+2	2012	1	9869	45	3601	8378	53
+4	2010	2	9869	45	21	2693422	3
+4	2010	2	9869	48	9	2849908	4
+4	2010	2	9869	48	21	854881	5
+4	2010	2	9869	51	9	2308829	6
+4	2010	2	9869	51	21	624185	7
+4	2010	2	9869	117	9	2179652	8
+4	2010	2	9869	117	21	1958430	9
+3	2010	10	9869	45	4862	5842600.53	3
+3	2010	10	9869	45	10511	0	4
+3	2010	10	9869	48	4861	5118183.26	5
+3	2010	10	9869	48	4862	1372489.98	6
+3	2010	10	9869	48	10511	0	7
+3	2010	10	9869	51	4861	4165184.38	8
+3	2010	10	9869	51	4862	499122.74	9
+3	2010	10	9869	51	10511	0	10
+3	2010	10	9869	117	4861	3999284.5	11
+3	2010	10	9869	117	4862	3371441.36	12
+3	2010	10	9869	117	10511	0	13
+3	2010	10	9869	225	10511	0	14
+3	2010	10	9869	228	4862	23112.01	15
+3	2010	10	9869	228	10511	0	16
+3	2011	1	9869	45	4862	6073899.89	3
+3	2011	1	9869	45	4861	8362841.89	4
+3	2011	1	9869	117	4861	3875206.74	5
+3	2011	1	9869	228	4861	14636.52	6
+3	2011	1	9869	48	4861	5142981.8	7
+3	2011	1	9869	228	4862	14636.52	8
+3	2011	1	9869	45	10511	110659.91	9
+3	2011	1	9869	51	10511	126415.37	10
+3	2011	1	9869	51	4862	800203.97	11
+3	2011	1	9869	48	4862	1251587.45	12
+3	2011	1	9869	117	4862	2997908.55	13
+3	2011	1	9869	48	10511	74044.64	14
+3	2011	1	9869	51	4861	4402825.43	15
+3	2010	4	9869	45	4862	5660476.49	3
+3	2010	4	9869	45	10511	0	4
+3	2010	4	9869	48	4861	5594130.06	5
+3	2010	4	9869	48	4862	1327589.22	6
+3	2010	4	9869	48	10511	0	7
+3	2010	4	9869	51	4861	4572949.66	8
+3	2010	4	9869	51	4862	721571.2	9
+3	2010	4	9869	51	10511	0	10
+3	2010	4	9869	117	4861	3285195.46	11
+3	2010	4	9869	117	4862	3241691.61	12
+3	2010	4	9869	117	10511	0	13
+3	2010	4	9869	225	10511	0	14
+3	2010	4	9869	228	10511	0	15
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis82515210; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis82515210 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2012	2	9869	51	881	2378362.73	3
+1	2012	2	9869	48	881	4541744.05	4
+1	2012	2	9869	45	881	4413994.7	5
+1	2012	2	9869	117	882	7237897.04	6
+1	2012	2	9869	51	882	5627391.69	7
+1	2012	2	9869	48	882	6827322.61	8
+1	2012	2	9869	45	882	13791667.72	9
+1	2012	2	9869	117	3561	8738.05	10
+1	2012	2	9869	51	3561	4944.15	11
+1	2012	2	9869	48	3561	7127.34	12
+1	2012	2	9869	45	3561	38601.35	13
+1	2012	2	9869	117	3581	732636.81	14
+1	2012	2	9869	51	3581	2554417.12	15
+1	2012	2	9869	48	3581	839958.68	16
+1	2012	2	9869	45	3581	8297145.59	17
+4	2011	12	9869	48	21	722906	3
+4	2011	12	9869	117	21	1659789	4
+4	2011	12	9869	45	9	3597075	5
+4	2011	12	9869	51	9	2429812	6
+4	2011	12	9869	48	9	2952354	7
+4	2011	12	9869	117	9	2253110	8
+4	2011	12	9869	45	21	2089085	9
+4	2012	2	9869	48	9	2923593	3
+4	2012	2	9869	51	9	2479548	4
+4	2012	2	9869	117	9	2189463	5
+4	2012	2	9869	45	21	2226475	6
+4	2012	2	9869	48	21	728496	7
+4	2012	2	9869	51	21	519076	8
+4	2012	2	9869	117	21	1649228	9
+4	2010	3	9869	45	21	2638697	3
+4	2010	3	9869	48	9	2858451	4
+4	2010	3	9869	48	21	859892	5
+4	2010	3	9869	51	9	2321843	6
+4	2010	3	9869	51	21	629838	7
+4	2010	3	9869	117	9	2173116	8
+4	2010	3	9869	117	21	1954024	9
+3	2011	6	9869	51	4861	4716927.67	3
+3	2011	6	9869	117	4861	4199238.35	4
+3	2011	6	9869	48	4861	5330949.55	5
+3	2011	6	9869	51	4862	647356.31	6
+3	2011	6	9869	45	4862	4821574.9	7
+3	2011	6	9869	117	4862	2788943.04	8
+3	2011	6	9869	48	4862	1106359.4	9
+3	2011	6	9869	228	4862	17629.93	10
+3	2011	6	9869	45	10511	499963.44	11
+3	2011	6	9869	117	10511	304348.13	12
+3	2011	6	9869	48	10511	164512.11	13
+3	2011	6	9869	51	10511	368060.89	14
+2	2010	9	9869	45	762	10398	3
+2	2010	9	9869	45	763	4867	4
+2	2010	9	9869	45	781	6394	5
+2	2010	9	9869	45	786	73861	6
+2	2010	9	9869	45	801	1388	7
+2	2010	9	9869	45	802	347	8
+2	2010	9	9869	45	803	3291	9
+2	2010	9	9869	45	1861	42	10
+2	2010	9	9869	45	1862	3655	11
+2	2010	9	9869	45	3601	8077	12
+2	2010	9	9869	45	3621	5771	13
+2	2010	9	9869	45	3641	1571	14
+2	2010	9	9869	48	761	176763	15
+2	2010	9	9869	48	762	10712	16
+2	2010	9	9869	48	763	13432	17
+2	2010	9	9869	48	781	12439	18
+2	2010	9	9869	48	786	45895	19
+2	2010	9	9869	48	801	8920	20
+2	2010	9	9869	48	802	56	21
+2	2010	9	9869	48	803	11783	22
+2	2010	9	9869	48	1861	39	23
+2	2010	9	9869	48	1862	2758	24
+2	2010	9	9869	48	3601	8975	25
+2	2010	9	9869	48	3621	3147	26
+2	2010	9	9869	48	3641	2204	27
+2	2010	9	9869	51	761	143962	28
+2	2010	9	9869	51	762	8069	29
+2	2010	9	9869	51	763	11091	30
+2	2010	9	9869	51	781	3293	31
+2	2010	9	9869	51	786	20746	32
+2	2010	9	9869	51	801	20402	33
+2	2010	9	9869	51	802	22	34
+2	2010	9	9869	51	803	438	35
+2	2010	9	9869	51	1861	80	36
+2	2010	9	9869	51	1862	1065	37
+2	2010	9	9869	51	3601	6527	38
+2	2010	9	9869	51	3621	1514	39
+2	2010	9	9869	51	3641	596	40
+2	2010	9	9869	117	761	128506	41
+2	2010	9	9869	117	762	7785	42
+2	2010	9	9869	117	763	13960	43
+2	2010	9	9869	117	781	10577	44
+2	2010	9	9869	117	786	112381	45
+2	2010	9	9869	117	801	2532	46
+2	2010	9	9869	117	802	332	47
+2	2010	9	9869	117	803	16385	48
+2	2010	9	9869	117	1861	40	49
+2	2010	9	9869	117	1862	3919	50
+2	2010	9	9869	117	3601	3618	51
+2	2010	9	9869	117	3621	3508	52
+2	2010	9	9869	117	3641	11144	53
+1	2010	12	9869	45	882	13619598.26	3
+1	2010	12	9869	45	3561	31306.81	4
+1	2010	12	9869	45	3581	8989941.34	5
+1	2010	12	9869	48	881	4257477.18	6
+1	2010	12	9869	48	882	6141808.27	7
+1	2010	12	9869	48	3561	23647.68	8
+1	2010	12	9869	48	3581	804281.45	9
+1	2010	12	9869	51	881	1967070.97	10
+1	2010	12	9869	51	882	5003199.52	11
+1	2010	12	9869	51	3561	25218.05	12
+1	2010	12	9869	51	3581	2537809.95	13
+1	2010	12	9869	117	881	5165798.87	14
+1	2010	12	9869	117	882	7081609.77	15
+1	2010	12	9869	117	3561	34281.97	16
+1	2010	12	9869	117	3581	743223.64	17
+2	2010	7	9869	45	762	10574	3
+2	2010	7	9869	45	763	4941	4
+2	2010	7	9869	45	781	6641	5
+2	2010	7	9869	45	786	73394	6
+2	2010	7	9869	45	801	1412	7
+2	2010	7	9869	45	802	358	8
+2	2010	7	9869	45	803	3728	9
+2	2010	7	9869	45	1861	41	10
+2	2010	7	9869	45	1862	3579	11
+2	2010	7	9869	45	3601	7941	12
+2	2010	7	9869	45	3621	5637	13
+2	2010	7	9869	45	3641	1444	14
+2	2010	7	9869	48	761	176025	15
+2	2010	7	9869	48	762	10588	16
+2	2010	7	9869	48	763	13803	17
+2	2010	7	9869	48	781	11699	18
+2	2010	7	9869	48	786	45788	19
+2	2010	7	9869	48	801	8924	20
+2	2010	7	9869	48	802	56	21
+2	2010	7	9869	48	803	11045	22
+2	2010	7	9869	48	1861	39	23
+2	2010	7	9869	48	1862	2756	24
+2	2010	7	9869	48	3601	8971	25
+2	2010	7	9869	48	3621	3137	26
+2	2010	7	9869	48	3641	2243	27
+2	2010	7	9869	51	761	142328	28
+2	2010	7	9869	51	762	7895	29
+2	2010	7	9869	51	763	11479	30
+2	2010	7	9869	51	781	3974	31
+2	2010	7	9869	51	786	20320	32
+2	2010	7	9869	51	801	20339	33
+2	2010	7	9869	51	802	23	34
+2	2010	7	9869	51	803	411	35
+2	2010	7	9869	51	1861	80	36
+2	2010	7	9869	51	1862	1069	37
+2	2010	7	9869	51	3601	6445	38
+2	2010	7	9869	51	3621	1527	39
+2	2010	7	9869	51	3641	608	40
+2	2010	7	9869	117	761	127451	41
+2	2010	7	9869	117	762	7820	42
+2	2010	7	9869	117	763	14399	43
+2	2010	7	9869	117	781	10604	44
+2	2010	7	9869	117	786	111451	45
+2	2010	7	9869	117	801	2536	46
+2	2010	7	9869	117	802	324	47
+2	2010	7	9869	117	803	16544	48
+2	2010	7	9869	117	1861	38	49
+2	2010	7	9869	117	1862	3898	50
+2	2010	7	9869	117	3601	3534	51
+2	2010	7	9869	117	3621	3425	52
+2	2010	7	9869	117	3641	10756	53
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	12	9869	48	881	4535180.18	3
+1	2011	12	9869	51	881	2064485.49	4
+1	2011	12	9869	45	881	3755902.42	5
+1	2011	12	9869	117	882	7318747.7	6
+1	2011	12	9869	48	882	6720293.23	7
+1	2011	12	9869	51	882	5382008.85	8
+1	2011	12	9869	45	882	13464012.89	9
+1	2011	12	9869	117	3561	1218.91	10
+1	2011	12	9869	48	3561	119.78	11
+1	2011	12	9869	51	3561	2124.38	12
+1	2011	12	9869	45	3561	20416.35	13
+1	2011	12	9869	117	3581	880313.98	14
+1	2011	12	9869	48	3581	975348.02	15
+1	2011	12	9869	51	3581	2840497.2	16
+1	2011	12	9869	45	3581	8973002.66	17
+2	2012	3	9869	48	761	185410	3
+2	2012	3	9869	51	761	154184	4
+2	2012	3	9869	117	761	132852	5
+2	2012	3	9869	45	762	12051	6
+2	2012	3	9869	48	762	11318	7
+2	2012	3	9869	51	762	8205	8
+2	2012	3	9869	117	762	8864	9
+2	2012	3	9869	45	763	4161	10
+2	2012	3	9869	48	763	15016	11
+2	2012	3	9869	51	763	10407	12
+2	2012	3	9869	117	763	13859	13
+2	2012	3	9869	45	781	5529	14
+2	2012	3	9869	48	781	10738	15
+2	2012	3	9869	51	781	4698	16
+2	2012	3	9869	117	781	9772	17
+2	2012	3	9869	45	786	76223	18
+2	2012	3	9869	48	786	50710	19
+2	2012	3	9869	51	786	21332	20
+2	2012	3	9869	117	786	118751	21
+2	2012	3	9869	45	801	1377	22
+2	2012	3	9869	48	801	9509	23
+2	2012	3	9869	51	801	21000	24
+2	2012	3	9869	117	801	2641	25
+2	2012	3	9869	45	802	303	26
+2	2012	3	9869	48	802	55	27
+2	2012	3	9869	51	802	22	28
+2	2012	3	9869	117	802	443	29
+2	2012	3	9869	45	803	2731	30
+2	2012	3	9869	48	803	7521	31
+2	2012	3	9869	51	803	1657	32
+2	2012	3	9869	117	803	16132	33
+2	2012	3	9869	45	1861	44	34
+2	2012	3	9869	48	1861	41	35
+2	2012	3	9869	51	1861	103	36
+2	2012	3	9869	117	1861	45	37
+2	2012	3	9869	45	1862	3968	38
+2	2012	3	9869	48	1862	3133	39
+2	2012	3	9869	51	1862	931	40
+2	2012	3	9869	117	1862	4861	41
+2	2012	3	9869	45	3601	8344	42
+2	2012	3	9869	48	3601	8500	43
+2	2012	3	9869	51	3601	5998	44
+2	2012	3	9869	117	3601	3990	45
+2	2012	3	9869	45	3621	6048	46
+2	2012	3	9869	48	3621	3128	47
+2	2012	3	9869	51	3621	1304	48
+2	2012	3	9869	117	3621	3988	49
+2	2012	3	9869	45	3641	1761	50
+2	2012	3	9869	48	3641	3849	51
+2	2012	3	9869	51	3641	682	52
+2	2012	3	9869	117	3641	10016	53
+2	2012	2	9869	51	3641	680	3
+2	2012	2	9869	48	3641	3584	4
+2	2012	2	9869	45	3641	1745	5
+2	2012	2	9869	117	1861	45	6
+2	2012	2	9869	51	1861	103	7
+2	2012	2	9869	48	1861	41	8
+2	2012	2	9869	45	1861	44	9
+2	2012	2	9869	117	1862	4782	10
+2	2012	2	9869	51	1862	931	11
+2	2012	2	9869	48	1862	3024	12
+2	2012	2	9869	45	1862	4081	13
+2	2012	2	9869	117	761	132602	14
+2	2012	2	9869	51	761	153847	15
+2	2012	2	9869	48	761	185289	16
+2	2012	2	9869	45	761	125231	17
+2	2012	2	9869	117	762	8782	18
+2	2012	2	9869	51	762	8149	19
+2	2012	2	9869	48	762	11311	20
+2	2012	2	9869	45	762	11962	21
+2	2012	2	9869	117	763	13973	22
+2	2012	2	9869	51	763	10242	23
+2	2012	2	9869	48	763	14628	24
+2	2012	2	9869	45	763	3962	25
+2	2012	2	9869	117	781	9730	26
+2	2012	2	9869	51	781	4199	27
+2	2012	2	9869	48	781	10754	28
+2	2012	2	9869	45	781	5561	29
+2	2012	2	9869	117	786	118590	30
+2	2012	2	9869	51	786	21320	31
+2	2012	2	9869	48	786	49950	32
+2	2012	2	9869	45	786	75922	33
+2	2012	2	9869	117	801	2603	34
+2	2012	2	9869	51	801	20998	35
+2	2012	2	9869	48	801	9493	36
+2	2012	2	9869	45	801	1375	37
+2	2012	2	9869	117	802	438	38
+2	2012	2	9869	51	802	22	39
+2	2012	2	9869	48	802	56	40
+2	2012	2	9869	45	802	305	41
+2	2012	2	9869	117	803	16129	42
+2	2012	2	9869	51	803	1515	43
+2	2012	2	9869	48	803	7554	44
+2	2012	2	9869	45	803	2751	45
+2	2012	2	9869	117	3621	4006	46
+2	2012	2	9869	51	3621	1303	47
+2	2012	2	9869	48	3621	3132	48
+2	2012	2	9869	45	3621	6073	49
+2	2012	2	9869	117	3601	3998	50
+2	2012	2	9869	51	3601	6006	51
+2	2012	2	9869	48	3601	8527	52
+2	2012	2	9869	45	3601	8363	53
+2	2011	10	9869	48	763	14074	3
+2	2011	10	9869	51	763	10438	4
+2	2011	10	9869	117	781	10100	5
+2	2011	10	9869	48	781	11458	6
+2	2011	10	9869	51	781	3140	7
+2	2011	10	9869	45	786	75621	8
+2	2011	10	9869	117	786	117015	9
+2	2011	10	9869	48	786	49397	10
+2	2011	10	9869	51	786	21234	11
+2	2011	10	9869	45	801	1365	12
+2	2011	10	9869	117	801	2547	13
+2	2011	10	9869	48	801	9463	14
+2	2011	10	9869	51	801	20945	15
+2	2011	10	9869	45	802	309	16
+2	2011	10	9869	117	802	446	17
+2	2011	10	9869	48	802	55	18
+2	2011	10	9869	51	802	19	19
+2	2011	10	9869	45	803	2722	20
+2	2011	10	9869	117	803	16653	21
+2	2011	10	9869	48	803	7551	22
+2	2011	10	9869	51	803	1251	23
+2	2011	10	9869	45	1861	44	24
+2	2011	10	9869	117	1861	38	25
+2	2011	10	9869	48	1861	42	26
+2	2011	10	9869	51	1861	91	27
+2	2011	10	9869	45	1862	3816	28
+2	2011	10	9869	117	1862	4580	29
+2	2011	10	9869	48	1862	2930	30
+2	2011	10	9869	51	1862	898	31
+2	2011	10	9869	45	3601	8366	32
+2	2011	10	9869	117	3601	3966	33
+2	2011	10	9869	48	3601	8609	34
+2	2011	10	9869	51	3601	5919	35
+2	2011	10	9869	45	3621	6047	36
+2	2011	10	9869	117	3621	3886	37
+2	2011	10	9869	48	3621	3147	38
+2	2011	10	9869	51	3621	1320	39
+2	2011	10	9869	45	3641	1698	40
+2	2011	10	9869	117	3641	10869	41
+2	2011	10	9869	48	3641	3382	42
+2	2011	10	9869	51	3641	659	43
+2	2011	10	9869	45	761	124289	44
+2	2011	10	9869	117	761	131616	45
+2	2011	10	9869	48	761	183455	46
+2	2011	10	9869	51	761	151471	47
+2	2011	10	9869	45	762	11470	48
+2	2011	10	9869	117	762	8497	49
+2	2011	10	9869	48	762	11180	50
+2	2011	10	9869	51	762	8207	51
+2	2011	10	9869	45	763	4432	52
+2	2011	10	9869	117	763	13796	53
+1	2010	1	9869	45	882	13007746.71	3
+1	2010	1	9869	45	3561	138677.29	4
+1	2010	1	9869	45	3581	8061653.1	5
+1	2010	1	9869	48	881	4108035.43	6
+1	2010	1	9869	48	882	5756513.06	7
+1	2010	1	9869	48	3561	38829.21	8
+1	2010	1	9869	48	3581	624255.56	9
+1	2010	1	9869	51	881	1978435.6	10
+1	2010	1	9869	51	882	4572639.05	11
+1	2010	1	9869	51	3561	50234.43	12
+1	2010	1	9869	51	3581	2088022.9	13
+1	2010	1	9869	117	881	4730671.72	14
+1	2010	1	9869	117	882	6460820.66	15
+1	2010	1	9869	117	3561	52058.61	16
+1	2010	1	9869	117	3581	559059.05	17
+1	2011	11	9869	117	881	5367019.85	3
+1	2011	11	9869	45	881	4442761.42	4
+1	2011	11	9869	48	881	4570810.04	5
+1	2011	11	9869	51	882	5880936.13	6
+1	2011	11	9869	117	882	7577597.96	7
+1	2011	11	9869	45	882	14720529.13	8
+1	2011	11	9869	48	882	6916026.79	9
+1	2011	11	9869	51	3561	36077.77	10
+1	2011	11	9869	117	3561	46331.01	11
+1	2011	11	9869	45	3561	140881.61	12
+1	2011	11	9869	48	3561	39224.65	13
+1	2011	11	9869	51	3581	2866102.29	14
+1	2011	11	9869	117	3581	921025.62	15
+1	2011	11	9869	45	3581	9341975.24	16
+1	2011	11	9869	48	3581	1020382.94	17
+3	2012	2	9869	51	4861	5044763.14	3
+3	2012	2	9869	48	4861	5683586.5	4
+3	2012	2	9869	45	4861	9047181.81	5
+3	2012	2	9869	228	4862	12845.68	6
+3	2012	2	9869	117	4862	3076077.29	7
+3	2012	2	9869	51	4862	689162.51	8
+3	2012	2	9869	48	4862	1245551.1	9
+3	2012	2	9869	45	4862	5194923.86	10
+1	2012	6	9869	45	882	15384808.69	3
+1	2012	6	9869	45	3561	60051.13	4
+1	2012	6	9869	45	3581	9742803.11	5
+1	2012	6	9869	48	881	5118167.62	6
+1	2012	6	9869	48	882	7540332.99	7
+1	2012	6	9869	48	3561	22627.6	8
+1	2012	6	9869	48	3581	1054684.99	9
+1	2012	6	9869	51	881	2600124.07	10
+1	2012	6	9869	51	882	6334748.21	11
+1	2012	6	9869	51	3561	10860.41	12
+1	2012	6	9869	51	3581	3115103.48	13
+1	2012	6	9869	117	881	6004846.29	14
+1	2012	6	9869	117	882	8416186.97	15
+1	2012	6	9869	117	3561	35379.48	16
+1	2012	6	9869	117	3581	985121.22	17
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis825152144; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis825152144 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis82515228; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis82515228 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2010	2	9869	45	21	2693422	3
+4	2010	2	9869	48	9	2849908	4
+4	2010	2	9869	48	21	854881	5
+4	2010	2	9869	51	9	2308829	6
+4	2010	2	9869	51	21	624185	7
+4	2010	2	9869	117	9	2179652	8
+4	2010	2	9869	117	21	1958430	9
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis825152342; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis825152342 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2012	2	9869	51	881	2378362.73	3
+1	2012	2	9869	48	881	4541744.05	4
+1	2012	2	9869	45	881	4413994.7	5
+1	2012	2	9869	117	882	7237897.04	6
+1	2012	2	9869	51	882	5627391.69	7
+1	2012	2	9869	48	882	6827322.61	8
+1	2012	2	9869	45	882	13791667.72	9
+1	2012	2	9869	117	3561	8738.05	10
+1	2012	2	9869	51	3561	4944.15	11
+1	2012	2	9869	48	3561	7127.34	12
+1	2012	2	9869	45	3561	38601.35	13
+1	2012	2	9869	117	3581	732636.81	14
+1	2012	2	9869	51	3581	2554417.12	15
+1	2012	2	9869	48	3581	839958.68	16
+1	2012	2	9869	45	3581	8297145.59	17
+4	2011	12	9869	48	21	722906	3
+4	2011	12	9869	117	21	1659789	4
+4	2011	12	9869	45	9	3597075	5
+4	2011	12	9869	51	9	2429812	6
+4	2011	12	9869	48	9	2952354	7
+4	2011	12	9869	117	9	2253110	8
+4	2011	12	9869	45	21	2089085	9
+4	2012	2	9869	48	9	2923593	3
+4	2012	2	9869	51	9	2479548	4
+4	2012	2	9869	117	9	2189463	5
+4	2012	2	9869	45	21	2226475	6
+4	2012	2	9869	48	21	728496	7
+4	2012	2	9869	51	21	519076	8
+4	2012	2	9869	117	21	1649228	9
+4	2010	3	9869	45	21	2638697	3
+4	2010	3	9869	48	9	2858451	4
+4	2010	3	9869	48	21	859892	5
+4	2010	3	9869	51	9	2321843	6
+4	2010	3	9869	51	21	629838	7
+4	2010	3	9869	117	9	2173116	8
+4	2010	3	9869	117	21	1954024	9
+2	2010	9	9869	45	762	10398	3
+2	2010	9	9869	45	763	4867	4
+2	2010	9	9869	45	781	6394	5
+2	2010	9	9869	45	786	73861	6
+2	2010	9	9869	45	801	1388	7
+2	2010	9	9869	45	802	347	8
+2	2010	9	9869	45	803	3291	9
+2	2010	9	9869	45	1861	42	10
+2	2010	9	9869	45	1862	3655	11
+2	2010	9	9869	45	3601	8077	12
+2	2010	9	9869	45	3621	5771	13
+2	2010	9	9869	45	3641	1571	14
+2	2010	9	9869	48	761	176763	15
+2	2010	9	9869	48	762	10712	16
+2	2010	9	9869	48	763	13432	17
+2	2010	9	9869	48	781	12439	18
+2	2010	9	9869	48	786	45895	19
+2	2010	9	9869	48	801	8920	20
+2	2010	9	9869	48	802	56	21
+2	2010	9	9869	48	803	11783	22
+2	2010	9	9869	48	1861	39	23
+2	2010	9	9869	48	1862	2758	24
+2	2010	9	9869	48	3601	8975	25
+2	2010	9	9869	48	3621	3147	26
+2	2010	9	9869	48	3641	2204	27
+2	2010	9	9869	51	761	143962	28
+2	2010	9	9869	51	762	8069	29
+2	2010	9	9869	51	763	11091	30
+2	2010	9	9869	51	781	3293	31
+2	2010	9	9869	51	786	20746	32
+2	2010	9	9869	51	801	20402	33
+2	2010	9	9869	51	802	22	34
+2	2010	9	9869	51	803	438	35
+2	2010	9	9869	51	1861	80	36
+2	2010	9	9869	51	1862	1065	37
+2	2010	9	9869	51	3601	6527	38
+2	2010	9	9869	51	3621	1514	39
+2	2010	9	9869	51	3641	596	40
+2	2010	9	9869	117	761	128506	41
+2	2010	9	9869	117	762	7785	42
+2	2010	9	9869	117	763	13960	43
+2	2010	9	9869	117	781	10577	44
+2	2010	9	9869	117	786	112381	45
+2	2010	9	9869	117	801	2532	46
+2	2010	9	9869	117	802	332	47
+2	2010	9	9869	117	803	16385	48
+2	2010	9	9869	117	1861	40	49
+2	2010	9	9869	117	1862	3919	50
+2	2010	9	9869	117	3601	3618	51
+2	2010	9	9869	117	3621	3508	52
+2	2010	9	9869	117	3641	11144	53
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+1	2011	11	9869	117	881	5367019.85	3
+1	2011	11	9869	45	881	4442761.42	4
+1	2011	11	9869	48	881	4570810.04	5
+1	2011	11	9869	51	882	5880936.13	6
+1	2011	11	9869	117	882	7577597.96	7
+1	2011	11	9869	45	882	14720529.13	8
+1	2011	11	9869	48	882	6916026.79	9
+1	2011	11	9869	51	3561	36077.77	10
+1	2011	11	9869	117	3561	46331.01	11
+1	2011	11	9869	45	3561	140881.61	12
+1	2011	11	9869	48	3561	39224.65	13
+1	2011	11	9869	51	3581	2866102.29	14
+1	2011	11	9869	117	3581	921025.62	15
+1	2011	11	9869	45	3581	9341975.24	16
+1	2011	11	9869	48	3581	1020382.94	17
+3	2012	2	9869	51	4861	5044763.14	3
+3	2012	2	9869	48	4861	5683586.5	4
+3	2012	2	9869	45	4861	9047181.81	5
+3	2012	2	9869	228	4862	12845.68	6
+3	2012	2	9869	117	4862	3076077.29	7
+3	2012	2	9869	51	4862	689162.51	8
+3	2012	2	9869	48	4862	1245551.1	9
+3	2012	2	9869	45	4862	5194923.86	10
+1	2012	6	9869	45	882	15384808.69	3
+1	2012	6	9869	45	3561	60051.13	4
+1	2012	6	9869	45	3581	9742803.11	5
+1	2012	6	9869	48	881	5118167.62	6
+1	2012	6	9869	48	882	7540332.99	7
+1	2012	6	9869	48	3561	22627.6	8
+1	2012	6	9869	48	3581	1054684.99	9
+1	2012	6	9869	51	881	2600124.07	10
+1	2012	6	9869	51	882	6334748.21	11
+1	2012	6	9869	51	3561	10860.41	12
+1	2012	6	9869	51	3581	3115103.48	13
+1	2012	6	9869	117	881	6004846.29	14
+1	2012	6	9869	117	882	8416186.97	15
+1	2012	6	9869	117	3561	35379.48	16
+1	2012	6	9869	117	3581	985121.22	17
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis825152431; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis825152431 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2010	2	9869	45	21	2693422	3
+4	2010	2	9869	48	9	2849908	4
+4	2010	2	9869	48	21	854881	5
+4	2010	2	9869	51	9	2308829	6
+4	2010	2	9869	51	21	624185	7
+4	2010	2	9869	117	9	2179652	8
+4	2010	2	9869	117	21	1958430	9
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis825152737; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis825152737 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2012	2	9869	51	881	2378362.73	3
+1	2012	2	9869	48	881	4541744.05	4
+1	2012	2	9869	45	881	4413994.7	5
+1	2012	2	9869	117	882	7237897.04	6
+1	2012	2	9869	51	882	5627391.69	7
+1	2012	2	9869	48	882	6827322.61	8
+1	2012	2	9869	45	882	13791667.72	9
+1	2012	2	9869	117	3561	8738.05	10
+1	2012	2	9869	51	3561	4944.15	11
+1	2012	2	9869	48	3561	7127.34	12
+1	2012	2	9869	45	3561	38601.35	13
+1	2012	2	9869	117	3581	732636.81	14
+1	2012	2	9869	51	3581	2554417.12	15
+1	2012	2	9869	48	3581	839958.68	16
+1	2012	2	9869	45	3581	8297145.59	17
+4	2012	2	9869	48	9	2923593	3
+4	2012	2	9869	51	9	2479548	4
+4	2012	2	9869	117	9	2189463	5
+4	2012	2	9869	45	21	2226475	6
+4	2012	2	9869	48	21	728496	7
+4	2012	2	9869	51	21	519076	8
+4	2012	2	9869	117	21	1649228	9
+4	2010	3	9869	45	21	2638697	3
+4	2010	3	9869	48	9	2858451	4
+4	2010	3	9869	48	21	859892	5
+4	2010	3	9869	51	9	2321843	6
+4	2010	3	9869	51	21	629838	7
+4	2010	3	9869	117	9	2173116	8
+4	2010	3	9869	117	21	1954024	9
+2	2010	9	9869	45	762	10398	3
+2	2010	9	9869	45	763	4867	4
+2	2010	9	9869	45	781	6394	5
+2	2010	9	9869	45	786	73861	6
+2	2010	9	9869	45	801	1388	7
+2	2010	9	9869	45	802	347	8
+2	2010	9	9869	45	803	3291	9
+2	2010	9	9869	45	1861	42	10
+2	2010	9	9869	45	1862	3655	11
+2	2010	9	9869	45	3601	8077	12
+2	2010	9	9869	45	3621	5771	13
+2	2010	9	9869	45	3641	1571	14
+2	2010	9	9869	48	761	176763	15
+2	2010	9	9869	48	762	10712	16
+2	2010	9	9869	48	763	13432	17
+2	2010	9	9869	48	781	12439	18
+2	2010	9	9869	48	786	45895	19
+2	2010	9	9869	48	801	8920	20
+2	2010	9	9869	48	802	56	21
+2	2010	9	9869	48	803	11783	22
+2	2010	9	9869	48	1861	39	23
+2	2010	9	9869	48	1862	2758	24
+2	2010	9	9869	48	3601	8975	25
+2	2010	9	9869	48	3621	3147	26
+2	2010	9	9869	48	3641	2204	27
+2	2010	9	9869	51	761	143962	28
+2	2010	9	9869	51	762	8069	29
+2	2010	9	9869	51	763	11091	30
+2	2010	9	9869	51	781	3293	31
+2	2010	9	9869	51	786	20746	32
+2	2010	9	9869	51	801	20402	33
+2	2010	9	9869	51	802	22	34
+2	2010	9	9869	51	803	438	35
+2	2010	9	9869	51	1861	80	36
+2	2010	9	9869	51	1862	1065	37
+2	2010	9	9869	51	3601	6527	38
+2	2010	9	9869	51	3621	1514	39
+2	2010	9	9869	51	3641	596	40
+2	2010	9	9869	117	761	128506	41
+2	2010	9	9869	117	762	7785	42
+2	2010	9	9869	117	763	13960	43
+2	2010	9	9869	117	781	10577	44
+2	2010	9	9869	117	786	112381	45
+2	2010	9	9869	117	801	2532	46
+2	2010	9	9869	117	802	332	47
+2	2010	9	9869	117	803	16385	48
+2	2010	9	9869	117	1861	40	49
+2	2010	9	9869	117	1862	3919	50
+2	2010	9	9869	117	3601	3618	51
+2	2010	9	9869	117	3621	3508	52
+2	2010	9	9869	117	3641	11144	53
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+2	2012	2	9869	51	3641	680	3
+2	2012	2	9869	48	3641	3584	4
+2	2012	2	9869	45	3641	1745	5
+2	2012	2	9869	117	1861	45	6
+2	2012	2	9869	51	1861	103	7
+2	2012	2	9869	48	1861	41	8
+2	2012	2	9869	45	1861	44	9
+2	2012	2	9869	117	1862	4782	10
+2	2012	2	9869	51	1862	931	11
+2	2012	2	9869	48	1862	3024	12
+2	2012	2	9869	45	1862	4081	13
+2	2012	2	9869	117	761	132602	14
+2	2012	2	9869	51	761	153847	15
+2	2012	2	9869	48	761	185289	16
+2	2012	2	9869	45	761	125231	17
+2	2012	2	9869	117	762	8782	18
+2	2012	2	9869	51	762	8149	19
+2	2012	2	9869	48	762	11311	20
+2	2012	2	9869	45	762	11962	21
+2	2012	2	9869	117	763	13973	22
+2	2012	2	9869	51	763	10242	23
+2	2012	2	9869	48	763	14628	24
+2	2012	2	9869	45	763	3962	25
+2	2012	2	9869	117	781	9730	26
+2	2012	2	9869	51	781	4199	27
+2	2012	2	9869	48	781	10754	28
+2	2012	2	9869	45	781	5561	29
+2	2012	2	9869	117	786	118590	30
+2	2012	2	9869	51	786	21320	31
+2	2012	2	9869	48	786	49950	32
+2	2012	2	9869	45	786	75922	33
+2	2012	2	9869	117	801	2603	34
+2	2012	2	9869	51	801	20998	35
+2	2012	2	9869	48	801	9493	36
+2	2012	2	9869	45	801	1375	37
+2	2012	2	9869	117	802	438	38
+2	2012	2	9869	51	802	22	39
+2	2012	2	9869	48	802	56	40
+2	2012	2	9869	45	802	305	41
+2	2012	2	9869	117	803	16129	42
+2	2012	2	9869	51	803	1515	43
+2	2012	2	9869	48	803	7554	44
+2	2012	2	9869	45	803	2751	45
+2	2012	2	9869	117	3621	4006	46
+2	2012	2	9869	51	3621	1303	47
+2	2012	2	9869	48	3621	3132	48
+2	2012	2	9869	45	3621	6073	49
+2	2012	2	9869	117	3601	3998	50
+2	2012	2	9869	51	3601	6006	51
+2	2012	2	9869	48	3601	8527	52
+2	2012	2	9869	45	3601	8363	53
+2	2011	10	9869	48	763	14074	3
+2	2011	10	9869	51	763	10438	4
+2	2011	10	9869	117	781	10100	5
+2	2011	10	9869	48	781	11458	6
+2	2011	10	9869	51	781	3140	7
+2	2011	10	9869	45	786	75621	8
+2	2011	10	9869	117	786	117015	9
+2	2011	10	9869	48	786	49397	10
+2	2011	10	9869	51	786	21234	11
+2	2011	10	9869	45	801	1365	12
+2	2011	10	9869	117	801	2547	13
+2	2011	10	9869	48	801	9463	14
+2	2011	10	9869	51	801	20945	15
+2	2011	10	9869	45	802	309	16
+2	2011	10	9869	117	802	446	17
+2	2011	10	9869	48	802	55	18
+2	2011	10	9869	51	802	19	19
+2	2011	10	9869	45	803	2722	20
+2	2011	10	9869	117	803	16653	21
+2	2011	10	9869	48	803	7551	22
+2	2011	10	9869	51	803	1251	23
+2	2011	10	9869	45	1861	44	24
+2	2011	10	9869	117	1861	38	25
+2	2011	10	9869	48	1861	42	26
+2	2011	10	9869	51	1861	91	27
+2	2011	10	9869	45	1862	3816	28
+2	2011	10	9869	117	1862	4580	29
+2	2011	10	9869	48	1862	2930	30
+2	2011	10	9869	51	1862	898	31
+2	2011	10	9869	45	3601	8366	32
+2	2011	10	9869	117	3601	3966	33
+2	2011	10	9869	48	3601	8609	34
+2	2011	10	9869	51	3601	5919	35
+2	2011	10	9869	45	3621	6047	36
+2	2011	10	9869	117	3621	3886	37
+2	2011	10	9869	48	3621	3147	38
+2	2011	10	9869	51	3621	1320	39
+2	2011	10	9869	45	3641	1698	40
+2	2011	10	9869	117	3641	10869	41
+2	2011	10	9869	48	3641	3382	42
+2	2011	10	9869	51	3641	659	43
+2	2011	10	9869	45	761	124289	44
+2	2011	10	9869	117	761	131616	45
+2	2011	10	9869	48	761	183455	46
+2	2011	10	9869	51	761	151471	47
+2	2011	10	9869	45	762	11470	48
+2	2011	10	9869	117	762	8497	49
+2	2011	10	9869	48	762	11180	50
+2	2011	10	9869	51	762	8207	51
+2	2011	10	9869	45	763	4432	52
+2	2011	10	9869	117	763	13796	53
+1	2010	1	9869	45	882	13007746.71	3
+1	2010	1	9869	45	3561	138677.29	4
+1	2010	1	9869	45	3581	8061653.1	5
+1	2010	1	9869	48	881	4108035.43	6
+1	2010	1	9869	48	882	5756513.06	7
+1	2010	1	9869	48	3561	38829.21	8
+1	2010	1	9869	48	3581	624255.56	9
+1	2010	1	9869	51	881	1978435.6	10
+1	2010	1	9869	51	882	4572639.05	11
+1	2010	1	9869	51	3561	50234.43	12
+1	2010	1	9869	51	3581	2088022.9	13
+1	2010	1	9869	117	881	4730671.72	14
+1	2010	1	9869	117	882	6460820.66	15
+1	2010	1	9869	117	3561	52058.61	16
+1	2010	1	9869	117	3581	559059.05	17
+1	2011	11	9869	117	881	5367019.85	3
+1	2011	11	9869	45	881	4442761.42	4
+1	2011	11	9869	48	881	4570810.04	5
+1	2011	11	9869	51	882	5880936.13	6
+1	2011	11	9869	117	882	7577597.96	7
+1	2011	11	9869	45	882	14720529.13	8
+1	2011	11	9869	48	882	6916026.79	9
+1	2011	11	9869	51	3561	36077.77	10
+1	2011	11	9869	117	3561	46331.01	11
+1	2011	11	9869	45	3561	140881.61	12
+1	2011	11	9869	48	3561	39224.65	13
+1	2011	11	9869	51	3581	2866102.29	14
+1	2011	11	9869	117	3581	921025.62	15
+1	2011	11	9869	45	3581	9341975.24	16
+1	2011	11	9869	48	3581	1020382.94	17
+3	2012	2	9869	51	4861	5044763.14	3
+3	2012	2	9869	48	4861	5683586.5	4
+3	2012	2	9869	45	4861	9047181.81	5
+3	2012	2	9869	228	4862	12845.68	6
+3	2012	2	9869	117	4862	3076077.29	7
+3	2012	2	9869	51	4862	689162.51	8
+3	2012	2	9869	48	4862	1245551.1	9
+3	2012	2	9869	45	4862	5194923.86	10
+1	2012	6	9869	45	882	15384808.69	3
+1	2012	6	9869	45	3561	60051.13	4
+1	2012	6	9869	45	3581	9742803.11	5
+1	2012	6	9869	48	881	5118167.62	6
+1	2012	6	9869	48	882	7540332.99	7
+1	2012	6	9869	48	3561	22627.6	8
+1	2012	6	9869	48	3581	1054684.99	9
+1	2012	6	9869	51	881	2600124.07	10
+1	2012	6	9869	51	882	6334748.21	11
+1	2012	6	9869	51	3561	10860.41	12
+1	2012	6	9869	51	3581	3115103.48	13
+1	2012	6	9869	117	881	6004846.29	14
+1	2012	6	9869	117	882	8416186.97	15
+1	2012	6	9869	117	3561	35379.48	16
+1	2012	6	9869	117	3581	985121.22	17
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis827142815; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis827142815 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2012	2	9869	51	881	2378362.73	3
+1	2012	2	9869	48	881	4541744.05	4
+1	2012	2	9869	45	881	4413994.7	5
+1	2012	2	9869	117	882	7237897.04	6
+1	2012	2	9869	51	882	5627391.69	7
+1	2012	2	9869	48	882	6827322.61	8
+1	2012	2	9869	45	882	13791667.72	9
+1	2012	2	9869	117	3561	8738.05	10
+1	2012	2	9869	51	3561	4944.15	11
+1	2012	2	9869	48	3561	7127.34	12
+1	2012	2	9869	45	3561	38601.35	13
+1	2012	2	9869	117	3581	732636.81	14
+1	2012	2	9869	51	3581	2554417.12	15
+1	2012	2	9869	48	3581	839958.68	16
+1	2012	2	9869	45	3581	8297145.59	17
+4	2012	2	9869	48	9	2923593	3
+4	2012	2	9869	51	9	2479548	4
+4	2012	2	9869	117	9	2189463	5
+4	2012	2	9869	45	21	2226475	6
+4	2012	2	9869	48	21	728496	7
+4	2012	2	9869	51	21	519076	8
+4	2012	2	9869	117	21	1649228	9
+2	2010	9	9869	45	762	10398	3
+2	2010	9	9869	45	763	4867	4
+2	2010	9	9869	45	781	6394	5
+2	2010	9	9869	45	786	73861	6
+2	2010	9	9869	45	801	1388	7
+2	2010	9	9869	45	802	347	8
+2	2010	9	9869	45	803	3291	9
+2	2010	9	9869	45	1861	42	10
+2	2010	9	9869	45	1862	3655	11
+2	2010	9	9869	45	3601	8077	12
+2	2010	9	9869	45	3621	5771	13
+2	2010	9	9869	45	3641	1571	14
+2	2010	9	9869	48	761	176763	15
+2	2010	9	9869	48	762	10712	16
+2	2010	9	9869	48	763	13432	17
+2	2010	9	9869	48	781	12439	18
+2	2010	9	9869	48	786	45895	19
+2	2010	9	9869	48	801	8920	20
+2	2010	9	9869	48	802	56	21
+2	2010	9	9869	48	803	11783	22
+2	2010	9	9869	48	1861	39	23
+2	2010	9	9869	48	1862	2758	24
+2	2010	9	9869	48	3601	8975	25
+2	2010	9	9869	48	3621	3147	26
+2	2010	9	9869	48	3641	2204	27
+2	2010	9	9869	51	761	143962	28
+2	2010	9	9869	51	762	8069	29
+2	2010	9	9869	51	763	11091	30
+2	2010	9	9869	51	781	3293	31
+2	2010	9	9869	51	786	20746	32
+2	2010	9	9869	51	801	20402	33
+2	2010	9	9869	51	802	22	34
+2	2010	9	9869	51	803	438	35
+2	2010	9	9869	51	1861	80	36
+2	2010	9	9869	51	1862	1065	37
+2	2010	9	9869	51	3601	6527	38
+2	2010	9	9869	51	3621	1514	39
+2	2010	9	9869	51	3641	596	40
+2	2010	9	9869	117	761	128506	41
+2	2010	9	9869	117	762	7785	42
+2	2010	9	9869	117	763	13960	43
+2	2010	9	9869	117	781	10577	44
+2	2010	9	9869	117	786	112381	45
+2	2010	9	9869	117	801	2532	46
+2	2010	9	9869	117	802	332	47
+2	2010	9	9869	117	803	16385	48
+2	2010	9	9869	117	1861	40	49
+2	2010	9	9869	117	1862	3919	50
+2	2010	9	9869	117	3601	3618	51
+2	2010	9	9869	117	3621	3508	52
+2	2010	9	9869	117	3641	11144	53
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+2	2012	2	9869	51	3641	680	3
+2	2012	2	9869	48	3641	3584	4
+2	2012	2	9869	45	3641	1745	5
+2	2012	2	9869	117	1861	45	6
+2	2012	2	9869	51	1861	103	7
+2	2012	2	9869	48	1861	41	8
+2	2012	2	9869	45	1861	44	9
+2	2012	2	9869	117	1862	4782	10
+2	2012	2	9869	51	1862	931	11
+2	2012	2	9869	48	1862	3024	12
+2	2012	2	9869	45	1862	4081	13
+2	2012	2	9869	117	761	132602	14
+2	2012	2	9869	51	761	153847	15
+2	2012	2	9869	48	761	185289	16
+2	2012	2	9869	45	761	125231	17
+2	2012	2	9869	117	762	8782	18
+2	2012	2	9869	51	762	8149	19
+2	2012	2	9869	48	762	11311	20
+2	2012	2	9869	45	762	11962	21
+2	2012	2	9869	117	763	13973	22
+2	2012	2	9869	51	763	10242	23
+2	2012	2	9869	48	763	14628	24
+2	2012	2	9869	45	763	3962	25
+2	2012	2	9869	117	781	9730	26
+2	2012	2	9869	51	781	4199	27
+2	2012	2	9869	48	781	10754	28
+2	2012	2	9869	45	781	5561	29
+2	2012	2	9869	117	786	118590	30
+2	2012	2	9869	51	786	21320	31
+2	2012	2	9869	48	786	49950	32
+2	2012	2	9869	45	786	75922	33
+2	2012	2	9869	117	801	2603	34
+2	2012	2	9869	51	801	20998	35
+2	2012	2	9869	48	801	9493	36
+2	2012	2	9869	45	801	1375	37
+2	2012	2	9869	117	802	438	38
+2	2012	2	9869	51	802	22	39
+2	2012	2	9869	48	802	56	40
+2	2012	2	9869	45	802	305	41
+2	2012	2	9869	117	803	16129	42
+2	2012	2	9869	51	803	1515	43
+2	2012	2	9869	48	803	7554	44
+2	2012	2	9869	45	803	2751	45
+2	2012	2	9869	117	3621	4006	46
+2	2012	2	9869	51	3621	1303	47
+2	2012	2	9869	48	3621	3132	48
+2	2012	2	9869	45	3621	6073	49
+2	2012	2	9869	117	3601	3998	50
+2	2012	2	9869	51	3601	6006	51
+2	2012	2	9869	48	3601	8527	52
+2	2012	2	9869	45	3601	8363	53
+2	2011	10	9869	48	763	14074	3
+2	2011	10	9869	51	763	10438	4
+2	2011	10	9869	117	781	10100	5
+2	2011	10	9869	48	781	11458	6
+2	2011	10	9869	51	781	3140	7
+2	2011	10	9869	45	786	75621	8
+2	2011	10	9869	117	786	117015	9
+2	2011	10	9869	48	786	49397	10
+2	2011	10	9869	51	786	21234	11
+2	2011	10	9869	45	801	1365	12
+2	2011	10	9869	117	801	2547	13
+2	2011	10	9869	48	801	9463	14
+2	2011	10	9869	51	801	20945	15
+2	2011	10	9869	45	802	309	16
+2	2011	10	9869	117	802	446	17
+2	2011	10	9869	48	802	55	18
+2	2011	10	9869	51	802	19	19
+2	2011	10	9869	45	803	2722	20
+2	2011	10	9869	117	803	16653	21
+2	2011	10	9869	48	803	7551	22
+2	2011	10	9869	51	803	1251	23
+2	2011	10	9869	45	1861	44	24
+2	2011	10	9869	117	1861	38	25
+2	2011	10	9869	48	1861	42	26
+2	2011	10	9869	51	1861	91	27
+2	2011	10	9869	45	1862	3816	28
+2	2011	10	9869	117	1862	4580	29
+2	2011	10	9869	48	1862	2930	30
+2	2011	10	9869	51	1862	898	31
+2	2011	10	9869	45	3601	8366	32
+2	2011	10	9869	117	3601	3966	33
+2	2011	10	9869	48	3601	8609	34
+2	2011	10	9869	51	3601	5919	35
+2	2011	10	9869	45	3621	6047	36
+2	2011	10	9869	117	3621	3886	37
+2	2011	10	9869	48	3621	3147	38
+2	2011	10	9869	51	3621	1320	39
+2	2011	10	9869	45	3641	1698	40
+2	2011	10	9869	117	3641	10869	41
+2	2011	10	9869	48	3641	3382	42
+2	2011	10	9869	51	3641	659	43
+2	2011	10	9869	45	761	124289	44
+2	2011	10	9869	117	761	131616	45
+2	2011	10	9869	48	761	183455	46
+2	2011	10	9869	51	761	151471	47
+2	2011	10	9869	45	762	11470	48
+2	2011	10	9869	117	762	8497	49
+2	2011	10	9869	48	762	11180	50
+2	2011	10	9869	51	762	8207	51
+2	2011	10	9869	45	763	4432	52
+2	2011	10	9869	117	763	13796	53
+1	2010	1	9869	45	882	13007746.71	3
+1	2010	1	9869	45	3561	138677.29	4
+1	2010	1	9869	45	3581	8061653.1	5
+1	2010	1	9869	48	881	4108035.43	6
+1	2010	1	9869	48	882	5756513.06	7
+1	2010	1	9869	48	3561	38829.21	8
+1	2010	1	9869	48	3581	624255.56	9
+1	2010	1	9869	51	881	1978435.6	10
+1	2010	1	9869	51	882	4572639.05	11
+1	2010	1	9869	51	3561	50234.43	12
+1	2010	1	9869	51	3581	2088022.9	13
+1	2010	1	9869	117	881	4730671.72	14
+1	2010	1	9869	117	882	6460820.66	15
+1	2010	1	9869	117	3561	52058.61	16
+1	2010	1	9869	117	3581	559059.05	17
+1	2011	11	9869	117	881	5367019.85	3
+1	2011	11	9869	45	881	4442761.42	4
+1	2011	11	9869	48	881	4570810.04	5
+1	2011	11	9869	51	882	5880936.13	6
+1	2011	11	9869	117	882	7577597.96	7
+1	2011	11	9869	45	882	14720529.13	8
+1	2011	11	9869	48	882	6916026.79	9
+1	2011	11	9869	51	3561	36077.77	10
+1	2011	11	9869	117	3561	46331.01	11
+1	2011	11	9869	45	3561	140881.61	12
+1	2011	11	9869	48	3561	39224.65	13
+1	2011	11	9869	51	3581	2866102.29	14
+1	2011	11	9869	117	3581	921025.62	15
+1	2011	11	9869	45	3581	9341975.24	16
+1	2011	11	9869	48	3581	1020382.94	17
+3	2012	2	9869	51	4861	5044763.14	3
+3	2012	2	9869	48	4861	5683586.5	4
+3	2012	2	9869	45	4861	9047181.81	5
+3	2012	2	9869	228	4862	12845.68	6
+3	2012	2	9869	117	4862	3076077.29	7
+3	2012	2	9869	51	4862	689162.51	8
+3	2012	2	9869	48	4862	1245551.1	9
+3	2012	2	9869	45	4862	5194923.86	10
+1	2012	6	9869	45	882	15384808.69	3
+1	2012	6	9869	45	3561	60051.13	4
+1	2012	6	9869	45	3581	9742803.11	5
+1	2012	6	9869	48	881	5118167.62	6
+1	2012	6	9869	48	882	7540332.99	7
+1	2012	6	9869	48	3561	22627.6	8
+1	2012	6	9869	48	3581	1054684.99	9
+1	2012	6	9869	51	881	2600124.07	10
+1	2012	6	9869	51	882	6334748.21	11
+1	2012	6	9869	51	3561	10860.41	12
+1	2012	6	9869	51	3581	3115103.48	13
+1	2012	6	9869	117	881	6004846.29	14
+1	2012	6	9869	117	882	8416186.97	15
+1	2012	6	9869	117	3561	35379.48	16
+1	2012	6	9869	117	3581	985121.22	17
+4	2010	3	9869	45	21	2638697	3
+4	2010	3	9869	48	9	2858451	4
+4	2010	3	9869	48	21	859892	5
+4	2010	3	9869	51	9	2321843	6
+4	2010	3	9869	51	21	629838	7
+4	2010	3	9869	117	9	2173116	8
+4	2010	3	9869	117	21	1954024	9
+3	2011	8	9869	51	4861	4341551.95	3
+3	2011	8	9869	45	4861	8007953.54	4
+3	2011	8	9869	117	4861	4145775.5	5
+3	2011	8	9869	228	4862	15250.44	6
+3	2011	8	9869	51	4862	493423.91	7
+3	2011	8	9869	48	4862	1088392.13	8
+3	2011	8	9869	45	4862	4705743.78	9
+3	2011	8	9869	117	4862	2704555.46	10
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+4	2012	1	9869	48	9	2952163	3
+4	2012	1	9869	51	9	2483882	4
+4	2012	1	9869	117	9	2215089	5
+4	2012	1	9869	45	21	2176373	6
+4	2012	1	9869	48	21	740365	7
+4	2012	1	9869	51	21	530387	8
+4	2012	1	9869	117	21	1669789	9
+2	2011	6	9869	48	1862	2815	3
+2	2011	6	9869	45	3601	8362	4
+2	2011	6	9869	51	3601	6218	5
+2	2011	6	9869	117	3601	3769	6
+2	2011	6	9869	48	3601	8694	7
+2	2011	6	9869	45	3621	6042	8
+2	2011	6	9869	51	3621	1416	9
+2	2011	6	9869	117	3621	3682	10
+2	2011	6	9869	48	3621	3133	11
+2	2011	6	9869	45	3641	1630	12
+2	2011	6	9869	51	3641	664	13
+2	2011	6	9869	117	3641	11450	14
+2	2011	6	9869	48	3641	3260	15
+2	2011	6	9869	45	761	122947	16
+2	2011	6	9869	51	761	148973	17
+2	2011	6	9869	117	761	130306	18
+2	2011	6	9869	48	761	181259	19
+2	2011	6	9869	45	762	10958	20
+2	2011	6	9869	51	762	8231	21
+2	2011	6	9869	117	762	7949	22
+2	2011	6	9869	48	762	10929	23
+2	2011	6	9869	45	763	5313	24
+2	2011	6	9869	51	763	10337	25
+2	2011	6	9869	117	763	14166	26
+2	2011	6	9869	48	763	13794	27
+2	2011	6	9869	45	781	5747	28
+2	2011	6	9869	51	781	2969	29
+2	2011	6	9869	117	781	10419	30
+2	2011	6	9869	48	781	11910	31
+2	2011	6	9869	45	786	74799	32
+2	2011	6	9869	51	786	21079	33
+2	2011	6	9869	117	786	115199	34
+2	2011	6	9869	48	786	48837	35
+2	2011	6	9869	45	801	1353	36
+2	2011	6	9869	51	801	20741	37
+2	2011	6	9869	117	801	2548	38
+2	2011	6	9869	48	801	9074	39
+2	2011	6	9869	45	802	326	40
+2	2011	6	9869	51	802	19	41
+2	2011	6	9869	117	802	375	42
+2	2011	6	9869	48	802	56	43
+2	2011	6	9869	45	803	3031	44
+2	2011	6	9869	51	803	661	45
+2	2011	6	9869	117	803	16722	46
+2	2011	6	9869	48	803	7625	47
+2	2011	6	9869	45	1861	44	48
+2	2011	6	9869	51	1861	88	49
+2	2011	6	9869	117	1861	39	50
+2	2011	6	9869	48	1861	42	51
+2	2011	6	9869	45	1862	3815	52
+2	2011	6	9869	51	1862	918	53
+3	2010	3	9869	45	4862	5515915.97	3
+3	2010	3	9869	45	10511	0	4
+3	2010	3	9869	48	4861	5086393.44	5
+3	2010	3	9869	48	4862	1328218.26	6
+3	2010	3	9869	48	10511	0	7
+3	2010	3	9869	51	4861	4142925.56	8
+3	2010	3	9869	51	4862	727665.39	9
+3	2010	3	9869	51	10511	0	10
+3	2010	3	9869	117	4861	3847710.04	11
+3	2010	3	9869	117	4862	3167876.94	12
+3	2010	3	9869	117	10511	0	13
+3	2010	3	9869	225	10511	0	14
+3	2010	3	9869	228	10511	0	15
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+3	2010	11	9869	45	4862	6018192.84	3
+3	2010	11	9869	45	10511	0	4
+3	2010	11	9869	48	4861	5214332.88	5
+3	2010	11	9869	48	4862	1375845.32	6
+3	2010	11	9869	48	10511	0	7
+3	2010	11	9869	51	4861	4378270.71	8
+3	2010	11	9869	51	4862	705425.06	9
+3	2010	11	9869	51	10511	0	10
+3	2010	11	9869	117	4861	3925701.22	11
+3	2010	11	9869	117	4862	3331887.13	12
+3	2010	11	9869	117	10511	0	13
+3	2010	11	9869	225	10511	0	14
+3	2010	11	9869	228	4861	15440.69	15
+3	2010	11	9869	228	10511	0	16
+2	2012	6	9869	45	762	11842	3
+2	2012	6	9869	45	763	4554	4
+2	2012	6	9869	45	781	5514	5
+2	2012	6	9869	45	786	76287	6
+2	2012	6	9869	45	801	1382	7
+2	2012	6	9869	45	802	299	8
+2	2012	6	9869	45	803	2849	9
+2	2012	6	9869	45	1861	44	10
+2	2012	6	9869	45	1862	4158	11
+2	2012	6	9869	45	3601	8268	12
+2	2012	6	9869	45	3641	1799	13
+2	2012	6	9869	48	761	186682	14
+2	2012	6	9869	48	762	11501	15
+2	2012	6	9869	48	763	15588	16
+2	2012	6	9869	48	781	10529	17
+2	2012	6	9869	48	786	52009	18
+2	2012	6	9869	48	801	9516	19
+2	2012	6	9869	48	802	54	20
+2	2012	6	9869	48	803	7642	21
+2	2012	6	9869	48	1861	42	22
+2	2012	6	9869	48	1862	3295	23
+2	2012	6	9869	48	3601	8430	24
+2	2012	6	9869	48	3641	4899	25
+2	2012	6	9869	51	761	155308	26
+2	2012	6	9869	51	762	8347	27
+2	2012	6	9869	51	763	10694	28
+2	2012	6	9869	51	781	5446	29
+2	2012	6	9869	51	786	21375	30
+2	2012	6	9869	51	801	20989	31
+2	2012	6	9869	51	802	22	32
+2	2012	6	9869	51	803	1951	33
+2	2012	6	9869	51	1861	103	34
+2	2012	6	9869	51	1862	992	35
+2	2012	6	9869	51	3601	5959	36
+2	2012	6	9869	51	3641	683	37
+2	2012	6	9869	117	761	132993	38
+2	2012	6	9869	117	762	9121	39
+2	2012	6	9869	117	763	14209	40
+2	2012	6	9869	117	781	9846	41
+2	2012	6	9869	117	786	119237	42
+2	2012	6	9869	117	801	2700	43
+2	2012	6	9869	117	802	442	44
+2	2012	6	9869	117	803	16162	45
+2	2012	6	9869	117	1861	43	46
+2	2012	6	9869	117	1862	5129	47
+2	2012	6	9869	117	3601	3963	48
+2	2012	6	9869	117	3641	9927	49
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+4	2012	3	9869	48	9	2840104	3
+4	2012	3	9869	51	9	2400994	4
+4	2012	3	9869	117	9	2163848	5
+4	2012	3	9869	45	21	2185809	6
+4	2012	3	9869	48	21	719764	7
+4	2012	3	9869	51	21	510498	8
+4	2012	3	9869	117	21	1637680	9
+2	2011	5	9869	51	3601	6275	3
+2	2011	5	9869	117	3601	3759	4
+2	2011	5	9869	48	3601	8703	5
+2	2011	5	9869	45	3601	8327	6
+2	2011	5	9869	51	3621	1494	7
+2	2011	5	9869	117	3621	3662	8
+2	2011	5	9869	48	3621	3109	9
+2	2011	5	9869	45	3621	6007	10
+2	2011	5	9869	51	3641	660	11
+2	2011	5	9869	117	3641	11335	12
+2	2011	5	9869	48	3641	3040	13
+2	2011	5	9869	45	3641	1638	14
+2	2011	5	9869	51	761	148132	15
+2	2011	5	9869	117	761	129896	16
+2	2011	5	9869	48	761	180669	17
+2	2011	5	9869	45	761	122682	18
+2	2011	5	9869	51	762	8213	19
+2	2011	5	9869	117	762	7909	20
+2	2011	5	9869	48	762	10869	21
+2	2011	5	9869	45	762	10945	22
+2	2011	5	9869	51	763	10515	23
+2	2011	5	9869	117	763	14403	24
+2	2011	5	9869	48	763	13941	25
+2	2011	5	9869	45	763	5385	26
+2	2011	5	9869	51	781	2894	27
+2	2011	5	9869	117	781	10294	28
+2	2011	5	9869	48	781	11959	29
+2	2011	5	9869	45	781	5832	30
+2	2011	5	9869	51	786	21045	31
+2	2011	5	9869	117	786	114925	32
+2	2011	5	9869	48	786	48467	33
+2	2011	5	9869	45	786	74772	34
+2	2011	5	9869	51	801	20711	35
+2	2011	5	9869	117	801	2553	36
+2	2011	5	9869	48	801	9062	37
+2	2011	5	9869	45	801	1358	38
+2	2011	5	9869	51	802	19	39
+2	2011	5	9869	117	802	352	40
+2	2011	5	9869	48	802	57	41
+2	2011	5	9869	45	802	328	42
+2	2011	5	9869	51	803	572	43
+2	2011	5	9869	117	803	16747	44
+2	2011	5	9869	48	803	8774	45
+2	2011	5	9869	45	803	3063	46
+2	2011	5	9869	51	1861	80	47
+2	2011	5	9869	117	1861	39	48
+2	2011	5	9869	48	1861	42	49
+2	2011	5	9869	45	1861	43	50
+2	2011	5	9869	51	1862	916	51
+2	2011	5	9869	117	1862	4264	52
+2	2011	5	9869	48	1862	2797	53
+4	2010	4	9869	45	21	2647431	3
+4	2010	4	9869	48	9	2799578	4
+4	2010	4	9869	48	21	836140	5
+4	2010	4	9869	51	9	2309916	6
+4	2010	4	9869	51	21	620601	7
+4	2010	4	9869	117	9	2140413	8
+4	2010	4	9869	117	21	1939740	9
+1	2012	5	9869	51	881	2223822.52	3
+1	2012	5	9869	48	881	4666276.75	4
+1	2012	5	9869	45	881	4344884.94	5
+1	2012	5	9869	117	882	7501040.43	6
+1	2012	5	9869	51	882	5629585.77	7
+1	2012	5	9869	48	882	6830052.51	8
+1	2012	5	9869	45	882	14830910.4	9
+1	2012	5	9869	117	3561	9539.18	10
+1	2012	5	9869	51	3561	7918.1	11
+1	2012	5	9869	48	3561	11942.03	12
+1	2012	5	9869	45	3561	33237.22	13
+1	2012	5	9869	117	3581	858120.18	14
+1	2012	5	9869	51	3581	2888915.35	15
+1	2012	5	9869	48	3581	962446.5	16
+1	2012	5	9869	45	3581	9853066.38	17
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+2	2012	4	9869	48	761	185654	3
+2	2012	4	9869	117	761	132815	4
+2	2012	4	9869	51	761	154766	5
+2	2012	4	9869	45	762	12011	6
+2	2012	4	9869	48	762	11373	7
+2	2012	4	9869	117	762	8974	8
+2	2012	4	9869	51	762	8187	9
+2	2012	4	9869	45	763	4283	10
+2	2012	4	9869	48	763	15315	11
+2	2012	4	9869	117	763	14027	12
+2	2012	4	9869	51	763	10403	13
+2	2012	4	9869	45	781	5522	14
+2	2012	4	9869	48	781	10658	15
+2	2012	4	9869	117	781	9789	16
+2	2012	4	9869	51	781	5033	17
+2	2012	4	9869	45	786	76301	18
+2	2012	4	9869	48	786	51606	19
+2	2012	4	9869	117	786	118813	20
+2	2012	4	9869	51	786	21366	21
+2	2012	4	9869	45	801	1382	22
+2	2012	4	9869	48	801	9516	23
+2	2012	4	9869	117	801	2673	24
+2	2012	4	9869	51	801	20992	25
+2	2012	4	9869	45	802	299	26
+2	2012	4	9869	48	802	54	27
+2	2012	4	9869	117	802	448	28
+2	2012	4	9869	51	802	22	29
+2	2012	4	9869	45	803	2744	30
+2	2012	4	9869	48	803	7555	31
+2	2012	4	9869	117	803	16196	32
+2	2012	4	9869	51	803	1706	33
+2	2012	4	9869	45	1861	44	34
+2	2012	4	9869	48	1861	41	35
+2	2012	4	9869	117	1861	45	36
+2	2012	4	9869	51	1861	103	37
+2	2012	4	9869	45	1862	4026	38
+2	2012	4	9869	48	1862	3166	39
+2	2012	4	9869	117	1862	5046	40
+2	2012	4	9869	51	1862	956	41
+2	2012	4	9869	45	3601	8313	42
+2	2012	4	9869	48	3601	8470	43
+2	2012	4	9869	117	3601	3983	44
+2	2012	4	9869	51	3601	5986	45
+2	2012	4	9869	45	3621	6033	46
+2	2012	4	9869	48	3621	3157	47
+2	2012	4	9869	117	3621	3981	48
+2	2012	4	9869	51	3621	1304	49
+2	2012	4	9869	45	3641	1770	50
+2	2012	4	9869	48	3641	4334	51
+2	2012	4	9869	117	3641	9928	52
+2	2012	4	9869	51	3641	683	53
+3	2012	5	9869	51	4861	4634899.8	3
+3	2012	5	9869	48	4861	5711374.09	4
+3	2012	5	9869	45	4861	8483862.14	5
+3	2012	5	9869	228	4862	5783.6	6
+3	2012	5	9869	117	4862	3316393.54	7
+3	2012	5	9869	51	4862	1146581.22	8
+3	2012	5	9869	48	4862	1368106.26	9
+3	2012	5	9869	45	4862	5082544.54	10
+3	2012	5	9869	228	10511	0	11
+3	2012	5	9869	225	10511	0	12
+3	2012	5	9869	117	10511	0	13
+3	2012	5	9869	51	10511	0	14
+3	2012	5	9869	48	10511	0	15
+3	2012	5	9869	45	10511	0	16
+3	2011	6	9869	51	4861	4716927.67	3
+3	2011	6	9869	117	4861	4199238.35	4
+3	2011	6	9869	48	4861	5330949.55	5
+3	2011	6	9869	51	4862	647356.31	6
+3	2011	6	9869	45	4862	4821574.9	7
+3	2011	6	9869	117	4862	2788943.04	8
+3	2011	6	9869	48	4862	1106359.4	9
+3	2011	6	9869	228	4862	17629.93	10
+3	2011	6	9869	45	10511	499963.44	11
+3	2011	6	9869	117	10511	304348.13	12
+3	2011	6	9869	48	10511	164512.11	13
+3	2011	6	9869	51	10511	368060.89	14
+2	2010	7	9869	45	762	10574	3
+2	2010	7	9869	45	763	4941	4
+2	2010	7	9869	45	781	6641	5
+2	2010	7	9869	45	786	73394	6
+2	2010	7	9869	45	801	1412	7
+2	2010	7	9869	45	802	358	8
+2	2010	7	9869	45	803	3728	9
+2	2010	7	9869	45	1861	41	10
+2	2010	7	9869	45	1862	3579	11
+2	2010	7	9869	45	3601	7941	12
+2	2010	7	9869	45	3621	5637	13
+2	2010	7	9869	45	3641	1444	14
+2	2010	7	9869	48	761	176025	15
+2	2010	7	9869	48	762	10588	16
+2	2010	7	9869	48	763	13803	17
+2	2010	7	9869	48	781	11699	18
+2	2010	7	9869	48	786	45788	19
+2	2010	7	9869	48	801	8924	20
+2	2010	7	9869	48	802	56	21
+2	2010	7	9869	48	803	11045	22
+2	2010	7	9869	48	1861	39	23
+2	2010	7	9869	48	1862	2756	24
+2	2010	7	9869	48	3601	8971	25
+2	2010	7	9869	48	3621	3137	26
+2	2010	7	9869	48	3641	2243	27
+2	2010	7	9869	51	761	142328	28
+2	2010	7	9869	51	762	7895	29
+2	2010	7	9869	51	763	11479	30
+2	2010	7	9869	51	781	3974	31
+2	2010	7	9869	51	786	20320	32
+2	2010	7	9869	51	801	20339	33
+2	2010	7	9869	51	802	23	34
+2	2010	7	9869	51	803	411	35
+2	2010	7	9869	51	1861	80	36
+2	2010	7	9869	51	1862	1069	37
+2	2010	7	9869	51	3601	6445	38
+2	2010	7	9869	51	3621	1527	39
+2	2010	7	9869	51	3641	608	40
+2	2010	7	9869	117	761	127451	41
+2	2010	7	9869	117	762	7820	42
+2	2010	7	9869	117	763	14399	43
+2	2010	7	9869	117	781	10604	44
+2	2010	7	9869	117	786	111451	45
+2	2010	7	9869	117	801	2536	46
+2	2010	7	9869	117	802	324	47
+2	2010	7	9869	117	803	16544	48
+2	2010	7	9869	117	1861	38	49
+2	2010	7	9869	117	1862	3898	50
+2	2010	7	9869	117	3601	3534	51
+2	2010	7	9869	117	3621	3425	52
+2	2010	7	9869	117	3641	10756	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+1	2011	9	9869	48	881	4529354.53	3
+1	2011	9	9869	51	881	2285417.86	4
+1	2011	9	9869	45	881	4207500.94	5
+1	2011	9	9869	117	882	7291764.49	6
+1	2011	9	9869	48	882	6495239.99	7
+1	2011	9	9869	51	882	5336213.94	8
+1	2011	9	9869	45	882	13984397.06	9
+1	2011	9	9869	117	3561	46427.62	10
+1	2011	9	9869	48	3561	26743.42	11
+1	2011	9	9869	51	3561	26300.81	12
+1	2011	9	9869	45	3561	275531.33	13
+1	2011	9	9869	117	3581	757888.26	14
+1	2011	9	9869	48	3581	829327.77	15
+1	2011	9	9869	51	3581	2591629.89	16
+1	2011	9	9869	45	3581	8757732.65	17
+1	2012	1	9869	51	881	2043431.25	3
+1	2012	1	9869	48	881	4328655.08	4
+1	2012	1	9869	45	881	3861577.7	5
+1	2012	1	9869	117	882	6743616.65	6
+1	2012	1	9869	51	882	5141332.76	7
+1	2012	1	9869	48	882	6189263.87	8
+1	2012	1	9869	45	882	13054174.43	9
+1	2012	1	9869	117	3561	1934.14	10
+1	2012	1	9869	51	3561	3127.98	11
+1	2012	1	9869	48	3561	1717.97	12
+1	2012	1	9869	45	3561	52374.32	13
+1	2012	1	9869	117	3581	712825.85	14
+1	2012	1	9869	51	3581	2643785	15
+1	2012	1	9869	48	3581	808902.25	16
+1	2012	1	9869	45	3581	8579962.86	17
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+4	2011	5	9869	48	21	613763	3
+4	2011	5	9869	117	21	1404726	4
+4	2011	5	9869	51	21	435055	5
+4	2011	5	9869	45	9	3279275	6
+4	2011	5	9869	48	9	2737969	7
+4	2011	5	9869	51	9	2263603	8
+4	2011	5	9869	117	9	2085234	9
+2	2010	1	9869	45	762	10423	3
+2	2010	1	9869	45	763	5986	4
+2	2010	1	9869	45	781	7004	5
+2	2010	1	9869	45	786	72567	6
+2	2010	1	9869	45	801	1274	7
+2	2010	1	9869	45	802	376	8
+2	2010	1	9869	45	803	4121	9
+2	2010	1	9869	45	1861	45	10
+2	2010	1	9869	45	1862	3389	11
+2	2010	1	9869	45	3601	7198	12
+2	2010	1	9869	45	3621	4961	13
+2	2010	1	9869	45	3641	1163	14
+2	2010	1	9869	48	761	173660	15
+2	2010	1	9869	48	762	10434	16
+2	2010	1	9869	48	763	13763	17
+2	2010	1	9869	48	781	11403	18
+2	2010	1	9869	48	786	45151	19
+2	2010	1	9869	48	801	8770	20
+2	2010	1	9869	48	802	59	21
+2	2010	1	9869	48	803	5469	22
+2	2010	1	9869	48	1861	38	23
+2	2010	1	9869	48	1862	2412	24
+2	2010	1	9869	48	3601	8607	25
+2	2010	1	9869	48	3621	2904	26
+2	2010	1	9869	48	3641	2713	27
+2	2010	1	9869	51	761	140787	28
+2	2010	1	9869	51	762	7784	29
+2	2010	1	9869	51	763	8989	30
+2	2010	1	9869	51	781	4231	31
+2	2010	1	9869	51	786	20168	32
+2	2010	1	9869	51	801	20157	33
+2	2010	1	9869	51	802	22	34
+2	2010	1	9869	51	803	261	35
+2	2010	1	9869	51	1861	80	36
+2	2010	1	9869	51	1862	1052	37
+2	2010	1	9869	51	3601	5778	38
+2	2010	1	9869	51	3621	1151	39
+2	2010	1	9869	51	3641	560	40
+2	2010	1	9869	117	761	125670	41
+2	2010	1	9869	117	762	7738	42
+2	2010	1	9869	117	763	14547	43
+2	2010	1	9869	117	781	10879	44
+2	2010	1	9869	117	786	109647	45
+2	2010	1	9869	117	801	2538	46
+2	2010	1	9869	117	802	317	47
+2	2010	1	9869	117	803	15809	48
+2	2010	1	9869	117	1861	40	49
+2	2010	1	9869	117	1862	3745	50
+2	2010	1	9869	117	3601	3447	51
+2	2010	1	9869	117	3621	3328	52
+2	2010	1	9869	117	3641	10709	53
+4	2012	6	9869	48	9	2874660	3
+4	2012	6	9869	51	9	2444697	4
+4	2012	6	9869	117	9	2151314	5
+4	2012	6	9869	45	21	2207663	6
+4	2012	6	9869	48	21	747660	7
+4	2012	6	9869	51	21	516713	8
+4	2012	6	9869	117	21	1626541	9
+4	2010	2	9869	45	21	2693422	3
+4	2010	2	9869	48	9	2849908	4
+4	2010	2	9869	48	21	854881	5
+4	2010	2	9869	51	9	2308829	6
+4	2010	2	9869	51	21	624185	7
+4	2010	2	9869	117	9	2179652	8
+4	2010	2	9869	117	21	1958430	9
+3	2011	10	9869	117	4861	4487815.05	3
+3	2011	10	9869	48	4861	5605160.05	4
+3	2011	10	9869	51	4861	4742959.84	5
+3	2011	10	9869	228	4862	14709.93	6
+3	2011	10	9869	117	4862	2903637.94	7
+3	2011	10	9869	48	4862	1188591.85	8
+3	2011	10	9869	45	4862	4968004.56	9
+3	2011	10	9869	51	4862	623854.77	10
+4	2011	12	9869	48	21	722906	3
+4	2011	12	9869	117	21	1659789	4
+4	2011	12	9869	45	9	3597075	5
+4	2011	12	9869	51	9	2429812	6
+4	2011	12	9869	48	9	2952354	7
+4	2011	12	9869	117	9	2253110	8
+4	2011	12	9869	45	21	2089085	9
+3	2011	3	9869	51	4862	566803.92	3
+3	2011	3	9869	48	4862	1021067.74	4
+3	2011	3	9869	45	4862	4413918.32	5
+3	2011	3	9869	117	4861	3954301.31	6
+3	2011	3	9869	51	4861	4289118.89	7
+3	2011	3	9869	45	4861	7882792.85	8
+3	2011	3	9869	48	4861	5059163.18	9
+3	2011	3	9869	228	4862	12023.85	10
+3	2011	3	9869	51	10511	105601.72	11
+3	2011	3	9869	48	10511	84287.99	12
+3	2011	3	9869	117	10511	92917.06	13
+3	2011	3	9869	45	10511	213443.44	14
+4	2010	12	9869	45	21	2750270	3
+4	2010	12	9869	48	9	2854470	4
+4	2010	12	9869	48	21	853042	5
+4	2010	12	9869	51	9	2404364	6
+4	2010	12	9869	51	21	645138	7
+4	2010	12	9869	117	9	2193979	8
+4	2010	12	9869	117	21	1992956	9
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+3	2012	6	9869	48	10511	0	3
+3	2012	6	9869	51	10511	0	4
+3	2012	6	9869	117	10511	0	5
+3	2012	6	9869	225	10511	0	6
+3	2012	6	9869	228	10511	0	7
+1	2010	7	9869	45	882	13111451.96	3
+1	2010	7	9869	45	3561	50074.16	4
+1	2010	7	9869	45	3581	8333173.17	5
+1	2010	7	9869	48	881	4259219.81	6
+1	2010	7	9869	48	882	6247929.57	7
+1	2010	7	9869	48	3561	34043.53	8
+1	2010	7	9869	48	3581	808560.9	9
+1	2010	7	9869	51	881	2066219.52	10
+1	2010	7	9869	51	882	5225977.85	11
+1	2010	7	9869	51	3561	68634.37	12
+1	2010	7	9869	51	3581	2408306.87	13
+1	2010	7	9869	117	881	5116759.23	14
+1	2010	7	9869	117	882	7278748.83	15
+1	2010	7	9869	117	3561	45712.46	16
+1	2010	7	9869	117	3581	784073.72	17
+3	2010	6	9869	45	4862	5528001.09	3
+3	2010	6	9869	45	10511	0	4
+3	2010	6	9869	48	4861	4786855.15	5
+3	2010	6	9869	48	4862	1218473.9	6
+3	2010	6	9869	48	10511	0	7
+3	2010	6	9869	51	4861	4086271.28	8
+3	2010	6	9869	51	4862	718420.84	9
+3	2010	6	9869	51	10511	0	10
+3	2010	6	9869	117	4861	3669088.13	11
+3	2010	6	9869	117	4862	3130909.78	12
+3	2010	6	9869	117	10511	0	13
+3	2010	6	9869	225	10511	0	14
+3	2010	6	9869	228	4862	40637.5	15
+3	2010	6	9869	228	10511	0	16
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2012	3	9869	48	761	185410	3
+2	2012	3	9869	51	761	154184	4
+2	2012	3	9869	117	761	132852	5
+2	2012	3	9869	45	762	12051	6
+2	2012	3	9869	48	762	11318	7
+2	2012	3	9869	51	762	8205	8
+2	2012	3	9869	117	762	8864	9
+2	2012	3	9869	45	763	4161	10
+2	2012	3	9869	48	763	15016	11
+2	2012	3	9869	51	763	10407	12
+2	2012	3	9869	117	763	13859	13
+2	2012	3	9869	45	781	5529	14
+2	2012	3	9869	48	781	10738	15
+2	2012	3	9869	51	781	4698	16
+2	2012	3	9869	117	781	9772	17
+2	2012	3	9869	45	786	76223	18
+2	2012	3	9869	48	786	50710	19
+2	2012	3	9869	51	786	21332	20
+2	2012	3	9869	117	786	118751	21
+2	2012	3	9869	45	801	1377	22
+2	2012	3	9869	48	801	9509	23
+2	2012	3	9869	51	801	21000	24
+2	2012	3	9869	117	801	2641	25
+2	2012	3	9869	45	802	303	26
+2	2012	3	9869	48	802	55	27
+2	2012	3	9869	51	802	22	28
+2	2012	3	9869	117	802	443	29
+2	2012	3	9869	45	803	2731	30
+2	2012	3	9869	48	803	7521	31
+2	2012	3	9869	51	803	1657	32
+2	2012	3	9869	117	803	16132	33
+2	2012	3	9869	45	1861	44	34
+2	2012	3	9869	48	1861	41	35
+2	2012	3	9869	51	1861	103	36
+2	2012	3	9869	117	1861	45	37
+2	2012	3	9869	45	1862	3968	38
+2	2012	3	9869	48	1862	3133	39
+2	2012	3	9869	51	1862	931	40
+2	2012	3	9869	117	1862	4861	41
+2	2012	3	9869	45	3601	8344	42
+2	2012	3	9869	48	3601	8500	43
+2	2012	3	9869	51	3601	5998	44
+2	2012	3	9869	117	3601	3990	45
+2	2012	3	9869	45	3621	6048	46
+2	2012	3	9869	48	3621	3128	47
+2	2012	3	9869	51	3621	1304	48
+2	2012	3	9869	117	3621	3988	49
+2	2012	3	9869	45	3641	1761	50
+2	2012	3	9869	48	3641	3849	51
+2	2012	3	9869	51	3641	682	52
+2	2012	3	9869	117	3641	10016	53
+3	2011	12	9869	48	4861	5851647.22	3
+3	2011	12	9869	51	4861	4933051.98	4
+3	2011	12	9869	45	4861	9048096.96	5
+3	2011	12	9869	48	4862	1211281.83	6
+3	2011	12	9869	45	4862	5020473.24	7
+3	2011	12	9869	117	4862	3021766.68	8
+3	2011	12	9869	51	4862	563128.74	9
+3	2011	12	9869	228	4862	16506.1	10
+3	2011	12	9869	45	10511	433724.25	11
+3	2011	12	9869	117	10511	226196.61	12
+3	2011	12	9869	48	10511	211537.97	13
+3	2011	12	9869	51	10511	170032.65	14
+3	2010	2	9869	45	4862	5845635.23	3
+3	2010	2	9869	45	10511	0	4
+3	2010	2	9869	48	4861	5043345.81	5
+3	2010	2	9869	48	4862	1332547.38	6
+3	2010	2	9869	48	10511	0	7
+3	2010	2	9869	51	4861	4139763.3	8
+3	2010	2	9869	51	4862	714215.04	9
+3	2010	2	9869	51	10511	0	10
+3	2010	2	9869	117	4861	3985137.19	11
+3	2010	2	9869	117	4862	3159567.45	12
+3	2010	2	9869	117	10511	0	13
+3	2010	2	9869	225	10511	0	14
+3	2010	2	9869	228	10511	0	15
+2	2012	1	9869	51	3641	675	3
+2	2012	1	9869	48	3641	3563	4
+2	2012	1	9869	45	3641	1734	5
+2	2012	1	9869	117	1861	45	6
+2	2012	1	9869	51	1861	103	7
+2	2012	1	9869	48	1861	41	8
+2	2012	1	9869	45	1861	43	9
+2	2012	1	9869	117	1862	4736	10
+2	2012	1	9869	51	1862	938	11
+2	2012	1	9869	48	1862	3040	12
+2	2012	1	9869	45	1862	3996	13
+2	2012	1	9869	117	761	132484	14
+2	2012	1	9869	51	761	153462	15
+2	2012	1	9869	48	761	184916	16
+2	2012	1	9869	45	761	125014	17
+2	2012	1	9869	117	762	8744	18
+2	2012	1	9869	51	762	8088	19
+2	2012	1	9869	48	762	11266	20
+2	2012	1	9869	45	762	11881	21
+2	2012	1	9869	117	763	13934	22
+2	2012	1	9869	51	763	10197	23
+2	2012	1	9869	48	763	14527	24
+2	2012	1	9869	45	763	3978	25
+2	2012	1	9869	117	781	9704	26
+2	2012	1	9869	51	781	4052	27
+2	2012	1	9869	48	781	10816	28
+2	2012	1	9869	45	781	5548	29
+2	2012	1	9869	117	786	118428	30
+2	2012	1	9869	51	786	21302	31
+2	2012	1	9869	48	786	49775	32
+2	2012	1	9869	45	786	75913	33
+2	2012	1	9869	117	801	2569	34
+2	2012	1	9869	51	801	20997	35
+2	2012	1	9869	48	801	9483	36
+2	2012	1	9869	45	801	1373	37
+2	2012	1	9869	117	802	441	38
+2	2012	1	9869	51	802	22	39
+2	2012	1	9869	48	802	55	40
+2	2012	1	9869	45	802	303	41
+2	2012	1	9869	117	803	16132	42
+2	2012	1	9869	51	803	1422	43
+2	2012	1	9869	48	803	7525	44
+2	2012	1	9869	45	803	2686	45
+2	2012	1	9869	117	3621	3960	46
+2	2012	1	9869	51	3621	1310	47
+2	2012	1	9869	48	3621	3135	48
+2	2012	1	9869	45	3621	6080	49
+2	2012	1	9869	117	3601	4006	50
+2	2012	1	9869	51	3601	6021	51
+2	2012	1	9869	48	3601	8547	52
+2	2012	1	9869	45	3601	8378	53
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+3	2012	3	9869	48	4861	5466987.5	3
+3	2012	3	9869	51	4861	4771868.87	4
+3	2012	3	9869	117	4861	4263511.14	5
+3	2012	3	9869	45	4862	4982782.37	6
+3	2012	3	9869	48	4862	1223471.11	7
+3	2012	3	9869	51	4862	667078.59	8
+3	2012	3	9869	117	4862	2996381.93	9
+3	2012	3	9869	228	4862	13701.99	10
+3	2012	4	9869	48	4861	4923532.1	3
+3	2012	4	9869	51	4861	3523850.32	4
+3	2012	4	9869	117	4861	3827332.65	5
+3	2012	4	9869	45	4862	4685735.29	6
+3	2012	4	9869	48	4862	1029439.49	7
+3	2012	4	9869	51	4862	512585.02	8
+3	2012	4	9869	117	4862	2501498.31	9
+3	2012	4	9869	228	4862	8447.1	10
+4	2011	4	9869	117	9	2098678	3
+4	2011	4	9869	48	9	2739529	4
+4	2011	4	9869	45	9	3329740	5
+4	2011	4	9869	51	9	2286107	6
+4	2011	4	9869	117	21	1405641	7
+4	2011	4	9869	48	21	609902	8
+4	2011	4	9869	45	21	1934466	9
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+1	2011	12	9869	48	881	4535180.18	3
+1	2011	12	9869	51	881	2064485.49	4
+1	2011	12	9869	45	881	3755902.42	5
+1	2011	12	9869	117	882	7318747.7	6
+1	2011	12	9869	48	882	6720293.23	7
+1	2011	12	9869	51	882	5382008.85	8
+1	2011	12	9869	45	882	13464012.89	9
+1	2011	12	9869	117	3561	1218.91	10
+1	2011	12	9869	48	3561	119.78	11
+1	2011	12	9869	51	3561	2124.38	12
+1	2011	12	9869	45	3561	20416.35	13
+1	2011	12	9869	117	3581	880313.98	14
+1	2011	12	9869	48	3581	975348.02	15
+1	2011	12	9869	51	3581	2840497.2	16
+1	2011	12	9869	45	3581	8973002.66	17
+3	2010	9	9869	45	4862	5719232.97	3
+3	2010	9	9869	45	10511	0	4
+3	2010	9	9869	48	4861	4911084.16	5
+3	2010	9	9869	48	4862	1296952.31	6
+3	2010	9	9869	48	10511	0	7
+3	2010	9	9869	51	4861	4112011.13	8
+3	2010	9	9869	51	4862	475127.61	9
+3	2010	9	9869	51	10511	0	10
+3	2010	9	9869	117	4861	3674594.21	11
+3	2010	9	9869	117	4862	3197862.63	12
+3	2010	9	9869	117	10511	0	13
+3	2010	9	9869	225	10511	0	14
+3	2010	9	9869	228	10511	0	15
+3	2010	12	9869	45	4862	5771326.52	3
+3	2010	12	9869	45	10511	0	4
+3	2010	12	9869	48	4861	4832239.2	5
+3	2010	12	9869	48	4862	1215068.54	6
+3	2010	12	9869	48	10511	0	7
+3	2010	12	9869	51	4861	4689930.02	8
+3	2010	12	9869	51	4862	672209.21	9
+3	2010	12	9869	51	10511	0	10
+3	2010	12	9869	117	4861	4974101.63	11
+3	2010	12	9869	117	4862	3094841.55	12
+3	2010	12	9869	117	10511	0	13
+3	2010	12	9869	225	10511	0	14
+3	2010	12	9869	228	4862	12339.25	15
+3	2010	12	9869	228	10511	0	16
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	2	9869	45	761	122492	3
+2	2011	2	9869	48	761	178373	4
+2	2011	2	9869	51	761	147082	5
+2	2011	2	9869	117	762	7823	6
+2	2011	2	9869	45	762	10777	7
+2	2011	2	9869	48	762	10942	8
+2	2011	2	9869	51	762	7995	9
+2	2011	2	9869	117	763	13838	10
+2	2011	2	9869	45	763	5308	11
+2	2011	2	9869	48	763	13367	12
+2	2011	2	9869	51	763	10069	13
+2	2011	2	9869	117	781	10407	14
+2	2011	2	9869	45	781	5975	15
+2	2011	2	9869	48	781	13222	16
+2	2011	2	9869	51	781	2922	17
+2	2011	2	9869	117	786	114122	18
+2	2011	2	9869	45	786	74504	19
+2	2011	2	9869	48	786	47089	20
+2	2011	2	9869	51	786	20938	21
+2	2011	2	9869	117	801	2533	22
+2	2011	2	9869	45	801	1377	23
+2	2011	2	9869	48	801	9007	24
+2	2011	2	9869	51	801	20593	25
+2	2011	2	9869	117	802	342	26
+2	2011	2	9869	45	802	337	27
+2	2011	2	9869	48	802	56	28
+2	2011	2	9869	51	802	19	29
+2	2011	2	9869	117	1861	39	30
+2	2011	2	9869	45	1861	42	31
+2	2011	2	9869	48	1861	42	32
+2	2011	2	9869	51	1861	80	33
+2	2011	2	9869	117	1862	4036	34
+2	2011	2	9869	45	1862	3785	35
+2	2011	2	9869	48	1862	2734	36
+2	2011	2	9869	51	1862	918	37
+2	2011	2	9869	117	3601	3752	38
+2	2011	2	9869	45	3601	8261	39
+2	2011	2	9869	48	3601	8868	40
+2	2011	2	9869	51	3601	6331	41
+2	2011	2	9869	117	3621	3668	42
+2	2011	2	9869	45	3621	5941	43
+2	2011	2	9869	48	3621	3134	44
+2	2011	2	9869	51	3621	1500	45
+2	2011	2	9869	117	3641	11228	46
+2	2011	2	9869	45	3641	1632	47
+2	2011	2	9869	48	3641	2295	48
+2	2011	2	9869	51	3641	626	49
+2	2010	6	9869	45	762	10387	3
+2	2010	6	9869	45	763	5058	4
+2	2010	6	9869	45	781	6715	5
+2	2010	6	9869	45	786	73163	6
+2	2010	6	9869	45	801	1410	7
+2	2010	6	9869	45	802	362	8
+2	2010	6	9869	45	803	3969	9
+2	2010	6	9869	45	1861	41	10
+2	2010	6	9869	45	1862	3560	11
+2	2010	6	9869	45	3601	7680	12
+2	2010	6	9869	45	3621	5424	13
+2	2010	6	9869	45	3641	1429	14
+2	2010	6	9869	48	761	175880	15
+2	2010	6	9869	48	762	10548	16
+2	2010	6	9869	48	763	13769	17
+2	2010	6	9869	48	781	11397	18
+2	2010	6	9869	48	786	45718	19
+2	2010	6	9869	48	801	8939	20
+2	2010	6	9869	48	802	56	21
+2	2010	6	9869	48	803	9485	22
+2	2010	6	9869	48	1861	39	23
+2	2010	6	9869	48	1862	2590	24
+2	2010	6	9869	48	3601	8936	25
+2	2010	6	9869	48	3621	3111	26
+2	2010	6	9869	48	3641	2319	27
+2	2010	6	9869	51	761	141879	28
+2	2010	6	9869	51	762	7901	29
+2	2010	6	9869	51	763	11213	30
+2	2010	6	9869	51	781	4048	31
+2	2010	6	9869	51	786	20270	32
+2	2010	6	9869	51	801	20298	33
+2	2010	6	9869	51	802	22	34
+2	2010	6	9869	51	803	385	35
+2	2010	6	9869	51	1861	80	36
+2	2010	6	9869	51	1862	1090	37
+2	2010	6	9869	51	3601	6175	38
+2	2010	6	9869	51	3621	1402	39
+2	2010	6	9869	51	3641	600	40
+2	2010	6	9869	117	761	127401	41
+2	2010	6	9869	117	762	7919	42
+2	2010	6	9869	117	763	14082	43
+2	2010	6	9869	117	781	10600	44
+2	2010	6	9869	117	786	111234	45
+2	2010	6	9869	117	801	2543	46
+2	2010	6	9869	117	802	324	47
+2	2010	6	9869	117	803	16484	48
+2	2010	6	9869	117	1861	38	49
+2	2010	6	9869	117	1862	3798	50
+2	2010	6	9869	117	3601	3508	51
+2	2010	6	9869	117	3621	3404	52
+2	2010	6	9869	117	3641	10464	53
+3	2010	4	9869	45	4862	5660476.49	3
+3	2010	4	9869	45	10511	0	4
+3	2010	4	9869	48	4861	5594130.06	5
+3	2010	4	9869	48	4862	1327589.22	6
+3	2010	4	9869	48	10511	0	7
+3	2010	4	9869	51	4861	4572949.66	8
+3	2010	4	9869	51	4862	721571.2	9
+3	2010	4	9869	51	10511	0	10
+3	2010	4	9869	117	4861	3285195.46	11
+3	2010	4	9869	117	4862	3241691.61	12
+3	2010	4	9869	117	10511	0	13
+3	2010	4	9869	225	10511	0	14
+3	2010	4	9869	228	10511	0	15
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+4	2012	4	9869	48	9	2895853	3
+4	2012	4	9869	51	9	2436720	4
+4	2012	4	9869	117	9	2201434	5
+4	2012	4	9869	45	21	2208296	6
+4	2012	4	9869	48	21	739394	7
+4	2012	4	9869	51	21	514436	8
+4	2012	4	9869	117	21	1657895	9
+2	2010	5	9869	45	762	10410	3
+2	2010	5	9869	45	763	5351	4
+2	2010	5	9869	45	781	6945	5
+2	2010	5	9869	45	786	73071	6
+2	2010	5	9869	45	801	1405	7
+2	2010	5	9869	45	802	364	8
+2	2010	5	9869	45	803	4138	9
+2	2010	5	9869	45	1861	41	10
+2	2010	5	9869	45	1862	3504	11
+2	2010	5	9869	45	3601	7604	12
+2	2010	5	9869	45	3621	5272	13
+2	2010	5	9869	45	3641	1337	14
+2	2010	5	9869	48	761	175609	15
+2	2010	5	9869	48	762	10527	16
+2	2010	5	9869	48	763	13648	17
+2	2010	5	9869	48	781	11436	18
+2	2010	5	9869	48	786	45586	19
+2	2010	5	9869	48	801	8929	20
+2	2010	5	9869	48	802	57	21
+2	2010	5	9869	48	803	7052	22
+2	2010	5	9869	48	1861	39	23
+2	2010	5	9869	48	1862	2522	24
+2	2010	5	9869	48	3601	8909	25
+2	2010	5	9869	48	3621	3117	26
+2	2010	5	9869	48	3641	2422	27
+2	2010	5	9869	51	761	142911	28
+2	2010	5	9869	51	762	7867	29
+2	2010	5	9869	51	763	9668	30
+2	2010	5	9869	51	781	4073	31
+2	2010	5	9869	51	786	20246	32
+2	2010	5	9869	51	801	20246	33
+2	2010	5	9869	51	802	22	34
+2	2010	5	9869	51	803	370	35
+2	2010	5	9869	51	1861	80	36
+2	2010	5	9869	51	1862	1090	37
+2	2010	5	9869	51	3601	5709	38
+2	2010	5	9869	51	3621	1143	39
+2	2010	5	9869	51	3641	588	40
+2	2010	5	9869	117	761	126880	41
+2	2010	5	9869	117	762	7895	42
+2	2010	5	9869	117	763	14292	43
+2	2010	5	9869	117	781	10657	44
+2	2010	5	9869	117	786	110854	45
+2	2010	5	9869	117	801	2543	46
+2	2010	5	9869	117	802	319	47
+2	2010	5	9869	117	803	16477	48
+2	2010	5	9869	117	1861	38	49
+2	2010	5	9869	117	1862	3802	50
+2	2010	5	9869	117	3601	3484	51
+2	2010	5	9869	117	3621	3387	52
+2	2010	5	9869	117	3641	10461	53
+1	2010	9	9869	45	882	13493916.28	3
+1	2010	9	9869	45	3561	82815.5	4
+1	2010	9	9869	45	3581	8687035.67	5
+1	2010	9	9869	48	881	4255712.2	6
+1	2010	9	9869	48	882	6071604.31	7
+1	2010	9	9869	48	3561	35923.56	8
+1	2010	9	9869	48	3581	766182.47	9
+1	2010	9	9869	51	881	2095433.39	10
+1	2010	9	9869	51	882	5046301.41	11
+1	2010	9	9869	51	3561	49247.7	12
+1	2010	9	9869	51	3581	2447174.81	13
+1	2010	9	9869	117	881	5056872.11	14
+1	2010	9	9869	117	882	7042615.83	15
+1	2010	9	9869	117	3561	57926.43	16
+1	2010	9	9869	117	3581	777737.25	17
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+1	2011	4	9869	51	3581	2384692.24	3
+1	2011	4	9869	48	3581	777610.78	4
+1	2011	4	9869	117	3581	710145.36	5
+1	2011	4	9869	51	3561	40569.13	6
+1	2011	4	9869	45	3561	68087.33	7
+1	2011	4	9869	48	3561	50932.46	8
+1	2011	4	9869	117	3561	61532.89	9
+1	2011	4	9869	51	882	5326910.63	10
+1	2011	4	9869	45	882	12910048.94	11
+1	2011	4	9869	48	882	6509136.86	12
+1	2011	4	9869	117	882	7141852.06	13
+1	2011	4	9869	51	881	2228317.67	14
+1	2011	4	9869	45	881	4185926.33	15
+1	2011	4	9869	48	881	4271120.63	16
+1	2011	4	9869	45	3581	7775986.95	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2011	11	9869	117	9	2204276	3
+4	2011	11	9869	45	9	3642377	4
+4	2011	11	9869	48	9	2871865	5
+4	2011	11	9869	51	21	456632	6
+4	2011	11	9869	117	21	1490199	7
+4	2011	11	9869	45	21	2017044	8
+4	2011	11	9869	48	21	643256	9
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+3	2011	5	9869	117	4861	3909403.83	3
+3	2011	5	9869	48	4861	5072232.2	4
+3	2011	5	9869	45	4861	7646400.54	5
+3	2011	5	9869	45	4862	4539306.7	6
+3	2011	5	9869	117	4862	2568348.69	7
+3	2011	5	9869	51	4862	580309.92	8
+3	2011	5	9869	228	4862	20737.25	9
+3	2011	5	9869	48	4862	1072318.9	10
+3	2012	1	9869	51	4861	4871332.55	3
+3	2012	1	9869	48	4861	5696589.04	4
+3	2012	1	9869	45	4861	8948145.51	5
+3	2012	1	9869	228	4862	10638.78	6
+3	2012	1	9869	117	4862	3027902.14	7
+3	2012	1	9869	51	4862	680015.49	8
+3	2012	1	9869	48	4862	1238329.61	9
+3	2012	1	9869	45	4862	5160234.47	10
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+1	2010	11	9869	45	882	14826637.96	3
+1	2010	11	9869	45	3561	156627.69	4
+1	2010	11	9869	45	3581	9461268.01	5
+1	2010	11	9869	48	881	4631740.32	6
+1	2010	11	9869	48	882	6677813.3	7
+1	2010	11	9869	48	3561	29657.33	8
+1	2010	11	9869	48	3581	906524.28	9
+1	2010	11	9869	51	881	2260554.26	10
+1	2010	11	9869	51	882	5609030.58	11
+1	2010	11	9869	51	3561	44147.61	12
+1	2010	11	9869	51	3581	2739992.35	13
+1	2010	11	9869	117	881	5545792.28	14
+1	2010	11	9869	117	882	7966993.95	15
+1	2010	11	9869	117	3561	56352.28	16
+1	2010	11	9869	117	3581	982052.69	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+1	2010	6	9869	45	882	13499698.16	3
+1	2010	6	9869	45	3561	37675.55	4
+1	2010	6	9869	45	3581	8448438.8	5
+1	2010	6	9869	48	881	4262656.35	6
+1	2010	6	9869	48	882	6234266.01	7
+1	2010	6	9869	48	3561	38020.47	8
+1	2010	6	9869	48	3581	738749.13	9
+1	2010	6	9869	51	881	2033830.09	10
+1	2010	6	9869	51	882	4995916.97	11
+1	2010	6	9869	51	3561	37757.27	12
+1	2010	6	9869	51	3581	2389696.51	13
+1	2010	6	9869	117	881	5027178.71	14
+1	2010	6	9869	117	882	7140379.43	15
+1	2010	6	9869	117	3561	51323.71	16
+1	2010	6	9869	117	3581	731140.33	17
+3	2011	1	9869	45	4862	6073899.89	3
+3	2011	1	9869	45	4861	8362841.89	4
+3	2011	1	9869	117	4861	3875206.74	5
+3	2011	1	9869	228	4861	14636.52	6
+3	2011	1	9869	48	4861	5142981.8	7
+3	2011	1	9869	228	4862	14636.52	8
+3	2011	1	9869	45	10511	110659.91	9
+3	2011	1	9869	51	10511	126415.37	10
+3	2011	1	9869	51	4862	800203.97	11
+3	2011	1	9869	48	4862	1251587.45	12
+3	2011	1	9869	117	4862	2997908.55	13
+3	2011	1	9869	48	10511	74044.64	14
+3	2011	1	9869	51	4861	4402825.43	15
+3	2011	2	9869	48	4862	1071253.88	3
+3	2011	2	9869	228	4862	12236.93	4
+3	2011	2	9869	117	4862	2569913.09	5
+3	2011	2	9869	45	4862	4625683.53	6
+3	2011	2	9869	51	4862	585198.21	7
+3	2011	2	9869	51	4861	4372583.75	8
+3	2011	2	9869	228	4861	-14636.52	9
+3	2011	2	9869	45	4861	8143130.75	10
+3	2011	2	9869	117	4861	4000193.85	11
+3	2011	2	9869	48	10511	83774.78	12
+3	2011	2	9869	117	10511	96339.84	13
+3	2011	2	9869	45	10511	152155.48	14
+3	2011	2	9869	48	4861	5164291.54	15
+1	2010	8	9869	45	882	13286519.83	3
+1	2010	8	9869	45	3561	82412.57	4
+1	2010	8	9869	45	3581	8615984.07	5
+1	2010	8	9869	48	881	4195249.19	6
+1	2010	8	9869	48	882	6188123.14	7
+1	2010	8	9869	48	3561	40537.55	8
+1	2010	8	9869	48	3581	846235.89	9
+1	2010	8	9869	51	881	1957681.07	10
+1	2010	8	9869	51	882	4964487.47	11
+1	2010	8	9869	51	3561	41233.4	12
+1	2010	8	9869	51	3581	2413964.4	13
+1	2010	8	9869	117	881	5085518.19	14
+1	2010	8	9869	117	882	7096161.01	15
+1	2010	8	9869	117	3561	57810.15	16
+1	2010	8	9869	117	3581	764541.87	17
+1	2010	3	9869	45	882	12760455.82	3
+1	2010	3	9869	45	3561	115962.95	4
+1	2010	3	9869	45	3581	7974735	5
+1	2010	3	9869	48	881	4352140.64	6
+1	2010	3	9869	48	882	6218868.46	7
+1	2010	3	9869	48	3561	46723.25	8
+1	2010	3	9869	48	3581	739896	9
+1	2010	3	9869	51	881	1970922.95	10
+1	2010	3	9869	51	882	4727608.01	11
+1	2010	3	9869	51	3561	48143.86	12
+1	2010	3	9869	51	3581	2194831.42	13
+1	2010	3	9869	117	881	5016084.75	14
+1	2010	3	9869	117	882	6849944.81	15
+1	2010	3	9869	117	3561	59288.7	16
+1	2010	3	9869	117	3581	658230.42	17
+3	2011	4	9869	45	4861	8041841.73	3
+3	2011	4	9869	48	4861	5125973.1	4
+3	2011	4	9869	117	4861	3953377.23	5
+3	2011	4	9869	51	10511	106194.89	6
+3	2011	4	9869	48	10511	84688.53	7
+3	2011	4	9869	45	4862	4539841.51	8
+3	2011	4	9869	117	10511	89073.91	9
+3	2011	4	9869	117	4862	2549939.67	10
+3	2011	4	9869	228	4862	9809.29	11
+3	2011	4	9869	51	4862	601967.27	12
+3	2011	4	9869	48	4862	1058476.63	13
+3	2011	4	9869	45	10511	199728.45	14
+1	2010	5	9869	45	882	12496487.83	3
+1	2010	5	9869	45	3561	49969.27	4
+1	2010	5	9869	45	3581	7774745.35	5
+1	2010	5	9869	48	881	4143940.17	6
+1	2010	5	9869	48	882	6040682.54	7
+1	2010	5	9869	48	3561	28413.77	8
+1	2010	5	9869	48	3581	788015.37	9
+1	2010	5	9869	51	881	1942947.76	10
+1	2010	5	9869	51	882	4925746.6	11
+1	2010	5	9869	51	3561	33876.38	12
+1	2010	5	9869	51	3581	2258359.86	13
+1	2010	5	9869	117	881	4975883.55	14
+1	2010	5	9869	117	882	7023010.37	15
+1	2010	5	9869	117	3561	38620.35	16
+1	2010	5	9869	117	3581	724700.76	17
+1	2011	3	9869	48	881	3984270.56	3
+1	2011	3	9869	117	3581	580012.35	4
+1	2011	3	9869	51	3581	2233976.74	5
+1	2011	3	9869	48	3581	607905.11	6
+1	2011	3	9869	45	3581	7659854.14	7
+1	2011	3	9869	117	3561	49920.64	8
+1	2011	3	9869	51	3561	65474.82	9
+1	2011	3	9869	48	3561	38249.18	10
+1	2011	3	9869	45	3561	79286.54	11
+1	2011	3	9869	117	882	6521975.05	12
+1	2011	3	9869	51	882	4670599.82	13
+1	2011	3	9869	48	882	5704177.15	14
+1	2011	3	9869	45	882	12217782.13	15
+1	2011	3	9869	117	881	4673563.66	16
+1	2011	3	9869	51	881	1873070.11	17
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	8	9869	51	9	2310103	3
+4	2011	8	9869	45	9	3389499	4
+4	2011	8	9869	117	9	2142466	5
+4	2011	8	9869	48	21	629762	6
+4	2011	8	9869	51	21	439921	7
+4	2011	8	9869	45	21	1958179	8
+4	2011	8	9869	117	21	1444849	9
+1	2011	2	9869	45	881	4117717.49	3
+1	2011	2	9869	117	881	4858769.11	4
+1	2011	2	9869	51	3581	2272753.05	5
+1	2011	2	9869	48	3581	739388.88	6
+1	2011	2	9869	45	3581	7655713.43	7
+1	2011	2	9869	117	3581	674511.66	8
+1	2011	2	9869	51	3561	61369.07	9
+1	2011	2	9869	48	3561	51430.21	10
+1	2011	2	9869	45	3561	82278.06	11
+1	2011	2	9869	117	3561	101258.08	12
+1	2011	2	9869	51	882	5231673.02	13
+1	2011	2	9869	48	882	6434067.82	14
+1	2011	2	9869	45	882	13014605.16	15
+1	2011	2	9869	117	882	7144313.53	16
+1	2011	2	9869	51	881	2186481.01	17
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+4	2010	11	9869	45	21	2751053	3
+4	2010	11	9869	48	9	2937956	4
+4	2010	11	9869	48	21	878464	5
+4	2010	11	9869	51	9	2437117	6
+4	2010	11	9869	51	21	653534	7
+4	2010	11	9869	117	9	2251100	8
+4	2010	11	9869	117	21	2032110	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+4	2010	7	9869	45	21	2657713	3
+4	2010	7	9869	48	9	2779714	4
+4	2010	7	9869	48	21	838265	5
+4	2010	7	9869	51	9	2316850	6
+4	2010	7	9869	51	21	622584	7
+4	2010	7	9869	117	9	2126394	8
+4	2010	7	9869	117	21	1925016	9
+3	2010	7	9869	45	4862	5599928.02	3
+3	2010	7	9869	45	10511	0	4
+3	2010	7	9869	48	4861	4772516.75	5
+3	2010	7	9869	48	4862	1265763.43	6
+3	2010	7	9869	48	10511	0	7
+3	2010	7	9869	51	4861	4106167.72	8
+3	2010	7	9869	51	4862	731548.07	9
+3	2010	7	9869	51	10511	0	10
+3	2010	7	9869	117	4861	3707004.77	11
+3	2010	7	9869	117	4862	3111778.49	12
+3	2010	7	9869	117	10511	0	13
+3	2010	7	9869	225	10511	0	14
+3	2010	7	9869	228	10511	0	15
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+1	2011	10	9869	117	881	5495632.28	3
+1	2011	10	9869	48	881	4775062.09	4
+1	2011	10	9869	51	881	2287350.88	5
+1	2011	10	9869	45	882	13877219.8	6
+1	2011	10	9869	117	882	7511999.31	7
+1	2011	10	9869	48	882	6853405.12	8
+1	2011	10	9869	51	882	5460230.61	9
+1	2011	10	9869	45	3561	51123.23	10
+1	2011	10	9869	117	3561	43577	11
+1	2011	10	9869	48	3561	31075.54	12
+1	2011	10	9869	51	3561	39858.38	13
+1	2011	10	9869	45	3581	8801904.81	14
+1	2011	10	9869	117	3581	715752.32	15
+1	2011	10	9869	48	3581	792259.04	16
+1	2011	10	9869	51	3581	2635516.17	17
+4	2011	2	9869	45	21	2047048	3
+4	2011	2	9869	117	21	1397501	4
+4	2011	2	9869	51	9	2262717	5
+4	2011	2	9869	48	9	2752848	6
+4	2011	2	9869	45	9	3384518	7
+4	2011	2	9869	117	9	2101440	8
+4	2011	2	9869	51	21	460810	9
+3	2010	1	9869	45	4862	5637838.99	3
+3	2010	1	9869	45	10511	0	4
+3	2010	1	9869	48	4861	4844970.27	5
+3	2010	1	9869	48	4862	1292222.65	6
+3	2010	1	9869	48	10511	0	7
+3	2010	1	9869	51	4861	3962226.71	8
+3	2010	1	9869	51	4862	582910.1	9
+3	2010	1	9869	51	10511	0	10
+3	2010	1	9869	117	4861	3627279	11
+3	2010	1	9869	117	4862	3097345.02	12
+3	2010	1	9869	117	10511	0	13
+3	2010	1	9869	225	10511	0	14
+3	2010	1	9869	228	4862	11430.22	15
+3	2010	1	9869	228	10511	0	16
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+1	2010	12	9869	45	882	13619598.26	3
+1	2010	12	9869	45	3561	31306.81	4
+1	2010	12	9869	45	3581	8989941.34	5
+1	2010	12	9869	48	881	4257477.18	6
+1	2010	12	9869	48	882	6141808.27	7
+1	2010	12	9869	48	3561	23647.68	8
+1	2010	12	9869	48	3581	804281.45	9
+1	2010	12	9869	51	881	1967070.97	10
+1	2010	12	9869	51	882	5003199.52	11
+1	2010	12	9869	51	3561	25218.05	12
+1	2010	12	9869	51	3581	2537809.95	13
+1	2010	12	9869	117	881	5165798.87	14
+1	2010	12	9869	117	882	7081609.77	15
+1	2010	12	9869	117	3561	34281.97	16
+1	2010	12	9869	117	3581	743223.64	17
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+4	2011	9	9869	48	9	2921610	3
+4	2011	9	9869	51	9	2397862	4
+4	2011	9	9869	45	9	3539761	5
+4	2011	9	9869	117	21	1476942	6
+4	2011	9	9869	48	21	643417	7
+4	2011	9	9869	51	21	450870	8
+4	2011	9	9869	45	21	1996388	9
+3	2010	8	9869	45	4862	5564526.34	3
+3	2010	8	9869	45	10511	0	4
+3	2010	8	9869	48	4861	4694638.09	5
+3	2010	8	9869	48	4862	1256001.24	6
+3	2010	8	9869	48	10511	0	7
+3	2010	8	9869	51	4861	4125306.78	8
+3	2010	8	9869	51	4862	843931.08	9
+3	2010	8	9869	51	10511	0	10
+3	2010	8	9869	117	4861	3745962.65	11
+3	2010	8	9869	117	4862	3165916.77	12
+3	2010	8	9869	117	10511	0	13
+3	2010	8	9869	225	10511	0	14
+3	2010	8	9869	228	4862	21361.77	15
+3	2010	8	9869	228	10511	0	16
+3	2011	7	9869	117	4861	3984140.86	3
+3	2011	7	9869	45	4861	8050129.93	4
+3	2011	7	9869	48	4861	5238727.68	5
+3	2011	7	9869	51	4862	946919.22	6
+3	2011	7	9869	117	4862	2664365.84	7
+3	2011	7	9869	45	4862	4611280.6	8
+3	2011	7	9869	228	4862	12624.99	9
+3	2011	7	9869	48	4862	1095359.92	10
+2	2011	7	9869	45	761	123271	3
+2	2011	7	9869	117	761	130699	4
+2	2011	7	9869	48	761	181476	5
+2	2011	7	9869	51	762	8252	6
+2	2011	7	9869	45	762	11048	7
+2	2011	7	9869	117	762	8062	8
+2	2011	7	9869	48	762	10979	9
+2	2011	7	9869	51	763	10324	10
+2	2011	7	9869	45	763	5096	11
+2	2011	7	9869	117	763	13937	12
+2	2011	7	9869	48	763	13822	13
+2	2011	7	9869	51	781	2996	14
+2	2011	7	9869	45	781	5759	15
+2	2011	7	9869	117	781	10388	16
+2	2011	7	9869	48	781	12219	17
+2	2011	7	9869	51	786	21164	18
+2	2011	7	9869	45	786	74943	19
+2	2011	7	9869	117	786	115452	20
+2	2011	7	9869	48	786	48959	21
+2	2011	7	9869	51	801	20796	22
+2	2011	7	9869	45	801	1355	23
+2	2011	7	9869	117	801	2553	24
+2	2011	7	9869	48	801	9081	25
+2	2011	7	9869	51	802	19	26
+2	2011	7	9869	45	802	315	27
+2	2011	7	9869	117	802	417	28
+2	2011	7	9869	48	802	55	29
+2	2011	7	9869	51	803	992	30
+2	2011	7	9869	45	803	3056	31
+2	2011	7	9869	117	803	16720	32
+2	2011	7	9869	48	803	7620	33
+2	2011	7	9869	51	1861	88	34
+2	2011	7	9869	45	1861	44	35
+2	2011	7	9869	117	1861	39	36
+2	2011	7	9869	48	1861	42	37
+2	2011	7	9869	51	1862	919	38
+2	2011	7	9869	45	1862	3790	39
+2	2011	7	9869	117	1862	4372	40
+2	2011	7	9869	48	1862	2857	41
+2	2011	7	9869	51	3601	6065	42
+2	2011	7	9869	45	3601	8350	43
+2	2011	7	9869	117	3601	3826	44
+2	2011	7	9869	48	3601	8683	45
+2	2011	7	9869	51	3621	1383	46
+2	2011	7	9869	45	3621	6037	47
+2	2011	7	9869	117	3621	3740	48
+2	2011	7	9869	48	3621	3145	49
+2	2011	7	9869	51	3641	642	50
+2	2011	7	9869	45	3641	1640	51
+2	2011	7	9869	117	3641	11478	52
+2	2011	7	9869	48	3641	3387	53
+2	2010	12	9869	45	762	10512	3
+2	2010	12	9869	45	763	5463	4
+2	2010	12	9869	45	781	6099	5
+2	2010	12	9869	45	786	74245	6
+2	2010	12	9869	45	801	1395	7
+2	2010	12	9869	45	802	339	8
+2	2010	12	9869	45	803	3220	9
+2	2010	12	9869	45	1861	42	10
+2	2010	12	9869	45	1862	3675	11
+2	2010	12	9869	45	3601	8187	12
+2	2010	12	9869	45	3621	5875	13
+2	2010	12	9869	45	3641	1625	14
+2	2010	12	9869	48	761	177889	15
+2	2010	12	9869	48	762	10815	16
+2	2010	12	9869	48	763	13254	17
+2	2010	12	9869	48	781	13045	18
+2	2010	12	9869	48	786	46255	19
+2	2010	12	9869	48	801	8994	20
+2	2010	12	9869	48	802	56	21
+2	2010	12	9869	48	803	12022	22
+2	2010	12	9869	48	1861	41	23
+2	2010	12	9869	48	1862	2748	24
+2	2010	12	9869	48	3601	8924	25
+2	2010	12	9869	48	3621	3129	26
+2	2010	12	9869	48	3641	2293	27
+2	2010	12	9869	51	761	146196	28
+2	2010	12	9869	51	762	7867	29
+2	2010	12	9869	51	763	10068	30
+2	2010	12	9869	51	781	2830	31
+2	2010	12	9869	51	786	20909	32
+2	2010	12	9869	51	801	20531	33
+2	2010	12	9869	51	802	19	34
+2	2010	12	9869	51	803	485	35
+2	2010	12	9869	51	1861	80	36
+2	2010	12	9869	51	1862	882	37
+2	2010	12	9869	51	3601	6537	38
+2	2010	12	9869	51	3621	1501	39
+2	2010	12	9869	51	3641	604	40
+2	2010	12	9869	117	761	129733	41
+2	2010	12	9869	117	762	7847	42
+2	2010	12	9869	117	763	13646	43
+2	2010	12	9869	117	781	10442	44
+2	2010	12	9869	117	786	113526	45
+2	2010	12	9869	117	801	2536	46
+2	2010	12	9869	117	802	338	47
+2	2010	12	9869	117	803	16353	48
+2	2010	12	9869	117	1861	39	49
+2	2010	12	9869	117	1862	3952	50
+2	2010	12	9869	117	3601	3700	51
+2	2010	12	9869	117	3621	3598	52
+2	2010	12	9869	117	3641	11243	53
+4	2011	3	9869	51	21	428256	3
+4	2011	3	9869	48	21	603515	4
+4	2011	3	9869	45	21	1902536	5
+4	2011	3	9869	117	9	2090143	6
+4	2011	3	9869	51	9	2214857	7
+4	2011	3	9869	48	9	2723672	8
+4	2011	3	9869	45	9	3245636	9
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+3	2010	10	9869	45	4862	5842600.53	3
+3	2010	10	9869	45	10511	0	4
+3	2010	10	9869	48	4861	5118183.26	5
+3	2010	10	9869	48	4862	1372489.98	6
+3	2010	10	9869	48	10511	0	7
+3	2010	10	9869	51	4861	4165184.38	8
+3	2010	10	9869	51	4862	499122.74	9
+3	2010	10	9869	51	10511	0	10
+3	2010	10	9869	117	4861	3999284.5	11
+3	2010	10	9869	117	4862	3371441.36	12
+3	2010	10	9869	117	10511	0	13
+3	2010	10	9869	225	10511	0	14
+3	2010	10	9869	228	4862	23112.01	15
+3	2010	10	9869	228	10511	0	16
+3	2010	5	9869	45	4862	5556112.13	3
+3	2010	5	9869	45	10511	0	4
+3	2010	5	9869	48	4861	4774385.49	5
+3	2010	5	9869	48	4862	1297138.67	6
+3	2010	5	9869	48	10511	0	7
+3	2010	5	9869	51	4861	3956574.3	8
+3	2010	5	9869	51	4862	551524.43	9
+3	2010	5	9869	51	10511	0	10
+3	2010	5	9869	117	4861	3414411.54	11
+3	2010	5	9869	117	4862	3046033.45	12
+3	2010	5	9869	117	10511	0	13
+3	2010	5	9869	225	10511	0	14
+3	2010	5	9869	228	10511	0	15
+4	2011	10	9869	48	21	650603	3
+4	2011	10	9869	117	21	1491555	4
+4	2011	10	9869	45	21	2003263	5
+4	2011	10	9869	51	9	2421909	6
+4	2011	10	9869	48	9	2959418	7
+4	2011	10	9869	45	9	3580899	8
+4	2011	10	9869	117	9	2249650	9
+4	2010	10	9869	45	21	2715899	3
+4	2010	10	9869	48	9	2899890	4
+4	2010	10	9869	48	21	874720	5
+4	2010	10	9869	51	9	2362979	6
+4	2010	10	9869	51	21	632513	7
+4	2010	10	9869	117	9	2231674	8
+4	2010	10	9869	117	21	2014944	9
+1	2011	1	9869	45	882	12779334.61	3
+1	2011	1	9869	51	882	4887326.24	4
+1	2011	1	9869	45	881	4092983.66	5
+1	2011	1	9869	117	881	4824379.8	6
+1	2011	1	9869	48	881	4104728.85	7
+1	2011	1	9869	51	881	2054547.18	8
+1	2011	1	9869	45	3581	7885871.34	9
+1	2011	1	9869	117	3581	626344.33	10
+1	2011	1	9869	48	3581	700195.83	11
+1	2011	1	9869	51	3581	2277400.19	12
+1	2011	1	9869	45	3561	70834	13
+1	2011	1	9869	117	3561	54805.6	14
+1	2011	1	9869	48	3561	43017.58	15
+1	2011	1	9869	51	3561	46842.35	16
+1	2011	1	9869	48	882	5910938.15	17
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis827143146; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis827143146 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis827143333; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis827143333 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis827143815; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis827143815 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	4	9869	45	21	2647431	3
+4	2010	4	9869	48	9	2799578	4
+4	2010	4	9869	48	21	836140	5
+4	2010	4	9869	51	9	2309916	6
+4	2010	4	9869	51	21	620601	7
+4	2010	4	9869	117	9	2140413	8
+4	2010	4	9869	117	21	1939740	9
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+4	2010	2	9869	45	21	2693422	3
+4	2010	2	9869	48	9	2849908	4
+4	2010	2	9869	48	21	854881	5
+4	2010	2	9869	51	9	2308829	6
+4	2010	2	9869	51	21	624185	7
+4	2010	2	9869	117	9	2179652	8
+4	2010	2	9869	117	21	1958430	9
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis827144051; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis827144051 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+1	2011	3	9869	48	881	3984270.56	3
+1	2011	3	9869	117	3581	580012.35	4
+1	2011	3	9869	51	3581	2233976.74	5
+1	2011	3	9869	48	3581	607905.11	6
+1	2011	3	9869	45	3581	7659854.14	7
+1	2011	3	9869	117	3561	49920.64	8
+1	2011	3	9869	51	3561	65474.82	9
+1	2011	3	9869	48	3561	38249.18	10
+1	2011	3	9869	45	3561	79286.54	11
+1	2011	3	9869	117	882	6521975.05	12
+1	2011	3	9869	51	882	4670599.82	13
+1	2011	3	9869	48	882	5704177.15	14
+1	2011	3	9869	45	882	12217782.13	15
+1	2011	3	9869	117	881	4673563.66	16
+1	2011	3	9869	51	881	1873070.11	17
+2	2010	1	9869	45	762	10423	3
+2	2010	1	9869	45	763	5986	4
+2	2010	1	9869	45	781	7004	5
+2	2010	1	9869	45	786	72567	6
+2	2010	1	9869	45	801	1274	7
+2	2010	1	9869	45	802	376	8
+2	2010	1	9869	45	803	4121	9
+2	2010	1	9869	45	1861	45	10
+2	2010	1	9869	45	1862	3389	11
+2	2010	1	9869	45	3601	7198	12
+2	2010	1	9869	45	3621	4961	13
+2	2010	1	9869	45	3641	1163	14
+2	2010	1	9869	48	761	173660	15
+2	2010	1	9869	48	762	10434	16
+2	2010	1	9869	48	763	13763	17
+2	2010	1	9869	48	781	11403	18
+2	2010	1	9869	48	786	45151	19
+2	2010	1	9869	48	801	8770	20
+2	2010	1	9869	48	802	59	21
+2	2010	1	9869	48	803	5469	22
+2	2010	1	9869	48	1861	38	23
+2	2010	1	9869	48	1862	2412	24
+2	2010	1	9869	48	3601	8607	25
+2	2010	1	9869	48	3621	2904	26
+2	2010	1	9869	48	3641	2713	27
+2	2010	1	9869	51	761	140787	28
+2	2010	1	9869	51	762	7784	29
+2	2010	1	9869	51	763	8989	30
+2	2010	1	9869	51	781	4231	31
+2	2010	1	9869	51	786	20168	32
+2	2010	1	9869	51	801	20157	33
+2	2010	1	9869	51	802	22	34
+2	2010	1	9869	51	803	261	35
+2	2010	1	9869	51	1861	80	36
+2	2010	1	9869	51	1862	1052	37
+2	2010	1	9869	51	3601	5778	38
+2	2010	1	9869	51	3621	1151	39
+2	2010	1	9869	51	3641	560	40
+2	2010	1	9869	117	761	125670	41
+2	2010	1	9869	117	762	7738	42
+2	2010	1	9869	117	763	14547	43
+2	2010	1	9869	117	781	10879	44
+2	2010	1	9869	117	786	109647	45
+2	2010	1	9869	117	801	2538	46
+2	2010	1	9869	117	802	317	47
+2	2010	1	9869	117	803	15809	48
+2	2010	1	9869	117	1861	40	49
+2	2010	1	9869	117	1862	3745	50
+2	2010	1	9869	117	3601	3447	51
+2	2010	1	9869	117	3621	3328	52
+2	2010	1	9869	117	3641	10709	53
+1	2012	5	9869	51	881	2223822.52	3
+1	2012	5	9869	48	881	4666276.75	4
+1	2012	5	9869	45	881	4344884.94	5
+1	2012	5	9869	117	882	7501040.43	6
+1	2012	5	9869	51	882	5629585.77	7
+1	2012	5	9869	48	882	6830052.51	8
+1	2012	5	9869	45	882	14830910.4	9
+1	2012	5	9869	117	3561	9539.18	10
+1	2012	5	9869	51	3561	7918.1	11
+1	2012	5	9869	48	3561	11942.03	12
+1	2012	5	9869	45	3561	33237.22	13
+1	2012	5	9869	117	3581	858120.18	14
+1	2012	5	9869	51	3581	2888915.35	15
+1	2012	5	9869	48	3581	962446.5	16
+1	2012	5	9869	45	3581	9853066.38	17
+3	2010	6	9869	45	4862	5528001.09	3
+3	2010	6	9869	45	10511	0	4
+3	2010	6	9869	48	4861	4786855.15	5
+3	2010	6	9869	48	4862	1218473.9	6
+3	2010	6	9869	48	10511	0	7
+3	2010	6	9869	51	4861	4086271.28	8
+3	2010	6	9869	51	4862	718420.84	9
+3	2010	6	9869	51	10511	0	10
+3	2010	6	9869	117	4861	3669088.13	11
+3	2010	6	9869	117	4862	3130909.78	12
+3	2010	6	9869	117	10511	0	13
+3	2010	6	9869	225	10511	0	14
+3	2010	6	9869	228	4862	40637.5	15
+3	2010	6	9869	228	10511	0	16
+2	2012	3	9869	48	761	185410	3
+2	2012	3	9869	51	761	154184	4
+2	2012	3	9869	117	761	132852	5
+2	2012	3	9869	45	762	12051	6
+2	2012	3	9869	48	762	11318	7
+2	2012	3	9869	51	762	8205	8
+2	2012	3	9869	117	762	8864	9
+2	2012	3	9869	45	763	4161	10
+2	2012	3	9869	48	763	15016	11
+2	2012	3	9869	51	763	10407	12
+2	2012	3	9869	117	763	13859	13
+2	2012	3	9869	45	781	5529	14
+2	2012	3	9869	48	781	10738	15
+2	2012	3	9869	51	781	4698	16
+2	2012	3	9869	117	781	9772	17
+2	2012	3	9869	45	786	76223	18
+2	2012	3	9869	48	786	50710	19
+2	2012	3	9869	51	786	21332	20
+2	2012	3	9869	117	786	118751	21
+2	2012	3	9869	45	801	1377	22
+2	2012	3	9869	48	801	9509	23
+2	2012	3	9869	51	801	21000	24
+2	2012	3	9869	117	801	2641	25
+2	2012	3	9869	45	802	303	26
+2	2012	3	9869	48	802	55	27
+2	2012	3	9869	51	802	22	28
+2	2012	3	9869	117	802	443	29
+2	2012	3	9869	45	803	2731	30
+2	2012	3	9869	48	803	7521	31
+2	2012	3	9869	51	803	1657	32
+2	2012	3	9869	117	803	16132	33
+2	2012	3	9869	45	1861	44	34
+2	2012	3	9869	48	1861	41	35
+2	2012	3	9869	51	1861	103	36
+2	2012	3	9869	117	1861	45	37
+2	2012	3	9869	45	1862	3968	38
+2	2012	3	9869	48	1862	3133	39
+2	2012	3	9869	51	1862	931	40
+2	2012	3	9869	117	1862	4861	41
+2	2012	3	9869	45	3601	8344	42
+2	2012	3	9869	48	3601	8500	43
+2	2012	3	9869	51	3601	5998	44
+2	2012	3	9869	117	3601	3990	45
+2	2012	3	9869	45	3621	6048	46
+2	2012	3	9869	48	3621	3128	47
+2	2012	3	9869	51	3621	1304	48
+2	2012	3	9869	117	3621	3988	49
+2	2012	3	9869	45	3641	1761	50
+2	2012	3	9869	48	3641	3849	51
+2	2012	3	9869	51	3641	682	52
+2	2012	3	9869	117	3641	10016	53
+3	2010	2	9869	45	4862	5845635.23	3
+3	2010	2	9869	45	10511	0	4
+3	2010	2	9869	48	4861	5043345.81	5
+3	2010	2	9869	48	4862	1332547.38	6
+3	2010	2	9869	48	10511	0	7
+3	2010	2	9869	51	4861	4139763.3	8
+3	2010	2	9869	51	4862	714215.04	9
+3	2010	2	9869	51	10511	0	10
+3	2010	2	9869	117	4861	3985137.19	11
+3	2010	2	9869	117	4862	3159567.45	12
+3	2010	2	9869	117	10511	0	13
+3	2010	2	9869	225	10511	0	14
+3	2010	2	9869	228	10511	0	15
+1	2010	7	9869	45	882	13111451.96	3
+1	2010	7	9869	45	3561	50074.16	4
+1	2010	7	9869	45	3581	8333173.17	5
+1	2010	7	9869	48	881	4259219.81	6
+1	2010	7	9869	48	882	6247929.57	7
+1	2010	7	9869	48	3561	34043.53	8
+1	2010	7	9869	48	3581	808560.9	9
+1	2010	7	9869	51	881	2066219.52	10
+1	2010	7	9869	51	882	5225977.85	11
+1	2010	7	9869	51	3561	68634.37	12
+1	2010	7	9869	51	3581	2408306.87	13
+1	2010	7	9869	117	881	5116759.23	14
+1	2010	7	9869	117	882	7278748.83	15
+1	2010	7	9869	117	3561	45712.46	16
+1	2010	7	9869	117	3581	784073.72	17
+1	2011	4	9869	51	3581	2384692.24	3
+1	2011	4	9869	48	3581	777610.78	4
+1	2011	4	9869	117	3581	710145.36	5
+1	2011	4	9869	51	3561	40569.13	6
+1	2011	4	9869	45	3561	68087.33	7
+1	2011	4	9869	48	3561	50932.46	8
+1	2011	4	9869	117	3561	61532.89	9
+1	2011	4	9869	51	882	5326910.63	10
+1	2011	4	9869	45	882	12910048.94	11
+1	2011	4	9869	48	882	6509136.86	12
+1	2011	4	9869	117	882	7141852.06	13
+1	2011	4	9869	51	881	2228317.67	14
+1	2011	4	9869	45	881	4185926.33	15
+1	2011	4	9869	48	881	4271120.63	16
+1	2011	4	9869	45	3581	7775986.95	17
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+3	2011	5	9869	117	4861	3909403.83	3
+3	2011	5	9869	48	4861	5072232.2	4
+3	2011	5	9869	45	4861	7646400.54	5
+3	2011	5	9869	45	4862	4539306.7	6
+3	2011	5	9869	117	4862	2568348.69	7
+3	2011	5	9869	51	4862	580309.92	8
+3	2011	5	9869	228	4862	20737.25	9
+3	2011	5	9869	48	4862	1072318.9	10
+1	2011	12	9869	48	881	4535180.18	3
+1	2011	12	9869	51	881	2064485.49	4
+1	2011	12	9869	45	881	3755902.42	5
+1	2011	12	9869	117	882	7318747.7	6
+1	2011	12	9869	48	882	6720293.23	7
+1	2011	12	9869	51	882	5382008.85	8
+1	2011	12	9869	45	882	13464012.89	9
+1	2011	12	9869	117	3561	1218.91	10
+1	2011	12	9869	48	3561	119.78	11
+1	2011	12	9869	51	3561	2124.38	12
+1	2011	12	9869	45	3561	20416.35	13
+1	2011	12	9869	117	3581	880313.98	14
+1	2011	12	9869	48	3581	975348.02	15
+1	2011	12	9869	51	3581	2840497.2	16
+1	2011	12	9869	45	3581	8973002.66	17
+3	2011	3	9869	51	4862	566803.92	3
+3	2011	3	9869	48	4862	1021067.74	4
+3	2011	3	9869	45	4862	4413918.32	5
+3	2011	3	9869	117	4861	3954301.31	6
+3	2011	3	9869	51	4861	4289118.89	7
+3	2011	3	9869	45	4861	7882792.85	8
+3	2011	3	9869	48	4861	5059163.18	9
+3	2011	3	9869	228	4862	12023.85	10
+3	2011	3	9869	51	10511	105601.72	11
+3	2011	3	9869	48	10511	84287.99	12
+3	2011	3	9869	117	10511	92917.06	13
+3	2011	3	9869	45	10511	213443.44	14
+3	2010	9	9869	45	4862	5719232.97	3
+3	2010	9	9869	45	10511	0	4
+3	2010	9	9869	48	4861	4911084.16	5
+3	2010	9	9869	48	4862	1296952.31	6
+3	2010	9	9869	48	10511	0	7
+3	2010	9	9869	51	4861	4112011.13	8
+3	2010	9	9869	51	4862	475127.61	9
+3	2010	9	9869	51	10511	0	10
+3	2010	9	9869	117	4861	3674594.21	11
+3	2010	9	9869	117	4862	3197862.63	12
+3	2010	9	9869	117	10511	0	13
+3	2010	9	9869	225	10511	0	14
+3	2010	9	9869	228	10511	0	15
+2	2012	1	9869	51	3641	675	3
+2	2012	1	9869	48	3641	3563	4
+2	2012	1	9869	45	3641	1734	5
+2	2012	1	9869	117	1861	45	6
+2	2012	1	9869	51	1861	103	7
+2	2012	1	9869	48	1861	41	8
+2	2012	1	9869	45	1861	43	9
+2	2012	1	9869	117	1862	4736	10
+2	2012	1	9869	51	1862	938	11
+2	2012	1	9869	48	1862	3040	12
+2	2012	1	9869	45	1862	3996	13
+2	2012	1	9869	117	761	132484	14
+2	2012	1	9869	51	761	153462	15
+2	2012	1	9869	48	761	184916	16
+2	2012	1	9869	45	761	125014	17
+2	2012	1	9869	117	762	8744	18
+2	2012	1	9869	51	762	8088	19
+2	2012	1	9869	48	762	11266	20
+2	2012	1	9869	45	762	11881	21
+2	2012	1	9869	117	763	13934	22
+2	2012	1	9869	51	763	10197	23
+2	2012	1	9869	48	763	14527	24
+2	2012	1	9869	45	763	3978	25
+2	2012	1	9869	117	781	9704	26
+2	2012	1	9869	51	781	4052	27
+2	2012	1	9869	48	781	10816	28
+2	2012	1	9869	45	781	5548	29
+2	2012	1	9869	117	786	118428	30
+2	2012	1	9869	51	786	21302	31
+2	2012	1	9869	48	786	49775	32
+2	2012	1	9869	45	786	75913	33
+2	2012	1	9869	117	801	2569	34
+2	2012	1	9869	51	801	20997	35
+2	2012	1	9869	48	801	9483	36
+2	2012	1	9869	45	801	1373	37
+2	2012	1	9869	117	802	441	38
+2	2012	1	9869	51	802	22	39
+2	2012	1	9869	48	802	55	40
+2	2012	1	9869	45	802	303	41
+2	2012	1	9869	117	803	16132	42
+2	2012	1	9869	51	803	1422	43
+2	2012	1	9869	48	803	7525	44
+2	2012	1	9869	45	803	2686	45
+2	2012	1	9869	117	3621	3960	46
+2	2012	1	9869	51	3621	1310	47
+2	2012	1	9869	48	3621	3135	48
+2	2012	1	9869	45	3621	6080	49
+2	2012	1	9869	117	3601	4006	50
+2	2012	1	9869	51	3601	6021	51
+2	2012	1	9869	48	3601	8547	52
+2	2012	1	9869	45	3601	8378	53
+4	2010	2	9869	45	21	2693422	3
+4	2010	2	9869	48	9	2849908	4
+4	2010	2	9869	48	21	854881	5
+4	2010	2	9869	51	9	2308829	6
+4	2010	2	9869	51	21	624185	7
+4	2010	2	9869	117	9	2179652	8
+4	2010	2	9869	117	21	1958430	9
+3	2010	10	9869	45	4862	5842600.53	3
+3	2010	10	9869	45	10511	0	4
+3	2010	10	9869	48	4861	5118183.26	5
+3	2010	10	9869	48	4862	1372489.98	6
+3	2010	10	9869	48	10511	0	7
+3	2010	10	9869	51	4861	4165184.38	8
+3	2010	10	9869	51	4862	499122.74	9
+3	2010	10	9869	51	10511	0	10
+3	2010	10	9869	117	4861	3999284.5	11
+3	2010	10	9869	117	4862	3371441.36	12
+3	2010	10	9869	117	10511	0	13
+3	2010	10	9869	225	10511	0	14
+3	2010	10	9869	228	4862	23112.01	15
+3	2010	10	9869	228	10511	0	16
+3	2011	1	9869	45	4862	6073899.89	3
+3	2011	1	9869	45	4861	8362841.89	4
+3	2011	1	9869	117	4861	3875206.74	5
+3	2011	1	9869	228	4861	14636.52	6
+3	2011	1	9869	48	4861	5142981.8	7
+3	2011	1	9869	228	4862	14636.52	8
+3	2011	1	9869	45	10511	110659.91	9
+3	2011	1	9869	51	10511	126415.37	10
+3	2011	1	9869	51	4862	800203.97	11
+3	2011	1	9869	48	4862	1251587.45	12
+3	2011	1	9869	117	4862	2997908.55	13
+3	2011	1	9869	48	10511	74044.64	14
+3	2011	1	9869	51	4861	4402825.43	15
+3	2010	4	9869	45	4862	5660476.49	3
+3	2010	4	9869	45	10511	0	4
+3	2010	4	9869	48	4861	5594130.06	5
+3	2010	4	9869	48	4862	1327589.22	6
+3	2010	4	9869	48	10511	0	7
+3	2010	4	9869	51	4861	4572949.66	8
+3	2010	4	9869	51	4862	721571.2	9
+3	2010	4	9869	51	10511	0	10
+3	2010	4	9869	117	4861	3285195.46	11
+3	2010	4	9869	117	4862	3241691.61	12
+3	2010	4	9869	117	10511	0	13
+3	2010	4	9869	225	10511	0	14
+3	2010	4	9869	228	10511	0	15
+3	2010	8	9869	45	4862	5564526.34	3
+3	2010	8	9869	45	10511	0	4
+3	2010	8	9869	48	4861	4694638.09	5
+3	2010	8	9869	48	4862	1256001.24	6
+3	2010	8	9869	48	10511	0	7
+3	2010	8	9869	51	4861	4125306.78	8
+3	2010	8	9869	51	4862	843931.08	9
+3	2010	8	9869	51	10511	0	10
+3	2010	8	9869	117	4861	3745962.65	11
+3	2010	8	9869	117	4862	3165916.77	12
+3	2010	8	9869	117	10511	0	13
+3	2010	8	9869	225	10511	0	14
+3	2010	8	9869	228	4862	21361.77	15
+3	2010	8	9869	228	10511	0	16
+1	2011	1	9869	45	882	12779334.61	3
+1	2011	1	9869	51	882	4887326.24	4
+1	2011	1	9869	45	881	4092983.66	5
+1	2011	1	9869	117	881	4824379.8	6
+1	2011	1	9869	48	881	4104728.85	7
+1	2011	1	9869	51	881	2054547.18	8
+1	2011	1	9869	45	3581	7885871.34	9
+1	2011	1	9869	117	3581	626344.33	10
+1	2011	1	9869	48	3581	700195.83	11
+1	2011	1	9869	51	3581	2277400.19	12
+1	2011	1	9869	45	3561	70834	13
+1	2011	1	9869	117	3561	54805.6	14
+1	2011	1	9869	48	3561	43017.58	15
+1	2011	1	9869	51	3561	46842.35	16
+1	2011	1	9869	48	882	5910938.15	17
+1	2011	9	9869	48	881	4529354.53	3
+1	2011	9	9869	51	881	2285417.86	4
+1	2011	9	9869	45	881	4207500.94	5
+1	2011	9	9869	117	882	7291764.49	6
+1	2011	9	9869	48	882	6495239.99	7
+1	2011	9	9869	51	882	5336213.94	8
+1	2011	9	9869	45	882	13984397.06	9
+1	2011	9	9869	117	3561	46427.62	10
+1	2011	9	9869	48	3561	26743.42	11
+1	2011	9	9869	51	3561	26300.81	12
+1	2011	9	9869	45	3561	275531.33	13
+1	2011	9	9869	117	3581	757888.26	14
+1	2011	9	9869	48	3581	829327.77	15
+1	2011	9	9869	51	3581	2591629.89	16
+1	2011	9	9869	45	3581	8757732.65	17
+2	2010	6	9869	45	762	10387	3
+2	2010	6	9869	45	763	5058	4
+2	2010	6	9869	45	781	6715	5
+2	2010	6	9869	45	786	73163	6
+2	2010	6	9869	45	801	1410	7
+2	2010	6	9869	45	802	362	8
+2	2010	6	9869	45	803	3969	9
+2	2010	6	9869	45	1861	41	10
+2	2010	6	9869	45	1862	3560	11
+2	2010	6	9869	45	3601	7680	12
+2	2010	6	9869	45	3621	5424	13
+2	2010	6	9869	45	3641	1429	14
+2	2010	6	9869	48	761	175880	15
+2	2010	6	9869	48	762	10548	16
+2	2010	6	9869	48	763	13769	17
+2	2010	6	9869	48	781	11397	18
+2	2010	6	9869	48	786	45718	19
+2	2010	6	9869	48	801	8939	20
+2	2010	6	9869	48	802	56	21
+2	2010	6	9869	48	803	9485	22
+2	2010	6	9869	48	1861	39	23
+2	2010	6	9869	48	1862	2590	24
+2	2010	6	9869	48	3601	8936	25
+2	2010	6	9869	48	3621	3111	26
+2	2010	6	9869	48	3641	2319	27
+2	2010	6	9869	51	761	141879	28
+2	2010	6	9869	51	762	7901	29
+2	2010	6	9869	51	763	11213	30
+2	2010	6	9869	51	781	4048	31
+2	2010	6	9869	51	786	20270	32
+2	2010	6	9869	51	801	20298	33
+2	2010	6	9869	51	802	22	34
+2	2010	6	9869	51	803	385	35
+2	2010	6	9869	51	1861	80	36
+2	2010	6	9869	51	1862	1090	37
+2	2010	6	9869	51	3601	6175	38
+2	2010	6	9869	51	3621	1402	39
+2	2010	6	9869	51	3641	600	40
+2	2010	6	9869	117	761	127401	41
+2	2010	6	9869	117	762	7919	42
+2	2010	6	9869	117	763	14082	43
+2	2010	6	9869	117	781	10600	44
+2	2010	6	9869	117	786	111234	45
+2	2010	6	9869	117	801	2543	46
+2	2010	6	9869	117	802	324	47
+2	2010	6	9869	117	803	16484	48
+2	2010	6	9869	117	1861	38	49
+2	2010	6	9869	117	1862	3798	50
+2	2010	6	9869	117	3601	3508	51
+2	2010	6	9869	117	3621	3404	52
+2	2010	6	9869	117	3641	10464	53
+3	2011	8	9869	51	4861	4341551.95	3
+3	2011	8	9869	45	4861	8007953.54	4
+3	2011	8	9869	117	4861	4145775.5	5
+3	2011	8	9869	228	4862	15250.44	6
+3	2011	8	9869	51	4862	493423.91	7
+3	2011	8	9869	48	4862	1088392.13	8
+3	2011	8	9869	45	4862	4705743.78	9
+3	2011	8	9869	117	4862	2704555.46	10
+4	2010	11	9869	45	21	2751053	3
+4	2010	11	9869	48	9	2937956	4
+4	2010	11	9869	48	21	878464	5
+4	2010	11	9869	51	9	2437117	6
+4	2010	11	9869	51	21	653534	7
+4	2010	11	9869	117	9	2251100	8
+4	2010	11	9869	117	21	2032110	9
+2	2012	4	9869	48	761	185654	3
+2	2012	4	9869	117	761	132815	4
+2	2012	4	9869	51	761	154766	5
+2	2012	4	9869	45	762	12011	6
+2	2012	4	9869	48	762	11373	7
+2	2012	4	9869	117	762	8974	8
+2	2012	4	9869	51	762	8187	9
+2	2012	4	9869	45	763	4283	10
+2	2012	4	9869	48	763	15315	11
+2	2012	4	9869	117	763	14027	12
+2	2012	4	9869	51	763	10403	13
+2	2012	4	9869	45	781	5522	14
+2	2012	4	9869	48	781	10658	15
+2	2012	4	9869	117	781	9789	16
+2	2012	4	9869	51	781	5033	17
+2	2012	4	9869	45	786	76301	18
+2	2012	4	9869	48	786	51606	19
+2	2012	4	9869	117	786	118813	20
+2	2012	4	9869	51	786	21366	21
+2	2012	4	9869	45	801	1382	22
+2	2012	4	9869	48	801	9516	23
+2	2012	4	9869	117	801	2673	24
+2	2012	4	9869	51	801	20992	25
+2	2012	4	9869	45	802	299	26
+2	2012	4	9869	48	802	54	27
+2	2012	4	9869	117	802	448	28
+2	2012	4	9869	51	802	22	29
+2	2012	4	9869	45	803	2744	30
+2	2012	4	9869	48	803	7555	31
+2	2012	4	9869	117	803	16196	32
+2	2012	4	9869	51	803	1706	33
+2	2012	4	9869	45	1861	44	34
+2	2012	4	9869	48	1861	41	35
+2	2012	4	9869	117	1861	45	36
+2	2012	4	9869	51	1861	103	37
+2	2012	4	9869	45	1862	4026	38
+2	2012	4	9869	48	1862	3166	39
+2	2012	4	9869	117	1862	5046	40
+2	2012	4	9869	51	1862	956	41
+2	2012	4	9869	45	3601	8313	42
+2	2012	4	9869	48	3601	8470	43
+2	2012	4	9869	117	3601	3983	44
+2	2012	4	9869	51	3601	5986	45
+2	2012	4	9869	45	3621	6033	46
+2	2012	4	9869	48	3621	3157	47
+2	2012	4	9869	117	3621	3981	48
+2	2012	4	9869	51	3621	1304	49
+2	2012	4	9869	45	3641	1770	50
+2	2012	4	9869	48	3641	4334	51
+2	2012	4	9869	117	3641	9928	52
+2	2012	4	9869	51	3641	683	53
+3	2012	3	9869	48	4861	5466987.5	3
+3	2012	3	9869	51	4861	4771868.87	4
+3	2012	3	9869	117	4861	4263511.14	5
+3	2012	3	9869	45	4862	4982782.37	6
+3	2012	3	9869	48	4862	1223471.11	7
+3	2012	3	9869	51	4862	667078.59	8
+3	2012	3	9869	117	4862	2996381.93	9
+3	2012	3	9869	228	4862	13701.99	10
+4	2010	3	9869	45	21	2638697	3
+4	2010	3	9869	48	9	2858451	4
+4	2010	3	9869	48	21	859892	5
+4	2010	3	9869	51	9	2321843	6
+4	2010	3	9869	51	21	629838	7
+4	2010	3	9869	117	9	2173116	8
+4	2010	3	9869	117	21	1954024	9
+4	2010	10	9869	45	21	2715899	3
+4	2010	10	9869	48	9	2899890	4
+4	2010	10	9869	48	21	874720	5
+4	2010	10	9869	51	9	2362979	6
+4	2010	10	9869	51	21	632513	7
+4	2010	10	9869	117	9	2231674	8
+4	2010	10	9869	117	21	2014944	9
+4	2011	4	9869	117	9	2098678	3
+4	2011	4	9869	48	9	2739529	4
+4	2011	4	9869	45	9	3329740	5
+4	2011	4	9869	51	9	2286107	6
+4	2011	4	9869	117	21	1405641	7
+4	2011	4	9869	48	21	609902	8
+4	2011	4	9869	45	21	1934466	9
+4	2012	4	9869	48	9	2895853	3
+4	2012	4	9869	51	9	2436720	4
+4	2012	4	9869	117	9	2201434	5
+4	2012	4	9869	45	21	2208296	6
+4	2012	4	9869	48	21	739394	7
+4	2012	4	9869	51	21	514436	8
+4	2012	4	9869	117	21	1657895	9
+4	2012	3	9869	48	9	2840104	3
+4	2012	3	9869	51	9	2400994	4
+4	2012	3	9869	117	9	2163848	5
+4	2012	3	9869	45	21	2185809	6
+4	2012	3	9869	48	21	719764	7
+4	2012	3	9869	51	21	510498	8
+4	2012	3	9869	117	21	1637680	9
+3	2012	1	9869	51	4861	4871332.55	3
+3	2012	1	9869	48	4861	5696589.04	4
+3	2012	1	9869	45	4861	8948145.51	5
+3	2012	1	9869	228	4862	10638.78	6
+3	2012	1	9869	117	4862	3027902.14	7
+3	2012	1	9869	51	4862	680015.49	8
+3	2012	1	9869	48	4862	1238329.61	9
+3	2012	1	9869	45	4862	5160234.47	10
+4	2011	10	9869	48	21	650603	3
+4	2011	10	9869	117	21	1491555	4
+4	2011	10	9869	45	21	2003263	5
+4	2011	10	9869	51	9	2421909	6
+4	2011	10	9869	48	9	2959418	7
+4	2011	10	9869	45	9	3580899	8
+4	2011	10	9869	117	9	2249650	9
+1	2010	5	9869	45	882	12496487.83	3
+1	2010	5	9869	45	3561	49969.27	4
+1	2010	5	9869	45	3581	7774745.35	5
+1	2010	5	9869	48	881	4143940.17	6
+1	2010	5	9869	48	882	6040682.54	7
+1	2010	5	9869	48	3561	28413.77	8
+1	2010	5	9869	48	3581	788015.37	9
+1	2010	5	9869	51	881	1942947.76	10
+1	2010	5	9869	51	882	4925746.6	11
+1	2010	5	9869	51	3561	33876.38	12
+1	2010	5	9869	51	3581	2258359.86	13
+1	2010	5	9869	117	881	4975883.55	14
+1	2010	5	9869	117	882	7023010.37	15
+1	2010	5	9869	117	3561	38620.35	16
+1	2010	5	9869	117	3581	724700.76	17
+4	2011	9	9869	48	9	2921610	3
+4	2011	9	9869	51	9	2397862	4
+4	2011	9	9869	45	9	3539761	5
+4	2011	9	9869	117	21	1476942	6
+4	2011	9	9869	48	21	643417	7
+4	2011	9	9869	51	21	450870	8
+4	2011	9	9869	45	21	1996388	9
+3	2010	7	9869	45	4862	5599928.02	3
+3	2010	7	9869	45	10511	0	4
+3	2010	7	9869	48	4861	4772516.75	5
+3	2010	7	9869	48	4862	1265763.43	6
+3	2010	7	9869	48	10511	0	7
+3	2010	7	9869	51	4861	4106167.72	8
+3	2010	7	9869	51	4862	731548.07	9
+3	2010	7	9869	51	10511	0	10
+3	2010	7	9869	117	4861	3707004.77	11
+3	2010	7	9869	117	4862	3111778.49	12
+3	2010	7	9869	117	10511	0	13
+3	2010	7	9869	225	10511	0	14
+3	2010	7	9869	228	10511	0	15
+2	2011	7	9869	45	761	123271	3
+2	2011	7	9869	117	761	130699	4
+2	2011	7	9869	48	761	181476	5
+2	2011	7	9869	51	762	8252	6
+2	2011	7	9869	45	762	11048	7
+2	2011	7	9869	117	762	8062	8
+2	2011	7	9869	48	762	10979	9
+2	2011	7	9869	51	763	10324	10
+2	2011	7	9869	45	763	5096	11
+2	2011	7	9869	117	763	13937	12
+2	2011	7	9869	48	763	13822	13
+2	2011	7	9869	51	781	2996	14
+2	2011	7	9869	45	781	5759	15
+2	2011	7	9869	117	781	10388	16
+2	2011	7	9869	48	781	12219	17
+2	2011	7	9869	51	786	21164	18
+2	2011	7	9869	45	786	74943	19
+2	2011	7	9869	117	786	115452	20
+2	2011	7	9869	48	786	48959	21
+2	2011	7	9869	51	801	20796	22
+2	2011	7	9869	45	801	1355	23
+2	2011	7	9869	117	801	2553	24
+2	2011	7	9869	48	801	9081	25
+2	2011	7	9869	51	802	19	26
+2	2011	7	9869	45	802	315	27
+2	2011	7	9869	117	802	417	28
+2	2011	7	9869	48	802	55	29
+2	2011	7	9869	51	803	992	30
+2	2011	7	9869	45	803	3056	31
+2	2011	7	9869	117	803	16720	32
+2	2011	7	9869	48	803	7620	33
+2	2011	7	9869	51	1861	88	34
+2	2011	7	9869	45	1861	44	35
+2	2011	7	9869	117	1861	39	36
+2	2011	7	9869	48	1861	42	37
+2	2011	7	9869	51	1862	919	38
+2	2011	7	9869	45	1862	3790	39
+2	2011	7	9869	117	1862	4372	40
+2	2011	7	9869	48	1862	2857	41
+2	2011	7	9869	51	3601	6065	42
+2	2011	7	9869	45	3601	8350	43
+2	2011	7	9869	117	3601	3826	44
+2	2011	7	9869	48	3601	8683	45
+2	2011	7	9869	51	3621	1383	46
+2	2011	7	9869	45	3621	6037	47
+2	2011	7	9869	117	3621	3740	48
+2	2011	7	9869	48	3621	3145	49
+2	2011	7	9869	51	3641	642	50
+2	2011	7	9869	45	3641	1640	51
+2	2011	7	9869	117	3641	11478	52
+2	2011	7	9869	48	3641	3387	53
+3	2012	4	9869	48	4861	4923532.1	3
+3	2012	4	9869	51	4861	3523850.32	4
+3	2012	4	9869	117	4861	3827332.65	5
+3	2012	4	9869	45	4862	4685735.29	6
+3	2012	4	9869	48	4862	1029439.49	7
+3	2012	4	9869	51	4862	512585.02	8
+3	2012	4	9869	117	4862	2501498.31	9
+3	2012	4	9869	228	4862	8447.1	10
+4	2012	6	9869	48	9	2874660	3
+4	2012	6	9869	51	9	2444697	4
+4	2012	6	9869	117	9	2151314	5
+4	2012	6	9869	45	21	2207663	6
+4	2012	6	9869	48	21	747660	7
+4	2012	6	9869	51	21	516713	8
+4	2012	6	9869	117	21	1626541	9
+4	2010	12	9869	45	21	2750270	3
+4	2010	12	9869	48	9	2854470	4
+4	2010	12	9869	48	21	853042	5
+4	2010	12	9869	51	9	2404364	6
+4	2010	12	9869	51	21	645138	7
+4	2010	12	9869	117	9	2193979	8
+4	2010	12	9869	117	21	1992956	9
+2	2011	6	9869	48	1862	2815	3
+2	2011	6	9869	45	3601	8362	4
+2	2011	6	9869	51	3601	6218	5
+2	2011	6	9869	117	3601	3769	6
+2	2011	6	9869	48	3601	8694	7
+2	2011	6	9869	45	3621	6042	8
+2	2011	6	9869	51	3621	1416	9
+2	2011	6	9869	117	3621	3682	10
+2	2011	6	9869	48	3621	3133	11
+2	2011	6	9869	45	3641	1630	12
+2	2011	6	9869	51	3641	664	13
+2	2011	6	9869	117	3641	11450	14
+2	2011	6	9869	48	3641	3260	15
+2	2011	6	9869	45	761	122947	16
+2	2011	6	9869	51	761	148973	17
+2	2011	6	9869	117	761	130306	18
+2	2011	6	9869	48	761	181259	19
+2	2011	6	9869	45	762	10958	20
+2	2011	6	9869	51	762	8231	21
+2	2011	6	9869	117	762	7949	22
+2	2011	6	9869	48	762	10929	23
+2	2011	6	9869	45	763	5313	24
+2	2011	6	9869	51	763	10337	25
+2	2011	6	9869	117	763	14166	26
+2	2011	6	9869	48	763	13794	27
+2	2011	6	9869	45	781	5747	28
+2	2011	6	9869	51	781	2969	29
+2	2011	6	9869	117	781	10419	30
+2	2011	6	9869	48	781	11910	31
+2	2011	6	9869	45	786	74799	32
+2	2011	6	9869	51	786	21079	33
+2	2011	6	9869	117	786	115199	34
+2	2011	6	9869	48	786	48837	35
+2	2011	6	9869	45	801	1353	36
+2	2011	6	9869	51	801	20741	37
+2	2011	6	9869	117	801	2548	38
+2	2011	6	9869	48	801	9074	39
+2	2011	6	9869	45	802	326	40
+2	2011	6	9869	51	802	19	41
+2	2011	6	9869	117	802	375	42
+2	2011	6	9869	48	802	56	43
+2	2011	6	9869	45	803	3031	44
+2	2011	6	9869	51	803	661	45
+2	2011	6	9869	117	803	16722	46
+2	2011	6	9869	48	803	7625	47
+2	2011	6	9869	45	1861	44	48
+2	2011	6	9869	51	1861	88	49
+2	2011	6	9869	117	1861	39	50
+2	2011	6	9869	48	1861	42	51
+2	2011	6	9869	45	1862	3815	52
+2	2011	6	9869	51	1862	918	53
+1	2010	11	9869	45	882	14826637.96	3
+1	2010	11	9869	45	3561	156627.69	4
+1	2010	11	9869	45	3581	9461268.01	5
+1	2010	11	9869	48	881	4631740.32	6
+1	2010	11	9869	48	882	6677813.3	7
+1	2010	11	9869	48	3561	29657.33	8
+1	2010	11	9869	48	3581	906524.28	9
+1	2010	11	9869	51	881	2260554.26	10
+1	2010	11	9869	51	882	5609030.58	11
+1	2010	11	9869	51	3561	44147.61	12
+1	2010	11	9869	51	3581	2739992.35	13
+1	2010	11	9869	117	881	5545792.28	14
+1	2010	11	9869	117	882	7966993.95	15
+1	2010	11	9869	117	3561	56352.28	16
+1	2010	11	9869	117	3581	982052.69	17
+2	2010	12	9869	45	762	10512	3
+2	2010	12	9869	45	763	5463	4
+2	2010	12	9869	45	781	6099	5
+2	2010	12	9869	45	786	74245	6
+2	2010	12	9869	45	801	1395	7
+2	2010	12	9869	45	802	339	8
+2	2010	12	9869	45	803	3220	9
+2	2010	12	9869	45	1861	42	10
+2	2010	12	9869	45	1862	3675	11
+2	2010	12	9869	45	3601	8187	12
+2	2010	12	9869	45	3621	5875	13
+2	2010	12	9869	45	3641	1625	14
+2	2010	12	9869	48	761	177889	15
+2	2010	12	9869	48	762	10815	16
+2	2010	12	9869	48	763	13254	17
+2	2010	12	9869	48	781	13045	18
+2	2010	12	9869	48	786	46255	19
+2	2010	12	9869	48	801	8994	20
+2	2010	12	9869	48	802	56	21
+2	2010	12	9869	48	803	12022	22
+2	2010	12	9869	48	1861	41	23
+2	2010	12	9869	48	1862	2748	24
+2	2010	12	9869	48	3601	8924	25
+2	2010	12	9869	48	3621	3129	26
+2	2010	12	9869	48	3641	2293	27
+2	2010	12	9869	51	761	146196	28
+2	2010	12	9869	51	762	7867	29
+2	2010	12	9869	51	763	10068	30
+2	2010	12	9869	51	781	2830	31
+2	2010	12	9869	51	786	20909	32
+2	2010	12	9869	51	801	20531	33
+2	2010	12	9869	51	802	19	34
+2	2010	12	9869	51	803	485	35
+2	2010	12	9869	51	1861	80	36
+2	2010	12	9869	51	1862	882	37
+2	2010	12	9869	51	3601	6537	38
+2	2010	12	9869	51	3621	1501	39
+2	2010	12	9869	51	3641	604	40
+2	2010	12	9869	117	761	129733	41
+2	2010	12	9869	117	762	7847	42
+2	2010	12	9869	117	763	13646	43
+2	2010	12	9869	117	781	10442	44
+2	2010	12	9869	117	786	113526	45
+2	2010	12	9869	117	801	2536	46
+2	2010	12	9869	117	802	338	47
+2	2010	12	9869	117	803	16353	48
+2	2010	12	9869	117	1861	39	49
+2	2010	12	9869	117	1862	3952	50
+2	2010	12	9869	117	3601	3700	51
+2	2010	12	9869	117	3621	3598	52
+2	2010	12	9869	117	3641	11243	53
+1	2010	12	9869	45	882	13619598.26	3
+1	2010	12	9869	45	3561	31306.81	4
+1	2010	12	9869	45	3581	8989941.34	5
+1	2010	12	9869	48	881	4257477.18	6
+1	2010	12	9869	48	882	6141808.27	7
+1	2010	12	9869	48	3561	23647.68	8
+1	2010	12	9869	48	3581	804281.45	9
+1	2010	12	9869	51	881	1967070.97	10
+1	2010	12	9869	51	882	5003199.52	11
+1	2010	12	9869	51	3561	25218.05	12
+1	2010	12	9869	51	3581	2537809.95	13
+1	2010	12	9869	117	881	5165798.87	14
+1	2010	12	9869	117	882	7081609.77	15
+1	2010	12	9869	117	3561	34281.97	16
+1	2010	12	9869	117	3581	743223.64	17
+1	2012	2	9869	51	881	2378362.73	3
+1	2012	2	9869	48	881	4541744.05	4
+1	2012	2	9869	45	881	4413994.7	5
+1	2012	2	9869	117	882	7237897.04	6
+1	2012	2	9869	51	882	5627391.69	7
+1	2012	2	9869	48	882	6827322.61	8
+1	2012	2	9869	45	882	13791667.72	9
+1	2012	2	9869	117	3561	8738.05	10
+1	2012	2	9869	51	3561	4944.15	11
+1	2012	2	9869	48	3561	7127.34	12
+1	2012	2	9869	45	3561	38601.35	13
+1	2012	2	9869	117	3581	732636.81	14
+1	2012	2	9869	51	3581	2554417.12	15
+1	2012	2	9869	48	3581	839958.68	16
+1	2012	2	9869	45	3581	8297145.59	17
+4	2011	5	9869	48	21	613763	3
+4	2011	5	9869	117	21	1404726	4
+4	2011	5	9869	51	21	435055	5
+4	2011	5	9869	45	9	3279275	6
+4	2011	5	9869	48	9	2737969	7
+4	2011	5	9869	51	9	2263603	8
+4	2011	5	9869	117	9	2085234	9
+3	2010	3	9869	45	4862	5515915.97	3
+3	2010	3	9869	45	10511	0	4
+3	2010	3	9869	48	4861	5086393.44	5
+3	2010	3	9869	48	4862	1328218.26	6
+3	2010	3	9869	48	10511	0	7
+3	2010	3	9869	51	4861	4142925.56	8
+3	2010	3	9869	51	4862	727665.39	9
+3	2010	3	9869	51	10511	0	10
+3	2010	3	9869	117	4861	3847710.04	11
+3	2010	3	9869	117	4862	3167876.94	12
+3	2010	3	9869	117	10511	0	13
+3	2010	3	9869	225	10511	0	14
+3	2010	3	9869	228	10511	0	15
+3	2011	10	9869	117	4861	4487815.05	3
+3	2011	10	9869	48	4861	5605160.05	4
+3	2011	10	9869	51	4861	4742959.84	5
+3	2011	10	9869	228	4862	14709.93	6
+3	2011	10	9869	117	4862	2903637.94	7
+3	2011	10	9869	48	4862	1188591.85	8
+3	2011	10	9869	45	4862	4968004.56	9
+3	2011	10	9869	51	4862	623854.77	10
+3	2010	12	9869	45	4862	5771326.52	3
+3	2010	12	9869	45	10511	0	4
+3	2010	12	9869	48	4861	4832239.2	5
+3	2010	12	9869	48	4862	1215068.54	6
+3	2010	12	9869	48	10511	0	7
+3	2010	12	9869	51	4861	4689930.02	8
+3	2010	12	9869	51	4862	672209.21	9
+3	2010	12	9869	51	10511	0	10
+3	2010	12	9869	117	4861	4974101.63	11
+3	2010	12	9869	117	4862	3094841.55	12
+3	2010	12	9869	117	10511	0	13
+3	2010	12	9869	225	10511	0	14
+3	2010	12	9869	228	4862	12339.25	15
+3	2010	12	9869	228	10511	0	16
+3	2011	4	9869	45	4861	8041841.73	3
+3	2011	4	9869	48	4861	5125973.1	4
+3	2011	4	9869	117	4861	3953377.23	5
+3	2011	4	9869	51	10511	106194.89	6
+3	2011	4	9869	48	10511	84688.53	7
+3	2011	4	9869	45	4862	4539841.51	8
+3	2011	4	9869	117	10511	89073.91	9
+3	2011	4	9869	117	4862	2549939.67	10
+3	2011	4	9869	228	4862	9809.29	11
+3	2011	4	9869	51	4862	601967.27	12
+3	2011	4	9869	48	4862	1058476.63	13
+3	2011	4	9869	45	10511	199728.45	14
+4	2010	4	9869	45	21	2647431	3
+4	2010	4	9869	48	9	2799578	4
+4	2010	4	9869	48	21	836140	5
+4	2010	4	9869	51	9	2309916	6
+4	2010	4	9869	51	21	620601	7
+4	2010	4	9869	117	9	2140413	8
+4	2010	4	9869	117	21	1939740	9
+2	2012	2	9869	51	3641	680	3
+2	2012	2	9869	48	3641	3584	4
+2	2012	2	9869	45	3641	1745	5
+2	2012	2	9869	117	1861	45	6
+2	2012	2	9869	51	1861	103	7
+2	2012	2	9869	48	1861	41	8
+2	2012	2	9869	45	1861	44	9
+2	2012	2	9869	117	1862	4782	10
+2	2012	2	9869	51	1862	931	11
+2	2012	2	9869	48	1862	3024	12
+2	2012	2	9869	45	1862	4081	13
+2	2012	2	9869	117	761	132602	14
+2	2012	2	9869	51	761	153847	15
+2	2012	2	9869	48	761	185289	16
+2	2012	2	9869	45	761	125231	17
+2	2012	2	9869	117	762	8782	18
+2	2012	2	9869	51	762	8149	19
+2	2012	2	9869	48	762	11311	20
+2	2012	2	9869	45	762	11962	21
+2	2012	2	9869	117	763	13973	22
+2	2012	2	9869	51	763	10242	23
+2	2012	2	9869	48	763	14628	24
+2	2012	2	9869	45	763	3962	25
+2	2012	2	9869	117	781	9730	26
+2	2012	2	9869	51	781	4199	27
+2	2012	2	9869	48	781	10754	28
+2	2012	2	9869	45	781	5561	29
+2	2012	2	9869	117	786	118590	30
+2	2012	2	9869	51	786	21320	31
+2	2012	2	9869	48	786	49950	32
+2	2012	2	9869	45	786	75922	33
+2	2012	2	9869	117	801	2603	34
+2	2012	2	9869	51	801	20998	35
+2	2012	2	9869	48	801	9493	36
+2	2012	2	9869	45	801	1375	37
+2	2012	2	9869	117	802	438	38
+2	2012	2	9869	51	802	22	39
+2	2012	2	9869	48	802	56	40
+2	2012	2	9869	45	802	305	41
+2	2012	2	9869	117	803	16129	42
+2	2012	2	9869	51	803	1515	43
+2	2012	2	9869	48	803	7554	44
+2	2012	2	9869	45	803	2751	45
+2	2012	2	9869	117	3621	4006	46
+2	2012	2	9869	51	3621	1303	47
+2	2012	2	9869	48	3621	3132	48
+2	2012	2	9869	45	3621	6073	49
+2	2012	2	9869	117	3601	3998	50
+2	2012	2	9869	51	3601	6006	51
+2	2012	2	9869	48	3601	8527	52
+2	2012	2	9869	45	3601	8363	53
+1	2010	1	9869	45	882	13007746.71	3
+1	2010	1	9869	45	3561	138677.29	4
+1	2010	1	9869	45	3581	8061653.1	5
+1	2010	1	9869	48	881	4108035.43	6
+1	2010	1	9869	48	882	5756513.06	7
+1	2010	1	9869	48	3561	38829.21	8
+1	2010	1	9869	48	3581	624255.56	9
+1	2010	1	9869	51	881	1978435.6	10
+1	2010	1	9869	51	882	4572639.05	11
+1	2010	1	9869	51	3561	50234.43	12
+1	2010	1	9869	51	3581	2088022.9	13
+1	2010	1	9869	117	881	4730671.72	14
+1	2010	1	9869	117	882	6460820.66	15
+1	2010	1	9869	117	3561	52058.61	16
+1	2010	1	9869	117	3581	559059.05	17
+3	2010	5	9869	45	4862	5556112.13	3
+3	2010	5	9869	45	10511	0	4
+3	2010	5	9869	48	4861	4774385.49	5
+3	2010	5	9869	48	4862	1297138.67	6
+3	2010	5	9869	48	10511	0	7
+3	2010	5	9869	51	4861	3956574.3	8
+3	2010	5	9869	51	4862	551524.43	9
+3	2010	5	9869	51	10511	0	10
+3	2010	5	9869	117	4861	3414411.54	11
+3	2010	5	9869	117	4862	3046033.45	12
+3	2010	5	9869	117	10511	0	13
+3	2010	5	9869	225	10511	0	14
+3	2010	5	9869	228	10511	0	15
+3	2011	7	9869	117	4861	3984140.86	3
+3	2011	7	9869	45	4861	8050129.93	4
+3	2011	7	9869	48	4861	5238727.68	5
+3	2011	7	9869	51	4862	946919.22	6
+3	2011	7	9869	117	4862	2664365.84	7
+3	2011	7	9869	45	4862	4611280.6	8
+3	2011	7	9869	228	4862	12624.99	9
+3	2011	7	9869	48	4862	1095359.92	10
+1	2010	8	9869	45	882	13286519.83	3
+1	2010	8	9869	45	3561	82412.57	4
+1	2010	8	9869	45	3581	8615984.07	5
+1	2010	8	9869	48	881	4195249.19	6
+1	2010	8	9869	48	882	6188123.14	7
+1	2010	8	9869	48	3561	40537.55	8
+1	2010	8	9869	48	3581	846235.89	9
+1	2010	8	9869	51	881	1957681.07	10
+1	2010	8	9869	51	882	4964487.47	11
+1	2010	8	9869	51	3561	41233.4	12
+1	2010	8	9869	51	3581	2413964.4	13
+1	2010	8	9869	117	881	5085518.19	14
+1	2010	8	9869	117	882	7096161.01	15
+1	2010	8	9869	117	3561	57810.15	16
+1	2010	8	9869	117	3581	764541.87	17
+1	2011	10	9869	117	881	5495632.28	3
+1	2011	10	9869	48	881	4775062.09	4
+1	2011	10	9869	51	881	2287350.88	5
+1	2011	10	9869	45	882	13877219.8	6
+1	2011	10	9869	117	882	7511999.31	7
+1	2011	10	9869	48	882	6853405.12	8
+1	2011	10	9869	51	882	5460230.61	9
+1	2011	10	9869	45	3561	51123.23	10
+1	2011	10	9869	117	3561	43577	11
+1	2011	10	9869	48	3561	31075.54	12
+1	2011	10	9869	51	3561	39858.38	13
+1	2011	10	9869	45	3581	8801904.81	14
+1	2011	10	9869	117	3581	715752.32	15
+1	2011	10	9869	48	3581	792259.04	16
+1	2011	10	9869	51	3581	2635516.17	17
+4	2012	1	9869	48	9	2952163	3
+4	2012	1	9869	51	9	2483882	4
+4	2012	1	9869	117	9	2215089	5
+4	2012	1	9869	45	21	2176373	6
+4	2012	1	9869	48	21	740365	7
+4	2012	1	9869	51	21	530387	8
+4	2012	1	9869	117	21	1669789	9
+2	2010	7	9869	45	762	10574	3
+2	2010	7	9869	45	763	4941	4
+2	2010	7	9869	45	781	6641	5
+2	2010	7	9869	45	786	73394	6
+2	2010	7	9869	45	801	1412	7
+2	2010	7	9869	45	802	358	8
+2	2010	7	9869	45	803	3728	9
+2	2010	7	9869	45	1861	41	10
+2	2010	7	9869	45	1862	3579	11
+2	2010	7	9869	45	3601	7941	12
+2	2010	7	9869	45	3621	5637	13
+2	2010	7	9869	45	3641	1444	14
+2	2010	7	9869	48	761	176025	15
+2	2010	7	9869	48	762	10588	16
+2	2010	7	9869	48	763	13803	17
+2	2010	7	9869	48	781	11699	18
+2	2010	7	9869	48	786	45788	19
+2	2010	7	9869	48	801	8924	20
+2	2010	7	9869	48	802	56	21
+2	2010	7	9869	48	803	11045	22
+2	2010	7	9869	48	1861	39	23
+2	2010	7	9869	48	1862	2756	24
+2	2010	7	9869	48	3601	8971	25
+2	2010	7	9869	48	3621	3137	26
+2	2010	7	9869	48	3641	2243	27
+2	2010	7	9869	51	761	142328	28
+2	2010	7	9869	51	762	7895	29
+2	2010	7	9869	51	763	11479	30
+2	2010	7	9869	51	781	3974	31
+2	2010	7	9869	51	786	20320	32
+2	2010	7	9869	51	801	20339	33
+2	2010	7	9869	51	802	23	34
+2	2010	7	9869	51	803	411	35
+2	2010	7	9869	51	1861	80	36
+2	2010	7	9869	51	1862	1069	37
+2	2010	7	9869	51	3601	6445	38
+2	2010	7	9869	51	3621	1527	39
+2	2010	7	9869	51	3641	608	40
+2	2010	7	9869	117	761	127451	41
+2	2010	7	9869	117	762	7820	42
+2	2010	7	9869	117	763	14399	43
+2	2010	7	9869	117	781	10604	44
+2	2010	7	9869	117	786	111451	45
+2	2010	7	9869	117	801	2536	46
+2	2010	7	9869	117	802	324	47
+2	2010	7	9869	117	803	16544	48
+2	2010	7	9869	117	1861	38	49
+2	2010	7	9869	117	1862	3898	50
+2	2010	7	9869	117	3601	3534	51
+2	2010	7	9869	117	3621	3425	52
+2	2010	7	9869	117	3641	10756	53
+2	2011	10	9869	48	763	14074	3
+2	2011	10	9869	51	763	10438	4
+2	2011	10	9869	117	781	10100	5
+2	2011	10	9869	48	781	11458	6
+2	2011	10	9869	51	781	3140	7
+2	2011	10	9869	45	786	75621	8
+2	2011	10	9869	117	786	117015	9
+2	2011	10	9869	48	786	49397	10
+2	2011	10	9869	51	786	21234	11
+2	2011	10	9869	45	801	1365	12
+2	2011	10	9869	117	801	2547	13
+2	2011	10	9869	48	801	9463	14
+2	2011	10	9869	51	801	20945	15
+2	2011	10	9869	45	802	309	16
+2	2011	10	9869	117	802	446	17
+2	2011	10	9869	48	802	55	18
+2	2011	10	9869	51	802	19	19
+2	2011	10	9869	45	803	2722	20
+2	2011	10	9869	117	803	16653	21
+2	2011	10	9869	48	803	7551	22
+2	2011	10	9869	51	803	1251	23
+2	2011	10	9869	45	1861	44	24
+2	2011	10	9869	117	1861	38	25
+2	2011	10	9869	48	1861	42	26
+2	2011	10	9869	51	1861	91	27
+2	2011	10	9869	45	1862	3816	28
+2	2011	10	9869	117	1862	4580	29
+2	2011	10	9869	48	1862	2930	30
+2	2011	10	9869	51	1862	898	31
+2	2011	10	9869	45	3601	8366	32
+2	2011	10	9869	117	3601	3966	33
+2	2011	10	9869	48	3601	8609	34
+2	2011	10	9869	51	3601	5919	35
+2	2011	10	9869	45	3621	6047	36
+2	2011	10	9869	117	3621	3886	37
+2	2011	10	9869	48	3621	3147	38
+2	2011	10	9869	51	3621	1320	39
+2	2011	10	9869	45	3641	1698	40
+2	2011	10	9869	117	3641	10869	41
+2	2011	10	9869	48	3641	3382	42
+2	2011	10	9869	51	3641	659	43
+2	2011	10	9869	45	761	124289	44
+2	2011	10	9869	117	761	131616	45
+2	2011	10	9869	48	761	183455	46
+2	2011	10	9869	51	761	151471	47
+2	2011	10	9869	45	762	11470	48
+2	2011	10	9869	117	762	8497	49
+2	2011	10	9869	48	762	11180	50
+2	2011	10	9869	51	762	8207	51
+2	2011	10	9869	45	763	4432	52
+2	2011	10	9869	117	763	13796	53
+4	2011	12	9869	48	21	722906	3
+4	2011	12	9869	117	21	1659789	4
+4	2011	12	9869	45	9	3597075	5
+4	2011	12	9869	51	9	2429812	6
+4	2011	12	9869	48	9	2952354	7
+4	2011	12	9869	117	9	2253110	8
+4	2011	12	9869	45	21	2089085	9
+1	2011	2	9869	45	881	4117717.49	3
+1	2011	2	9869	117	881	4858769.11	4
+1	2011	2	9869	51	3581	2272753.05	5
+1	2011	2	9869	48	3581	739388.88	6
+1	2011	2	9869	45	3581	7655713.43	7
+1	2011	2	9869	117	3581	674511.66	8
+1	2011	2	9869	51	3561	61369.07	9
+1	2011	2	9869	48	3561	51430.21	10
+1	2011	2	9869	45	3561	82278.06	11
+1	2011	2	9869	117	3561	101258.08	12
+1	2011	2	9869	51	882	5231673.02	13
+1	2011	2	9869	48	882	6434067.82	14
+1	2011	2	9869	45	882	13014605.16	15
+1	2011	2	9869	117	882	7144313.53	16
+1	2011	2	9869	51	881	2186481.01	17
+4	2011	8	9869	51	9	2310103	3
+4	2011	8	9869	45	9	3389499	4
+4	2011	8	9869	117	9	2142466	5
+4	2011	8	9869	48	21	629762	6
+4	2011	8	9869	51	21	439921	7
+4	2011	8	9869	45	21	1958179	8
+4	2011	8	9869	117	21	1444849	9
+4	2010	7	9869	45	21	2657713	3
+4	2010	7	9869	48	9	2779714	4
+4	2010	7	9869	48	21	838265	5
+4	2010	7	9869	51	9	2316850	6
+4	2010	7	9869	51	21	622584	7
+4	2010	7	9869	117	9	2126394	8
+4	2010	7	9869	117	21	1925016	9
+4	2011	11	9869	117	9	2204276	3
+4	2011	11	9869	45	9	3642377	4
+4	2011	11	9869	48	9	2871865	5
+4	2011	11	9869	51	21	456632	6
+4	2011	11	9869	117	21	1490199	7
+4	2011	11	9869	45	21	2017044	8
+4	2011	11	9869	48	21	643256	9
+4	2012	2	9869	48	9	2923593	3
+4	2012	2	9869	51	9	2479548	4
+4	2012	2	9869	117	9	2189463	5
+4	2012	2	9869	45	21	2226475	6
+4	2012	2	9869	48	21	728496	7
+4	2012	2	9869	51	21	519076	8
+4	2012	2	9869	117	21	1649228	9
+2	2010	5	9869	45	762	10410	3
+2	2010	5	9869	45	763	5351	4
+2	2010	5	9869	45	781	6945	5
+2	2010	5	9869	45	786	73071	6
+2	2010	5	9869	45	801	1405	7
+2	2010	5	9869	45	802	364	8
+2	2010	5	9869	45	803	4138	9
+2	2010	5	9869	45	1861	41	10
+2	2010	5	9869	45	1862	3504	11
+2	2010	5	9869	45	3601	7604	12
+2	2010	5	9869	45	3621	5272	13
+2	2010	5	9869	45	3641	1337	14
+2	2010	5	9869	48	761	175609	15
+2	2010	5	9869	48	762	10527	16
+2	2010	5	9869	48	763	13648	17
+2	2010	5	9869	48	781	11436	18
+2	2010	5	9869	48	786	45586	19
+2	2010	5	9869	48	801	8929	20
+2	2010	5	9869	48	802	57	21
+2	2010	5	9869	48	803	7052	22
+2	2010	5	9869	48	1861	39	23
+2	2010	5	9869	48	1862	2522	24
+2	2010	5	9869	48	3601	8909	25
+2	2010	5	9869	48	3621	3117	26
+2	2010	5	9869	48	3641	2422	27
+2	2010	5	9869	51	761	142911	28
+2	2010	5	9869	51	762	7867	29
+2	2010	5	9869	51	763	9668	30
+2	2010	5	9869	51	781	4073	31
+2	2010	5	9869	51	786	20246	32
+2	2010	5	9869	51	801	20246	33
+2	2010	5	9869	51	802	22	34
+2	2010	5	9869	51	803	370	35
+2	2010	5	9869	51	1861	80	36
+2	2010	5	9869	51	1862	1090	37
+2	2010	5	9869	51	3601	5709	38
+2	2010	5	9869	51	3621	1143	39
+2	2010	5	9869	51	3641	588	40
+2	2010	5	9869	117	761	126880	41
+2	2010	5	9869	117	762	7895	42
+2	2010	5	9869	117	763	14292	43
+2	2010	5	9869	117	781	10657	44
+2	2010	5	9869	117	786	110854	45
+2	2010	5	9869	117	801	2543	46
+2	2010	5	9869	117	802	319	47
+2	2010	5	9869	117	803	16477	48
+2	2010	5	9869	117	1861	38	49
+2	2010	5	9869	117	1862	3802	50
+2	2010	5	9869	117	3601	3484	51
+2	2010	5	9869	117	3621	3387	52
+2	2010	5	9869	117	3641	10461	53
+4	2011	2	9869	45	21	2047048	3
+4	2011	2	9869	117	21	1397501	4
+4	2011	2	9869	51	9	2262717	5
+4	2011	2	9869	48	9	2752848	6
+4	2011	2	9869	45	9	3384518	7
+4	2011	2	9869	117	9	2101440	8
+4	2011	2	9869	51	21	460810	9
+2	2011	2	9869	45	761	122492	3
+2	2011	2	9869	48	761	178373	4
+2	2011	2	9869	51	761	147082	5
+2	2011	2	9869	117	762	7823	6
+2	2011	2	9869	45	762	10777	7
+2	2011	2	9869	48	762	10942	8
+2	2011	2	9869	51	762	7995	9
+2	2011	2	9869	117	763	13838	10
+2	2011	2	9869	45	763	5308	11
+2	2011	2	9869	48	763	13367	12
+2	2011	2	9869	51	763	10069	13
+2	2011	2	9869	117	781	10407	14
+2	2011	2	9869	45	781	5975	15
+2	2011	2	9869	48	781	13222	16
+2	2011	2	9869	51	781	2922	17
+2	2011	2	9869	117	786	114122	18
+2	2011	2	9869	45	786	74504	19
+2	2011	2	9869	48	786	47089	20
+2	2011	2	9869	51	786	20938	21
+2	2011	2	9869	117	801	2533	22
+2	2011	2	9869	45	801	1377	23
+2	2011	2	9869	48	801	9007	24
+2	2011	2	9869	51	801	20593	25
+2	2011	2	9869	117	802	342	26
+2	2011	2	9869	45	802	337	27
+2	2011	2	9869	48	802	56	28
+2	2011	2	9869	51	802	19	29
+2	2011	2	9869	117	1861	39	30
+2	2011	2	9869	45	1861	42	31
+2	2011	2	9869	48	1861	42	32
+2	2011	2	9869	51	1861	80	33
+2	2011	2	9869	117	1862	4036	34
+2	2011	2	9869	45	1862	3785	35
+2	2011	2	9869	48	1862	2734	36
+2	2011	2	9869	51	1862	918	37
+2	2011	2	9869	117	3601	3752	38
+2	2011	2	9869	45	3601	8261	39
+2	2011	2	9869	48	3601	8868	40
+2	2011	2	9869	51	3601	6331	41
+2	2011	2	9869	117	3621	3668	42
+2	2011	2	9869	45	3621	5941	43
+2	2011	2	9869	48	3621	3134	44
+2	2011	2	9869	51	3621	1500	45
+2	2011	2	9869	117	3641	11228	46
+2	2011	2	9869	45	3641	1632	47
+2	2011	2	9869	48	3641	2295	48
+2	2011	2	9869	51	3641	626	49
+1	2011	11	9869	117	881	5367019.85	3
+1	2011	11	9869	45	881	4442761.42	4
+1	2011	11	9869	48	881	4570810.04	5
+1	2011	11	9869	51	882	5880936.13	6
+1	2011	11	9869	117	882	7577597.96	7
+1	2011	11	9869	45	882	14720529.13	8
+1	2011	11	9869	48	882	6916026.79	9
+1	2011	11	9869	51	3561	36077.77	10
+1	2011	11	9869	117	3561	46331.01	11
+1	2011	11	9869	45	3561	140881.61	12
+1	2011	11	9869	48	3561	39224.65	13
+1	2011	11	9869	51	3581	2866102.29	14
+1	2011	11	9869	117	3581	921025.62	15
+1	2011	11	9869	45	3581	9341975.24	16
+1	2011	11	9869	48	3581	1020382.94	17
+1	2012	6	9869	45	882	15384808.69	3
+1	2012	6	9869	45	3561	60051.13	4
+1	2012	6	9869	45	3581	9742803.11	5
+1	2012	6	9869	48	881	5118167.62	6
+1	2012	6	9869	48	882	7540332.99	7
+1	2012	6	9869	48	3561	22627.6	8
+1	2012	6	9869	48	3581	1054684.99	9
+1	2012	6	9869	51	881	2600124.07	10
+1	2012	6	9869	51	882	6334748.21	11
+1	2012	6	9869	51	3561	10860.41	12
+1	2012	6	9869	51	3581	3115103.48	13
+1	2012	6	9869	117	881	6004846.29	14
+1	2012	6	9869	117	882	8416186.97	15
+1	2012	6	9869	117	3561	35379.48	16
+1	2012	6	9869	117	3581	985121.22	17
+3	2012	6	9869	48	10511	0	3
+3	2012	6	9869	51	10511	0	4
+3	2012	6	9869	117	10511	0	5
+3	2012	6	9869	225	10511	0	6
+3	2012	6	9869	228	10511	0	7
+1	2010	6	9869	45	882	13499698.16	3
+1	2010	6	9869	45	3561	37675.55	4
+1	2010	6	9869	45	3581	8448438.8	5
+1	2010	6	9869	48	881	4262656.35	6
+1	2010	6	9869	48	882	6234266.01	7
+1	2010	6	9869	48	3561	38020.47	8
+1	2010	6	9869	48	3581	738749.13	9
+1	2010	6	9869	51	881	2033830.09	10
+1	2010	6	9869	51	882	4995916.97	11
+1	2010	6	9869	51	3561	37757.27	12
+1	2010	6	9869	51	3581	2389696.51	13
+1	2010	6	9869	117	881	5027178.71	14
+1	2010	6	9869	117	882	7140379.43	15
+1	2010	6	9869	117	3561	51323.71	16
+1	2010	6	9869	117	3581	731140.33	17
+3	2011	12	9869	48	4861	5851647.22	3
+3	2011	12	9869	51	4861	4933051.98	4
+3	2011	12	9869	45	4861	9048096.96	5
+3	2011	12	9869	48	4862	1211281.83	6
+3	2011	12	9869	45	4862	5020473.24	7
+3	2011	12	9869	117	4862	3021766.68	8
+3	2011	12	9869	51	4862	563128.74	9
+3	2011	12	9869	228	4862	16506.1	10
+3	2011	12	9869	45	10511	433724.25	11
+3	2011	12	9869	117	10511	226196.61	12
+3	2011	12	9869	48	10511	211537.97	13
+3	2011	12	9869	51	10511	170032.65	14
+1	2012	1	9869	51	881	2043431.25	3
+1	2012	1	9869	48	881	4328655.08	4
+1	2012	1	9869	45	881	3861577.7	5
+1	2012	1	9869	117	882	6743616.65	6
+1	2012	1	9869	51	882	5141332.76	7
+1	2012	1	9869	48	882	6189263.87	8
+1	2012	1	9869	45	882	13054174.43	9
+1	2012	1	9869	117	3561	1934.14	10
+1	2012	1	9869	51	3561	3127.98	11
+1	2012	1	9869	48	3561	1717.97	12
+1	2012	1	9869	45	3561	52374.32	13
+1	2012	1	9869	117	3581	712825.85	14
+1	2012	1	9869	51	3581	2643785	15
+1	2012	1	9869	48	3581	808902.25	16
+1	2012	1	9869	45	3581	8579962.86	17
+4	2011	3	9869	51	21	428256	3
+4	2011	3	9869	48	21	603515	4
+4	2011	3	9869	45	21	1902536	5
+4	2011	3	9869	117	9	2090143	6
+4	2011	3	9869	51	9	2214857	7
+4	2011	3	9869	48	9	2723672	8
+4	2011	3	9869	45	9	3245636	9
+1	2010	3	9869	45	882	12760455.82	3
+1	2010	3	9869	45	3561	115962.95	4
+1	2010	3	9869	45	3581	7974735	5
+1	2010	3	9869	48	881	4352140.64	6
+1	2010	3	9869	48	882	6218868.46	7
+1	2010	3	9869	48	3561	46723.25	8
+1	2010	3	9869	48	3581	739896	9
+1	2010	3	9869	51	881	1970922.95	10
+1	2010	3	9869	51	882	4727608.01	11
+1	2010	3	9869	51	3561	48143.86	12
+1	2010	3	9869	51	3581	2194831.42	13
+1	2010	3	9869	117	881	5016084.75	14
+1	2010	3	9869	117	882	6849944.81	15
+1	2010	3	9869	117	3561	59288.7	16
+1	2010	3	9869	117	3581	658230.42	17
+2	2012	6	9869	45	762	11842	3
+2	2012	6	9869	45	763	4554	4
+2	2012	6	9869	45	781	5514	5
+2	2012	6	9869	45	786	76287	6
+2	2012	6	9869	45	801	1382	7
+2	2012	6	9869	45	802	299	8
+2	2012	6	9869	45	803	2849	9
+2	2012	6	9869	45	1861	44	10
+2	2012	6	9869	45	1862	4158	11
+2	2012	6	9869	45	3601	8268	12
+2	2012	6	9869	45	3641	1799	13
+2	2012	6	9869	48	761	186682	14
+2	2012	6	9869	48	762	11501	15
+2	2012	6	9869	48	763	15588	16
+2	2012	6	9869	48	781	10529	17
+2	2012	6	9869	48	786	52009	18
+2	2012	6	9869	48	801	9516	19
+2	2012	6	9869	48	802	54	20
+2	2012	6	9869	48	803	7642	21
+2	2012	6	9869	48	1861	42	22
+2	2012	6	9869	48	1862	3295	23
+2	2012	6	9869	48	3601	8430	24
+2	2012	6	9869	48	3641	4899	25
+2	2012	6	9869	51	761	155308	26
+2	2012	6	9869	51	762	8347	27
+2	2012	6	9869	51	763	10694	28
+2	2012	6	9869	51	781	5446	29
+2	2012	6	9869	51	786	21375	30
+2	2012	6	9869	51	801	20989	31
+2	2012	6	9869	51	802	22	32
+2	2012	6	9869	51	803	1951	33
+2	2012	6	9869	51	1861	103	34
+2	2012	6	9869	51	1862	992	35
+2	2012	6	9869	51	3601	5959	36
+2	2012	6	9869	51	3641	683	37
+2	2012	6	9869	117	761	132993	38
+2	2012	6	9869	117	762	9121	39
+2	2012	6	9869	117	763	14209	40
+2	2012	6	9869	117	781	9846	41
+2	2012	6	9869	117	786	119237	42
+2	2012	6	9869	117	801	2700	43
+2	2012	6	9869	117	802	442	44
+2	2012	6	9869	117	803	16162	45
+2	2012	6	9869	117	1861	43	46
+2	2012	6	9869	117	1862	5129	47
+2	2012	6	9869	117	3601	3963	48
+2	2012	6	9869	117	3641	9927	49
+3	2011	6	9869	51	4861	4716927.67	3
+3	2011	6	9869	117	4861	4199238.35	4
+3	2011	6	9869	48	4861	5330949.55	5
+3	2011	6	9869	51	4862	647356.31	6
+3	2011	6	9869	45	4862	4821574.9	7
+3	2011	6	9869	117	4862	2788943.04	8
+3	2011	6	9869	48	4862	1106359.4	9
+3	2011	6	9869	228	4862	17629.93	10
+3	2011	6	9869	45	10511	499963.44	11
+3	2011	6	9869	117	10511	304348.13	12
+3	2011	6	9869	48	10511	164512.11	13
+3	2011	6	9869	51	10511	368060.89	14
+3	2010	11	9869	45	4862	6018192.84	3
+3	2010	11	9869	45	10511	0	4
+3	2010	11	9869	48	4861	5214332.88	5
+3	2010	11	9869	48	4862	1375845.32	6
+3	2010	11	9869	48	10511	0	7
+3	2010	11	9869	51	4861	4378270.71	8
+3	2010	11	9869	51	4862	705425.06	9
+3	2010	11	9869	51	10511	0	10
+3	2010	11	9869	117	4861	3925701.22	11
+3	2010	11	9869	117	4862	3331887.13	12
+3	2010	11	9869	117	10511	0	13
+3	2010	11	9869	225	10511	0	14
+3	2010	11	9869	228	4861	15440.69	15
+3	2010	11	9869	228	10511	0	16
+3	2011	2	9869	48	4862	1071253.88	3
+3	2011	2	9869	228	4862	12236.93	4
+3	2011	2	9869	117	4862	2569913.09	5
+3	2011	2	9869	45	4862	4625683.53	6
+3	2011	2	9869	51	4862	585198.21	7
+3	2011	2	9869	51	4861	4372583.75	8
+3	2011	2	9869	228	4861	-14636.52	9
+3	2011	2	9869	45	4861	8143130.75	10
+3	2011	2	9869	117	4861	4000193.85	11
+3	2011	2	9869	48	10511	83774.78	12
+3	2011	2	9869	117	10511	96339.84	13
+3	2011	2	9869	45	10511	152155.48	14
+3	2011	2	9869	48	4861	5164291.54	15
+3	2012	2	9869	51	4861	5044763.14	3
+3	2012	2	9869	48	4861	5683586.5	4
+3	2012	2	9869	45	4861	9047181.81	5
+3	2012	2	9869	228	4862	12845.68	6
+3	2012	2	9869	117	4862	3076077.29	7
+3	2012	2	9869	51	4862	689162.51	8
+3	2012	2	9869	48	4862	1245551.1	9
+3	2012	2	9869	45	4862	5194923.86	10
+3	2012	5	9869	51	4861	4634899.8	3
+3	2012	5	9869	48	4861	5711374.09	4
+3	2012	5	9869	45	4861	8483862.14	5
+3	2012	5	9869	228	4862	5783.6	6
+3	2012	5	9869	117	4862	3316393.54	7
+3	2012	5	9869	51	4862	1146581.22	8
+3	2012	5	9869	48	4862	1368106.26	9
+3	2012	5	9869	45	4862	5082544.54	10
+3	2012	5	9869	228	10511	0	11
+3	2012	5	9869	225	10511	0	12
+3	2012	5	9869	117	10511	0	13
+3	2012	5	9869	51	10511	0	14
+3	2012	5	9869	48	10511	0	15
+3	2012	5	9869	45	10511	0	16
+1	2010	9	9869	45	882	13493916.28	3
+1	2010	9	9869	45	3561	82815.5	4
+1	2010	9	9869	45	3581	8687035.67	5
+1	2010	9	9869	48	881	4255712.2	6
+1	2010	9	9869	48	882	6071604.31	7
+1	2010	9	9869	48	3561	35923.56	8
+1	2010	9	9869	48	3581	766182.47	9
+1	2010	9	9869	51	881	2095433.39	10
+1	2010	9	9869	51	882	5046301.41	11
+1	2010	9	9869	51	3561	49247.7	12
+1	2010	9	9869	51	3581	2447174.81	13
+1	2010	9	9869	117	881	5056872.11	14
+1	2010	9	9869	117	882	7042615.83	15
+1	2010	9	9869	117	3561	57926.43	16
+1	2010	9	9869	117	3581	777737.25	17
+3	2010	1	9869	45	4862	5637838.99	3
+3	2010	1	9869	45	10511	0	4
+3	2010	1	9869	48	4861	4844970.27	5
+3	2010	1	9869	48	4862	1292222.65	6
+3	2010	1	9869	48	10511	0	7
+3	2010	1	9869	51	4861	3962226.71	8
+3	2010	1	9869	51	4862	582910.1	9
+3	2010	1	9869	51	10511	0	10
+3	2010	1	9869	117	4861	3627279	11
+3	2010	1	9869	117	4862	3097345.02	12
+3	2010	1	9869	117	10511	0	13
+3	2010	1	9869	225	10511	0	14
+3	2010	1	9869	228	4862	11430.22	15
+3	2010	1	9869	228	10511	0	16
+2	2010	9	9869	45	762	10398	3
+2	2010	9	9869	45	763	4867	4
+2	2010	9	9869	45	781	6394	5
+2	2010	9	9869	45	786	73861	6
+2	2010	9	9869	45	801	1388	7
+2	2010	9	9869	45	802	347	8
+2	2010	9	9869	45	803	3291	9
+2	2010	9	9869	45	1861	42	10
+2	2010	9	9869	45	1862	3655	11
+2	2010	9	9869	45	3601	8077	12
+2	2010	9	9869	45	3621	5771	13
+2	2010	9	9869	45	3641	1571	14
+2	2010	9	9869	48	761	176763	15
+2	2010	9	9869	48	762	10712	16
+2	2010	9	9869	48	763	13432	17
+2	2010	9	9869	48	781	12439	18
+2	2010	9	9869	48	786	45895	19
+2	2010	9	9869	48	801	8920	20
+2	2010	9	9869	48	802	56	21
+2	2010	9	9869	48	803	11783	22
+2	2010	9	9869	48	1861	39	23
+2	2010	9	9869	48	1862	2758	24
+2	2010	9	9869	48	3601	8975	25
+2	2010	9	9869	48	3621	3147	26
+2	2010	9	9869	48	3641	2204	27
+2	2010	9	9869	51	761	143962	28
+2	2010	9	9869	51	762	8069	29
+2	2010	9	9869	51	763	11091	30
+2	2010	9	9869	51	781	3293	31
+2	2010	9	9869	51	786	20746	32
+2	2010	9	9869	51	801	20402	33
+2	2010	9	9869	51	802	22	34
+2	2010	9	9869	51	803	438	35
+2	2010	9	9869	51	1861	80	36
+2	2010	9	9869	51	1862	1065	37
+2	2010	9	9869	51	3601	6527	38
+2	2010	9	9869	51	3621	1514	39
+2	2010	9	9869	51	3641	596	40
+2	2010	9	9869	117	761	128506	41
+2	2010	9	9869	117	762	7785	42
+2	2010	9	9869	117	763	13960	43
+2	2010	9	9869	117	781	10577	44
+2	2010	9	9869	117	786	112381	45
+2	2010	9	9869	117	801	2532	46
+2	2010	9	9869	117	802	332	47
+2	2010	9	9869	117	803	16385	48
+2	2010	9	9869	117	1861	40	49
+2	2010	9	9869	117	1862	3919	50
+2	2010	9	9869	117	3601	3618	51
+2	2010	9	9869	117	3621	3508	52
+2	2010	9	9869	117	3641	11144	53
+2	2011	5	9869	51	3601	6275	3
+2	2011	5	9869	117	3601	3759	4
+2	2011	5	9869	48	3601	8703	5
+2	2011	5	9869	45	3601	8327	6
+2	2011	5	9869	51	3621	1494	7
+2	2011	5	9869	117	3621	3662	8
+2	2011	5	9869	48	3621	3109	9
+2	2011	5	9869	45	3621	6007	10
+2	2011	5	9869	51	3641	660	11
+2	2011	5	9869	117	3641	11335	12
+2	2011	5	9869	48	3641	3040	13
+2	2011	5	9869	45	3641	1638	14
+2	2011	5	9869	51	761	148132	15
+2	2011	5	9869	117	761	129896	16
+2	2011	5	9869	48	761	180669	17
+2	2011	5	9869	45	761	122682	18
+2	2011	5	9869	51	762	8213	19
+2	2011	5	9869	117	762	7909	20
+2	2011	5	9869	48	762	10869	21
+2	2011	5	9869	45	762	10945	22
+2	2011	5	9869	51	763	10515	23
+2	2011	5	9869	117	763	14403	24
+2	2011	5	9869	48	763	13941	25
+2	2011	5	9869	45	763	5385	26
+2	2011	5	9869	51	781	2894	27
+2	2011	5	9869	117	781	10294	28
+2	2011	5	9869	48	781	11959	29
+2	2011	5	9869	45	781	5832	30
+2	2011	5	9869	51	786	21045	31
+2	2011	5	9869	117	786	114925	32
+2	2011	5	9869	48	786	48467	33
+2	2011	5	9869	45	786	74772	34
+2	2011	5	9869	51	801	20711	35
+2	2011	5	9869	117	801	2553	36
+2	2011	5	9869	48	801	9062	37
+2	2011	5	9869	45	801	1358	38
+2	2011	5	9869	51	802	19	39
+2	2011	5	9869	117	802	352	40
+2	2011	5	9869	48	802	57	41
+2	2011	5	9869	45	802	328	42
+2	2011	5	9869	51	803	572	43
+2	2011	5	9869	117	803	16747	44
+2	2011	5	9869	48	803	8774	45
+2	2011	5	9869	45	803	3063	46
+2	2011	5	9869	51	1861	80	47
+2	2011	5	9869	117	1861	39	48
+2	2011	5	9869	48	1861	42	49
+2	2011	5	9869	45	1861	43	50
+2	2011	5	9869	51	1862	916	51
+2	2011	5	9869	117	1862	4264	52
+2	2011	5	9869	48	1862	2797	53
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis9106011; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis9106011 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+1	2012	7	9869	45	882	15598622.97	3
+1	2012	7	9869	45	3561	33010.78	4
+1	2012	7	9869	45	3581	10434161.22	5
+1	2012	7	9869	48	881	5085479.57	6
+1	2012	7	9869	48	882	7368937.01	7
+1	2012	7	9869	48	3561	9011.43	8
+1	2012	7	9869	48	3581	1067043.81	9
+1	2012	7	9869	51	881	2334536.65	10
+1	2012	7	9869	51	882	6019774.37	11
+1	2012	7	9869	51	3561	8965.68	12
+1	2012	7	9869	51	3581	3145811.92	13
+1	2012	7	9869	117	881	6000374.98	14
+1	2012	7	9869	117	882	8110608.42	15
+1	2012	7	9869	117	3561	10058.6	16
+1	2012	7	9869	117	3581	918581.81	17
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+1	2011	3	9869	48	881	3984270.56	3
+1	2011	3	9869	117	3581	580012.35	4
+1	2011	3	9869	51	3581	2233976.74	5
+1	2011	3	9869	48	3581	607905.11	6
+1	2011	3	9869	45	3581	7659854.14	7
+1	2011	3	9869	117	3561	49920.64	8
+1	2011	3	9869	51	3561	65474.82	9
+1	2011	3	9869	48	3561	38249.18	10
+1	2011	3	9869	45	3561	79286.54	11
+1	2011	3	9869	117	882	6521975.05	12
+1	2011	3	9869	51	882	4670599.82	13
+1	2011	3	9869	48	882	5704177.15	14
+1	2011	3	9869	45	882	12217782.13	15
+1	2011	3	9869	117	881	4673563.66	16
+1	2011	3	9869	51	881	1873070.11	17
+2	2010	1	9869	45	762	10423	3
+2	2010	1	9869	45	763	5986	4
+2	2010	1	9869	45	781	7004	5
+2	2010	1	9869	45	786	72567	6
+2	2010	1	9869	45	801	1274	7
+2	2010	1	9869	45	802	376	8
+2	2010	1	9869	45	803	4121	9
+2	2010	1	9869	45	1861	45	10
+2	2010	1	9869	45	1862	3389	11
+2	2010	1	9869	45	3601	7198	12
+2	2010	1	9869	45	3621	4961	13
+2	2010	1	9869	45	3641	1163	14
+2	2010	1	9869	48	761	173660	15
+2	2010	1	9869	48	762	10434	16
+2	2010	1	9869	48	763	13763	17
+2	2010	1	9869	48	781	11403	18
+2	2010	1	9869	48	786	45151	19
+2	2010	1	9869	48	801	8770	20
+2	2010	1	9869	48	802	59	21
+2	2010	1	9869	48	803	5469	22
+2	2010	1	9869	48	1861	38	23
+2	2010	1	9869	48	1862	2412	24
+2	2010	1	9869	48	3601	8607	25
+2	2010	1	9869	48	3621	2904	26
+2	2010	1	9869	48	3641	2713	27
+2	2010	1	9869	51	761	140787	28
+2	2010	1	9869	51	762	7784	29
+2	2010	1	9869	51	763	8989	30
+2	2010	1	9869	51	781	4231	31
+2	2010	1	9869	51	786	20168	32
+2	2010	1	9869	51	801	20157	33
+2	2010	1	9869	51	802	22	34
+2	2010	1	9869	51	803	261	35
+2	2010	1	9869	51	1861	80	36
+2	2010	1	9869	51	1862	1052	37
+2	2010	1	9869	51	3601	5778	38
+2	2010	1	9869	51	3621	1151	39
+2	2010	1	9869	51	3641	560	40
+2	2010	1	9869	117	761	125670	41
+2	2010	1	9869	117	762	7738	42
+2	2010	1	9869	117	763	14547	43
+2	2010	1	9869	117	781	10879	44
+2	2010	1	9869	117	786	109647	45
+2	2010	1	9869	117	801	2538	46
+2	2010	1	9869	117	802	317	47
+2	2010	1	9869	117	803	15809	48
+2	2010	1	9869	117	1861	40	49
+2	2010	1	9869	117	1862	3745	50
+2	2010	1	9869	117	3601	3447	51
+2	2010	1	9869	117	3621	3328	52
+2	2010	1	9869	117	3641	10709	53
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis91163510; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis91163510 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+1	2011	3	9869	48	881	3984270.56	3
+1	2011	3	9869	117	3581	580012.35	4
+1	2011	3	9869	51	3581	2233976.74	5
+1	2011	3	9869	48	3581	607905.11	6
+1	2011	3	9869	45	3581	7659854.14	7
+1	2011	3	9869	117	3561	49920.64	8
+1	2011	3	9869	51	3561	65474.82	9
+1	2011	3	9869	48	3561	38249.18	10
+1	2011	3	9869	45	3561	79286.54	11
+1	2011	3	9869	117	882	6521975.05	12
+1	2011	3	9869	51	882	4670599.82	13
+1	2011	3	9869	48	882	5704177.15	14
+1	2011	3	9869	45	882	12217782.13	15
+1	2011	3	9869	117	881	4673563.66	16
+1	2011	3	9869	51	881	1873070.11	17
+2	2010	1	9869	45	762	10423	3
+2	2010	1	9869	45	763	5986	4
+2	2010	1	9869	45	781	7004	5
+2	2010	1	9869	45	786	72567	6
+2	2010	1	9869	45	801	1274	7
+2	2010	1	9869	45	802	376	8
+2	2010	1	9869	45	803	4121	9
+2	2010	1	9869	45	1861	45	10
+2	2010	1	9869	45	1862	3389	11
+2	2010	1	9869	45	3601	7198	12
+2	2010	1	9869	45	3621	4961	13
+2	2010	1	9869	45	3641	1163	14
+2	2010	1	9869	48	761	173660	15
+2	2010	1	9869	48	762	10434	16
+2	2010	1	9869	48	763	13763	17
+2	2010	1	9869	48	781	11403	18
+2	2010	1	9869	48	786	45151	19
+2	2010	1	9869	48	801	8770	20
+2	2010	1	9869	48	802	59	21
+2	2010	1	9869	48	803	5469	22
+2	2010	1	9869	48	1861	38	23
+2	2010	1	9869	48	1862	2412	24
+2	2010	1	9869	48	3601	8607	25
+2	2010	1	9869	48	3621	2904	26
+2	2010	1	9869	48	3641	2713	27
+2	2010	1	9869	51	761	140787	28
+2	2010	1	9869	51	762	7784	29
+2	2010	1	9869	51	763	8989	30
+2	2010	1	9869	51	781	4231	31
+2	2010	1	9869	51	786	20168	32
+2	2010	1	9869	51	801	20157	33
+2	2010	1	9869	51	802	22	34
+2	2010	1	9869	51	803	261	35
+2	2010	1	9869	51	1861	80	36
+2	2010	1	9869	51	1862	1052	37
+2	2010	1	9869	51	3601	5778	38
+2	2010	1	9869	51	3621	1151	39
+2	2010	1	9869	51	3641	560	40
+2	2010	1	9869	117	761	125670	41
+2	2010	1	9869	117	762	7738	42
+2	2010	1	9869	117	763	14547	43
+2	2010	1	9869	117	781	10879	44
+2	2010	1	9869	117	786	109647	45
+2	2010	1	9869	117	801	2538	46
+2	2010	1	9869	117	802	317	47
+2	2010	1	9869	117	803	15809	48
+2	2010	1	9869	117	1861	40	49
+2	2010	1	9869	117	1862	3745	50
+2	2010	1	9869	117	3601	3447	51
+2	2010	1	9869	117	3621	3328	52
+2	2010	1	9869	117	3641	10709	53
+1	2012	5	9869	51	881	2223822.52	3
+1	2012	5	9869	48	881	4666276.75	4
+1	2012	5	9869	45	881	4344884.94	5
+1	2012	5	9869	117	882	7501040.43	6
+1	2012	5	9869	51	882	5629585.77	7
+1	2012	5	9869	48	882	6830052.51	8
+1	2012	5	9869	45	882	14830910.4	9
+1	2012	5	9869	117	3561	9539.18	10
+1	2012	5	9869	51	3561	7918.1	11
+1	2012	5	9869	48	3561	11942.03	12
+1	2012	5	9869	45	3561	33237.22	13
+1	2012	5	9869	117	3581	858120.18	14
+1	2012	5	9869	51	3581	2888915.35	15
+1	2012	5	9869	48	3581	962446.5	16
+1	2012	5	9869	45	3581	9853066.38	17
+3	2010	6	9869	45	4862	5528001.09	3
+3	2010	6	9869	45	10511	0	4
+3	2010	6	9869	48	4861	4786855.15	5
+3	2010	6	9869	48	4862	1218473.9	6
+3	2010	6	9869	48	10511	0	7
+3	2010	6	9869	51	4861	4086271.28	8
+3	2010	6	9869	51	4862	718420.84	9
+3	2010	6	9869	51	10511	0	10
+3	2010	6	9869	117	4861	3669088.13	11
+3	2010	6	9869	117	4862	3130909.78	12
+3	2010	6	9869	117	10511	0	13
+3	2010	6	9869	225	10511	0	14
+3	2010	6	9869	228	4862	40637.5	15
+3	2010	6	9869	228	10511	0	16
+2	2012	3	9869	48	761	185410	3
+2	2012	3	9869	51	761	154184	4
+2	2012	3	9869	117	761	132852	5
+2	2012	3	9869	45	762	12051	6
+2	2012	3	9869	48	762	11318	7
+2	2012	3	9869	51	762	8205	8
+2	2012	3	9869	117	762	8864	9
+2	2012	3	9869	45	763	4161	10
+2	2012	3	9869	48	763	15016	11
+2	2012	3	9869	51	763	10407	12
+2	2012	3	9869	117	763	13859	13
+2	2012	3	9869	45	781	5529	14
+2	2012	3	9869	48	781	10738	15
+2	2012	3	9869	51	781	4698	16
+2	2012	3	9869	117	781	9772	17
+2	2012	3	9869	45	786	76223	18
+2	2012	3	9869	48	786	50710	19
+2	2012	3	9869	51	786	21332	20
+2	2012	3	9869	117	786	118751	21
+2	2012	3	9869	45	801	1377	22
+2	2012	3	9869	48	801	9509	23
+2	2012	3	9869	51	801	21000	24
+2	2012	3	9869	117	801	2641	25
+2	2012	3	9869	45	802	303	26
+2	2012	3	9869	48	802	55	27
+2	2012	3	9869	51	802	22	28
+2	2012	3	9869	117	802	443	29
+2	2012	3	9869	45	803	2731	30
+2	2012	3	9869	48	803	7521	31
+2	2012	3	9869	51	803	1657	32
+2	2012	3	9869	117	803	16132	33
+2	2012	3	9869	45	1861	44	34
+2	2012	3	9869	48	1861	41	35
+2	2012	3	9869	51	1861	103	36
+2	2012	3	9869	117	1861	45	37
+2	2012	3	9869	45	1862	3968	38
+2	2012	3	9869	48	1862	3133	39
+2	2012	3	9869	51	1862	931	40
+2	2012	3	9869	117	1862	4861	41
+2	2012	3	9869	45	3601	8344	42
+2	2012	3	9869	48	3601	8500	43
+2	2012	3	9869	51	3601	5998	44
+2	2012	3	9869	117	3601	3990	45
+2	2012	3	9869	45	3621	6048	46
+2	2012	3	9869	48	3621	3128	47
+2	2012	3	9869	51	3621	1304	48
+2	2012	3	9869	117	3621	3988	49
+2	2012	3	9869	45	3641	1761	50
+2	2012	3	9869	48	3641	3849	51
+2	2012	3	9869	51	3641	682	52
+2	2012	3	9869	117	3641	10016	53
+3	2010	2	9869	45	4862	5845635.23	3
+3	2010	2	9869	45	10511	0	4
+3	2010	2	9869	48	4861	5043345.81	5
+3	2010	2	9869	48	4862	1332547.38	6
+3	2010	2	9869	48	10511	0	7
+3	2010	2	9869	51	4861	4139763.3	8
+3	2010	2	9869	51	4862	714215.04	9
+3	2010	2	9869	51	10511	0	10
+3	2010	2	9869	117	4861	3985137.19	11
+3	2010	2	9869	117	4862	3159567.45	12
+3	2010	2	9869	117	10511	0	13
+3	2010	2	9869	225	10511	0	14
+3	2010	2	9869	228	10511	0	15
+1	2010	7	9869	45	882	13111451.96	3
+1	2010	7	9869	45	3561	50074.16	4
+1	2010	7	9869	45	3581	8333173.17	5
+1	2010	7	9869	48	881	4259219.81	6
+1	2010	7	9869	48	882	6247929.57	7
+1	2010	7	9869	48	3561	34043.53	8
+1	2010	7	9869	48	3581	808560.9	9
+1	2010	7	9869	51	881	2066219.52	10
+1	2010	7	9869	51	882	5225977.85	11
+1	2010	7	9869	51	3561	68634.37	12
+1	2010	7	9869	51	3581	2408306.87	13
+1	2010	7	9869	117	881	5116759.23	14
+1	2010	7	9869	117	882	7278748.83	15
+1	2010	7	9869	117	3561	45712.46	16
+1	2010	7	9869	117	3581	784073.72	17
+1	2011	4	9869	51	3581	2384692.24	3
+1	2011	4	9869	48	3581	777610.78	4
+1	2011	4	9869	117	3581	710145.36	5
+1	2011	4	9869	51	3561	40569.13	6
+1	2011	4	9869	45	3561	68087.33	7
+1	2011	4	9869	48	3561	50932.46	8
+1	2011	4	9869	117	3561	61532.89	9
+1	2011	4	9869	51	882	5326910.63	10
+1	2011	4	9869	45	882	12910048.94	11
+1	2011	4	9869	48	882	6509136.86	12
+1	2011	4	9869	117	882	7141852.06	13
+1	2011	4	9869	51	881	2228317.67	14
+1	2011	4	9869	45	881	4185926.33	15
+1	2011	4	9869	48	881	4271120.63	16
+1	2011	4	9869	45	3581	7775986.95	17
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+3	2011	5	9869	117	4861	3909403.83	3
+3	2011	5	9869	48	4861	5072232.2	4
+3	2011	5	9869	45	4861	7646400.54	5
+3	2011	5	9869	45	4862	4539306.7	6
+3	2011	5	9869	117	4862	2568348.69	7
+3	2011	5	9869	51	4862	580309.92	8
+3	2011	5	9869	228	4862	20737.25	9
+3	2011	5	9869	48	4862	1072318.9	10
+1	2011	12	9869	48	881	4535180.18	3
+1	2011	12	9869	51	881	2064485.49	4
+1	2011	12	9869	45	881	3755902.42	5
+1	2011	12	9869	117	882	7318747.7	6
+1	2011	12	9869	48	882	6720293.23	7
+1	2011	12	9869	51	882	5382008.85	8
+1	2011	12	9869	45	882	13464012.89	9
+1	2011	12	9869	117	3561	1218.91	10
+1	2011	12	9869	48	3561	119.78	11
+1	2011	12	9869	51	3561	2124.38	12
+1	2011	12	9869	45	3561	20416.35	13
+1	2011	12	9869	117	3581	880313.98	14
+1	2011	12	9869	48	3581	975348.02	15
+1	2011	12	9869	51	3581	2840497.2	16
+1	2011	12	9869	45	3581	8973002.66	17
+3	2011	3	9869	51	4862	566803.92	3
+3	2011	3	9869	48	4862	1021067.74	4
+3	2011	3	9869	45	4862	4413918.32	5
+3	2011	3	9869	117	4861	3954301.31	6
+3	2011	3	9869	51	4861	4289118.89	7
+3	2011	3	9869	45	4861	7882792.85	8
+3	2011	3	9869	48	4861	5059163.18	9
+3	2011	3	9869	228	4862	12023.85	10
+3	2011	3	9869	51	10511	105601.72	11
+3	2011	3	9869	48	10511	84287.99	12
+3	2011	3	9869	117	10511	92917.06	13
+3	2011	3	9869	45	10511	213443.44	14
+3	2010	9	9869	45	4862	5719232.97	3
+3	2010	9	9869	45	10511	0	4
+3	2010	9	9869	48	4861	4911084.16	5
+3	2010	9	9869	48	4862	1296952.31	6
+3	2010	9	9869	48	10511	0	7
+3	2010	9	9869	51	4861	4112011.13	8
+3	2010	9	9869	51	4862	475127.61	9
+3	2010	9	9869	51	10511	0	10
+3	2010	9	9869	117	4861	3674594.21	11
+3	2010	9	9869	117	4862	3197862.63	12
+3	2010	9	9869	117	10511	0	13
+3	2010	9	9869	225	10511	0	14
+3	2010	9	9869	228	10511	0	15
+2	2012	1	9869	51	3641	675	3
+2	2012	1	9869	48	3641	3563	4
+2	2012	1	9869	45	3641	1734	5
+2	2012	1	9869	117	1861	45	6
+2	2012	1	9869	51	1861	103	7
+2	2012	1	9869	48	1861	41	8
+2	2012	1	9869	45	1861	43	9
+2	2012	1	9869	117	1862	4736	10
+2	2012	1	9869	51	1862	938	11
+2	2012	1	9869	48	1862	3040	12
+2	2012	1	9869	45	1862	3996	13
+2	2012	1	9869	117	761	132484	14
+2	2012	1	9869	51	761	153462	15
+2	2012	1	9869	48	761	184916	16
+2	2012	1	9869	45	761	125014	17
+2	2012	1	9869	117	762	8744	18
+2	2012	1	9869	51	762	8088	19
+2	2012	1	9869	48	762	11266	20
+2	2012	1	9869	45	762	11881	21
+2	2012	1	9869	117	763	13934	22
+2	2012	1	9869	51	763	10197	23
+2	2012	1	9869	48	763	14527	24
+2	2012	1	9869	45	763	3978	25
+2	2012	1	9869	117	781	9704	26
+2	2012	1	9869	51	781	4052	27
+2	2012	1	9869	48	781	10816	28
+2	2012	1	9869	45	781	5548	29
+2	2012	1	9869	117	786	118428	30
+2	2012	1	9869	51	786	21302	31
+2	2012	1	9869	48	786	49775	32
+2	2012	1	9869	45	786	75913	33
+2	2012	1	9869	117	801	2569	34
+2	2012	1	9869	51	801	20997	35
+2	2012	1	9869	48	801	9483	36
+2	2012	1	9869	45	801	1373	37
+2	2012	1	9869	117	802	441	38
+2	2012	1	9869	51	802	22	39
+2	2012	1	9869	48	802	55	40
+2	2012	1	9869	45	802	303	41
+2	2012	1	9869	117	803	16132	42
+2	2012	1	9869	51	803	1422	43
+2	2012	1	9869	48	803	7525	44
+2	2012	1	9869	45	803	2686	45
+2	2012	1	9869	117	3621	3960	46
+2	2012	1	9869	51	3621	1310	47
+2	2012	1	9869	48	3621	3135	48
+2	2012	1	9869	45	3621	6080	49
+2	2012	1	9869	117	3601	4006	50
+2	2012	1	9869	51	3601	6021	51
+2	2012	1	9869	48	3601	8547	52
+2	2012	1	9869	45	3601	8378	53
+4	2010	2	9869	45	21	2693422	3
+4	2010	2	9869	48	9	2849908	4
+4	2010	2	9869	48	21	854881	5
+4	2010	2	9869	51	9	2308829	6
+4	2010	2	9869	51	21	624185	7
+4	2010	2	9869	117	9	2179652	8
+4	2010	2	9869	117	21	1958430	9
+3	2010	10	9869	45	4862	5842600.53	3
+3	2010	10	9869	45	10511	0	4
+3	2010	10	9869	48	4861	5118183.26	5
+3	2010	10	9869	48	4862	1372489.98	6
+3	2010	10	9869	48	10511	0	7
+3	2010	10	9869	51	4861	4165184.38	8
+3	2010	10	9869	51	4862	499122.74	9
+3	2010	10	9869	51	10511	0	10
+3	2010	10	9869	117	4861	3999284.5	11
+3	2010	10	9869	117	4862	3371441.36	12
+3	2010	10	9869	117	10511	0	13
+3	2010	10	9869	225	10511	0	14
+3	2010	10	9869	228	4862	23112.01	15
+3	2010	10	9869	228	10511	0	16
+3	2011	1	9869	45	4862	6073899.89	3
+3	2011	1	9869	45	4861	8362841.89	4
+3	2011	1	9869	117	4861	3875206.74	5
+3	2011	1	9869	228	4861	14636.52	6
+3	2011	1	9869	48	4861	5142981.8	7
+3	2011	1	9869	228	4862	14636.52	8
+3	2011	1	9869	45	10511	110659.91	9
+3	2011	1	9869	51	10511	126415.37	10
+3	2011	1	9869	51	4862	800203.97	11
+3	2011	1	9869	48	4862	1251587.45	12
+3	2011	1	9869	117	4862	2997908.55	13
+3	2011	1	9869	48	10511	74044.64	14
+3	2011	1	9869	51	4861	4402825.43	15
+3	2010	4	9869	45	4862	5660476.49	3
+3	2010	4	9869	45	10511	0	4
+3	2010	4	9869	48	4861	5594130.06	5
+3	2010	4	9869	48	4862	1327589.22	6
+3	2010	4	9869	48	10511	0	7
+3	2010	4	9869	51	4861	4572949.66	8
+3	2010	4	9869	51	4862	721571.2	9
+3	2010	4	9869	51	10511	0	10
+3	2010	4	9869	117	4861	3285195.46	11
+3	2010	4	9869	117	4862	3241691.61	12
+3	2010	4	9869	117	10511	0	13
+3	2010	4	9869	225	10511	0	14
+3	2010	4	9869	228	10511	0	15
+3	2010	8	9869	45	4862	5564526.34	3
+3	2010	8	9869	45	10511	0	4
+3	2010	8	9869	48	4861	4694638.09	5
+3	2010	8	9869	48	4862	1256001.24	6
+3	2010	8	9869	48	10511	0	7
+3	2010	8	9869	51	4861	4125306.78	8
+3	2010	8	9869	51	4862	843931.08	9
+3	2010	8	9869	51	10511	0	10
+3	2010	8	9869	117	4861	3745962.65	11
+3	2010	8	9869	117	4862	3165916.77	12
+3	2010	8	9869	117	10511	0	13
+3	2010	8	9869	225	10511	0	14
+3	2010	8	9869	228	4862	21361.77	15
+3	2010	8	9869	228	10511	0	16
+1	2011	1	9869	45	882	12779334.61	3
+1	2011	1	9869	51	882	4887326.24	4
+1	2011	1	9869	45	881	4092983.66	5
+1	2011	1	9869	117	881	4824379.8	6
+1	2011	1	9869	48	881	4104728.85	7
+1	2011	1	9869	51	881	2054547.18	8
+1	2011	1	9869	45	3581	7885871.34	9
+1	2011	1	9869	117	3581	626344.33	10
+1	2011	1	9869	48	3581	700195.83	11
+1	2011	1	9869	51	3581	2277400.19	12
+1	2011	1	9869	45	3561	70834	13
+1	2011	1	9869	117	3561	54805.6	14
+1	2011	1	9869	48	3561	43017.58	15
+1	2011	1	9869	51	3561	46842.35	16
+1	2011	1	9869	48	882	5910938.15	17
+1	2011	9	9869	48	881	4529354.53	3
+1	2011	9	9869	51	881	2285417.86	4
+1	2011	9	9869	45	881	4207500.94	5
+1	2011	9	9869	117	882	7291764.49	6
+1	2011	9	9869	48	882	6495239.99	7
+1	2011	9	9869	51	882	5336213.94	8
+1	2011	9	9869	45	882	13984397.06	9
+1	2011	9	9869	117	3561	46427.62	10
+1	2011	9	9869	48	3561	26743.42	11
+1	2011	9	9869	51	3561	26300.81	12
+1	2011	9	9869	45	3561	275531.33	13
+1	2011	9	9869	117	3581	757888.26	14
+1	2011	9	9869	48	3581	829327.77	15
+1	2011	9	9869	51	3581	2591629.89	16
+1	2011	9	9869	45	3581	8757732.65	17
+2	2010	6	9869	45	762	10387	3
+2	2010	6	9869	45	763	5058	4
+2	2010	6	9869	45	781	6715	5
+2	2010	6	9869	45	786	73163	6
+2	2010	6	9869	45	801	1410	7
+2	2010	6	9869	45	802	362	8
+2	2010	6	9869	45	803	3969	9
+2	2010	6	9869	45	1861	41	10
+2	2010	6	9869	45	1862	3560	11
+2	2010	6	9869	45	3601	7680	12
+2	2010	6	9869	45	3621	5424	13
+2	2010	6	9869	45	3641	1429	14
+2	2010	6	9869	48	761	175880	15
+2	2010	6	9869	48	762	10548	16
+2	2010	6	9869	48	763	13769	17
+2	2010	6	9869	48	781	11397	18
+2	2010	6	9869	48	786	45718	19
+2	2010	6	9869	48	801	8939	20
+2	2010	6	9869	48	802	56	21
+2	2010	6	9869	48	803	9485	22
+2	2010	6	9869	48	1861	39	23
+2	2010	6	9869	48	1862	2590	24
+2	2010	6	9869	48	3601	8936	25
+2	2010	6	9869	48	3621	3111	26
+2	2010	6	9869	48	3641	2319	27
+2	2010	6	9869	51	761	141879	28
+2	2010	6	9869	51	762	7901	29
+2	2010	6	9869	51	763	11213	30
+2	2010	6	9869	51	781	4048	31
+2	2010	6	9869	51	786	20270	32
+2	2010	6	9869	51	801	20298	33
+2	2010	6	9869	51	802	22	34
+2	2010	6	9869	51	803	385	35
+2	2010	6	9869	51	1861	80	36
+2	2010	6	9869	51	1862	1090	37
+2	2010	6	9869	51	3601	6175	38
+2	2010	6	9869	51	3621	1402	39
+2	2010	6	9869	51	3641	600	40
+2	2010	6	9869	117	761	127401	41
+2	2010	6	9869	117	762	7919	42
+2	2010	6	9869	117	763	14082	43
+2	2010	6	9869	117	781	10600	44
+2	2010	6	9869	117	786	111234	45
+2	2010	6	9869	117	801	2543	46
+2	2010	6	9869	117	802	324	47
+2	2010	6	9869	117	803	16484	48
+2	2010	6	9869	117	1861	38	49
+2	2010	6	9869	117	1862	3798	50
+2	2010	6	9869	117	3601	3508	51
+2	2010	6	9869	117	3621	3404	52
+2	2010	6	9869	117	3641	10464	53
+3	2011	8	9869	51	4861	4341551.95	3
+3	2011	8	9869	45	4861	8007953.54	4
+3	2011	8	9869	117	4861	4145775.5	5
+3	2011	8	9869	228	4862	15250.44	6
+3	2011	8	9869	51	4862	493423.91	7
+3	2011	8	9869	48	4862	1088392.13	8
+3	2011	8	9869	45	4862	4705743.78	9
+3	2011	8	9869	117	4862	2704555.46	10
+4	2010	11	9869	45	21	2751053	3
+4	2010	11	9869	48	9	2937956	4
+4	2010	11	9869	48	21	878464	5
+4	2010	11	9869	51	9	2437117	6
+4	2010	11	9869	51	21	653534	7
+4	2010	11	9869	117	9	2251100	8
+4	2010	11	9869	117	21	2032110	9
+2	2012	4	9869	48	761	185654	3
+2	2012	4	9869	117	761	132815	4
+2	2012	4	9869	51	761	154766	5
+2	2012	4	9869	45	762	12011	6
+2	2012	4	9869	48	762	11373	7
+2	2012	4	9869	117	762	8974	8
+2	2012	4	9869	51	762	8187	9
+2	2012	4	9869	45	763	4283	10
+2	2012	4	9869	48	763	15315	11
+2	2012	4	9869	117	763	14027	12
+2	2012	4	9869	51	763	10403	13
+2	2012	4	9869	45	781	5522	14
+2	2012	4	9869	48	781	10658	15
+2	2012	4	9869	117	781	9789	16
+2	2012	4	9869	51	781	5033	17
+2	2012	4	9869	45	786	76301	18
+2	2012	4	9869	48	786	51606	19
+2	2012	4	9869	117	786	118813	20
+2	2012	4	9869	51	786	21366	21
+2	2012	4	9869	45	801	1382	22
+2	2012	4	9869	48	801	9516	23
+2	2012	4	9869	117	801	2673	24
+2	2012	4	9869	51	801	20992	25
+2	2012	4	9869	45	802	299	26
+2	2012	4	9869	48	802	54	27
+2	2012	4	9869	117	802	448	28
+2	2012	4	9869	51	802	22	29
+2	2012	4	9869	45	803	2744	30
+2	2012	4	9869	48	803	7555	31
+2	2012	4	9869	117	803	16196	32
+2	2012	4	9869	51	803	1706	33
+2	2012	4	9869	45	1861	44	34
+2	2012	4	9869	48	1861	41	35
+2	2012	4	9869	117	1861	45	36
+2	2012	4	9869	51	1861	103	37
+2	2012	4	9869	45	1862	4026	38
+2	2012	4	9869	48	1862	3166	39
+2	2012	4	9869	117	1862	5046	40
+2	2012	4	9869	51	1862	956	41
+2	2012	4	9869	45	3601	8313	42
+2	2012	4	9869	48	3601	8470	43
+2	2012	4	9869	117	3601	3983	44
+2	2012	4	9869	51	3601	5986	45
+2	2012	4	9869	45	3621	6033	46
+2	2012	4	9869	48	3621	3157	47
+2	2012	4	9869	117	3621	3981	48
+2	2012	4	9869	51	3621	1304	49
+2	2012	4	9869	45	3641	1770	50
+2	2012	4	9869	48	3641	4334	51
+2	2012	4	9869	117	3641	9928	52
+2	2012	4	9869	51	3641	683	53
+3	2012	3	9869	48	4861	5466987.5	3
+3	2012	3	9869	51	4861	4771868.87	4
+3	2012	3	9869	117	4861	4263511.14	5
+3	2012	3	9869	45	4862	4982782.37	6
+3	2012	3	9869	48	4862	1223471.11	7
+3	2012	3	9869	51	4862	667078.59	8
+3	2012	3	9869	117	4862	2996381.93	9
+3	2012	3	9869	228	4862	13701.99	10
+4	2010	3	9869	45	21	2638697	3
+4	2010	3	9869	48	9	2858451	4
+4	2010	3	9869	48	21	859892	5
+4	2010	3	9869	51	9	2321843	6
+4	2010	3	9869	51	21	629838	7
+4	2010	3	9869	117	9	2173116	8
+4	2010	3	9869	117	21	1954024	9
+4	2010	10	9869	45	21	2715899	3
+4	2010	10	9869	48	9	2899890	4
+4	2010	10	9869	48	21	874720	5
+4	2010	10	9869	51	9	2362979	6
+4	2010	10	9869	51	21	632513	7
+4	2010	10	9869	117	9	2231674	8
+4	2010	10	9869	117	21	2014944	9
+4	2011	4	9869	117	9	2098678	3
+4	2011	4	9869	48	9	2739529	4
+4	2011	4	9869	45	9	3329740	5
+4	2011	4	9869	51	9	2286107	6
+4	2011	4	9869	117	21	1405641	7
+4	2011	4	9869	48	21	609902	8
+4	2011	4	9869	45	21	1934466	9
+4	2012	4	9869	48	9	2895853	3
+4	2012	4	9869	51	9	2436720	4
+4	2012	4	9869	117	9	2201434	5
+4	2012	4	9869	45	21	2208296	6
+4	2012	4	9869	48	21	739394	7
+4	2012	4	9869	51	21	514436	8
+4	2012	4	9869	117	21	1657895	9
+4	2012	3	9869	48	9	2840104	3
+4	2012	3	9869	51	9	2400994	4
+4	2012	3	9869	117	9	2163848	5
+4	2012	3	9869	45	21	2185809	6
+4	2012	3	9869	48	21	719764	7
+4	2012	3	9869	51	21	510498	8
+4	2012	3	9869	117	21	1637680	9
+3	2012	1	9869	51	4861	4871332.55	3
+3	2012	1	9869	48	4861	5696589.04	4
+3	2012	1	9869	45	4861	8948145.51	5
+3	2012	1	9869	228	4862	10638.78	6
+3	2012	1	9869	117	4862	3027902.14	7
+3	2012	1	9869	51	4862	680015.49	8
+3	2012	1	9869	48	4862	1238329.61	9
+3	2012	1	9869	45	4862	5160234.47	10
+4	2011	10	9869	48	21	650603	3
+4	2011	10	9869	117	21	1491555	4
+4	2011	10	9869	45	21	2003263	5
+4	2011	10	9869	51	9	2421909	6
+4	2011	10	9869	48	9	2959418	7
+4	2011	10	9869	45	9	3580899	8
+4	2011	10	9869	117	9	2249650	9
+1	2010	5	9869	45	882	12496487.83	3
+1	2010	5	9869	45	3561	49969.27	4
+1	2010	5	9869	45	3581	7774745.35	5
+1	2010	5	9869	48	881	4143940.17	6
+1	2010	5	9869	48	882	6040682.54	7
+1	2010	5	9869	48	3561	28413.77	8
+1	2010	5	9869	48	3581	788015.37	9
+1	2010	5	9869	51	881	1942947.76	10
+1	2010	5	9869	51	882	4925746.6	11
+1	2010	5	9869	51	3561	33876.38	12
+1	2010	5	9869	51	3581	2258359.86	13
+1	2010	5	9869	117	881	4975883.55	14
+1	2010	5	9869	117	882	7023010.37	15
+1	2010	5	9869	117	3561	38620.35	16
+1	2010	5	9869	117	3581	724700.76	17
+4	2011	9	9869	48	9	2921610	3
+4	2011	9	9869	51	9	2397862	4
+4	2011	9	9869	45	9	3539761	5
+4	2011	9	9869	117	21	1476942	6
+4	2011	9	9869	48	21	643417	7
+4	2011	9	9869	51	21	450870	8
+4	2011	9	9869	45	21	1996388	9
+3	2010	7	9869	45	4862	5599928.02	3
+3	2010	7	9869	45	10511	0	4
+3	2010	7	9869	48	4861	4772516.75	5
+3	2010	7	9869	48	4862	1265763.43	6
+3	2010	7	9869	48	10511	0	7
+3	2010	7	9869	51	4861	4106167.72	8
+3	2010	7	9869	51	4862	731548.07	9
+3	2010	7	9869	51	10511	0	10
+3	2010	7	9869	117	4861	3707004.77	11
+3	2010	7	9869	117	4862	3111778.49	12
+3	2010	7	9869	117	10511	0	13
+3	2010	7	9869	225	10511	0	14
+3	2010	7	9869	228	10511	0	15
+2	2011	7	9869	45	761	123271	3
+2	2011	7	9869	117	761	130699	4
+2	2011	7	9869	48	761	181476	5
+2	2011	7	9869	51	762	8252	6
+2	2011	7	9869	45	762	11048	7
+2	2011	7	9869	117	762	8062	8
+2	2011	7	9869	48	762	10979	9
+2	2011	7	9869	51	763	10324	10
+2	2011	7	9869	45	763	5096	11
+2	2011	7	9869	117	763	13937	12
+2	2011	7	9869	48	763	13822	13
+2	2011	7	9869	51	781	2996	14
+2	2011	7	9869	45	781	5759	15
+2	2011	7	9869	117	781	10388	16
+2	2011	7	9869	48	781	12219	17
+2	2011	7	9869	51	786	21164	18
+2	2011	7	9869	45	786	74943	19
+2	2011	7	9869	117	786	115452	20
+2	2011	7	9869	48	786	48959	21
+2	2011	7	9869	51	801	20796	22
+2	2011	7	9869	45	801	1355	23
+2	2011	7	9869	117	801	2553	24
+2	2011	7	9869	48	801	9081	25
+2	2011	7	9869	51	802	19	26
+2	2011	7	9869	45	802	315	27
+2	2011	7	9869	117	802	417	28
+2	2011	7	9869	48	802	55	29
+2	2011	7	9869	51	803	992	30
+2	2011	7	9869	45	803	3056	31
+2	2011	7	9869	117	803	16720	32
+2	2011	7	9869	48	803	7620	33
+2	2011	7	9869	51	1861	88	34
+2	2011	7	9869	45	1861	44	35
+2	2011	7	9869	117	1861	39	36
+2	2011	7	9869	48	1861	42	37
+2	2011	7	9869	51	1862	919	38
+2	2011	7	9869	45	1862	3790	39
+2	2011	7	9869	117	1862	4372	40
+2	2011	7	9869	48	1862	2857	41
+2	2011	7	9869	51	3601	6065	42
+2	2011	7	9869	45	3601	8350	43
+2	2011	7	9869	117	3601	3826	44
+2	2011	7	9869	48	3601	8683	45
+2	2011	7	9869	51	3621	1383	46
+2	2011	7	9869	45	3621	6037	47
+2	2011	7	9869	117	3621	3740	48
+2	2011	7	9869	48	3621	3145	49
+2	2011	7	9869	51	3641	642	50
+2	2011	7	9869	45	3641	1640	51
+2	2011	7	9869	117	3641	11478	52
+2	2011	7	9869	48	3641	3387	53
+3	2012	4	9869	48	4861	4923532.1	3
+3	2012	4	9869	51	4861	3523850.32	4
+3	2012	4	9869	117	4861	3827332.65	5
+3	2012	4	9869	45	4862	4685735.29	6
+3	2012	4	9869	48	4862	1029439.49	7
+3	2012	4	9869	51	4862	512585.02	8
+3	2012	4	9869	117	4862	2501498.31	9
+3	2012	4	9869	228	4862	8447.1	10
+4	2012	6	9869	48	9	2874660	3
+4	2012	6	9869	51	9	2444697	4
+4	2012	6	9869	117	9	2151314	5
+4	2012	6	9869	45	21	2207663	6
+4	2012	6	9869	48	21	747660	7
+4	2012	6	9869	51	21	516713	8
+4	2012	6	9869	117	21	1626541	9
+4	2010	12	9869	45	21	2750270	3
+4	2010	12	9869	48	9	2854470	4
+4	2010	12	9869	48	21	853042	5
+4	2010	12	9869	51	9	2404364	6
+4	2010	12	9869	51	21	645138	7
+4	2010	12	9869	117	9	2193979	8
+4	2010	12	9869	117	21	1992956	9
+2	2011	6	9869	48	1862	2815	3
+2	2011	6	9869	45	3601	8362	4
+2	2011	6	9869	51	3601	6218	5
+2	2011	6	9869	117	3601	3769	6
+2	2011	6	9869	48	3601	8694	7
+2	2011	6	9869	45	3621	6042	8
+2	2011	6	9869	51	3621	1416	9
+2	2011	6	9869	117	3621	3682	10
+2	2011	6	9869	48	3621	3133	11
+2	2011	6	9869	45	3641	1630	12
+2	2011	6	9869	51	3641	664	13
+2	2011	6	9869	117	3641	11450	14
+2	2011	6	9869	48	3641	3260	15
+2	2011	6	9869	45	761	122947	16
+2	2011	6	9869	51	761	148973	17
+2	2011	6	9869	117	761	130306	18
+2	2011	6	9869	48	761	181259	19
+2	2011	6	9869	45	762	10958	20
+2	2011	6	9869	51	762	8231	21
+2	2011	6	9869	117	762	7949	22
+2	2011	6	9869	48	762	10929	23
+2	2011	6	9869	45	763	5313	24
+2	2011	6	9869	51	763	10337	25
+2	2011	6	9869	117	763	14166	26
+2	2011	6	9869	48	763	13794	27
+2	2011	6	9869	45	781	5747	28
+2	2011	6	9869	51	781	2969	29
+2	2011	6	9869	117	781	10419	30
+2	2011	6	9869	48	781	11910	31
+2	2011	6	9869	45	786	74799	32
+2	2011	6	9869	51	786	21079	33
+2	2011	6	9869	117	786	115199	34
+2	2011	6	9869	48	786	48837	35
+2	2011	6	9869	45	801	1353	36
+2	2011	6	9869	51	801	20741	37
+2	2011	6	9869	117	801	2548	38
+2	2011	6	9869	48	801	9074	39
+2	2011	6	9869	45	802	326	40
+2	2011	6	9869	51	802	19	41
+2	2011	6	9869	117	802	375	42
+2	2011	6	9869	48	802	56	43
+2	2011	6	9869	45	803	3031	44
+2	2011	6	9869	51	803	661	45
+2	2011	6	9869	117	803	16722	46
+2	2011	6	9869	48	803	7625	47
+2	2011	6	9869	45	1861	44	48
+2	2011	6	9869	51	1861	88	49
+2	2011	6	9869	117	1861	39	50
+2	2011	6	9869	48	1861	42	51
+2	2011	6	9869	45	1862	3815	52
+2	2011	6	9869	51	1862	918	53
+1	2010	11	9869	45	882	14826637.96	3
+1	2010	11	9869	45	3561	156627.69	4
+1	2010	11	9869	45	3581	9461268.01	5
+1	2010	11	9869	48	881	4631740.32	6
+1	2010	11	9869	48	882	6677813.3	7
+1	2010	11	9869	48	3561	29657.33	8
+1	2010	11	9869	48	3581	906524.28	9
+1	2010	11	9869	51	881	2260554.26	10
+1	2010	11	9869	51	882	5609030.58	11
+1	2010	11	9869	51	3561	44147.61	12
+1	2010	11	9869	51	3581	2739992.35	13
+1	2010	11	9869	117	881	5545792.28	14
+1	2010	11	9869	117	882	7966993.95	15
+1	2010	11	9869	117	3561	56352.28	16
+1	2010	11	9869	117	3581	982052.69	17
+2	2010	12	9869	45	762	10512	3
+2	2010	12	9869	45	763	5463	4
+2	2010	12	9869	45	781	6099	5
+2	2010	12	9869	45	786	74245	6
+2	2010	12	9869	45	801	1395	7
+2	2010	12	9869	45	802	339	8
+2	2010	12	9869	45	803	3220	9
+2	2010	12	9869	45	1861	42	10
+2	2010	12	9869	45	1862	3675	11
+2	2010	12	9869	45	3601	8187	12
+2	2010	12	9869	45	3621	5875	13
+2	2010	12	9869	45	3641	1625	14
+2	2010	12	9869	48	761	177889	15
+2	2010	12	9869	48	762	10815	16
+2	2010	12	9869	48	763	13254	17
+2	2010	12	9869	48	781	13045	18
+2	2010	12	9869	48	786	46255	19
+2	2010	12	9869	48	801	8994	20
+2	2010	12	9869	48	802	56	21
+2	2010	12	9869	48	803	12022	22
+2	2010	12	9869	48	1861	41	23
+2	2010	12	9869	48	1862	2748	24
+2	2010	12	9869	48	3601	8924	25
+2	2010	12	9869	48	3621	3129	26
+2	2010	12	9869	48	3641	2293	27
+2	2010	12	9869	51	761	146196	28
+2	2010	12	9869	51	762	7867	29
+2	2010	12	9869	51	763	10068	30
+2	2010	12	9869	51	781	2830	31
+2	2010	12	9869	51	786	20909	32
+2	2010	12	9869	51	801	20531	33
+2	2010	12	9869	51	802	19	34
+2	2010	12	9869	51	803	485	35
+2	2010	12	9869	51	1861	80	36
+2	2010	12	9869	51	1862	882	37
+2	2010	12	9869	51	3601	6537	38
+2	2010	12	9869	51	3621	1501	39
+2	2010	12	9869	51	3641	604	40
+2	2010	12	9869	117	761	129733	41
+2	2010	12	9869	117	762	7847	42
+2	2010	12	9869	117	763	13646	43
+2	2010	12	9869	117	781	10442	44
+2	2010	12	9869	117	786	113526	45
+2	2010	12	9869	117	801	2536	46
+2	2010	12	9869	117	802	338	47
+2	2010	12	9869	117	803	16353	48
+2	2010	12	9869	117	1861	39	49
+2	2010	12	9869	117	1862	3952	50
+2	2010	12	9869	117	3601	3700	51
+2	2010	12	9869	117	3621	3598	52
+2	2010	12	9869	117	3641	11243	53
+1	2010	12	9869	45	882	13619598.26	3
+1	2010	12	9869	45	3561	31306.81	4
+1	2010	12	9869	45	3581	8989941.34	5
+1	2010	12	9869	48	881	4257477.18	6
+1	2010	12	9869	48	882	6141808.27	7
+1	2010	12	9869	48	3561	23647.68	8
+1	2010	12	9869	48	3581	804281.45	9
+1	2010	12	9869	51	881	1967070.97	10
+1	2010	12	9869	51	882	5003199.52	11
+1	2010	12	9869	51	3561	25218.05	12
+1	2010	12	9869	51	3581	2537809.95	13
+1	2010	12	9869	117	881	5165798.87	14
+1	2010	12	9869	117	882	7081609.77	15
+1	2010	12	9869	117	3561	34281.97	16
+1	2010	12	9869	117	3581	743223.64	17
+1	2012	2	9869	51	881	2378362.73	3
+1	2012	2	9869	48	881	4541744.05	4
+1	2012	2	9869	45	881	4413994.7	5
+1	2012	2	9869	117	882	7237897.04	6
+1	2012	2	9869	51	882	5627391.69	7
+1	2012	2	9869	48	882	6827322.61	8
+1	2012	2	9869	45	882	13791667.72	9
+1	2012	2	9869	117	3561	8738.05	10
+1	2012	2	9869	51	3561	4944.15	11
+1	2012	2	9869	48	3561	7127.34	12
+1	2012	2	9869	45	3561	38601.35	13
+1	2012	2	9869	117	3581	732636.81	14
+1	2012	2	9869	51	3581	2554417.12	15
+1	2012	2	9869	48	3581	839958.68	16
+1	2012	2	9869	45	3581	8297145.59	17
+4	2011	5	9869	48	21	613763	3
+4	2011	5	9869	117	21	1404726	4
+4	2011	5	9869	51	21	435055	5
+4	2011	5	9869	45	9	3279275	6
+4	2011	5	9869	48	9	2737969	7
+4	2011	5	9869	51	9	2263603	8
+4	2011	5	9869	117	9	2085234	9
+3	2010	3	9869	45	4862	5515915.97	3
+3	2010	3	9869	45	10511	0	4
+3	2010	3	9869	48	4861	5086393.44	5
+3	2010	3	9869	48	4862	1328218.26	6
+3	2010	3	9869	48	10511	0	7
+3	2010	3	9869	51	4861	4142925.56	8
+3	2010	3	9869	51	4862	727665.39	9
+3	2010	3	9869	51	10511	0	10
+3	2010	3	9869	117	4861	3847710.04	11
+3	2010	3	9869	117	4862	3167876.94	12
+3	2010	3	9869	117	10511	0	13
+3	2010	3	9869	225	10511	0	14
+3	2010	3	9869	228	10511	0	15
+3	2011	10	9869	117	4861	4487815.05	3
+3	2011	10	9869	48	4861	5605160.05	4
+3	2011	10	9869	51	4861	4742959.84	5
+3	2011	10	9869	228	4862	14709.93	6
+3	2011	10	9869	117	4862	2903637.94	7
+3	2011	10	9869	48	4862	1188591.85	8
+3	2011	10	9869	45	4862	4968004.56	9
+3	2011	10	9869	51	4862	623854.77	10
+3	2010	12	9869	45	4862	5771326.52	3
+3	2010	12	9869	45	10511	0	4
+3	2010	12	9869	48	4861	4832239.2	5
+3	2010	12	9869	48	4862	1215068.54	6
+3	2010	12	9869	48	10511	0	7
+3	2010	12	9869	51	4861	4689930.02	8
+3	2010	12	9869	51	4862	672209.21	9
+3	2010	12	9869	51	10511	0	10
+3	2010	12	9869	117	4861	4974101.63	11
+3	2010	12	9869	117	4862	3094841.55	12
+3	2010	12	9869	117	10511	0	13
+3	2010	12	9869	225	10511	0	14
+3	2010	12	9869	228	4862	12339.25	15
+3	2010	12	9869	228	10511	0	16
+3	2011	4	9869	45	4861	8041841.73	3
+3	2011	4	9869	48	4861	5125973.1	4
+3	2011	4	9869	117	4861	3953377.23	5
+3	2011	4	9869	51	10511	106194.89	6
+3	2011	4	9869	48	10511	84688.53	7
+3	2011	4	9869	45	4862	4539841.51	8
+3	2011	4	9869	117	10511	89073.91	9
+3	2011	4	9869	117	4862	2549939.67	10
+3	2011	4	9869	228	4862	9809.29	11
+3	2011	4	9869	51	4862	601967.27	12
+3	2011	4	9869	48	4862	1058476.63	13
+3	2011	4	9869	45	10511	199728.45	14
+4	2010	4	9869	45	21	2647431	3
+4	2010	4	9869	48	9	2799578	4
+4	2010	4	9869	48	21	836140	5
+4	2010	4	9869	51	9	2309916	6
+4	2010	4	9869	51	21	620601	7
+4	2010	4	9869	117	9	2140413	8
+4	2010	4	9869	117	21	1939740	9
+2	2012	2	9869	51	3641	680	3
+2	2012	2	9869	48	3641	3584	4
+2	2012	2	9869	45	3641	1745	5
+2	2012	2	9869	117	1861	45	6
+2	2012	2	9869	51	1861	103	7
+2	2012	2	9869	48	1861	41	8
+2	2012	2	9869	45	1861	44	9
+2	2012	2	9869	117	1862	4782	10
+2	2012	2	9869	51	1862	931	11
+2	2012	2	9869	48	1862	3024	12
+2	2012	2	9869	45	1862	4081	13
+2	2012	2	9869	117	761	132602	14
+2	2012	2	9869	51	761	153847	15
+2	2012	2	9869	48	761	185289	16
+2	2012	2	9869	45	761	125231	17
+2	2012	2	9869	117	762	8782	18
+2	2012	2	9869	51	762	8149	19
+2	2012	2	9869	48	762	11311	20
+2	2012	2	9869	45	762	11962	21
+2	2012	2	9869	117	763	13973	22
+2	2012	2	9869	51	763	10242	23
+2	2012	2	9869	48	763	14628	24
+2	2012	2	9869	45	763	3962	25
+2	2012	2	9869	117	781	9730	26
+2	2012	2	9869	51	781	4199	27
+2	2012	2	9869	48	781	10754	28
+2	2012	2	9869	45	781	5561	29
+2	2012	2	9869	117	786	118590	30
+2	2012	2	9869	51	786	21320	31
+2	2012	2	9869	48	786	49950	32
+2	2012	2	9869	45	786	75922	33
+2	2012	2	9869	117	801	2603	34
+2	2012	2	9869	51	801	20998	35
+2	2012	2	9869	48	801	9493	36
+2	2012	2	9869	45	801	1375	37
+2	2012	2	9869	117	802	438	38
+2	2012	2	9869	51	802	22	39
+2	2012	2	9869	48	802	56	40
+2	2012	2	9869	45	802	305	41
+2	2012	2	9869	117	803	16129	42
+2	2012	2	9869	51	803	1515	43
+2	2012	2	9869	48	803	7554	44
+2	2012	2	9869	45	803	2751	45
+2	2012	2	9869	117	3621	4006	46
+2	2012	2	9869	51	3621	1303	47
+2	2012	2	9869	48	3621	3132	48
+2	2012	2	9869	45	3621	6073	49
+2	2012	2	9869	117	3601	3998	50
+2	2012	2	9869	51	3601	6006	51
+2	2012	2	9869	48	3601	8527	52
+2	2012	2	9869	45	3601	8363	53
+1	2010	1	9869	45	882	13007746.71	3
+1	2010	1	9869	45	3561	138677.29	4
+1	2010	1	9869	45	3581	8061653.1	5
+1	2010	1	9869	48	881	4108035.43	6
+1	2010	1	9869	48	882	5756513.06	7
+1	2010	1	9869	48	3561	38829.21	8
+1	2010	1	9869	48	3581	624255.56	9
+1	2010	1	9869	51	881	1978435.6	10
+1	2010	1	9869	51	882	4572639.05	11
+1	2010	1	9869	51	3561	50234.43	12
+1	2010	1	9869	51	3581	2088022.9	13
+1	2010	1	9869	117	881	4730671.72	14
+1	2010	1	9869	117	882	6460820.66	15
+1	2010	1	9869	117	3561	52058.61	16
+1	2010	1	9869	117	3581	559059.05	17
+3	2010	5	9869	45	4862	5556112.13	3
+3	2010	5	9869	45	10511	0	4
+3	2010	5	9869	48	4861	4774385.49	5
+3	2010	5	9869	48	4862	1297138.67	6
+3	2010	5	9869	48	10511	0	7
+3	2010	5	9869	51	4861	3956574.3	8
+3	2010	5	9869	51	4862	551524.43	9
+3	2010	5	9869	51	10511	0	10
+3	2010	5	9869	117	4861	3414411.54	11
+3	2010	5	9869	117	4862	3046033.45	12
+3	2010	5	9869	117	10511	0	13
+3	2010	5	9869	225	10511	0	14
+3	2010	5	9869	228	10511	0	15
+3	2011	7	9869	117	4861	3984140.86	3
+3	2011	7	9869	45	4861	8050129.93	4
+3	2011	7	9869	48	4861	5238727.68	5
+3	2011	7	9869	51	4862	946919.22	6
+3	2011	7	9869	117	4862	2664365.84	7
+3	2011	7	9869	45	4862	4611280.6	8
+3	2011	7	9869	228	4862	12624.99	9
+3	2011	7	9869	48	4862	1095359.92	10
+1	2010	8	9869	45	882	13286519.83	3
+1	2010	8	9869	45	3561	82412.57	4
+1	2010	8	9869	45	3581	8615984.07	5
+1	2010	8	9869	48	881	4195249.19	6
+1	2010	8	9869	48	882	6188123.14	7
+1	2010	8	9869	48	3561	40537.55	8
+1	2010	8	9869	48	3581	846235.89	9
+1	2010	8	9869	51	881	1957681.07	10
+1	2010	8	9869	51	882	4964487.47	11
+1	2010	8	9869	51	3561	41233.4	12
+1	2010	8	9869	51	3581	2413964.4	13
+1	2010	8	9869	117	881	5085518.19	14
+1	2010	8	9869	117	882	7096161.01	15
+1	2010	8	9869	117	3561	57810.15	16
+1	2010	8	9869	117	3581	764541.87	17
+1	2011	10	9869	117	881	5495632.28	3
+1	2011	10	9869	48	881	4775062.09	4
+1	2011	10	9869	51	881	2287350.88	5
+1	2011	10	9869	45	882	13877219.8	6
+1	2011	10	9869	117	882	7511999.31	7
+1	2011	10	9869	48	882	6853405.12	8
+1	2011	10	9869	51	882	5460230.61	9
+1	2011	10	9869	45	3561	51123.23	10
+1	2011	10	9869	117	3561	43577	11
+1	2011	10	9869	48	3561	31075.54	12
+1	2011	10	9869	51	3561	39858.38	13
+1	2011	10	9869	45	3581	8801904.81	14
+1	2011	10	9869	117	3581	715752.32	15
+1	2011	10	9869	48	3581	792259.04	16
+1	2011	10	9869	51	3581	2635516.17	17
+4	2012	1	9869	48	9	2952163	3
+4	2012	1	9869	51	9	2483882	4
+4	2012	1	9869	117	9	2215089	5
+4	2012	1	9869	45	21	2176373	6
+4	2012	1	9869	48	21	740365	7
+4	2012	1	9869	51	21	530387	8
+4	2012	1	9869	117	21	1669789	9
+2	2010	7	9869	45	762	10574	3
+2	2010	7	9869	45	763	4941	4
+2	2010	7	9869	45	781	6641	5
+2	2010	7	9869	45	786	73394	6
+2	2010	7	9869	45	801	1412	7
+2	2010	7	9869	45	802	358	8
+2	2010	7	9869	45	803	3728	9
+2	2010	7	9869	45	1861	41	10
+2	2010	7	9869	45	1862	3579	11
+2	2010	7	9869	45	3601	7941	12
+2	2010	7	9869	45	3621	5637	13
+2	2010	7	9869	45	3641	1444	14
+2	2010	7	9869	48	761	176025	15
+2	2010	7	9869	48	762	10588	16
+2	2010	7	9869	48	763	13803	17
+2	2010	7	9869	48	781	11699	18
+2	2010	7	9869	48	786	45788	19
+2	2010	7	9869	48	801	8924	20
+2	2010	7	9869	48	802	56	21
+2	2010	7	9869	48	803	11045	22
+2	2010	7	9869	48	1861	39	23
+2	2010	7	9869	48	1862	2756	24
+2	2010	7	9869	48	3601	8971	25
+2	2010	7	9869	48	3621	3137	26
+2	2010	7	9869	48	3641	2243	27
+2	2010	7	9869	51	761	142328	28
+2	2010	7	9869	51	762	7895	29
+2	2010	7	9869	51	763	11479	30
+2	2010	7	9869	51	781	3974	31
+2	2010	7	9869	51	786	20320	32
+2	2010	7	9869	51	801	20339	33
+2	2010	7	9869	51	802	23	34
+2	2010	7	9869	51	803	411	35
+2	2010	7	9869	51	1861	80	36
+2	2010	7	9869	51	1862	1069	37
+2	2010	7	9869	51	3601	6445	38
+2	2010	7	9869	51	3621	1527	39
+2	2010	7	9869	51	3641	608	40
+2	2010	7	9869	117	761	127451	41
+2	2010	7	9869	117	762	7820	42
+2	2010	7	9869	117	763	14399	43
+2	2010	7	9869	117	781	10604	44
+2	2010	7	9869	117	786	111451	45
+2	2010	7	9869	117	801	2536	46
+2	2010	7	9869	117	802	324	47
+2	2010	7	9869	117	803	16544	48
+2	2010	7	9869	117	1861	38	49
+2	2010	7	9869	117	1862	3898	50
+2	2010	7	9869	117	3601	3534	51
+2	2010	7	9869	117	3621	3425	52
+2	2010	7	9869	117	3641	10756	53
+2	2011	10	9869	48	763	14074	3
+2	2011	10	9869	51	763	10438	4
+2	2011	10	9869	117	781	10100	5
+2	2011	10	9869	48	781	11458	6
+2	2011	10	9869	51	781	3140	7
+2	2011	10	9869	45	786	75621	8
+2	2011	10	9869	117	786	117015	9
+2	2011	10	9869	48	786	49397	10
+2	2011	10	9869	51	786	21234	11
+2	2011	10	9869	45	801	1365	12
+2	2011	10	9869	117	801	2547	13
+2	2011	10	9869	48	801	9463	14
+2	2011	10	9869	51	801	20945	15
+2	2011	10	9869	45	802	309	16
+2	2011	10	9869	117	802	446	17
+2	2011	10	9869	48	802	55	18
+2	2011	10	9869	51	802	19	19
+2	2011	10	9869	45	803	2722	20
+2	2011	10	9869	117	803	16653	21
+2	2011	10	9869	48	803	7551	22
+2	2011	10	9869	51	803	1251	23
+2	2011	10	9869	45	1861	44	24
+2	2011	10	9869	117	1861	38	25
+2	2011	10	9869	48	1861	42	26
+2	2011	10	9869	51	1861	91	27
+2	2011	10	9869	45	1862	3816	28
+2	2011	10	9869	117	1862	4580	29
+2	2011	10	9869	48	1862	2930	30
+2	2011	10	9869	51	1862	898	31
+2	2011	10	9869	45	3601	8366	32
+2	2011	10	9869	117	3601	3966	33
+2	2011	10	9869	48	3601	8609	34
+2	2011	10	9869	51	3601	5919	35
+2	2011	10	9869	45	3621	6047	36
+2	2011	10	9869	117	3621	3886	37
+2	2011	10	9869	48	3621	3147	38
+2	2011	10	9869	51	3621	1320	39
+2	2011	10	9869	45	3641	1698	40
+2	2011	10	9869	117	3641	10869	41
+2	2011	10	9869	48	3641	3382	42
+2	2011	10	9869	51	3641	659	43
+2	2011	10	9869	45	761	124289	44
+2	2011	10	9869	117	761	131616	45
+2	2011	10	9869	48	761	183455	46
+2	2011	10	9869	51	761	151471	47
+2	2011	10	9869	45	762	11470	48
+2	2011	10	9869	117	762	8497	49
+2	2011	10	9869	48	762	11180	50
+2	2011	10	9869	51	762	8207	51
+2	2011	10	9869	45	763	4432	52
+2	2011	10	9869	117	763	13796	53
+4	2011	12	9869	48	21	722906	3
+4	2011	12	9869	117	21	1659789	4
+4	2011	12	9869	45	9	3597075	5
+4	2011	12	9869	51	9	2429812	6
+4	2011	12	9869	48	9	2952354	7
+4	2011	12	9869	117	9	2253110	8
+4	2011	12	9869	45	21	2089085	9
+1	2011	2	9869	45	881	4117717.49	3
+1	2011	2	9869	117	881	4858769.11	4
+1	2011	2	9869	51	3581	2272753.05	5
+1	2011	2	9869	48	3581	739388.88	6
+1	2011	2	9869	45	3581	7655713.43	7
+1	2011	2	9869	117	3581	674511.66	8
+1	2011	2	9869	51	3561	61369.07	9
+1	2011	2	9869	48	3561	51430.21	10
+1	2011	2	9869	45	3561	82278.06	11
+1	2011	2	9869	117	3561	101258.08	12
+1	2011	2	9869	51	882	5231673.02	13
+1	2011	2	9869	48	882	6434067.82	14
+1	2011	2	9869	45	882	13014605.16	15
+1	2011	2	9869	117	882	7144313.53	16
+1	2011	2	9869	51	881	2186481.01	17
+4	2011	8	9869	51	9	2310103	3
+4	2011	8	9869	45	9	3389499	4
+4	2011	8	9869	117	9	2142466	5
+4	2011	8	9869	48	21	629762	6
+4	2011	8	9869	51	21	439921	7
+4	2011	8	9869	45	21	1958179	8
+4	2011	8	9869	117	21	1444849	9
+4	2010	7	9869	45	21	2657713	3
+4	2010	7	9869	48	9	2779714	4
+4	2010	7	9869	48	21	838265	5
+4	2010	7	9869	51	9	2316850	6
+4	2010	7	9869	51	21	622584	7
+4	2010	7	9869	117	9	2126394	8
+4	2010	7	9869	117	21	1925016	9
+4	2011	11	9869	117	9	2204276	3
+4	2011	11	9869	45	9	3642377	4
+4	2011	11	9869	48	9	2871865	5
+4	2011	11	9869	51	21	456632	6
+4	2011	11	9869	117	21	1490199	7
+4	2011	11	9869	45	21	2017044	8
+4	2011	11	9869	48	21	643256	9
+4	2012	2	9869	48	9	2923593	3
+4	2012	2	9869	51	9	2479548	4
+4	2012	2	9869	117	9	2189463	5
+4	2012	2	9869	45	21	2226475	6
+4	2012	2	9869	48	21	728496	7
+4	2012	2	9869	51	21	519076	8
+4	2012	2	9869	117	21	1649228	9
+2	2010	5	9869	45	762	10410	3
+2	2010	5	9869	45	763	5351	4
+2	2010	5	9869	45	781	6945	5
+2	2010	5	9869	45	786	73071	6
+2	2010	5	9869	45	801	1405	7
+2	2010	5	9869	45	802	364	8
+2	2010	5	9869	45	803	4138	9
+2	2010	5	9869	45	1861	41	10
+2	2010	5	9869	45	1862	3504	11
+2	2010	5	9869	45	3601	7604	12
+2	2010	5	9869	45	3621	5272	13
+2	2010	5	9869	45	3641	1337	14
+2	2010	5	9869	48	761	175609	15
+2	2010	5	9869	48	762	10527	16
+2	2010	5	9869	48	763	13648	17
+2	2010	5	9869	48	781	11436	18
+2	2010	5	9869	48	786	45586	19
+2	2010	5	9869	48	801	8929	20
+2	2010	5	9869	48	802	57	21
+2	2010	5	9869	48	803	7052	22
+2	2010	5	9869	48	1861	39	23
+2	2010	5	9869	48	1862	2522	24
+2	2010	5	9869	48	3601	8909	25
+2	2010	5	9869	48	3621	3117	26
+2	2010	5	9869	48	3641	2422	27
+2	2010	5	9869	51	761	142911	28
+2	2010	5	9869	51	762	7867	29
+2	2010	5	9869	51	763	9668	30
+2	2010	5	9869	51	781	4073	31
+2	2010	5	9869	51	786	20246	32
+2	2010	5	9869	51	801	20246	33
+2	2010	5	9869	51	802	22	34
+2	2010	5	9869	51	803	370	35
+2	2010	5	9869	51	1861	80	36
+2	2010	5	9869	51	1862	1090	37
+2	2010	5	9869	51	3601	5709	38
+2	2010	5	9869	51	3621	1143	39
+2	2010	5	9869	51	3641	588	40
+2	2010	5	9869	117	761	126880	41
+2	2010	5	9869	117	762	7895	42
+2	2010	5	9869	117	763	14292	43
+2	2010	5	9869	117	781	10657	44
+2	2010	5	9869	117	786	110854	45
+2	2010	5	9869	117	801	2543	46
+2	2010	5	9869	117	802	319	47
+2	2010	5	9869	117	803	16477	48
+2	2010	5	9869	117	1861	38	49
+2	2010	5	9869	117	1862	3802	50
+2	2010	5	9869	117	3601	3484	51
+2	2010	5	9869	117	3621	3387	52
+2	2010	5	9869	117	3641	10461	53
+4	2011	2	9869	45	21	2047048	3
+4	2011	2	9869	117	21	1397501	4
+4	2011	2	9869	51	9	2262717	5
+4	2011	2	9869	48	9	2752848	6
+4	2011	2	9869	45	9	3384518	7
+4	2011	2	9869	117	9	2101440	8
+4	2011	2	9869	51	21	460810	9
+2	2011	2	9869	45	761	122492	3
+2	2011	2	9869	48	761	178373	4
+2	2011	2	9869	51	761	147082	5
+2	2011	2	9869	117	762	7823	6
+2	2011	2	9869	45	762	10777	7
+2	2011	2	9869	48	762	10942	8
+2	2011	2	9869	51	762	7995	9
+2	2011	2	9869	117	763	13838	10
+2	2011	2	9869	45	763	5308	11
+2	2011	2	9869	48	763	13367	12
+2	2011	2	9869	51	763	10069	13
+2	2011	2	9869	117	781	10407	14
+2	2011	2	9869	45	781	5975	15
+2	2011	2	9869	48	781	13222	16
+2	2011	2	9869	51	781	2922	17
+2	2011	2	9869	117	786	114122	18
+2	2011	2	9869	45	786	74504	19
+2	2011	2	9869	48	786	47089	20
+2	2011	2	9869	51	786	20938	21
+2	2011	2	9869	117	801	2533	22
+2	2011	2	9869	45	801	1377	23
+2	2011	2	9869	48	801	9007	24
+2	2011	2	9869	51	801	20593	25
+2	2011	2	9869	117	802	342	26
+2	2011	2	9869	45	802	337	27
+2	2011	2	9869	48	802	56	28
+2	2011	2	9869	51	802	19	29
+2	2011	2	9869	117	1861	39	30
+2	2011	2	9869	45	1861	42	31
+2	2011	2	9869	48	1861	42	32
+2	2011	2	9869	51	1861	80	33
+2	2011	2	9869	117	1862	4036	34
+2	2011	2	9869	45	1862	3785	35
+2	2011	2	9869	48	1862	2734	36
+2	2011	2	9869	51	1862	918	37
+2	2011	2	9869	117	3601	3752	38
+2	2011	2	9869	45	3601	8261	39
+2	2011	2	9869	48	3601	8868	40
+2	2011	2	9869	51	3601	6331	41
+2	2011	2	9869	117	3621	3668	42
+2	2011	2	9869	45	3621	5941	43
+2	2011	2	9869	48	3621	3134	44
+2	2011	2	9869	51	3621	1500	45
+2	2011	2	9869	117	3641	11228	46
+2	2011	2	9869	45	3641	1632	47
+2	2011	2	9869	48	3641	2295	48
+2	2011	2	9869	51	3641	626	49
+1	2011	11	9869	117	881	5367019.85	3
+1	2011	11	9869	45	881	4442761.42	4
+1	2011	11	9869	48	881	4570810.04	5
+1	2011	11	9869	51	882	5880936.13	6
+1	2011	11	9869	117	882	7577597.96	7
+1	2011	11	9869	45	882	14720529.13	8
+1	2011	11	9869	48	882	6916026.79	9
+1	2011	11	9869	51	3561	36077.77	10
+1	2011	11	9869	117	3561	46331.01	11
+1	2011	11	9869	45	3561	140881.61	12
+1	2011	11	9869	48	3561	39224.65	13
+1	2011	11	9869	51	3581	2866102.29	14
+1	2011	11	9869	117	3581	921025.62	15
+1	2011	11	9869	45	3581	9341975.24	16
+1	2011	11	9869	48	3581	1020382.94	17
+1	2012	6	9869	45	882	15384808.69	3
+1	2012	6	9869	45	3561	60051.13	4
+1	2012	6	9869	45	3581	9742803.11	5
+1	2012	6	9869	48	881	5118167.62	6
+1	2012	6	9869	48	882	7540332.99	7
+1	2012	6	9869	48	3561	22627.6	8
+1	2012	6	9869	48	3581	1054684.99	9
+1	2012	6	9869	51	881	2600124.07	10
+1	2012	6	9869	51	882	6334748.21	11
+1	2012	6	9869	51	3561	10860.41	12
+1	2012	6	9869	51	3581	3115103.48	13
+1	2012	6	9869	117	881	6004846.29	14
+1	2012	6	9869	117	882	8416186.97	15
+1	2012	6	9869	117	3561	35379.48	16
+1	2012	6	9869	117	3581	985121.22	17
+3	2012	6	9869	48	10511	0	3
+3	2012	6	9869	51	10511	0	4
+3	2012	6	9869	117	10511	0	5
+3	2012	6	9869	225	10511	0	6
+3	2012	6	9869	228	10511	0	7
+1	2010	6	9869	45	882	13499698.16	3
+1	2010	6	9869	45	3561	37675.55	4
+1	2010	6	9869	45	3581	8448438.8	5
+1	2010	6	9869	48	881	4262656.35	6
+1	2010	6	9869	48	882	6234266.01	7
+1	2010	6	9869	48	3561	38020.47	8
+1	2010	6	9869	48	3581	738749.13	9
+1	2010	6	9869	51	881	2033830.09	10
+1	2010	6	9869	51	882	4995916.97	11
+1	2010	6	9869	51	3561	37757.27	12
+1	2010	6	9869	51	3581	2389696.51	13
+1	2010	6	9869	117	881	5027178.71	14
+1	2010	6	9869	117	882	7140379.43	15
+1	2010	6	9869	117	3561	51323.71	16
+1	2010	6	9869	117	3581	731140.33	17
+3	2011	12	9869	48	4861	5851647.22	3
+3	2011	12	9869	51	4861	4933051.98	4
+3	2011	12	9869	45	4861	9048096.96	5
+3	2011	12	9869	48	4862	1211281.83	6
+3	2011	12	9869	45	4862	5020473.24	7
+3	2011	12	9869	117	4862	3021766.68	8
+3	2011	12	9869	51	4862	563128.74	9
+3	2011	12	9869	228	4862	16506.1	10
+3	2011	12	9869	45	10511	433724.25	11
+3	2011	12	9869	117	10511	226196.61	12
+3	2011	12	9869	48	10511	211537.97	13
+3	2011	12	9869	51	10511	170032.65	14
+1	2012	1	9869	51	881	2043431.25	3
+1	2012	1	9869	48	881	4328655.08	4
+1	2012	1	9869	45	881	3861577.7	5
+1	2012	1	9869	117	882	6743616.65	6
+1	2012	1	9869	51	882	5141332.76	7
+1	2012	1	9869	48	882	6189263.87	8
+1	2012	1	9869	45	882	13054174.43	9
+1	2012	1	9869	117	3561	1934.14	10
+1	2012	1	9869	51	3561	3127.98	11
+1	2012	1	9869	48	3561	1717.97	12
+1	2012	1	9869	45	3561	52374.32	13
+1	2012	1	9869	117	3581	712825.85	14
+1	2012	1	9869	51	3581	2643785	15
+1	2012	1	9869	48	3581	808902.25	16
+1	2012	1	9869	45	3581	8579962.86	17
+4	2011	3	9869	51	21	428256	3
+4	2011	3	9869	48	21	603515	4
+4	2011	3	9869	45	21	1902536	5
+4	2011	3	9869	117	9	2090143	6
+4	2011	3	9869	51	9	2214857	7
+4	2011	3	9869	48	9	2723672	8
+4	2011	3	9869	45	9	3245636	9
+1	2010	3	9869	45	882	12760455.82	3
+1	2010	3	9869	45	3561	115962.95	4
+1	2010	3	9869	45	3581	7974735	5
+1	2010	3	9869	48	881	4352140.64	6
+1	2010	3	9869	48	882	6218868.46	7
+1	2010	3	9869	48	3561	46723.25	8
+1	2010	3	9869	48	3581	739896	9
+1	2010	3	9869	51	881	1970922.95	10
+1	2010	3	9869	51	882	4727608.01	11
+1	2010	3	9869	51	3561	48143.86	12
+1	2010	3	9869	51	3581	2194831.42	13
+1	2010	3	9869	117	881	5016084.75	14
+1	2010	3	9869	117	882	6849944.81	15
+1	2010	3	9869	117	3561	59288.7	16
+1	2010	3	9869	117	3581	658230.42	17
+2	2012	6	9869	45	762	11842	3
+2	2012	6	9869	45	763	4554	4
+2	2012	6	9869	45	781	5514	5
+2	2012	6	9869	45	786	76287	6
+2	2012	6	9869	45	801	1382	7
+2	2012	6	9869	45	802	299	8
+2	2012	6	9869	45	803	2849	9
+2	2012	6	9869	45	1861	44	10
+2	2012	6	9869	45	1862	4158	11
+2	2012	6	9869	45	3601	8268	12
+2	2012	6	9869	45	3641	1799	13
+2	2012	6	9869	48	761	186682	14
+2	2012	6	9869	48	762	11501	15
+2	2012	6	9869	48	763	15588	16
+2	2012	6	9869	48	781	10529	17
+2	2012	6	9869	48	786	52009	18
+2	2012	6	9869	48	801	9516	19
+2	2012	6	9869	48	802	54	20
+2	2012	6	9869	48	803	7642	21
+2	2012	6	9869	48	1861	42	22
+2	2012	6	9869	48	1862	3295	23
+2	2012	6	9869	48	3601	8430	24
+2	2012	6	9869	48	3641	4899	25
+2	2012	6	9869	51	761	155308	26
+2	2012	6	9869	51	762	8347	27
+2	2012	6	9869	51	763	10694	28
+2	2012	6	9869	51	781	5446	29
+2	2012	6	9869	51	786	21375	30
+2	2012	6	9869	51	801	20989	31
+2	2012	6	9869	51	802	22	32
+2	2012	6	9869	51	803	1951	33
+2	2012	6	9869	51	1861	103	34
+2	2012	6	9869	51	1862	992	35
+2	2012	6	9869	51	3601	5959	36
+2	2012	6	9869	51	3641	683	37
+2	2012	6	9869	117	761	132993	38
+2	2012	6	9869	117	762	9121	39
+2	2012	6	9869	117	763	14209	40
+2	2012	6	9869	117	781	9846	41
+2	2012	6	9869	117	786	119237	42
+2	2012	6	9869	117	801	2700	43
+2	2012	6	9869	117	802	442	44
+2	2012	6	9869	117	803	16162	45
+2	2012	6	9869	117	1861	43	46
+2	2012	6	9869	117	1862	5129	47
+2	2012	6	9869	117	3601	3963	48
+2	2012	6	9869	117	3641	9927	49
+3	2011	6	9869	51	4861	4716927.67	3
+3	2011	6	9869	117	4861	4199238.35	4
+3	2011	6	9869	48	4861	5330949.55	5
+3	2011	6	9869	51	4862	647356.31	6
+3	2011	6	9869	45	4862	4821574.9	7
+3	2011	6	9869	117	4862	2788943.04	8
+3	2011	6	9869	48	4862	1106359.4	9
+3	2011	6	9869	228	4862	17629.93	10
+3	2011	6	9869	45	10511	499963.44	11
+3	2011	6	9869	117	10511	304348.13	12
+3	2011	6	9869	48	10511	164512.11	13
+3	2011	6	9869	51	10511	368060.89	14
+3	2010	11	9869	45	4862	6018192.84	3
+3	2010	11	9869	45	10511	0	4
+3	2010	11	9869	48	4861	5214332.88	5
+3	2010	11	9869	48	4862	1375845.32	6
+3	2010	11	9869	48	10511	0	7
+3	2010	11	9869	51	4861	4378270.71	8
+3	2010	11	9869	51	4862	705425.06	9
+3	2010	11	9869	51	10511	0	10
+3	2010	11	9869	117	4861	3925701.22	11
+3	2010	11	9869	117	4862	3331887.13	12
+3	2010	11	9869	117	10511	0	13
+3	2010	11	9869	225	10511	0	14
+3	2010	11	9869	228	4861	15440.69	15
+3	2010	11	9869	228	10511	0	16
+3	2011	2	9869	48	4862	1071253.88	3
+3	2011	2	9869	228	4862	12236.93	4
+3	2011	2	9869	117	4862	2569913.09	5
+3	2011	2	9869	45	4862	4625683.53	6
+3	2011	2	9869	51	4862	585198.21	7
+3	2011	2	9869	51	4861	4372583.75	8
+3	2011	2	9869	228	4861	-14636.52	9
+3	2011	2	9869	45	4861	8143130.75	10
+3	2011	2	9869	117	4861	4000193.85	11
+3	2011	2	9869	48	10511	83774.78	12
+3	2011	2	9869	117	10511	96339.84	13
+3	2011	2	9869	45	10511	152155.48	14
+3	2011	2	9869	48	4861	5164291.54	15
+3	2012	2	9869	51	4861	5044763.14	3
+3	2012	2	9869	48	4861	5683586.5	4
+3	2012	2	9869	45	4861	9047181.81	5
+3	2012	2	9869	228	4862	12845.68	6
+3	2012	2	9869	117	4862	3076077.29	7
+3	2012	2	9869	51	4862	689162.51	8
+3	2012	2	9869	48	4862	1245551.1	9
+3	2012	2	9869	45	4862	5194923.86	10
+3	2012	5	9869	51	4861	4634899.8	3
+3	2012	5	9869	48	4861	5711374.09	4
+3	2012	5	9869	45	4861	8483862.14	5
+3	2012	5	9869	228	4862	5783.6	6
+3	2012	5	9869	117	4862	3316393.54	7
+3	2012	5	9869	51	4862	1146581.22	8
+3	2012	5	9869	48	4862	1368106.26	9
+3	2012	5	9869	45	4862	5082544.54	10
+3	2012	5	9869	228	10511	0	11
+3	2012	5	9869	225	10511	0	12
+3	2012	5	9869	117	10511	0	13
+3	2012	5	9869	51	10511	0	14
+3	2012	5	9869	48	10511	0	15
+3	2012	5	9869	45	10511	0	16
+1	2010	9	9869	45	882	13493916.28	3
+1	2010	9	9869	45	3561	82815.5	4
+1	2010	9	9869	45	3581	8687035.67	5
+1	2010	9	9869	48	881	4255712.2	6
+1	2010	9	9869	48	882	6071604.31	7
+1	2010	9	9869	48	3561	35923.56	8
+1	2010	9	9869	48	3581	766182.47	9
+1	2010	9	9869	51	881	2095433.39	10
+1	2010	9	9869	51	882	5046301.41	11
+1	2010	9	9869	51	3561	49247.7	12
+1	2010	9	9869	51	3581	2447174.81	13
+1	2010	9	9869	117	881	5056872.11	14
+1	2010	9	9869	117	882	7042615.83	15
+1	2010	9	9869	117	3561	57926.43	16
+1	2010	9	9869	117	3581	777737.25	17
+3	2010	1	9869	45	4862	5637838.99	3
+3	2010	1	9869	45	10511	0	4
+3	2010	1	9869	48	4861	4844970.27	5
+3	2010	1	9869	48	4862	1292222.65	6
+3	2010	1	9869	48	10511	0	7
+3	2010	1	9869	51	4861	3962226.71	8
+3	2010	1	9869	51	4862	582910.1	9
+3	2010	1	9869	51	10511	0	10
+3	2010	1	9869	117	4861	3627279	11
+3	2010	1	9869	117	4862	3097345.02	12
+3	2010	1	9869	117	10511	0	13
+3	2010	1	9869	225	10511	0	14
+3	2010	1	9869	228	4862	11430.22	15
+3	2010	1	9869	228	10511	0	16
+2	2010	9	9869	45	762	10398	3
+2	2010	9	9869	45	763	4867	4
+2	2010	9	9869	45	781	6394	5
+2	2010	9	9869	45	786	73861	6
+2	2010	9	9869	45	801	1388	7
+2	2010	9	9869	45	802	347	8
+2	2010	9	9869	45	803	3291	9
+2	2010	9	9869	45	1861	42	10
+2	2010	9	9869	45	1862	3655	11
+2	2010	9	9869	45	3601	8077	12
+2	2010	9	9869	45	3621	5771	13
+2	2010	9	9869	45	3641	1571	14
+2	2010	9	9869	48	761	176763	15
+2	2010	9	9869	48	762	10712	16
+2	2010	9	9869	48	763	13432	17
+2	2010	9	9869	48	781	12439	18
+2	2010	9	9869	48	786	45895	19
+2	2010	9	9869	48	801	8920	20
+2	2010	9	9869	48	802	56	21
+2	2010	9	9869	48	803	11783	22
+2	2010	9	9869	48	1861	39	23
+2	2010	9	9869	48	1862	2758	24
+2	2010	9	9869	48	3601	8975	25
+2	2010	9	9869	48	3621	3147	26
+2	2010	9	9869	48	3641	2204	27
+2	2010	9	9869	51	761	143962	28
+2	2010	9	9869	51	762	8069	29
+2	2010	9	9869	51	763	11091	30
+2	2010	9	9869	51	781	3293	31
+2	2010	9	9869	51	786	20746	32
+2	2010	9	9869	51	801	20402	33
+2	2010	9	9869	51	802	22	34
+2	2010	9	9869	51	803	438	35
+2	2010	9	9869	51	1861	80	36
+2	2010	9	9869	51	1862	1065	37
+2	2010	9	9869	51	3601	6527	38
+2	2010	9	9869	51	3621	1514	39
+2	2010	9	9869	51	3641	596	40
+2	2010	9	9869	117	761	128506	41
+2	2010	9	9869	117	762	7785	42
+2	2010	9	9869	117	763	13960	43
+2	2010	9	9869	117	781	10577	44
+2	2010	9	9869	117	786	112381	45
+2	2010	9	9869	117	801	2532	46
+2	2010	9	9869	117	802	332	47
+2	2010	9	9869	117	803	16385	48
+2	2010	9	9869	117	1861	40	49
+2	2010	9	9869	117	1862	3919	50
+2	2010	9	9869	117	3601	3618	51
+2	2010	9	9869	117	3621	3508	52
+2	2010	9	9869	117	3641	11144	53
+2	2011	5	9869	51	3601	6275	3
+2	2011	5	9869	117	3601	3759	4
+2	2011	5	9869	48	3601	8703	5
+2	2011	5	9869	45	3601	8327	6
+2	2011	5	9869	51	3621	1494	7
+2	2011	5	9869	117	3621	3662	8
+2	2011	5	9869	48	3621	3109	9
+2	2011	5	9869	45	3621	6007	10
+2	2011	5	9869	51	3641	660	11
+2	2011	5	9869	117	3641	11335	12
+2	2011	5	9869	48	3641	3040	13
+2	2011	5	9869	45	3641	1638	14
+2	2011	5	9869	51	761	148132	15
+2	2011	5	9869	117	761	129896	16
+2	2011	5	9869	48	761	180669	17
+2	2011	5	9869	45	761	122682	18
+2	2011	5	9869	51	762	8213	19
+2	2011	5	9869	117	762	7909	20
+2	2011	5	9869	48	762	10869	21
+2	2011	5	9869	45	762	10945	22
+2	2011	5	9869	51	763	10515	23
+2	2011	5	9869	117	763	14403	24
+2	2011	5	9869	48	763	13941	25
+2	2011	5	9869	45	763	5385	26
+2	2011	5	9869	51	781	2894	27
+2	2011	5	9869	117	781	10294	28
+2	2011	5	9869	48	781	11959	29
+2	2011	5	9869	45	781	5832	30
+2	2011	5	9869	51	786	21045	31
+2	2011	5	9869	117	786	114925	32
+2	2011	5	9869	48	786	48467	33
+2	2011	5	9869	45	786	74772	34
+2	2011	5	9869	51	801	20711	35
+2	2011	5	9869	117	801	2553	36
+2	2011	5	9869	48	801	9062	37
+2	2011	5	9869	45	801	1358	38
+2	2011	5	9869	51	802	19	39
+2	2011	5	9869	117	802	352	40
+2	2011	5	9869	48	802	57	41
+2	2011	5	9869	45	802	328	42
+2	2011	5	9869	51	803	572	43
+2	2011	5	9869	117	803	16747	44
+2	2011	5	9869	48	803	8774	45
+2	2011	5	9869	45	803	3063	46
+2	2011	5	9869	51	1861	80	47
+2	2011	5	9869	117	1861	39	48
+2	2011	5	9869	48	1861	42	49
+2	2011	5	9869	45	1861	43	50
+2	2011	5	9869	51	1862	916	51
+2	2011	5	9869	117	1862	4264	52
+2	2011	5	9869	48	1862	2797	53
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis94141736; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis94141736 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2010	9	9869	45	21	2689922	3
+4	2010	9	9869	48	9	2823381	4
+4	2010	9	9869	48	21	847201	5
+4	2010	9	9869	51	9	2311594	6
+4	2010	9	9869	51	21	623564	7
+4	2010	9	9869	117	9	2160761	8
+4	2010	9	9869	117	21	1961098	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	6	9869	48	1862	2815	3
+2	2011	6	9869	45	3601	8362	4
+2	2011	6	9869	51	3601	6218	5
+2	2011	6	9869	117	3601	3769	6
+2	2011	6	9869	48	3601	8694	7
+2	2011	6	9869	45	3621	6042	8
+2	2011	6	9869	51	3621	1416	9
+2	2011	6	9869	117	3621	3682	10
+2	2011	6	9869	48	3621	3133	11
+2	2011	6	9869	45	3641	1630	12
+2	2011	6	9869	51	3641	664	13
+2	2011	6	9869	117	3641	11450	14
+2	2011	6	9869	48	3641	3260	15
+2	2011	6	9869	45	761	122947	16
+2	2011	6	9869	51	761	148973	17
+2	2011	6	9869	117	761	130306	18
+2	2011	6	9869	48	761	181259	19
+2	2011	6	9869	45	762	10958	20
+2	2011	6	9869	51	762	8231	21
+2	2011	6	9869	117	762	7949	22
+2	2011	6	9869	48	762	10929	23
+2	2011	6	9869	45	763	5313	24
+2	2011	6	9869	51	763	10337	25
+2	2011	6	9869	117	763	14166	26
+2	2011	6	9869	48	763	13794	27
+2	2011	6	9869	45	781	5747	28
+2	2011	6	9869	51	781	2969	29
+2	2011	6	9869	117	781	10419	30
+2	2011	6	9869	48	781	11910	31
+2	2011	6	9869	45	786	74799	32
+2	2011	6	9869	51	786	21079	33
+2	2011	6	9869	117	786	115199	34
+2	2011	6	9869	48	786	48837	35
+2	2011	6	9869	45	801	1353	36
+2	2011	6	9869	51	801	20741	37
+2	2011	6	9869	117	801	2548	38
+2	2011	6	9869	48	801	9074	39
+2	2011	6	9869	45	802	326	40
+2	2011	6	9869	51	802	19	41
+2	2011	6	9869	117	802	375	42
+2	2011	6	9869	48	802	56	43
+2	2011	6	9869	45	803	3031	44
+2	2011	6	9869	51	803	661	45
+2	2011	6	9869	117	803	16722	46
+2	2011	6	9869	48	803	7625	47
+2	2011	6	9869	45	1861	44	48
+2	2011	6	9869	51	1861	88	49
+2	2011	6	9869	117	1861	39	50
+2	2011	6	9869	48	1861	42	51
+2	2011	6	9869	45	1862	3815	52
+2	2011	6	9869	51	1862	918	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+3	2010	3	9869	45	4862	5515915.97	3
+3	2010	3	9869	45	10511	0	4
+3	2010	3	9869	48	4861	5086393.44	5
+3	2010	3	9869	48	4862	1328218.26	6
+3	2010	3	9869	48	10511	0	7
+3	2010	3	9869	51	4861	4142925.56	8
+3	2010	3	9869	51	4862	727665.39	9
+3	2010	3	9869	51	10511	0	10
+3	2010	3	9869	117	4861	3847710.04	11
+3	2010	3	9869	117	4862	3167876.94	12
+3	2010	3	9869	117	10511	0	13
+3	2010	3	9869	225	10511	0	14
+3	2010	3	9869	228	10511	0	15
+4	2011	2	9869	45	21	2047048	3
+4	2011	2	9869	117	21	1397501	4
+4	2011	2	9869	51	9	2262717	5
+4	2011	2	9869	48	9	2752848	6
+4	2011	2	9869	45	9	3384518	7
+4	2011	2	9869	117	9	2101440	8
+4	2011	2	9869	51	21	460810	9
+1	2010	3	9869	45	882	12760455.82	3
+1	2010	3	9869	45	3561	115962.95	4
+1	2010	3	9869	45	3581	7974735	5
+1	2010	3	9869	48	881	4352140.64	6
+1	2010	3	9869	48	882	6218868.46	7
+1	2010	3	9869	48	3561	46723.25	8
+1	2010	3	9869	48	3581	739896	9
+1	2010	3	9869	51	881	1970922.95	10
+1	2010	3	9869	51	882	4727608.01	11
+1	2010	3	9869	51	3561	48143.86	12
+1	2010	3	9869	51	3581	2194831.42	13
+1	2010	3	9869	117	881	5016084.75	14
+1	2010	3	9869	117	882	6849944.81	15
+1	2010	3	9869	117	3561	59288.7	16
+1	2010	3	9869	117	3581	658230.42	17
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+3	2010	7	9869	45	4862	5599928.02	3
+3	2010	7	9869	45	10511	0	4
+3	2010	7	9869	48	4861	4772516.75	5
+3	2010	7	9869	48	4862	1265763.43	6
+3	2010	7	9869	48	10511	0	7
+3	2010	7	9869	51	4861	4106167.72	8
+3	2010	7	9869	51	4862	731548.07	9
+3	2010	7	9869	51	10511	0	10
+3	2010	7	9869	117	4861	3707004.77	11
+3	2010	7	9869	117	4862	3111778.49	12
+3	2010	7	9869	117	10511	0	13
+3	2010	7	9869	225	10511	0	14
+3	2010	7	9869	228	10511	0	15
+4	2010	4	9869	45	21	2647431	3
+4	2010	4	9869	48	9	2799578	4
+4	2010	4	9869	48	21	836140	5
+4	2010	4	9869	51	9	2309916	6
+4	2010	4	9869	51	21	620601	7
+4	2010	4	9869	117	9	2140413	8
+4	2010	4	9869	117	21	1939740	9
+1	2011	12	9869	48	881	4535180.18	3
+1	2011	12	9869	51	881	2064485.49	4
+1	2011	12	9869	45	881	3755902.42	5
+1	2011	12	9869	117	882	7318747.7	6
+1	2011	12	9869	48	882	6720293.23	7
+1	2011	12	9869	51	882	5382008.85	8
+1	2011	12	9869	45	882	13464012.89	9
+1	2011	12	9869	117	3561	1218.91	10
+1	2011	12	9869	48	3561	119.78	11
+1	2011	12	9869	51	3561	2124.38	12
+1	2011	12	9869	45	3561	20416.35	13
+1	2011	12	9869	117	3581	880313.98	14
+1	2011	12	9869	48	3581	975348.02	15
+1	2011	12	9869	51	3581	2840497.2	16
+1	2011	12	9869	45	3581	8973002.66	17
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+3	2010	2	9869	45	4862	5845635.23	3
+3	2010	2	9869	45	10511	0	4
+3	2010	2	9869	48	4861	5043345.81	5
+3	2010	2	9869	48	4862	1332547.38	6
+3	2010	2	9869	48	10511	0	7
+3	2010	2	9869	51	4861	4139763.3	8
+3	2010	2	9869	51	4862	714215.04	9
+3	2010	2	9869	51	10511	0	10
+3	2010	2	9869	117	4861	3985137.19	11
+3	2010	2	9869	117	4862	3159567.45	12
+3	2010	2	9869	117	10511	0	13
+3	2010	2	9869	225	10511	0	14
+3	2010	2	9869	228	10511	0	15
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+3	2010	12	9869	45	4862	5771326.52	3
+3	2010	12	9869	45	10511	0	4
+3	2010	12	9869	48	4861	4832239.2	5
+3	2010	12	9869	48	4862	1215068.54	6
+3	2010	12	9869	48	10511	0	7
+3	2010	12	9869	51	4861	4689930.02	8
+3	2010	12	9869	51	4862	672209.21	9
+3	2010	12	9869	51	10511	0	10
+3	2010	12	9869	117	4861	4974101.63	11
+3	2010	12	9869	117	4862	3094841.55	12
+3	2010	12	9869	117	10511	0	13
+3	2010	12	9869	225	10511	0	14
+3	2010	12	9869	228	4862	12339.25	15
+3	2010	12	9869	228	10511	0	16
+1	2010	11	9869	45	882	14826637.96	3
+1	2010	11	9869	45	3561	156627.69	4
+1	2010	11	9869	45	3581	9461268.01	5
+1	2010	11	9869	48	881	4631740.32	6
+1	2010	11	9869	48	882	6677813.3	7
+1	2010	11	9869	48	3561	29657.33	8
+1	2010	11	9869	48	3581	906524.28	9
+1	2010	11	9869	51	881	2260554.26	10
+1	2010	11	9869	51	882	5609030.58	11
+1	2010	11	9869	51	3561	44147.61	12
+1	2010	11	9869	51	3581	2739992.35	13
+1	2010	11	9869	117	881	5545792.28	14
+1	2010	11	9869	117	882	7966993.95	15
+1	2010	11	9869	117	3561	56352.28	16
+1	2010	11	9869	117	3581	982052.69	17
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	8	9869	51	4861	4341551.95	3
+3	2011	8	9869	45	4861	8007953.54	4
+3	2011	8	9869	117	4861	4145775.5	5
+3	2011	8	9869	228	4862	15250.44	6
+3	2011	8	9869	51	4862	493423.91	7
+3	2011	8	9869	48	4862	1088392.13	8
+3	2011	8	9869	45	4862	4705743.78	9
+3	2011	8	9869	117	4862	2704555.46	10
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+4	2010	2	9869	45	21	2693422	3
+4	2010	2	9869	48	9	2849908	4
+4	2010	2	9869	48	21	854881	5
+4	2010	2	9869	51	9	2308829	6
+4	2010	2	9869	51	21	624185	7
+4	2010	2	9869	117	9	2179652	8
+4	2010	2	9869	117	21	1958430	9
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis94142020; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis94142020 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+1	2012	7	9869	45	882	15598622.97	3
+1	2012	7	9869	45	3561	33010.78	4
+1	2012	7	9869	45	3581	10434161.22	5
+1	2012	7	9869	48	881	5085479.57	6
+1	2012	7	9869	48	882	7368937.01	7
+1	2012	7	9869	48	3561	9011.43	8
+1	2012	7	9869	48	3581	1067043.81	9
+1	2012	7	9869	51	881	2334536.65	10
+1	2012	7	9869	51	882	6019774.37	11
+1	2012	7	9869	51	3561	8965.68	12
+1	2012	7	9869	51	3581	3145811.92	13
+1	2012	7	9869	117	881	6000374.98	14
+1	2012	7	9869	117	882	8110608.42	15
+1	2012	7	9869	117	3561	10058.6	16
+1	2012	7	9869	117	3581	918581.81	17
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+1	2011	3	9869	48	881	3984270.56	3
+1	2011	3	9869	117	3581	580012.35	4
+1	2011	3	9869	51	3581	2233976.74	5
+1	2011	3	9869	48	3581	607905.11	6
+1	2011	3	9869	45	3581	7659854.14	7
+1	2011	3	9869	117	3561	49920.64	8
+1	2011	3	9869	51	3561	65474.82	9
+1	2011	3	9869	48	3561	38249.18	10
+1	2011	3	9869	45	3561	79286.54	11
+1	2011	3	9869	117	882	6521975.05	12
+1	2011	3	9869	51	882	4670599.82	13
+1	2011	3	9869	48	882	5704177.15	14
+1	2011	3	9869	45	882	12217782.13	15
+1	2011	3	9869	117	881	4673563.66	16
+1	2011	3	9869	51	881	1873070.11	17
+2	2010	1	9869	45	762	10423	3
+2	2010	1	9869	45	763	5986	4
+2	2010	1	9869	45	781	7004	5
+2	2010	1	9869	45	786	72567	6
+2	2010	1	9869	45	801	1274	7
+2	2010	1	9869	45	802	376	8
+2	2010	1	9869	45	803	4121	9
+2	2010	1	9869	45	1861	45	10
+2	2010	1	9869	45	1862	3389	11
+2	2010	1	9869	45	3601	7198	12
+2	2010	1	9869	45	3621	4961	13
+2	2010	1	9869	45	3641	1163	14
+2	2010	1	9869	48	761	173660	15
+2	2010	1	9869	48	762	10434	16
+2	2010	1	9869	48	763	13763	17
+2	2010	1	9869	48	781	11403	18
+2	2010	1	9869	48	786	45151	19
+2	2010	1	9869	48	801	8770	20
+2	2010	1	9869	48	802	59	21
+2	2010	1	9869	48	803	5469	22
+2	2010	1	9869	48	1861	38	23
+2	2010	1	9869	48	1862	2412	24
+2	2010	1	9869	48	3601	8607	25
+2	2010	1	9869	48	3621	2904	26
+2	2010	1	9869	48	3641	2713	27
+2	2010	1	9869	51	761	140787	28
+2	2010	1	9869	51	762	7784	29
+2	2010	1	9869	51	763	8989	30
+2	2010	1	9869	51	781	4231	31
+2	2010	1	9869	51	786	20168	32
+2	2010	1	9869	51	801	20157	33
+2	2010	1	9869	51	802	22	34
+2	2010	1	9869	51	803	261	35
+2	2010	1	9869	51	1861	80	36
+2	2010	1	9869	51	1862	1052	37
+2	2010	1	9869	51	3601	5778	38
+2	2010	1	9869	51	3621	1151	39
+2	2010	1	9869	51	3641	560	40
+2	2010	1	9869	117	761	125670	41
+2	2010	1	9869	117	762	7738	42
+2	2010	1	9869	117	763	14547	43
+2	2010	1	9869	117	781	10879	44
+2	2010	1	9869	117	786	109647	45
+2	2010	1	9869	117	801	2538	46
+2	2010	1	9869	117	802	317	47
+2	2010	1	9869	117	803	15809	48
+2	2010	1	9869	117	1861	40	49
+2	2010	1	9869	117	1862	3745	50
+2	2010	1	9869	117	3601	3447	51
+2	2010	1	9869	117	3621	3328	52
+2	2010	1	9869	117	3641	10709	53
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis956011; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis956011 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+1	2012	7	9869	45	882	15598622.97	3
+1	2012	7	9869	45	3561	33010.78	4
+1	2012	7	9869	45	3581	10434161.22	5
+1	2012	7	9869	48	881	5085479.57	6
+1	2012	7	9869	48	882	7368937.01	7
+1	2012	7	9869	48	3561	9011.43	8
+1	2012	7	9869	48	3581	1067043.81	9
+1	2012	7	9869	51	881	2334536.65	10
+1	2012	7	9869	51	882	6019774.37	11
+1	2012	7	9869	51	3561	8965.68	12
+1	2012	7	9869	51	3581	3145811.92	13
+1	2012	7	9869	117	881	6000374.98	14
+1	2012	7	9869	117	882	8110608.42	15
+1	2012	7	9869	117	3561	10058.6	16
+1	2012	7	9869	117	3581	918581.81	17
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis966012; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis966012 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+1	2012	7	9869	45	882	15598622.97	3
+1	2012	7	9869	45	3561	33010.78	4
+1	2012	7	9869	45	3581	10434161.22	5
+1	2012	7	9869	48	881	5085479.57	6
+1	2012	7	9869	48	882	7368937.01	7
+1	2012	7	9869	48	3561	9011.43	8
+1	2012	7	9869	48	3581	1067043.81	9
+1	2012	7	9869	51	881	2334536.65	10
+1	2012	7	9869	51	882	6019774.37	11
+1	2012	7	9869	51	3561	8965.68	12
+1	2012	7	9869	51	3581	3145811.92	13
+1	2012	7	9869	117	881	6000374.98	14
+1	2012	7	9869	117	882	8110608.42	15
+1	2012	7	9869	117	3561	10058.6	16
+1	2012	7	9869	117	3581	918581.81	17
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+1	2011	3	9869	48	881	3984270.56	3
+1	2011	3	9869	117	3581	580012.35	4
+1	2011	3	9869	51	3581	2233976.74	5
+1	2011	3	9869	48	3581	607905.11	6
+1	2011	3	9869	45	3581	7659854.14	7
+1	2011	3	9869	117	3561	49920.64	8
+1	2011	3	9869	51	3561	65474.82	9
+1	2011	3	9869	48	3561	38249.18	10
+1	2011	3	9869	45	3561	79286.54	11
+1	2011	3	9869	117	882	6521975.05	12
+1	2011	3	9869	51	882	4670599.82	13
+1	2011	3	9869	48	882	5704177.15	14
+1	2011	3	9869	45	882	12217782.13	15
+1	2011	3	9869	117	881	4673563.66	16
+1	2011	3	9869	51	881	1873070.11	17
+2	2010	1	9869	45	762	10423	3
+2	2010	1	9869	45	763	5986	4
+2	2010	1	9869	45	781	7004	5
+2	2010	1	9869	45	786	72567	6
+2	2010	1	9869	45	801	1274	7
+2	2010	1	9869	45	802	376	8
+2	2010	1	9869	45	803	4121	9
+2	2010	1	9869	45	1861	45	10
+2	2010	1	9869	45	1862	3389	11
+2	2010	1	9869	45	3601	7198	12
+2	2010	1	9869	45	3621	4961	13
+2	2010	1	9869	45	3641	1163	14
+2	2010	1	9869	48	761	173660	15
+2	2010	1	9869	48	762	10434	16
+2	2010	1	9869	48	763	13763	17
+2	2010	1	9869	48	781	11403	18
+2	2010	1	9869	48	786	45151	19
+2	2010	1	9869	48	801	8770	20
+2	2010	1	9869	48	802	59	21
+2	2010	1	9869	48	803	5469	22
+2	2010	1	9869	48	1861	38	23
+2	2010	1	9869	48	1862	2412	24
+2	2010	1	9869	48	3601	8607	25
+2	2010	1	9869	48	3621	2904	26
+2	2010	1	9869	48	3641	2713	27
+2	2010	1	9869	51	761	140787	28
+2	2010	1	9869	51	762	7784	29
+2	2010	1	9869	51	763	8989	30
+2	2010	1	9869	51	781	4231	31
+2	2010	1	9869	51	786	20168	32
+2	2010	1	9869	51	801	20157	33
+2	2010	1	9869	51	802	22	34
+2	2010	1	9869	51	803	261	35
+2	2010	1	9869	51	1861	80	36
+2	2010	1	9869	51	1862	1052	37
+2	2010	1	9869	51	3601	5778	38
+2	2010	1	9869	51	3621	1151	39
+2	2010	1	9869	51	3641	560	40
+2	2010	1	9869	117	761	125670	41
+2	2010	1	9869	117	762	7738	42
+2	2010	1	9869	117	763	14547	43
+2	2010	1	9869	117	781	10879	44
+2	2010	1	9869	117	786	109647	45
+2	2010	1	9869	117	801	2538	46
+2	2010	1	9869	117	802	317	47
+2	2010	1	9869	117	803	15809	48
+2	2010	1	9869	117	1861	40	49
+2	2010	1	9869	117	1862	3745	50
+2	2010	1	9869	117	3601	3447	51
+2	2010	1	9869	117	3621	3328	52
+2	2010	1	9869	117	3641	10709	53
+1	2012	5	9869	51	881	2223822.52	3
+1	2012	5	9869	48	881	4666276.75	4
+1	2012	5	9869	45	881	4344884.94	5
+1	2012	5	9869	117	882	7501040.43	6
+1	2012	5	9869	51	882	5629585.77	7
+1	2012	5	9869	48	882	6830052.51	8
+1	2012	5	9869	45	882	14830910.4	9
+1	2012	5	9869	117	3561	9539.18	10
+1	2012	5	9869	51	3561	7918.1	11
+1	2012	5	9869	48	3561	11942.03	12
+1	2012	5	9869	45	3561	33237.22	13
+1	2012	5	9869	117	3581	858120.18	14
+1	2012	5	9869	51	3581	2888915.35	15
+1	2012	5	9869	48	3581	962446.5	16
+1	2012	5	9869	45	3581	9853066.38	17
+3	2010	6	9869	45	4862	5528001.09	3
+3	2010	6	9869	45	10511	0	4
+3	2010	6	9869	48	4861	4786855.15	5
+3	2010	6	9869	48	4862	1218473.9	6
+3	2010	6	9869	48	10511	0	7
+3	2010	6	9869	51	4861	4086271.28	8
+3	2010	6	9869	51	4862	718420.84	9
+3	2010	6	9869	51	10511	0	10
+3	2010	6	9869	117	4861	3669088.13	11
+3	2010	6	9869	117	4862	3130909.78	12
+3	2010	6	9869	117	10511	0	13
+3	2010	6	9869	225	10511	0	14
+3	2010	6	9869	228	4862	40637.5	15
+3	2010	6	9869	228	10511	0	16
+2	2012	3	9869	48	761	185410	3
+2	2012	3	9869	51	761	154184	4
+2	2012	3	9869	117	761	132852	5
+2	2012	3	9869	45	762	12051	6
+2	2012	3	9869	48	762	11318	7
+2	2012	3	9869	51	762	8205	8
+2	2012	3	9869	117	762	8864	9
+2	2012	3	9869	45	763	4161	10
+2	2012	3	9869	48	763	15016	11
+2	2012	3	9869	51	763	10407	12
+2	2012	3	9869	117	763	13859	13
+2	2012	3	9869	45	781	5529	14
+2	2012	3	9869	48	781	10738	15
+2	2012	3	9869	51	781	4698	16
+2	2012	3	9869	117	781	9772	17
+2	2012	3	9869	45	786	76223	18
+2	2012	3	9869	48	786	50710	19
+2	2012	3	9869	51	786	21332	20
+2	2012	3	9869	117	786	118751	21
+2	2012	3	9869	45	801	1377	22
+2	2012	3	9869	48	801	9509	23
+2	2012	3	9869	51	801	21000	24
+2	2012	3	9869	117	801	2641	25
+2	2012	3	9869	45	802	303	26
+2	2012	3	9869	48	802	55	27
+2	2012	3	9869	51	802	22	28
+2	2012	3	9869	117	802	443	29
+2	2012	3	9869	45	803	2731	30
+2	2012	3	9869	48	803	7521	31
+2	2012	3	9869	51	803	1657	32
+2	2012	3	9869	117	803	16132	33
+2	2012	3	9869	45	1861	44	34
+2	2012	3	9869	48	1861	41	35
+2	2012	3	9869	51	1861	103	36
+2	2012	3	9869	117	1861	45	37
+2	2012	3	9869	45	1862	3968	38
+2	2012	3	9869	48	1862	3133	39
+2	2012	3	9869	51	1862	931	40
+2	2012	3	9869	117	1862	4861	41
+2	2012	3	9869	45	3601	8344	42
+2	2012	3	9869	48	3601	8500	43
+2	2012	3	9869	51	3601	5998	44
+2	2012	3	9869	117	3601	3990	45
+2	2012	3	9869	45	3621	6048	46
+2	2012	3	9869	48	3621	3128	47
+2	2012	3	9869	51	3621	1304	48
+2	2012	3	9869	117	3621	3988	49
+2	2012	3	9869	45	3641	1761	50
+2	2012	3	9869	48	3641	3849	51
+2	2012	3	9869	51	3641	682	52
+2	2012	3	9869	117	3641	10016	53
+3	2010	2	9869	45	4862	5845635.23	3
+3	2010	2	9869	45	10511	0	4
+3	2010	2	9869	48	4861	5043345.81	5
+3	2010	2	9869	48	4862	1332547.38	6
+3	2010	2	9869	48	10511	0	7
+3	2010	2	9869	51	4861	4139763.3	8
+3	2010	2	9869	51	4862	714215.04	9
+3	2010	2	9869	51	10511	0	10
+3	2010	2	9869	117	4861	3985137.19	11
+3	2010	2	9869	117	4862	3159567.45	12
+3	2010	2	9869	117	10511	0	13
+3	2010	2	9869	225	10511	0	14
+3	2010	2	9869	228	10511	0	15
+\.
+
+
+--
+-- Data for Name: ods_valores_variaveis996012; Type: TABLE DATA; Schema: public; Owner: dwacfor
+--
+
+COPY ods_valores_variaveis996012 (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel, valor_variavel, numero_linha_arquivo) FROM stdin;
+4	2011	7	9869	45	9	3381258	3
+4	2011	7	9869	117	9	2110059	4
+4	2011	7	9869	48	9	2777680	5
+4	2011	7	9869	51	21	440827	6
+4	2011	7	9869	45	21	1955936	7
+4	2011	7	9869	117	21	1429060	8
+4	2011	7	9869	48	21	625279	9
+2	2010	8	9869	45	762	10607	3
+2	2010	8	9869	45	763	4961	4
+2	2010	8	9869	45	781	6518	5
+2	2010	8	9869	45	786	73600	6
+2	2010	8	9869	45	801	1416	7
+2	2010	8	9869	45	802	354	8
+2	2010	8	9869	45	803	3495	9
+2	2010	8	9869	45	1861	42	10
+2	2010	8	9869	45	1862	3695	11
+2	2010	8	9869	45	3601	8025	12
+2	2010	8	9869	45	3621	5712	13
+2	2010	8	9869	45	3641	1538	14
+2	2010	8	9869	48	761	176357	15
+2	2010	8	9869	48	762	10584	16
+2	2010	8	9869	48	763	13764	17
+2	2010	8	9869	48	781	12031	18
+2	2010	8	9869	48	786	45846	19
+2	2010	8	9869	48	801	8918	20
+2	2010	8	9869	48	802	56	21
+2	2010	8	9869	48	803	11611	22
+2	2010	8	9869	48	1861	39	23
+2	2010	8	9869	48	1862	2768	24
+2	2010	8	9869	48	3601	8980	25
+2	2010	8	9869	48	3621	3152	26
+2	2010	8	9869	48	3641	2201	27
+2	2010	8	9869	51	761	142949	28
+2	2010	8	9869	51	762	7957	29
+2	2010	8	9869	51	763	11346	30
+2	2010	8	9869	51	781	3857	31
+2	2010	8	9869	51	786	20586	32
+2	2010	8	9869	51	801	20364	33
+2	2010	8	9869	51	802	22	34
+2	2010	8	9869	51	803	408	35
+2	2010	8	9869	51	1861	80	36
+2	2010	8	9869	51	1862	1067	37
+2	2010	8	9869	51	3601	6484	38
+2	2010	8	9869	51	3621	1518	39
+2	2010	8	9869	51	3641	620	40
+2	2010	8	9869	117	761	128109	41
+2	2010	8	9869	117	762	7824	42
+2	2010	8	9869	117	763	14020	43
+2	2010	8	9869	117	781	10629	44
+2	2010	8	9869	117	786	111984	45
+2	2010	8	9869	117	801	2531	46
+2	2010	8	9869	117	802	326	47
+2	2010	8	9869	117	803	16502	48
+2	2010	8	9869	117	1861	39	49
+2	2010	8	9869	117	1862	3946	50
+2	2010	8	9869	117	3601	3612	51
+2	2010	8	9869	117	3621	3501	52
+2	2010	8	9869	117	3641	10994	53
+2	2011	8	9869	51	761	150186	3
+2	2011	8	9869	45	761	123442	4
+2	2011	8	9869	117	761	130938	5
+2	2011	8	9869	48	762	10952	6
+2	2011	8	9869	51	762	8249	7
+2	2011	8	9869	45	762	11171	8
+2	2011	8	9869	117	762	8202	9
+2	2011	8	9869	48	763	14104	10
+2	2011	8	9869	51	763	10471	11
+2	2011	8	9869	45	763	5029	12
+2	2011	8	9869	117	763	14091	13
+2	2011	8	9869	48	781	11960	14
+2	2011	8	9869	51	781	3000	15
+2	2011	8	9869	45	781	5725	16
+2	2011	8	9869	117	781	10039	17
+2	2011	8	9869	48	786	49138	18
+2	2011	8	9869	51	786	21195	19
+2	2011	8	9869	45	786	75129	20
+2	2011	8	9869	117	786	115979	21
+2	2011	8	9869	48	801	9096	22
+2	2011	8	9869	51	801	20818	23
+2	2011	8	9869	45	801	1361	24
+2	2011	8	9869	117	801	2545	25
+2	2011	8	9869	48	802	55	26
+2	2011	8	9869	51	802	19	27
+2	2011	8	9869	45	802	312	28
+2	2011	8	9869	117	802	444	29
+2	2011	8	9869	48	803	7573	30
+2	2011	8	9869	51	803	1038	31
+2	2011	8	9869	45	803	2864	32
+2	2011	8	9869	117	803	16573	33
+2	2011	8	9869	48	1861	42	34
+2	2011	8	9869	51	1861	88	35
+2	2011	8	9869	45	1861	44	36
+2	2011	8	9869	117	1861	39	37
+2	2011	8	9869	48	1862	2906	38
+2	2011	8	9869	51	1862	917	39
+2	2011	8	9869	45	1862	3815	40
+2	2011	8	9869	117	1862	4485	41
+2	2011	8	9869	48	3601	8661	42
+2	2011	8	9869	51	3601	5920	43
+2	2011	8	9869	45	3601	8351	44
+2	2011	8	9869	117	3601	3862	45
+2	2011	8	9869	48	3621	3133	46
+2	2011	8	9869	51	3621	1337	47
+2	2011	8	9869	45	3621	6047	48
+2	2011	8	9869	117	3621	3779	49
+2	2011	8	9869	48	3641	3391	50
+2	2011	8	9869	51	3641	649	51
+2	2011	8	9869	45	3641	1668	52
+2	2011	8	9869	117	3641	11348	53
+4	2011	6	9869	51	21	442254	3
+4	2011	6	9869	45	21	1956142	4
+4	2011	6	9869	48	9	2802434	5
+4	2011	6	9869	117	9	2143543	6
+4	2011	6	9869	51	9	2315982	7
+4	2011	6	9869	45	9	3384512	8
+4	2011	6	9869	48	21	625561	9
+4	2012	5	9869	48	9	2886597	3
+4	2012	5	9869	51	9	2409696	4
+4	2012	5	9869	117	9	2199446	5
+4	2012	5	9869	45	21	2192677	6
+4	2012	5	9869	48	21	751533	7
+4	2012	5	9869	51	21	510705	8
+4	2012	5	9869	117	21	1658475	9
+2	2012	5	9869	51	3641	681	3
+2	2012	5	9869	48	3641	4867	4
+2	2012	5	9869	45	3641	1783	5
+2	2012	5	9869	117	1861	45	6
+2	2012	5	9869	51	1861	103	7
+2	2012	5	9869	48	1861	41	8
+2	2012	5	9869	45	1861	44	9
+2	2012	5	9869	117	1862	5161	10
+2	2012	5	9869	51	1862	961	11
+2	2012	5	9869	48	1862	3320	12
+2	2012	5	9869	45	1862	4068	13
+2	2012	5	9869	117	761	133151	14
+2	2012	5	9869	51	761	155083	15
+2	2012	5	9869	48	761	186016	16
+2	2012	5	9869	45	761	125874	17
+2	2012	5	9869	117	762	9020	18
+2	2012	5	9869	51	762	8240	19
+2	2012	5	9869	48	762	11448	20
+2	2012	5	9869	45	762	11939	21
+2	2012	5	9869	117	763	13929	22
+2	2012	5	9869	51	763	10694	23
+2	2012	5	9869	48	763	15580	24
+2	2012	5	9869	45	763	4349	25
+2	2012	5	9869	117	781	9799	26
+2	2012	5	9869	51	781	5133	27
+2	2012	5	9869	48	781	10563	28
+2	2012	5	9869	45	781	5496	29
+2	2012	5	9869	117	786	118923	30
+2	2012	5	9869	51	786	21375	31
+2	2012	5	9869	48	786	51869	32
+2	2012	5	9869	45	786	76361	33
+2	2012	5	9869	117	801	2702	34
+2	2012	5	9869	51	801	20991	35
+2	2012	5	9869	48	801	9494	36
+2	2012	5	9869	45	801	1383	37
+2	2012	5	9869	117	802	447	38
+2	2012	5	9869	51	802	22	39
+2	2012	5	9869	48	802	54	40
+2	2012	5	9869	45	802	299	41
+2	2012	5	9869	117	803	16215	42
+2	2012	5	9869	51	803	1810	43
+2	2012	5	9869	48	803	7660	44
+2	2012	5	9869	45	803	2771	45
+2	2012	5	9869	117	3621	3979	46
+2	2012	5	9869	51	3621	1303	47
+2	2012	5	9869	48	3621	3182	48
+2	2012	5	9869	45	3621	6028	49
+2	2012	5	9869	117	3601	3973	50
+2	2012	5	9869	51	3601	5968	51
+2	2012	5	9869	48	3601	8449	52
+2	2012	5	9869	45	3601	8287	53
+4	2010	1	9869	45	21	2665946	3
+4	2010	1	9869	48	9	2777356	4
+4	2010	1	9869	48	21	837930	5
+4	2010	1	9869	51	9	2309678	6
+4	2010	1	9869	51	21	629618	7
+4	2010	1	9869	117	9	2123835	8
+4	2010	1	9869	117	21	1917683	9
+1	2011	7	9869	45	881	4082907.57	3
+1	2011	7	9869	117	881	5085322.23	4
+1	2011	7	9869	48	881	4359226.62	5
+1	2011	7	9869	51	882	5419704.22	6
+1	2011	7	9869	45	882	13362205.47	7
+1	2011	7	9869	117	882	7269213.23	8
+1	2011	7	9869	48	882	6600434.61	9
+1	2011	7	9869	51	3561	51686.1	10
+1	2011	7	9869	45	3561	84364.78	11
+1	2011	7	9869	117	3561	57819.59	12
+1	2011	7	9869	48	3561	47365.46	13
+1	2011	7	9869	51	3581	2573109.08	14
+1	2011	7	9869	45	3581	8442828.99	15
+1	2011	7	9869	117	3581	800787.94	16
+1	2011	7	9869	48	3581	886873.54	17
+2	2010	10	9869	45	762	10478	3
+2	2010	10	9869	45	763	5043	4
+2	2010	10	9869	45	781	6227	5
+2	2010	10	9869	45	786	74007	6
+2	2010	10	9869	45	801	1395	7
+2	2010	10	9869	45	802	345	8
+2	2010	10	9869	45	803	3214	9
+2	2010	10	9869	45	1861	42	10
+2	2010	10	9869	45	1862	3647	11
+2	2010	10	9869	45	3601	8143	12
+2	2010	10	9869	45	3621	5832	13
+2	2010	10	9869	45	3641	1571	14
+2	2010	10	9869	48	761	176983	15
+2	2010	10	9869	48	762	10700	16
+2	2010	10	9869	48	763	13482	17
+2	2010	10	9869	48	781	12642	18
+2	2010	10	9869	48	786	45990	19
+2	2010	10	9869	48	801	8935	20
+2	2010	10	9869	48	802	56	21
+2	2010	10	9869	48	803	11867	22
+2	2010	10	9869	48	1861	40	23
+2	2010	10	9869	48	1862	2732	24
+2	2010	10	9869	48	3601	8959	25
+2	2010	10	9869	48	3621	3150	26
+2	2010	10	9869	48	3641	2205	27
+2	2010	10	9869	51	761	144754	28
+2	2010	10	9869	51	762	7890	29
+2	2010	10	9869	51	763	10708	30
+2	2010	10	9869	51	781	3006	31
+2	2010	10	9869	51	786	20836	32
+2	2010	10	9869	51	801	20453	33
+2	2010	10	9869	51	802	20	34
+2	2010	10	9869	51	803	473	35
+2	2010	10	9869	51	1861	81	36
+2	2010	10	9869	51	1862	988	37
+2	2010	10	9869	51	3601	6560	38
+2	2010	10	9869	51	3621	1512	39
+2	2010	10	9869	51	3641	583	40
+2	2010	10	9869	117	761	129078	41
+2	2010	10	9869	117	762	7817	42
+2	2010	10	9869	117	763	13717	43
+2	2010	10	9869	117	781	10542	44
+2	2010	10	9869	117	786	112716	45
+2	2010	10	9869	117	801	2536	46
+2	2010	10	9869	117	802	328	47
+2	2010	10	9869	117	803	16542	48
+2	2010	10	9869	117	1861	39	49
+2	2010	10	9869	117	1862	3914	50
+2	2010	10	9869	117	3601	3659	51
+2	2010	10	9869	117	3621	3566	52
+2	2010	10	9869	117	3641	11227	53
+1	2011	6	9869	51	882	5125810.31	3
+1	2011	6	9869	117	882	6890543.26	4
+1	2011	6	9869	48	882	6334297.65	5
+1	2011	6	9869	45	3561	97684.04	6
+1	2011	6	9869	51	3561	45505.19	7
+1	2011	6	9869	117	3561	56050.42	8
+1	2011	6	9869	48	3561	43291.74	9
+1	2011	6	9869	45	3581	8017624.07	10
+1	2011	6	9869	51	3581	2410154.68	11
+1	2011	6	9869	117	3581	647353.35	12
+1	2011	6	9869	48	3581	769398.85	13
+1	2011	6	9869	45	881	3883009.14	14
+1	2011	6	9869	51	881	2159642.44	15
+1	2011	6	9869	117	881	5025343.44	16
+1	2011	6	9869	48	881	4315572.45	17
+2	2011	12	9869	48	761	184497	3
+2	2011	12	9869	51	761	152862	4
+2	2011	12	9869	45	761	124772	5
+2	2011	12	9869	117	762	8661	6
+2	2011	12	9869	48	762	11238	7
+2	2011	12	9869	51	762	8122	8
+2	2011	12	9869	45	762	11790	9
+2	2011	12	9869	117	763	13780	10
+2	2011	12	9869	48	763	14388	11
+2	2011	12	9869	51	763	10232	12
+2	2011	12	9869	45	763	4101	13
+2	2011	12	9869	117	781	9691	14
+2	2011	12	9869	48	781	10933	15
+2	2011	12	9869	51	781	3693	16
+2	2011	12	9869	45	781	5538	17
+2	2011	12	9869	117	786	118143	18
+2	2011	12	9869	48	786	49735	19
+2	2011	12	9869	51	786	21304	20
+2	2011	12	9869	45	786	75910	21
+2	2011	12	9869	117	801	2553	22
+2	2011	12	9869	48	801	9481	23
+2	2011	12	9869	51	801	21014	24
+2	2011	12	9869	45	801	1371	25
+2	2011	12	9869	117	802	442	26
+2	2011	12	9869	48	802	55	27
+2	2011	12	9869	51	802	18	28
+2	2011	12	9869	45	802	303	29
+2	2011	12	9869	117	803	16163	30
+2	2011	12	9869	48	803	7487	31
+2	2011	12	9869	51	803	1330	32
+2	2011	12	9869	45	803	2670	33
+2	2011	12	9869	117	1861	45	34
+2	2011	12	9869	48	1861	41	35
+2	2011	12	9869	51	1861	101	36
+2	2011	12	9869	45	1861	43	37
+2	2011	12	9869	117	1862	4723	38
+2	2011	12	9869	48	1862	2968	39
+2	2011	12	9869	51	1862	911	40
+2	2011	12	9869	45	1862	3906	41
+2	2011	12	9869	117	3601	4013	42
+2	2011	12	9869	48	3601	8563	43
+2	2011	12	9869	51	3601	6011	44
+2	2011	12	9869	45	3601	8391	45
+2	2011	12	9869	117	3621	3920	46
+2	2011	12	9869	48	3621	3138	47
+2	2011	12	9869	51	3621	1308	48
+2	2011	12	9869	45	3621	6082	49
+2	2011	12	9869	117	3641	10492	50
+2	2011	12	9869	48	3641	3550	51
+2	2011	12	9869	51	3641	671	52
+2	2011	12	9869	45	3641	1733	53
+1	2010	4	9869	45	882	12858964.09	3
+1	2010	4	9869	45	3561	89080.79	4
+1	2010	4	9869	45	3581	8019970.92	5
+1	2010	4	9869	48	881	4141272.06	6
+1	2010	4	9869	48	882	6061473.33	7
+1	2010	4	9869	48	3561	52131.43	8
+1	2010	4	9869	48	3581	757429.2	9
+1	2010	4	9869	51	881	1978916.28	10
+1	2010	4	9869	51	882	4766170.83	11
+1	2010	4	9869	51	3561	50069.47	12
+1	2010	4	9869	51	3581	2240025.35	13
+1	2010	4	9869	117	881	5002173.32	14
+1	2010	4	9869	117	882	7052026.08	15
+1	2010	4	9869	117	3561	73026.55	16
+1	2010	4	9869	117	3581	723315.07	17
+1	2012	3	9869	45	882	13144226.09	3
+1	2012	3	9869	45	3561	46207.48	4
+1	2012	3	9869	45	3581	8331809.84	5
+1	2012	3	9869	48	881	4373920.35	6
+1	2012	3	9869	48	882	6662387.26	7
+1	2012	3	9869	48	3561	9771.43	8
+1	2012	3	9869	48	3581	903845.94	9
+1	2012	3	9869	51	881	2159884.78	10
+1	2012	3	9869	51	882	5308837.6	11
+1	2012	3	9869	51	3561	6762.14	12
+1	2012	3	9869	51	3581	2560867.33	13
+1	2012	3	9869	117	881	4982836.23	14
+1	2012	3	9869	117	882	7171158.13	15
+1	2012	3	9869	117	3561	11862.86	16
+1	2012	3	9869	117	3581	819311.11	17
+1	2012	4	9869	45	882	13538653.21	3
+1	2012	4	9869	45	3561	44353.21	4
+1	2012	4	9869	45	3581	8508037.33	5
+1	2012	4	9869	48	881	4358886.05	6
+1	2012	4	9869	48	882	6673863.55	7
+1	2012	4	9869	48	3561	10048.75	8
+1	2012	4	9869	48	3581	1002164.71	9
+1	2012	4	9869	51	881	2303959.32	10
+1	2012	4	9869	51	882	5560811.57	11
+1	2012	4	9869	51	3561	10720.08	12
+1	2012	4	9869	51	3581	2625419.71	13
+1	2012	4	9869	117	881	5142718.33	14
+1	2012	4	9869	117	882	7324495.7	15
+1	2012	4	9869	117	3561	9910.47	16
+1	2012	4	9869	117	3581	861476.82	17
+3	2011	11	9869	117	4861	4264386.93	3
+3	2011	11	9869	48	4861	5426192.24	4
+3	2011	11	9869	45	4861	9003698.49	5
+3	2011	11	9869	48	4862	1153575.89	6
+3	2011	11	9869	45	4862	4978771.91	7
+3	2011	11	9869	51	4862	656032.37	8
+3	2011	11	9869	228	4862	15098.23	9
+3	2011	11	9869	117	4862	2862970.37	10
+2	2010	2	9869	45	762	10457	3
+2	2010	2	9869	45	763	5866	4
+2	2010	2	9869	45	781	7170	5
+2	2010	2	9869	45	786	72581	6
+2	2010	2	9869	45	801	1352	7
+2	2010	2	9869	45	802	374	8
+2	2010	2	9869	45	803	4173	9
+2	2010	2	9869	45	1861	41	10
+2	2010	2	9869	45	1862	3439	11
+2	2010	2	9869	45	3601	7262	12
+2	2010	2	9869	45	3621	5006	13
+2	2010	2	9869	45	3641	1178	14
+2	2010	2	9869	48	761	174119	15
+2	2010	2	9869	48	762	10400	16
+2	2010	2	9869	48	763	13774	17
+2	2010	2	9869	48	781	11381	18
+2	2010	2	9869	48	786	45264	19
+2	2010	2	9869	48	801	8807	20
+2	2010	2	9869	48	802	59	21
+2	2010	2	9869	48	803	5448	22
+2	2010	2	9869	48	1861	39	23
+2	2010	2	9869	48	1862	2399	24
+2	2010	2	9869	48	3601	8694	25
+2	2010	2	9869	48	3621	2979	26
+2	2010	2	9869	48	3641	2712	27
+2	2010	2	9869	51	761	141788	28
+2	2010	2	9869	51	762	7860	29
+2	2010	2	9869	51	763	8686	30
+2	2010	2	9869	51	781	4237	31
+2	2010	2	9869	51	786	20199	32
+2	2010	2	9869	51	801	20181	33
+2	2010	2	9869	51	802	22	34
+2	2010	2	9869	51	803	287	35
+2	2010	2	9869	51	1861	80	36
+2	2010	2	9869	51	1862	1044	37
+2	2010	2	9869	51	3601	5732	38
+2	2010	2	9869	51	3621	1151	39
+2	2010	2	9869	51	3641	569	40
+2	2010	2	9869	117	761	125623	41
+2	2010	2	9869	117	762	7768	42
+2	2010	2	9869	117	763	14770	43
+2	2010	2	9869	117	781	10897	44
+2	2010	2	9869	117	786	109807	45
+2	2010	2	9869	117	801	2531	46
+2	2010	2	9869	117	802	317	47
+2	2010	2	9869	117	803	15904	48
+2	2010	2	9869	117	1861	38	49
+2	2010	2	9869	117	1862	3791	50
+2	2010	2	9869	117	3601	3490	51
+2	2010	2	9869	117	3621	3348	52
+2	2010	2	9869	117	3641	10693	53
+3	2011	9	9869	48	4861	5615800.5	3
+3	2011	9	9869	51	4861	4537269.15	4
+3	2011	9	9869	45	4861	8628621.8	5
+3	2011	9	9869	48	4862	1116384.82	6
+3	2011	9	9869	45	4862	4855996.89	7
+3	2011	9	9869	228	4862	12701.09	8
+3	2011	9	9869	51	4862	611913.14	9
+3	2011	9	9869	117	4862	2849035.92	10
+2	2010	11	9869	45	762	10486	3
+2	2010	11	9869	45	763	5379	4
+2	2010	11	9869	45	781	6139	5
+2	2010	11	9869	45	786	74138	6
+2	2010	11	9869	45	801	1392	7
+2	2010	11	9869	45	802	342	8
+2	2010	11	9869	45	803	3208	9
+2	2010	11	9869	45	1861	42	10
+2	2010	11	9869	45	1862	3676	11
+2	2010	11	9869	45	3601	8151	12
+2	2010	11	9869	45	3621	5828	13
+2	2010	11	9869	45	3641	1589	14
+2	2010	11	9869	48	761	177277	15
+2	2010	11	9869	48	762	10726	16
+2	2010	11	9869	48	763	13464	17
+2	2010	11	9869	48	781	12837	18
+2	2010	11	9869	48	786	46023	19
+2	2010	11	9869	48	801	8940	20
+2	2010	11	9869	48	802	56	21
+2	2010	11	9869	48	803	11950	22
+2	2010	11	9869	48	1861	41	23
+2	2010	11	9869	48	1862	2741	24
+2	2010	11	9869	48	3601	8946	25
+2	2010	11	9869	48	3621	3145	26
+2	2010	11	9869	48	3641	2245	27
+2	2010	11	9869	51	761	145660	28
+2	2010	11	9869	51	762	7859	29
+2	2010	11	9869	51	763	10178	30
+2	2010	11	9869	51	781	2885	31
+2	2010	11	9869	51	786	20881	32
+2	2010	11	9869	51	801	20503	33
+2	2010	11	9869	51	802	20	34
+2	2010	11	9869	51	803	428	35
+2	2010	11	9869	51	1861	81	36
+2	2010	11	9869	51	1862	869	37
+2	2010	11	9869	51	3601	6548	38
+2	2010	11	9869	51	3621	1509	39
+2	2010	11	9869	51	3641	589	40
+2	2010	11	9869	117	761	129324	41
+2	2010	11	9869	117	762	7826	42
+2	2010	11	9869	117	763	13775	43
+2	2010	11	9869	117	781	10517	44
+2	2010	11	9869	117	786	113123	45
+2	2010	11	9869	117	801	2537	46
+2	2010	11	9869	117	802	335	47
+2	2010	11	9869	117	803	16515	48
+2	2010	11	9869	117	1861	39	49
+2	2010	11	9869	117	1862	3884	50
+2	2010	11	9869	117	3601	3698	51
+2	2010	11	9869	117	3621	3595	52
+2	2010	11	9869	117	3641	11230	53
+2	2011	9	9869	48	761	182533	3
+2	2011	9	9869	51	761	150792	4
+2	2011	9	9869	45	761	123697	5
+2	2011	9	9869	117	762	8341	6
+2	2011	9	9869	48	762	10956	7
+2	2011	9	9869	51	762	8154	8
+2	2011	9	9869	45	762	11277	9
+2	2011	9	9869	117	763	13676	10
+2	2011	9	9869	48	763	14132	11
+2	2011	9	9869	51	763	10495	12
+2	2011	9	9869	45	763	4949	13
+2	2011	9	9869	117	781	10197	14
+2	2011	9	9869	48	781	11846	15
+2	2011	9	9869	51	781	3151	16
+2	2011	9	9869	45	781	5688	17
+2	2011	9	9869	117	786	116587	18
+2	2011	9	9869	48	786	49264	19
+2	2011	9	9869	51	786	21211	20
+2	2011	9	9869	45	786	75353	21
+2	2011	9	9869	117	801	2550	22
+2	2011	9	9869	48	801	9118	23
+2	2011	9	9869	51	801	20859	24
+2	2011	9	9869	45	801	1363	25
+2	2011	9	9869	117	802	446	26
+2	2011	9	9869	48	802	55	27
+2	2011	9	9869	51	802	19	28
+2	2011	9	9869	45	802	311	29
+2	2011	9	9869	117	803	16772	30
+2	2011	9	9869	48	803	7568	31
+2	2011	9	9869	51	803	1126	32
+2	2011	9	9869	45	803	2808	33
+2	2011	9	9869	117	1861	38	34
+2	2011	9	9869	48	1861	41	35
+2	2011	9	9869	51	1861	89	36
+2	2011	9	9869	45	1861	44	37
+2	2011	9	9869	117	1862	4535	38
+2	2011	9	9869	48	1862	2914	39
+2	2011	9	9869	51	1862	898	40
+2	2011	9	9869	45	1862	3813	41
+2	2011	9	9869	117	3601	3946	42
+2	2011	9	9869	48	3601	8642	43
+2	2011	9	9869	51	3601	5936	44
+2	2011	9	9869	45	3601	8366	45
+2	2011	9	9869	117	3621	3863	46
+2	2011	9	9869	48	3621	3138	47
+2	2011	9	9869	51	3621	1319	48
+2	2011	9	9869	45	3621	6067	49
+2	2011	9	9869	117	3641	11132	50
+2	2011	9	9869	48	3641	3392	51
+2	2011	9	9869	51	3641	655	52
+2	2011	9	9869	45	3641	1678	53
+4	2010	6	9869	45	21	2626099	3
+4	2010	6	9869	48	9	2808408	4
+4	2010	6	9869	48	21	843981	5
+4	2010	6	9869	51	9	2309145	6
+4	2010	6	9869	51	21	625227	7
+4	2010	6	9869	117	9	2139970	8
+4	2010	6	9869	117	21	1937627	9
+2	2011	1	9869	48	761	178127	3
+2	2011	1	9869	117	761	129688	4
+2	2011	1	9869	45	761	122370	5
+2	2011	1	9869	51	762	7919	6
+2	2011	1	9869	48	762	10891	7
+2	2011	1	9869	117	762	7803	8
+2	2011	1	9869	45	762	10596	9
+2	2011	1	9869	51	763	10029	10
+2	2011	1	9869	48	763	13308	11
+2	2011	1	9869	117	763	13874	12
+2	2011	1	9869	45	763	5416	13
+2	2011	1	9869	51	781	2760	14
+2	2011	1	9869	48	781	13210	15
+2	2011	1	9869	117	781	10440	16
+2	2011	1	9869	45	781	6047	17
+2	2011	1	9869	51	786	20925	18
+2	2011	1	9869	48	786	46390	19
+2	2011	1	9869	117	786	113710	20
+2	2011	1	9869	45	786	74398	21
+2	2011	1	9869	51	801	20550	22
+2	2011	1	9869	48	801	8991	23
+2	2011	1	9869	117	801	2538	24
+2	2011	1	9869	45	801	1387	25
+2	2011	1	9869	51	802	19	26
+2	2011	1	9869	48	802	56	27
+2	2011	1	9869	117	802	343	28
+2	2011	1	9869	45	802	338	29
+2	2011	1	9869	51	803	498	30
+2	2011	1	9869	48	803	12109	31
+2	2011	1	9869	117	803	16382	32
+2	2011	1	9869	45	803	3167	33
+2	2011	1	9869	51	1861	80	34
+2	2011	1	9869	48	1861	41	35
+2	2011	1	9869	117	1861	39	36
+2	2011	1	9869	45	1861	42	37
+2	2011	1	9869	51	1862	911	38
+2	2011	1	9869	48	1862	2754	39
+2	2011	1	9869	117	1862	3982	40
+2	2011	1	9869	45	1862	3734	41
+2	2011	1	9869	51	3601	6381	42
+2	2011	1	9869	48	3601	8912	43
+2	2011	1	9869	117	3601	3726	44
+2	2011	1	9869	45	3601	8213	45
+2	2011	1	9869	51	3621	1500	46
+2	2011	1	9869	48	3621	3130	47
+2	2011	1	9869	117	3621	3638	48
+2	2011	1	9869	45	3621	5899	49
+2	2011	1	9869	51	3641	620	50
+2	2011	1	9869	48	3641	2296	51
+2	2011	1	9869	117	3641	11218	52
+2	2011	1	9869	45	3641	1633	53
+1	2010	2	9869	45	882	13732112.74	3
+1	2010	2	9869	45	3561	76607.96	4
+1	2010	2	9869	45	3581	8227732.86	5
+1	2010	2	9869	48	881	4520479.73	6
+1	2010	2	9869	48	882	6617178.71	7
+1	2010	2	9869	48	3561	49713.93	8
+1	2010	2	9869	48	3581	798921.18	9
+1	2010	2	9869	51	881	2224871.96	10
+1	2010	2	9869	51	882	5215481.65	11
+1	2010	2	9869	51	3561	63418.19	12
+1	2010	2	9869	51	3581	2298732.88	13
+1	2010	2	9869	117	881	5319516.3	14
+1	2010	2	9869	117	882	7527116.21	15
+1	2010	2	9869	117	3561	61856.67	16
+1	2010	2	9869	117	3581	716310.28	17
+2	2011	11	9869	117	761	132119	3
+2	2011	11	9869	45	761	124519	4
+2	2011	11	9869	48	761	184133	5
+2	2011	11	9869	51	762	8155	6
+2	2011	11	9869	117	762	8552	7
+2	2011	11	9869	45	762	11588	8
+2	2011	11	9869	48	762	11224	9
+2	2011	11	9869	51	763	10379	10
+2	2011	11	9869	117	763	14028	11
+2	2011	11	9869	45	763	4330	12
+2	2011	11	9869	48	763	14118	13
+2	2011	11	9869	51	781	3305	14
+2	2011	11	9869	117	781	9718	15
+2	2011	11	9869	45	781	5591	16
+2	2011	11	9869	48	781	11174	17
+2	2011	11	9869	51	786	21295	18
+2	2011	11	9869	117	786	117778	19
+2	2011	11	9869	45	786	75848	20
+2	2011	11	9869	48	786	49564	21
+2	2011	11	9869	51	801	21017	22
+2	2011	11	9869	117	801	2548	23
+2	2011	11	9869	45	801	1368	24
+2	2011	11	9869	48	801	9480	25
+2	2011	11	9869	51	802	18	26
+2	2011	11	9869	117	802	444	27
+2	2011	11	9869	45	802	308	28
+2	2011	11	9869	48	802	55	29
+2	2011	11	9869	51	803	1264	30
+2	2011	11	9869	117	803	16276	31
+2	2011	11	9869	45	803	2700	32
+2	2011	11	9869	48	803	7497	33
+2	2011	11	9869	51	1861	99	34
+2	2011	11	9869	117	1861	40	35
+2	2011	11	9869	45	1861	44	36
+2	2011	11	9869	48	1861	41	37
+2	2011	11	9869	51	1862	882	38
+2	2011	11	9869	117	1862	4663	39
+2	2011	11	9869	45	1862	3827	40
+2	2011	11	9869	48	1862	2936	41
+2	2011	11	9869	51	3601	5862	42
+2	2011	11	9869	117	3601	4011	43
+2	2011	11	9869	45	3601	8390	44
+2	2011	11	9869	48	3601	8590	45
+2	2011	11	9869	51	3621	1319	46
+2	2011	11	9869	117	3621	3933	47
+2	2011	11	9869	45	3621	6071	48
+2	2011	11	9869	48	3621	3154	49
+2	2011	11	9869	51	3641	666	50
+2	2011	11	9869	117	3641	10650	51
+2	2011	11	9869	45	3641	1703	52
+2	2011	11	9869	48	3641	3545	53
+1	2010	10	9869	45	882	14269504.66	3
+1	2010	10	9869	45	3561	118895.2	4
+1	2010	10	9869	45	3581	9080139.83	5
+1	2010	10	9869	48	881	4543184.71	6
+1	2010	10	9869	48	882	6520914.81	7
+1	2010	10	9869	48	3561	58793.65	8
+1	2010	10	9869	48	3581	817690.08	9
+1	2010	10	9869	51	881	2103407.78	10
+1	2010	10	9869	51	882	5271746.32	11
+1	2010	10	9869	51	3561	60731.56	12
+1	2010	10	9869	51	3581	2584846.75	13
+1	2010	10	9869	117	881	5330443.51	14
+1	2010	10	9869	117	882	7591490.53	15
+1	2010	10	9869	117	3561	75229.11	16
+1	2010	10	9869	117	3581	827493.42	17
+4	2010	5	9869	45	21	2633332	3
+4	2010	5	9869	48	9	2805851	4
+4	2010	5	9869	48	21	845620	5
+4	2010	5	9869	51	9	2298456	6
+4	2010	5	9869	51	21	619619	7
+4	2010	5	9869	117	9	2157551	8
+4	2010	5	9869	117	21	1952849	9
+1	2011	5	9869	117	881	4878819.11	3
+1	2011	5	9869	48	881	4164071.22	4
+1	2011	5	9869	45	881	3812312.36	5
+1	2011	5	9869	51	882	5105807.24	6
+1	2011	5	9869	117	882	6794593.85	7
+1	2011	5	9869	48	882	6127333.62	8
+1	2011	5	9869	45	882	12718333.03	9
+1	2011	5	9869	51	3561	46184.42	10
+1	2011	5	9869	117	3561	49941.45	11
+1	2011	5	9869	48	3561	45410.23	12
+1	2011	5	9869	45	3561	49894.53	13
+1	2011	5	9869	51	3581	2457972.06	14
+1	2011	5	9869	117	3581	664039.48	15
+1	2011	5	9869	48	3581	763576.38	16
+1	2011	5	9869	45	3581	8173049.51	17
+1	2011	8	9869	51	881	2079732.77	3
+1	2011	8	9869	45	881	3655839.04	4
+1	2011	8	9869	117	881	4977402.64	5
+1	2011	8	9869	48	882	6302335.64	6
+1	2011	8	9869	51	882	5165502.04	7
+1	2011	8	9869	45	882	13160987.61	8
+1	2011	8	9869	117	882	6911488.31	9
+1	2011	8	9869	48	3561	31092.47	10
+1	2011	8	9869	51	3561	35628.13	11
+1	2011	8	9869	45	3561	37511.67	12
+1	2011	8	9869	117	3561	42784.13	13
+1	2011	8	9869	48	3581	852106.16	14
+1	2011	8	9869	51	3581	2587565.86	15
+1	2011	8	9869	45	3581	8687713.56	16
+1	2011	8	9869	117	3581	742787.99	17
+4	2010	8	9869	45	21	2651933	3
+4	2010	8	9869	48	9	2775596	4
+4	2010	8	9869	48	21	834397	5
+4	2010	8	9869	51	9	2270032	6
+4	2010	8	9869	51	21	610989	7
+4	2010	8	9869	117	9	2138880	8
+4	2010	8	9869	117	21	1938027	9
+2	2011	3	9869	48	761	179279	3
+2	2011	3	9869	51	761	147424	4
+2	2011	3	9869	117	761	129593	5
+2	2011	3	9869	45	762	10983	6
+2	2011	3	9869	48	762	10919	7
+2	2011	3	9869	51	762	8131	8
+2	2011	3	9869	117	762	7868	9
+2	2011	3	9869	45	763	5230	10
+2	2011	3	9869	48	763	13656	11
+2	2011	3	9869	51	763	10259	12
+2	2011	3	9869	117	763	14253	13
+2	2011	3	9869	45	781	5924	14
+2	2011	3	9869	48	781	12651	15
+2	2011	3	9869	51	781	2915	16
+2	2011	3	9869	117	781	10404	17
+2	2011	3	9869	45	786	74590	18
+2	2011	3	9869	48	786	47421	19
+2	2011	3	9869	51	786	20985	20
+2	2011	3	9869	117	786	114420	21
+2	2011	3	9869	45	801	1370	22
+2	2011	3	9869	48	801	9021	23
+2	2011	3	9869	51	801	20632	24
+2	2011	3	9869	117	801	2538	25
+2	2011	3	9869	45	802	335	26
+2	2011	3	9869	48	802	57	27
+2	2011	3	9869	51	802	19	28
+2	2011	3	9869	117	802	353	29
+2	2011	3	9869	45	803	3071	30
+2	2011	3	9869	48	803	12028	31
+2	2011	3	9869	51	803	534	32
+2	2011	3	9869	117	803	16428	33
+2	2011	3	9869	45	1861	42	34
+2	2011	3	9869	48	1861	42	35
+2	2011	3	9869	51	1861	80	36
+2	2011	3	9869	117	1861	39	37
+2	2011	3	9869	45	1862	3776	38
+2	2011	3	9869	48	1862	2778	39
+2	2011	3	9869	51	1862	925	40
+2	2011	3	9869	117	1862	4097	41
+2	2011	3	9869	45	3601	8287	42
+2	2011	3	9869	48	3601	8815	43
+2	2011	3	9869	51	3601	6316	44
+2	2011	3	9869	117	3601	3780	45
+2	2011	3	9869	45	3621	5991	46
+2	2011	3	9869	48	3621	3112	47
+2	2011	3	9869	51	3621	1499	48
+2	2011	3	9869	117	3621	3692	49
+2	2011	3	9869	45	3641	1640	50
+2	2011	3	9869	48	3641	2415	51
+2	2011	3	9869	51	3641	633	52
+2	2011	3	9869	117	3641	11287	53
+1	2012	7	9869	45	882	15598622.97	3
+1	2012	7	9869	45	3561	33010.78	4
+1	2012	7	9869	45	3581	10434161.22	5
+1	2012	7	9869	48	881	5085479.57	6
+1	2012	7	9869	48	882	7368937.01	7
+1	2012	7	9869	48	3561	9011.43	8
+1	2012	7	9869	48	3581	1067043.81	9
+1	2012	7	9869	51	881	2334536.65	10
+1	2012	7	9869	51	882	6019774.37	11
+1	2012	7	9869	51	3561	8965.68	12
+1	2012	7	9869	51	3581	3145811.92	13
+1	2012	7	9869	117	881	6000374.98	14
+1	2012	7	9869	117	882	8110608.42	15
+1	2012	7	9869	117	3561	10058.6	16
+1	2012	7	9869	117	3581	918581.81	17
+2	2011	4	9869	48	761	180189	3
+2	2011	4	9869	45	761	122569	4
+2	2011	4	9869	51	761	147775	5
+2	2011	4	9869	117	762	7903	6
+2	2011	4	9869	48	762	10793	7
+2	2011	4	9869	45	762	10980	8
+2	2011	4	9869	51	762	8156	9
+2	2011	4	9869	117	763	14335	10
+2	2011	4	9869	48	763	13848	11
+2	2011	4	9869	45	763	5323	12
+2	2011	4	9869	51	763	10467	13
+2	2011	4	9869	117	781	10377	14
+2	2011	4	9869	48	781	12224	15
+2	2011	4	9869	45	781	5883	16
+2	2011	4	9869	51	781	2805	17
+2	2011	4	9869	117	786	114576	18
+2	2011	4	9869	48	786	48033	19
+2	2011	4	9869	45	786	74661	20
+2	2011	4	9869	51	786	21016	21
+2	2011	4	9869	117	801	2547	22
+2	2011	4	9869	48	801	9032	23
+2	2011	4	9869	45	801	1364	24
+2	2011	4	9869	51	801	20660	25
+2	2011	4	9869	117	802	354	26
+2	2011	4	9869	48	802	57	27
+2	2011	4	9869	45	802	332	28
+2	2011	4	9869	51	802	19	29
+2	2011	4	9869	117	803	16714	30
+2	2011	4	9869	48	803	11750	31
+2	2011	4	9869	45	803	3079	32
+2	2011	4	9869	51	803	550	33
+2	2011	4	9869	117	1861	39	34
+2	2011	4	9869	48	1861	42	35
+2	2011	4	9869	45	1861	42	36
+2	2011	4	9869	51	1861	80	37
+2	2011	4	9869	117	1862	4229	38
+2	2011	4	9869	48	1862	2781	39
+2	2011	4	9869	45	1862	3774	40
+2	2011	4	9869	51	1862	918	41
+2	2011	4	9869	117	3601	3769	42
+2	2011	4	9869	48	3601	8768	43
+2	2011	4	9869	45	3601	8296	44
+2	2011	4	9869	51	3601	6305	45
+2	2011	4	9869	117	3621	3675	46
+2	2011	4	9869	48	3621	3117	47
+2	2011	4	9869	45	3621	5987	48
+2	2011	4	9869	51	3621	1495	49
+2	2011	4	9869	117	3641	11288	50
+2	2011	4	9869	48	3641	2829	51
+2	2011	4	9869	45	3641	1646	52
+2	2011	4	9869	51	3641	645	53
+2	2010	3	9869	45	762	10168	3
+2	2010	3	9869	45	763	5856	4
+2	2010	3	9869	45	781	7091	5
+2	2010	3	9869	45	786	72675	6
+2	2010	3	9869	45	801	1390	7
+2	2010	3	9869	45	802	374	8
+2	2010	3	9869	45	803	4169	9
+2	2010	3	9869	45	1861	41	10
+2	2010	3	9869	45	1862	3463	11
+2	2010	3	9869	45	3601	7338	12
+2	2010	3	9869	45	3621	5061	13
+2	2010	3	9869	45	3641	1256	14
+2	2010	3	9869	48	761	174745	15
+2	2010	3	9869	48	762	10410	16
+2	2010	3	9869	48	763	13668	17
+2	2010	3	9869	48	781	11390	18
+2	2010	3	9869	48	786	45341	19
+2	2010	3	9869	48	801	8837	20
+2	2010	3	9869	48	802	59	21
+2	2010	3	9869	48	803	5561	22
+2	2010	3	9869	48	1861	39	23
+2	2010	3	9869	48	1862	2403	24
+2	2010	3	9869	48	3601	8790	25
+2	2010	3	9869	48	3621	3005	26
+2	2010	3	9869	48	3641	2701	27
+2	2010	3	9869	51	761	142784	28
+2	2010	3	9869	51	762	7826	29
+2	2010	3	9869	51	763	8681	30
+2	2010	3	9869	51	781	4158	31
+2	2010	3	9869	51	786	20199	32
+2	2010	3	9869	51	801	20210	33
+2	2010	3	9869	51	802	22	34
+2	2010	3	9869	51	803	315	35
+2	2010	3	9869	51	1861	80	36
+2	2010	3	9869	51	1862	1073	37
+2	2010	3	9869	51	3601	5729	38
+2	2010	3	9869	51	3621	1147	39
+2	2010	3	9869	51	3641	573	40
+2	2010	3	9869	117	761	125947	41
+2	2010	3	9869	117	762	7805	42
+2	2010	3	9869	117	763	14738	43
+2	2010	3	9869	117	781	10866	44
+2	2010	3	9869	117	786	110062	45
+2	2010	3	9869	117	801	2529	46
+2	2010	3	9869	117	802	326	47
+2	2010	3	9869	117	803	15963	48
+2	2010	3	9869	117	1861	38	49
+2	2010	3	9869	117	1862	3822	50
+2	2010	3	9869	117	3601	3498	51
+2	2010	3	9869	117	3621	3343	52
+2	2010	3	9869	117	3641	10696	53
+2	2010	4	9869	45	762	10228	3
+2	2010	4	9869	45	763	5690	4
+2	2010	4	9869	45	781	6972	5
+2	2010	4	9869	45	786	72873	6
+2	2010	4	9869	45	801	1399	7
+2	2010	4	9869	45	802	368	8
+2	2010	4	9869	45	803	4167	9
+2	2010	4	9869	45	1861	41	10
+2	2010	4	9869	45	1862	3475	11
+2	2010	4	9869	45	3601	7465	12
+2	2010	4	9869	45	3621	5162	13
+2	2010	4	9869	45	3641	1297	14
+2	2010	4	9869	48	761	175164	15
+2	2010	4	9869	48	762	10448	16
+2	2010	4	9869	48	763	13674	17
+2	2010	4	9869	48	781	11388	18
+2	2010	4	9869	48	786	45483	19
+2	2010	4	9869	48	801	8909	20
+2	2010	4	9869	48	802	57	21
+2	2010	4	9869	48	803	6175	22
+2	2010	4	9869	48	1861	39	23
+2	2010	4	9869	48	1862	2476	24
+2	2010	4	9869	48	3601	8925	25
+2	2010	4	9869	48	3621	3122	26
+2	2010	4	9869	48	3641	2522	27
+2	2010	4	9869	51	761	142774	28
+2	2010	4	9869	51	762	7869	29
+2	2010	4	9869	51	763	9218	30
+2	2010	4	9869	51	781	4193	31
+2	2010	4	9869	51	786	20221	32
+2	2010	4	9869	51	801	20225	33
+2	2010	4	9869	51	802	22	34
+2	2010	4	9869	51	803	352	35
+2	2010	4	9869	51	1861	80	36
+2	2010	4	9869	51	1862	1066	37
+2	2010	4	9869	51	3601	5746	38
+2	2010	4	9869	51	3621	1143	39
+2	2010	4	9869	51	3641	584	40
+2	2010	4	9869	117	761	126622	41
+2	2010	4	9869	117	762	7882	42
+2	2010	4	9869	117	763	14291	43
+2	2010	4	9869	117	781	10666	44
+2	2010	4	9869	117	786	110457	45
+2	2010	4	9869	117	801	2538	46
+2	2010	4	9869	117	802	321	47
+2	2010	4	9869	117	803	16477	48
+2	2010	4	9869	117	1861	38	49
+2	2010	4	9869	117	1862	3809	50
+2	2010	4	9869	117	3601	3508	51
+2	2010	4	9869	117	3621	3387	52
+2	2010	4	9869	117	3641	10599	53
+4	2011	1	9869	48	9	2845407	3
+4	2011	1	9869	117	9	2142982	4
+4	2011	1	9869	45	9	3633757	5
+4	2011	1	9869	51	21	517133	6
+4	2011	1	9869	48	21	691398	7
+4	2011	1	9869	117	21	1577929	8
+4	2011	1	9869	45	21	2234162	9
+1	2011	3	9869	48	881	3984270.56	3
+1	2011	3	9869	117	3581	580012.35	4
+1	2011	3	9869	51	3581	2233976.74	5
+1	2011	3	9869	48	3581	607905.11	6
+1	2011	3	9869	45	3581	7659854.14	7
+1	2011	3	9869	117	3561	49920.64	8
+1	2011	3	9869	51	3561	65474.82	9
+1	2011	3	9869	48	3561	38249.18	10
+1	2011	3	9869	45	3561	79286.54	11
+1	2011	3	9869	117	882	6521975.05	12
+1	2011	3	9869	51	882	4670599.82	13
+1	2011	3	9869	48	882	5704177.15	14
+1	2011	3	9869	45	882	12217782.13	15
+1	2011	3	9869	117	881	4673563.66	16
+1	2011	3	9869	51	881	1873070.11	17
+2	2010	1	9869	45	762	10423	3
+2	2010	1	9869	45	763	5986	4
+2	2010	1	9869	45	781	7004	5
+2	2010	1	9869	45	786	72567	6
+2	2010	1	9869	45	801	1274	7
+2	2010	1	9869	45	802	376	8
+2	2010	1	9869	45	803	4121	9
+2	2010	1	9869	45	1861	45	10
+2	2010	1	9869	45	1862	3389	11
+2	2010	1	9869	45	3601	7198	12
+2	2010	1	9869	45	3621	4961	13
+2	2010	1	9869	45	3641	1163	14
+2	2010	1	9869	48	761	173660	15
+2	2010	1	9869	48	762	10434	16
+2	2010	1	9869	48	763	13763	17
+2	2010	1	9869	48	781	11403	18
+2	2010	1	9869	48	786	45151	19
+2	2010	1	9869	48	801	8770	20
+2	2010	1	9869	48	802	59	21
+2	2010	1	9869	48	803	5469	22
+2	2010	1	9869	48	1861	38	23
+2	2010	1	9869	48	1862	2412	24
+2	2010	1	9869	48	3601	8607	25
+2	2010	1	9869	48	3621	2904	26
+2	2010	1	9869	48	3641	2713	27
+2	2010	1	9869	51	761	140787	28
+2	2010	1	9869	51	762	7784	29
+2	2010	1	9869	51	763	8989	30
+2	2010	1	9869	51	781	4231	31
+2	2010	1	9869	51	786	20168	32
+2	2010	1	9869	51	801	20157	33
+2	2010	1	9869	51	802	22	34
+2	2010	1	9869	51	803	261	35
+2	2010	1	9869	51	1861	80	36
+2	2010	1	9869	51	1862	1052	37
+2	2010	1	9869	51	3601	5778	38
+2	2010	1	9869	51	3621	1151	39
+2	2010	1	9869	51	3641	560	40
+2	2010	1	9869	117	761	125670	41
+2	2010	1	9869	117	762	7738	42
+2	2010	1	9869	117	763	14547	43
+2	2010	1	9869	117	781	10879	44
+2	2010	1	9869	117	786	109647	45
+2	2010	1	9869	117	801	2538	46
+2	2010	1	9869	117	802	317	47
+2	2010	1	9869	117	803	15809	48
+2	2010	1	9869	117	1861	40	49
+2	2010	1	9869	117	1862	3745	50
+2	2010	1	9869	117	3601	3447	51
+2	2010	1	9869	117	3621	3328	52
+2	2010	1	9869	117	3641	10709	53
+1	2012	5	9869	51	881	2223822.52	3
+1	2012	5	9869	48	881	4666276.75	4
+1	2012	5	9869	45	881	4344884.94	5
+1	2012	5	9869	117	882	7501040.43	6
+1	2012	5	9869	51	882	5629585.77	7
+1	2012	5	9869	48	882	6830052.51	8
+1	2012	5	9869	45	882	14830910.4	9
+1	2012	5	9869	117	3561	9539.18	10
+1	2012	5	9869	51	3561	7918.1	11
+1	2012	5	9869	48	3561	11942.03	12
+1	2012	5	9869	45	3561	33237.22	13
+1	2012	5	9869	117	3581	858120.18	14
+1	2012	5	9869	51	3581	2888915.35	15
+1	2012	5	9869	48	3581	962446.5	16
+1	2012	5	9869	45	3581	9853066.38	17
+3	2010	6	9869	45	4862	5528001.09	3
+3	2010	6	9869	45	10511	0	4
+3	2010	6	9869	48	4861	4786855.15	5
+3	2010	6	9869	48	4862	1218473.9	6
+3	2010	6	9869	48	10511	0	7
+3	2010	6	9869	51	4861	4086271.28	8
+3	2010	6	9869	51	4862	718420.84	9
+3	2010	6	9869	51	10511	0	10
+3	2010	6	9869	117	4861	3669088.13	11
+3	2010	6	9869	117	4862	3130909.78	12
+3	2010	6	9869	117	10511	0	13
+3	2010	6	9869	225	10511	0	14
+3	2010	6	9869	228	4862	40637.5	15
+3	2010	6	9869	228	10511	0	16
+2	2012	3	9869	48	761	185410	3
+2	2012	3	9869	51	761	154184	4
+2	2012	3	9869	117	761	132852	5
+2	2012	3	9869	45	762	12051	6
+2	2012	3	9869	48	762	11318	7
+2	2012	3	9869	51	762	8205	8
+2	2012	3	9869	117	762	8864	9
+2	2012	3	9869	45	763	4161	10
+2	2012	3	9869	48	763	15016	11
+2	2012	3	9869	51	763	10407	12
+2	2012	3	9869	117	763	13859	13
+2	2012	3	9869	45	781	5529	14
+2	2012	3	9869	48	781	10738	15
+2	2012	3	9869	51	781	4698	16
+2	2012	3	9869	117	781	9772	17
+2	2012	3	9869	45	786	76223	18
+2	2012	3	9869	48	786	50710	19
+2	2012	3	9869	51	786	21332	20
+2	2012	3	9869	117	786	118751	21
+2	2012	3	9869	45	801	1377	22
+2	2012	3	9869	48	801	9509	23
+2	2012	3	9869	51	801	21000	24
+2	2012	3	9869	117	801	2641	25
+2	2012	3	9869	45	802	303	26
+2	2012	3	9869	48	802	55	27
+2	2012	3	9869	51	802	22	28
+2	2012	3	9869	117	802	443	29
+2	2012	3	9869	45	803	2731	30
+2	2012	3	9869	48	803	7521	31
+2	2012	3	9869	51	803	1657	32
+2	2012	3	9869	117	803	16132	33
+2	2012	3	9869	45	1861	44	34
+2	2012	3	9869	48	1861	41	35
+2	2012	3	9869	51	1861	103	36
+2	2012	3	9869	117	1861	45	37
+2	2012	3	9869	45	1862	3968	38
+2	2012	3	9869	48	1862	3133	39
+2	2012	3	9869	51	1862	931	40
+2	2012	3	9869	117	1862	4861	41
+2	2012	3	9869	45	3601	8344	42
+2	2012	3	9869	48	3601	8500	43
+2	2012	3	9869	51	3601	5998	44
+2	2012	3	9869	117	3601	3990	45
+2	2012	3	9869	45	3621	6048	46
+2	2012	3	9869	48	3621	3128	47
+2	2012	3	9869	51	3621	1304	48
+2	2012	3	9869	117	3621	3988	49
+2	2012	3	9869	45	3641	1761	50
+2	2012	3	9869	48	3641	3849	51
+2	2012	3	9869	51	3641	682	52
+2	2012	3	9869	117	3641	10016	53
+3	2010	2	9869	45	4862	5845635.23	3
+3	2010	2	9869	45	10511	0	4
+3	2010	2	9869	48	4861	5043345.81	5
+3	2010	2	9869	48	4862	1332547.38	6
+3	2010	2	9869	48	10511	0	7
+3	2010	2	9869	51	4861	4139763.3	8
+3	2010	2	9869	51	4862	714215.04	9
+3	2010	2	9869	51	10511	0	10
+3	2010	2	9869	117	4861	3985137.19	11
+3	2010	2	9869	117	4862	3159567.45	12
+3	2010	2	9869	117	10511	0	13
+3	2010	2	9869	225	10511	0	14
+3	2010	2	9869	228	10511	0	15
+1	2010	7	9869	45	882	13111451.96	3
+1	2010	7	9869	45	3561	50074.16	4
+1	2010	7	9869	45	3581	8333173.17	5
+1	2010	7	9869	48	881	4259219.81	6
+1	2010	7	9869	48	882	6247929.57	7
+1	2010	7	9869	48	3561	34043.53	8
+1	2010	7	9869	48	3581	808560.9	9
+1	2010	7	9869	51	881	2066219.52	10
+1	2010	7	9869	51	882	5225977.85	11
+1	2010	7	9869	51	3561	68634.37	12
+1	2010	7	9869	51	3581	2408306.87	13
+1	2010	7	9869	117	881	5116759.23	14
+1	2010	7	9869	117	882	7278748.83	15
+1	2010	7	9869	117	3561	45712.46	16
+1	2010	7	9869	117	3581	784073.72	17
+\.
+
+
+--
+-- Name: pk_data; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY dim_data
+    ADD CONSTRAINT pk_data PRIMARY KEY (id);
+
+
+--
+-- Name: pk_dim_indicadores; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY dim_indicador
+    ADD CONSTRAINT pk_dim_indicadores PRIMARY KEY (id);
+
+
+--
+-- Name: pk_dim_tempo; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY dim_tempo
+    ADD CONSTRAINT pk_dim_tempo PRIMARY KEY (id);
+
+
+--
+-- Name: pk_dim_unidade_administrativa; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY dim_unidade_administrativa
+    ADD CONSTRAINT pk_dim_unidade_administrativa PRIMARY KEY (id);
+
+
+--
+-- Name: pk_fato_indicadores; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY fato_indicador
+    ADD CONSTRAINT pk_fato_indicadores PRIMARY KEY (id);
+
+
+--
+-- Name: pk_fato_variavel; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY fato_variavel
+    ADD CONSTRAINT pk_fato_variavel PRIMARY KEY (id);
+
+
+--
+-- Name: pk_ods_dim_variaveis; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_dim_variaveis
+    ADD CONSTRAINT pk_ods_dim_variaveis PRIMARY KEY (codigo);
+
+
+--
+-- Name: pk_ods_unid_administrativa; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_dim_unid_administrativa
+    ADD CONSTRAINT pk_ods_unid_administrativa PRIMARY KEY (id);
+
+
+--
+-- Name: pk_ods_vars_825151955; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis82515210
+    ADD CONSTRAINT pk_ods_vars_825151955 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_82515210; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis825152144
+    ADD CONSTRAINT pk_ods_vars_82515210 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_825152144; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis82515228
+    ADD CONSTRAINT pk_ods_vars_825152144 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_82515228; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis825152342
+    ADD CONSTRAINT pk_ods_vars_82515228 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_825152342; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis825152431
+    ADD CONSTRAINT pk_ods_vars_825152342 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_825152431; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis825152737
+    ADD CONSTRAINT pk_ods_vars_825152431 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_825152737; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis827142815
+    ADD CONSTRAINT pk_ods_vars_825152737 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_827142815; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis827143146
+    ADD CONSTRAINT pk_ods_vars_827142815 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_827143146; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis827143333
+    ADD CONSTRAINT pk_ods_vars_827143146 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_827143333; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis827143815
+    ADD CONSTRAINT pk_ods_vars_827143333 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_827143815; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis827144051
+    ADD CONSTRAINT pk_ods_vars_827143815 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_827144051; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis91163510
+    ADD CONSTRAINT pk_ods_vars_827144051 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_9106011; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis
+    ADD CONSTRAINT pk_ods_vars_9106011 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_91163510; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis94141736
+    ADD CONSTRAINT pk_ods_vars_91163510 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_94141736; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis94142020
+    ADD CONSTRAINT pk_ods_vars_94141736 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_94142020; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis956011
+    ADD CONSTRAINT pk_ods_vars_94142020 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_956011; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis966012
+    ADD CONSTRAINT pk_ods_vars_956011 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_966012; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis996012
+    ADD CONSTRAINT pk_ods_vars_966012 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_ods_vars_996012; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY ods_valores_variaveis9106011
+    ADD CONSTRAINT pk_ods_vars_996012 PRIMARY KEY (setor, ano_referencia, mes_referencia, localidade, unidade, codigo_variavel);
+
+
+--
+-- Name: pk_tb_dim_municipio; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY dim_municipio
+    ADD CONSTRAINT pk_tb_dim_municipio PRIMARY KEY (id);
+
+
+--
+-- Name: pk_tb_dim_variavel; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY dim_variavel
+    ADD CONSTRAINT pk_tb_dim_variavel PRIMARY KEY (id);
+
+
+--
+-- Name: uk_data; Type: CONSTRAINT; Schema: public; Owner: dwacfor; Tablespace: 
+--
+
+ALTER TABLE ONLY dim_data
+    ADD CONSTRAINT uk_data UNIQUE (data);
+
+
+--
+-- Name: fato_indicador_id_dim_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY fato_indicador
+    ADD CONSTRAINT fato_indicador_id_dim_municipio_fkey FOREIGN KEY (id_dim_municipio) REFERENCES dim_municipio(id);
+
+
+--
+-- Name: fato_indicador_id_dim_tempo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY fato_indicador
+    ADD CONSTRAINT fato_indicador_id_dim_tempo_fkey FOREIGN KEY (id_dim_tempo) REFERENCES dim_tempo(id);
+
+
+--
+-- Name: fato_indicador_id_dim_unidade_administrativa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY fato_indicador
+    ADD CONSTRAINT fato_indicador_id_dim_unidade_administrativa_fkey FOREIGN KEY (id_dim_unidade_administrativa) REFERENCES dim_unidade_administrativa(id);
+
+
+--
+-- Name: fato_variavel_id_dim_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY fato_variavel
+    ADD CONSTRAINT fato_variavel_id_dim_municipio_fkey FOREIGN KEY (id_dim_municipio) REFERENCES dim_municipio(id);
+
+
+--
+-- Name: fato_variavel_id_dim_tempo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY fato_variavel
+    ADD CONSTRAINT fato_variavel_id_dim_tempo_fkey FOREIGN KEY (id_dim_tempo) REFERENCES dim_tempo(id);
+
+
+--
+-- Name: fato_variavel_id_dim_unidade_administrativa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY fato_variavel
+    ADD CONSTRAINT fato_variavel_id_dim_unidade_administrativa_fkey FOREIGN KEY (id_dim_unidade_administrativa) REFERENCES dim_unidade_administrativa(id);
+
+
+--
+-- Name: fato_variavel_id_dim_variavel_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dwacfor
+--
+
+ALTER TABLE ONLY fato_variavel
+    ADD CONSTRAINT fato_variavel_id_dim_variavel_fkey FOREIGN KEY (id_dim_variavel) REFERENCES dim_variavel(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
